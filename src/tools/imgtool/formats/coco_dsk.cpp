@@ -12,7 +12,7 @@
 #include <time.h>
 #include <assert.h>
 
-#include "formats/coco_dsk.h"
+#include "coco_dsk.h"
 #include "formats/basicdsk.h"
 #include "formats/imageutl.h"
 #include "coretmpl.h"

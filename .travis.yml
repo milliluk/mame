@@ -10,14 +10,13 @@ compiler:
   - gcc
   - clang
 os:
-  - linux
   - osx
 matrix:
   exclude:
     - os: osx
       compiler: gcc
     - os: linux
-      compiler: clang
+      compiler: gcc
 env:
   - SUBTARGET=tiny   MAME=mametiny64
 script:

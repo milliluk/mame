@@ -27,6 +27,7 @@ CPUS["M6800"] = true
 SOUNDS["DAC"] = true
 SOUNDS["WAVE"] = true
 SOUNDS["AY8910"] = true
+SOUNDS["BEEP"] = true
 
 --------------------------------------------------
 -- specify available video cores
@@ -52,6 +53,7 @@ MACHINES["MSM6242"] = true
 BUSES["COCO"] = true
 BUSES["RS232"] = true
 BUSES["SUNKBD"] = true
+BUSES["HLEKBD"] = true
 
 --------------------------------------------------
 -- specify available formats
@@ -118,4 +120,4 @@ function linkProjects_mame_tiny(_target, _subtarget)
 	links {
 		"mame_tiny",
 	}
-end
+end 
