@@ -9,31 +9,24 @@
 
 ******************************************************************************/
 
-robby           // (c) 1981 Bally Midway
-gridlee         // [1983 Videa] prototype - no copyright notice
-alienar         // (c) 1985 Duncan Brown
+coco      // Color Computer
+//cocoe    // Color Computer (Extended BASIC 1.0)
+//coco2    // Color Computer 2
+coco2b  // Color Computer 2B (uses M6847T1 video chip)
+coco3    // Color Computer 3 (NTSC)
+//coco3p  // Color Computer 3 (PAL)
+coco3h  // Hacked Color Computer 3 (6309)
+//coco3dw1  // Coco 3 with HDB-DOS
+dragon32  // Dragon 32
+dragon64  // Dragon 64
+dragon200 // Dragon 200
+dragon200e // Dragon 200E
+d64plus   // Dragon 64 + Compusense Plus addon
+dgnalpha  // Dragon Alpha
+dgnbeta   // Dragon Beta
+tanodr64  // Tano Dragon 64 (NTSC)
+//cp400    // Prologica CP400
+//lzcolor64 // Digiponto LZ Color64
+//mx1600  // Dynacom MX-1600
+mc10      // MC-10
 
-carpolo         // (c) 1977 Exidy
-sidetrac        // (c) 1979 Exidy
-targ            // (c) 1980 Exidy
-spectar         // (c) 1980 Exidy
-teetert         // (c) 1982 Exidy
-hardhat         // (c) 1982
-fax             // (c) 1983
-fax2            // (c) 1983
-circus          // (c) 1977 Exidy
-robotbwl        // (c) 197? Exidy
-crash           // (c) 1979 Exidy
-ripcord         // (c) 1979 Exidy
-starfire        // (c) 1979 Exidy
-starfirea       // (c) 1979 Exidy
-fireone         // (c) 1979 Exidy
-starfir2        // (c) 1979 Exidy
-victory         // (c) 1982
-victorba        // (c) 1982
-topgunnr        // (c) 1986
-
-looping         // (c) 1982 Video Games GMBH
-supertnk        // (c) 1981 VIDEO GAMES GmbH, W.-GERMANY
-
-wrally          // (c) 1993 - Ref 930705
