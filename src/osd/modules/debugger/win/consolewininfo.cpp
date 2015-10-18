@@ -76,7 +76,7 @@ consolewin_info::consolewin_info(debugger_windows_interface &debugger) :
 		SetWindowPos(window(), HWND_TOP,
 					work_bounds.right - bestwidth, work_bounds.bottom - bestheight,
 					bestwidth, bestheight,
-					SWP_SHOWWINDOW);
+					NULL); // SWP_SHOWWINDOW); // MILLILUK
 	}
 
 	// recompute the children

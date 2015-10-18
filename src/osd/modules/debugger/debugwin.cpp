@@ -100,6 +100,8 @@ void debugger_windows::init_debugger(running_machine &machine)
 
 void debugger_windows::wait_for_debugger(device_t &device, bool firststop)
 {
+	static bool milliluk_hack = true;
+
 	// create a console window
 	if (m_main_console == NULL)
 		m_main_console = create_window<consolewin_info>();
@@ -118,7 +120,11 @@ void debugger_windows::wait_for_debugger(device_t &device, bool firststop)
 
 	// make sure the debug windows are visible
 	m_waiting_for_debugger = true;
-	show_all();
+
+	// MILLILUK
+	if (!milliluk_hack) show_all();
+	else hide_all();
+	milliluk_hack = false;
 
 	// run input polling to ensure that our status is in sync
 	wininput_poll(*m_machine);
