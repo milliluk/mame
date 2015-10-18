@@ -781,7 +781,7 @@ WRITE8_MEMBER(dkong_state::nmi_mask_w)
  *************************************/
 
 static ADDRESS_MAP_START( dkong_map, AS_PROGRAM, 8, dkong_state )
-	AM_RANGE(0x0000, 0x3fff) AM_ROM
+	AM_RANGE(0x0000, 0x4fff) AM_ROM
 	AM_RANGE(0x6000, 0x6bff) AM_RAM
 	AM_RANGE(0x7000, 0x73ff) AM_RAM AM_SHARE("sprite_ram") /* sprite set 1 */
 	AM_RANGE(0x7400, 0x77ff) AM_RAM_WRITE(dkong_videoram_w) AM_SHARE("video_ram")
@@ -1984,6 +1984,37 @@ ROM_START( dkong ) /* Confirmed TKG-04 Upgrade as mentioned in Nintendo Service 
 	ROM_LOAD( "c-2j.bpr",     0x0100, 0x0100, CRC(d6412358) SHA1(f9c872da2fe8e800574ae3bf483fb3ccacc92eb3) ) /* palette high 4 bits (inverted) */
 	ROM_LOAD( "v-5e.bpr",     0x0200, 0x0100, CRC(b869b8f5) SHA1(c2bdccbf2654b64ea55cd589fd21323a9178a660) ) /* character color codes on a per-column basis */
 ROM_END
+
+ROM_START(dkongr) /* Confirmed TKG-04 Upgrade as mentioned in Nintendo Service Department Bulletin # TKG-02 12-11-81 */
+ROM_REGION(0x10000, "maincpu", 0)
+ROM_LOAD("c_5et_g.bin", 0x0000, 0x1000, CRC(ba70b88b) SHA1(d76ebecfea1af098d843ee7e578e480cd658ac1a))
+ROM_LOAD("c_5ct_g.bin", 0x1000, 0x1000, CRC(5ec461ec) SHA1(acb11a8fbdbb3ab46068385fe465f681e3c824bd))
+ROM_LOAD("c_5bt_g.bin", 0x2000, 0x1000, CRC(1c97d324) SHA1(c7966261f3a1d3296927e0b6ee1c58039fc53c1f))
+ROM_LOAD("c_5at_g.bin", 0x3000, 0x1000, CRC(b9005ac0) SHA1(3fe3599f6fa7c496f782053ddf7bacb453d197c4))
+ROM_LOAD("c_5lt_g.bin", 0x4000, 0x1000, CRC(00000000) SHA1(0000000000000000000000000000000000000000))
+
+ROM_REGION(0x1800, "soundcpu", 0) /* sound */
+ROM_LOAD("s_3i_b.bin", 0x0000, 0x0800, CRC(45a4ed06) SHA1(144d24464c1f9f01894eb12f846952290e6e32ef))
+ROM_RELOAD(0x0800, 0x0800)
+ROM_LOAD("s_3j_b.bin", 0x1000, 0x0800, CRC(4743fe92) SHA1(6c82b57637c0212a580591397e6a5a1718f19fd2))
+
+ROM_REGION(0x1000, "gfx1", 0)
+ROM_LOAD("v_5h_b.bin", 0x0000, 0x0800, CRC(12c8c95d) SHA1(a57ff5a231c45252a63b354137c920a1379b70a3))
+ROM_LOAD("v_3pt.bin", 0x0800, 0x0800, CRC(15e9c5e9) SHA1(976eb1e18c74018193a35aa86cff482ebfc5cc4e))
+
+ROM_REGION(0x2000, "gfx2", 0)
+ROM_LOAD("l_4m_b.bin", 0x0000, 0x0800, CRC(59f8054d) SHA1(793dba9bf5a5fe76328acdfb90815c243d2a65f1))
+ROM_LOAD("l_4n_b.bin", 0x0800, 0x0800, CRC(672e4714) SHA1(92e5d379f4838ac1fa44d448ce7d142dae42102f))
+ROM_LOAD("l_4r_b.bin", 0x1000, 0x0800, CRC(feaa59ee) SHA1(ecf95db5a20098804fc8bd59232c66e2e0ed3db4))
+ROM_LOAD("l_4s_b.bin", 0x1800, 0x0800, CRC(20f2ef7e) SHA1(3bc482a38bf579033f50082748ee95205b0f673d))
+
+ROM_REGION(0x0300, "proms", 0)
+ROM_LOAD("c-2k.bpr", 0x0000, 0x0100, CRC(e273ede5) SHA1(b50ec9e1837c00c20fb2a4369ec7dd0358321127)) /* palette low 4 bits (inverted) */
+ROM_LOAD("c-2j.bpr", 0x0100, 0x0100, CRC(d6412358) SHA1(f9c872da2fe8e800574ae3bf483fb3ccacc92eb3)) /* palette high 4 bits (inverted) */
+ROM_LOAD("v-5e.bpr", 0x0200, 0x0100, CRC(b869b8f5) SHA1(c2bdccbf2654b64ea55cd589fd21323a9178a660)) /* character color codes on a per-column basis */
+ROM_END
+
+
 
 ROM_START( dkonghrd )
 	ROM_REGION( 0x10000, "maincpu", 0 )
@@ -3318,6 +3349,7 @@ GAME( 1981, dkongo,    dkong,    dkong2b,   dkong,    driver_device, 0,        R
 GAME( 1981, dkongj,    dkong,    dkong2b,   dkong,    driver_device, 0,        ROT90,  "Nintendo", "Donkey Kong (Japan set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, dkongjo,   dkong,    dkong2b,   dkong,    driver_device, 0,        ROT90,  "Nintendo", "Donkey Kong (Japan set 2)", MACHINE_SUPPORTS_SAVE )
 GAME( 1981, dkongjo1,  dkong,    dkong2b,   dkong,    driver_device, 0,        ROT90,  "Nintendo", "Donkey Kong (Japan set 3)", MACHINE_SUPPORTS_SAVE )
+GAME( 2015, dkongr,    dkong,    dkong2b,   dkong,    driver_device, 0,        ROT90,  "Sockmaster", "Donkey Kong Remix", MACHINE_SUPPORTS_SAVE )
 
 GAME( 2004, dkongf,    dkong,    dkong2b,   dkongf,   driver_device, 0,        ROT90,  "hack (Jeff Kulczycki)", "Donkey Kong Foundry (hack)", MACHINE_SUPPORTS_SAVE ) /* from Jeff's Romhack */
 GAME( 2006, dkongx,    dkong,    braze,     dkongx,   dkong_state,   dkongx,   ROT90,  "hack (Braze Technologies)", "Donkey Kong II: Jumpman Returns (hack, V1.2)", MACHINE_SUPPORTS_SAVE )
