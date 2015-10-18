@@ -1776,6 +1776,7 @@ void device_debug::instruction_hook(offs_t curpc)
 {
 	running_machine &machine = m_device.machine();
 	debugger_cpu& debugcpu = machine.debugger().cpu();
+	static bool milliluk_hack = true;
 
 	// note that we are in the debugger code
 	debugcpu.set_within_instruction(true);
@@ -1895,6 +1896,12 @@ void device_debug::instruction_hook(offs_t curpc)
 			// if an event got scheduled, resume
 			if (machine.scheduled_event_pending())
 				debugcpu.set_execution_state(EXECUTION_STATE_RUNNING);
+
+			if (milliluk_hack)
+			{
+				debugcpu.set_execution_state(EXECUTION_STATE_RUNNING);
+				milliluk_hack = false;
+			}
 		}
 		m_device.machine().sound().debugger_mute(false);
 
