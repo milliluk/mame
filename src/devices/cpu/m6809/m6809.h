@@ -86,6 +86,8 @@ protected:
 	// device_state_interface overrides
 	virtual void state_string_export(const device_state_entry &entry, std::string &str) override;
 
+    virtual bool is_6809() { return true; };
+
 	// addressing modes
 	enum
 	{
@@ -140,13 +142,47 @@ protected:
 		VECTOR_RESET_FFFE   = 0xFFFE
 	};
 
+    union M6809Q
+    {
+        #ifdef LSB_FIRST
+            union 
+            {
+                struct { UINT8 f, e, b, a; };
+                struct { UINT16 w, d; };
+            } r;
+            struct { PAIR16 w, d; } p;
+        #else
+            union 
+            {
+                struct { UINT8 a, b, e, f; };
+                struct { UINT16 d, w; };
+            } r;
+            struct { PAIR16 d, w; } p;
+        #endif
+    	UINT32 q;
+    };
+
+	union M6809PC
+	{
+#ifdef LSB_FIRST
+		UINT8 reserved;
+		UINT8 mmu;
+		PAIR16 r;
+#else
+		PAIR16 r;
+		UINT8 mmu;
+		UINT8 reserved;
+#endif
+		UINT32 v;
+	};
+
 	// Memory interface
 	memory_interface *          m_mintf;
 
 	// CPU registers
-	PAIR16                      m_pc;               // program counter
-	PAIR16                      m_ppc;              // previous program counter
-	PAIR16                      m_d;                // accumulator a and b
+	M6809PC                     m_pc;               // program counter
+	M6809PC                     m_ppc;              // previous program counter
+	M6809Q                      m_q;                // accumulator a and b (plus e and f on 6309)
 	PAIR16                      m_x, m_y;           // index registers
 	PAIR16                      m_u, m_s;           // stack pointers
 	UINT8                       m_dp;               // direct page register
@@ -190,8 +226,8 @@ protected:
 	inline UINT8 read_opcode_arg(UINT16 address)         { eat(1); return m_mintf->read_opcode_arg(address); }
 
 	// read_opcode() and bump the program counter
-	inline UINT8 read_opcode()                           { return read_opcode(m_pc.w++); }
-	inline UINT8 read_opcode_arg()                       { return read_opcode_arg(m_pc.w++); }
+	inline UINT8 read_opcode()                           { return read_opcode(m_pc.r.w++); }
+	inline UINT8 read_opcode_arg()                       { return read_opcode_arg(m_pc.r.w++); }
 
 	// state stack - implemented as a UINT32
 	void push_state(UINT8 state)                    { m_state = (m_state << 8) | state; }

@@ -42,8 +42,8 @@ IRQ:
 
 INTERRUPT_VECTOR:
 	@eat(4);
-	@m_pc.b.h = read_operand(0);	// Not sure if this is cycle exact
-	@m_pc.b.l = read_operand(1);	// Not sure if this is cycle exact
+	@m_pc.r.b.h = read_operand(0);	// Not sure if this is cycle exact
+	@m_pc.r.b.l = read_operand(1);	// Not sure if this is cycle exact
 	return;
 
 NEG8:
@@ -123,7 +123,7 @@ TST8:
 	return;
 
 JMP:
-	m_pc.w = m_ea.w;
+	m_pc.r.w = m_ea.w;
 	return;
 
 CLR8:
@@ -329,12 +329,12 @@ SYNC:
 	{
 		// massaging the PC this way makes the debugger's behavior more
 		// intuitive
-		m_pc.w--;
+		m_pc.r.w--;
 		
 		@eat_remaining();
 		
 		// unmassage...
-		m_pc.w++;
+		m_pc.r.w++;
 	}
 	return;
 
@@ -354,7 +354,7 @@ ANDCC:
 	return;
 
 SEX:
-	m_d.w = set_flags<UINT16>(CC_NZ, (INT8) m_d.b.l);
+	m_q.r.d = set_flags<UINT16>(CC_NZ, (INT8) m_q.r.b);
 	eat(hd6309_native_mode() ? 0 : 1);
 	return;
 
@@ -363,7 +363,7 @@ BRANCH:
 	eat(1);
 	if (branch_taken())
 	{
-		m_pc.w += (INT8) m_temp.b.l;
+		m_pc.r.w += (INT8) m_temp.b.l;
 	}
 	return;
 
@@ -373,21 +373,21 @@ LBRANCH:
 	eat(1);
 	if (branch_taken())
 	{
-		m_pc.w += m_temp.w;
+		m_pc.r.w += m_temp.w;
 		eat(hd6309_native_mode() ? 0 : 1);
 	}
 	return;
 
 BSR:
 	@m_temp.b.l = read_opcode_arg();
-	m_ea.w = m_pc.w + (INT8) m_temp.b.l;
+	m_ea.w = m_pc.r.w + (INT8) m_temp.b.l;
 	@eat(hd6309_native_mode() ? 2 : 3);
 	goto GOTO_SUBROUTINE;
 
 LBSR:
 	@m_temp.b.h = read_opcode_arg();
 	@m_temp.b.l = read_opcode_arg();
-	m_ea.w = m_pc.w + (INT16) m_temp.w;
+	m_ea.w = m_pc.r.w + (INT16) m_temp.w;
 	@eat(hd6309_native_mode() ? 2 : 4);
 	goto GOTO_SUBROUTINE;
 
@@ -396,9 +396,9 @@ JSR:
 	goto GOTO_SUBROUTINE;
 	
 GOTO_SUBROUTINE:
-	@write_memory(--m_s.w, m_pc.b.l);
-	@write_memory(--m_s.w, m_pc.b.h);
-	m_pc = m_ea;
+	@write_memory(--m_s.w, m_pc.r.b.l);
+	@write_memory(--m_s.w, m_pc.r.b.h);
+	m_pc.r.w = m_ea.w;
 	return;
 
 RTS:
@@ -408,7 +408,7 @@ RTS:
 	goto PULL_REGISTERS;
 
 ABX:
-	m_x.w += m_d.b.l;
+	m_x.w += m_q.r.b;
 	eat(hd6309_native_mode() ? 0 : 2);
 	return;
 
@@ -437,12 +437,12 @@ CWAI:
 	{
 		// massaging the PC this way makes the debugger's behavior more
 		// intuitive
-		m_pc.w -= 2;
+		m_pc.r.w -= 2;
 
 		@eat_remaining();
 		
 		// unmassage...
-		m_pc.w += 2;
+		m_pc.r.w += 2;
 	}
 
 	if (m_nmi_asserted)
