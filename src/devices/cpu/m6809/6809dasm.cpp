@@ -307,6 +307,7 @@ static const opcodeinfo m6809_pg1opcodes[] =
 	{ 0x2D, 4, "LBLT",  LREL   },
 	{ 0x2E, 4, "LBGT",  LREL   },
 	{ 0x2F, 4, "LBLE",  LREL   },
+	{ 0x3E, 2, "LOG",   INH    },
 	{ 0x3F, 2, "SWI2",  INH    },
 	{ 0x83, 4, "CMPD",  IMM    },
 	{ 0x8C, 4, "CMPY",  IMM    },
@@ -335,6 +336,7 @@ static const opcodeinfo m6809_pg1opcodes[] =
 // Page 2 opcodes (0x11 0x..)
 static const opcodeinfo m6809_pg2opcodes[] =
 {
+	{ 0x3E, 2, "BREAK", INH    },
 	{ 0x3F, 2, "SWI3",  INH    },
 	{ 0x83, 4, "CMPU",  IMM    },
 	{ 0x8C, 4, "CMPS",  IMM    },

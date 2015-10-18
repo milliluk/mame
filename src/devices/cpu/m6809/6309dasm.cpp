@@ -343,6 +343,7 @@ static const opcodeinfo hd6309_pg1opcodes[] =
 	{ 0x3A, 2, "PSHUW", INH    },
 	{ 0x3B, 2, "PULUW", INH    },
 
+	{ 0x3E, 2, "LOG",   INH    },
 	{ 0x3F, 2, "SWI2",  INH    },
 
 	{ 0x40, 2, "NEGD",  INH    },
@@ -483,6 +484,7 @@ static const opcodeinfo hd6309_pg2opcodes[] =
 	{ 0x3C, 3, "BITMD", IMM     },
 	{ 0x3D, 3, "LDMD",  IMM     },
 
+	{ 0x3E, 2, "BREAK", INH     },
 	{ 0x3F, 2, "SWI3",  INH     },
 
 	{ 0x43, 2, "COME",  INH     },

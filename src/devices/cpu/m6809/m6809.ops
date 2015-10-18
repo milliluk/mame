@@ -288,7 +288,8 @@ DISPATCH10:
 		case 0x2D:				set_cond(!cond_ge());				%LBRANCH;	return;
 		case 0x2E:				set_cond(cond_gt());				%LBRANCH;	return;
 		case 0x2F:				set_cond(!cond_gt());				%LBRANCH;	return;
-
+	
+		case 0x3E:				dbg_msg();										return;
 		case 0x3F:													%SWI2;		return;
 
 		case 0x83:				set_regop16(m_q.p.d);	set_imm();		%CMP16;		return;
@@ -325,6 +326,7 @@ DISPATCH11:
 	@m_opcode = read_opcode();
 	switch(m_opcode)
 	{
+        case 0x3E:              debugger_break(machine());                      return;
 		case 0x3F:													%SWI3;		return;
 		case 0x83:				set_regop16(m_u);	set_imm();		%CMP16;		return;
 		case 0x8C:				set_regop16(m_s);	set_imm();		%CMP16;		return;

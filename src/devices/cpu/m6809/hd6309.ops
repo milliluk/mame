@@ -306,6 +306,7 @@ DISPATCH10:
 		case 0x39:													%PULSW;		return;
 		case 0x3A:													%PSHUW;		return;
 		case 0x3B:													%PULUW;		return;
+		case 0x3E:				dbg_msg();										return;
 		case 0x3F:													%SWI2;		return;
 
 		case 0x40:									set_d();		%NEG16;		return;
@@ -430,6 +431,7 @@ DISPATCH11:
 		case 0x3B:													%TFM;		return;
 		case 0x3C:				set_regop8(m_md);	set_imm();		%BIT8;		return;
 		case 0x3D:				set_regop8(m_md);	set_imm();		%LD8;		return;
+        case 0x3E:              debugger_break(machine());                      return;
 		case 0x3F:													%SWI3;		return;
 
 		case 0x43:									set_e();		%COM8;		return;
