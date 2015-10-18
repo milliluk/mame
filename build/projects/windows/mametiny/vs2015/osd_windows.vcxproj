@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D5E1A481-4197-1D77-CA8B-174E3640147B}</ProjectGuid>
+    <RootNamespace>osd_windows</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\..\..\vs2015\bin\x32\Debug\</OutDir>
+    <IntDir>..\..\..\..\vs2015\obj\x32\Debug\osd_windows\</IntDir>
+    <TargetName>osd_windows</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>..\..\..\..\vs2015\bin\x64\Debug\</OutDir>
+    <IntDir>..\..\..\..\vs2015\obj\x64\Debug\osd_windows\</IntDir>
+    <TargetName>osd_windows</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\..\..\vs2015\bin\x32\Release\</OutDir>
+    <IntDir>..\..\..\..\vs2015\obj\x32\Release\osd_windows\</IntDir>
+    <TargetName>osd_windows</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\..\..\..\vs2015\bin\x64\Release\</OutDir>
+    <IntDir>..\..\..\..\vs2015\obj\x64\Release\osd_windows\</IntDir>
+    <TargetName>osd_windows</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\3rdparty\winpcap\Include;..\..\..\..\..\3rdparty\bgfx\include;..\..\..\..\..\3rdparty\bx\include;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\src\osd\modules\render;..\..\..\..\..\3rdparty;..\..\..\..\..\src\osd\windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_APIINTCASTS;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;OSD_WINDOWS;_WIN32_WINNT=0x0501;UNICODE;_UNICODE;main=utf8_main;MALLOC_DEBUG;USE_NETWORK;OSD_NET_USE_PCAP;USE_SDL=0;USE_OPENGL=1;USE_BGFX;USE_QTDEBUG=0;DIRECT3D_VERSION=0x0900;DIRECTINPUT_VERSION=0x0800;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)osd_windows.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_APIINTCASTS;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;OSD_WINDOWS;_WIN32_WINNT=0x0501;UNICODE;_UNICODE;main=utf8_main;MALLOC_DEBUG;USE_NETWORK;OSD_NET_USE_PCAP;USE_SDL=0;USE_OPENGL=1;USE_BGFX;USE_QTDEBUG=0;DIRECT3D_VERSION=0x0900;DIRECTINPUT_VERSION=0x0800;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\3rdparty\winpcap\Include;..\..\..\..\..\3rdparty\bgfx\include;..\..\..\..\..\3rdparty\bx\include;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\src\osd\modules\render;..\..\..\..\..\3rdparty;..\..\..\..\..\src\osd\windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)osd_windows.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX86</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\3rdparty\winpcap\Include;..\..\..\..\..\3rdparty\bgfx\include;..\..\..\..\..\3rdparty\bx\include;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\src\osd\modules\render;..\..\..\..\..\3rdparty;..\..\..\..\..\src\osd\windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_APIINTCASTS;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;OSD_WINDOWS;_WIN32_WINNT=0x0501;UNICODE;_UNICODE;main=utf8_main;MALLOC_DEBUG;USE_NETWORK;OSD_NET_USE_PCAP;USE_SDL=0;USE_OPENGL=1;USE_BGFX;USE_QTDEBUG=0;DIRECT3D_VERSION=0x0900;DIRECTINPUT_VERSION=0x0800;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)osd_windows.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_APIINTCASTS;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;OSD_WINDOWS;_WIN32_WINNT=0x0501;UNICODE;_UNICODE;main=utf8_main;MALLOC_DEBUG;USE_NETWORK;OSD_NET_USE_PCAP;USE_SDL=0;USE_OPENGL=1;USE_BGFX;USE_QTDEBUG=0;DIRECT3D_VERSION=0x0900;DIRECTINPUT_VERSION=0x0800;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\3rdparty\winpcap\Include;..\..\..\..\..\3rdparty\bgfx\include;..\..\..\..\..\3rdparty\bx\include;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\src\osd\modules\render;..\..\..\..\..\3rdparty;..\..\..\..\..\src\osd\windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)osd_windows.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX64</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\3rdparty\winpcap\Include;..\..\..\..\..\3rdparty\bgfx\include;..\..\..\..\..\3rdparty\bx\include;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\src\osd\modules\render;..\..\..\..\..\3rdparty;..\..\..\..\..\src\osd\windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_APIINTCASTS;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;OSD_WINDOWS;_WIN32_WINNT=0x0501;UNICODE;_UNICODE;main=utf8_main;USE_NETWORK;OSD_NET_USE_PCAP;USE_SDL=0;USE_OPENGL=1;USE_BGFX;USE_QTDEBUG=0;DIRECT3D_VERSION=0x0900;DIRECTINPUT_VERSION=0x0800;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_APIINTCASTS;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;OSD_WINDOWS;_WIN32_WINNT=0x0501;UNICODE;_UNICODE;main=utf8_main;USE_NETWORK;OSD_NET_USE_PCAP;USE_SDL=0;USE_OPENGL=1;USE_BGFX;USE_QTDEBUG=0;DIRECT3D_VERSION=0x0900;DIRECTINPUT_VERSION=0x0800;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\3rdparty\winpcap\Include;..\..\..\..\..\3rdparty\bgfx\include;..\..\..\..\..\3rdparty\bx\include;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\src\osd\modules\render;..\..\..\..\..\3rdparty;..\..\..\..\..\src\osd\windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)osd_windows.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX86</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\3rdparty\winpcap\Include;..\..\..\..\..\3rdparty\bgfx\include;..\..\..\..\..\3rdparty\bx\include;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\src\osd\modules\render;..\..\..\..\..\3rdparty;..\..\..\..\..\src\osd\windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_APIINTCASTS;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;OSD_WINDOWS;_WIN32_WINNT=0x0501;UNICODE;_UNICODE;main=utf8_main;USE_NETWORK;OSD_NET_USE_PCAP;USE_SDL=0;USE_OPENGL=1;USE_BGFX;USE_QTDEBUG=0;DIRECT3D_VERSION=0x0900;DIRECTINPUT_VERSION=0x0800;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_APIINTCASTS;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;OSD_WINDOWS;_WIN32_WINNT=0x0501;UNICODE;_UNICODE;main=utf8_main;USE_NETWORK;OSD_NET_USE_PCAP;USE_SDL=0;USE_OPENGL=1;USE_BGFX;USE_QTDEBUG=0;DIRECT3D_VERSION=0x0900;DIRECTINPUT_VERSION=0x0800;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\3rdparty\winpcap\Include;..\..\..\..\..\3rdparty\bgfx\include;..\..\..\..\..\3rdparty\bx\include;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\src\osd\modules\render;..\..\..\..\..\3rdparty;..\..\..\..\..\src\osd\windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)osd_windows.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX64</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\src\osd\osdnet.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\debugger\debug_module.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\font\font_module.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\midi\midi_module.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\netdev\netdev_module.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\sound\sound_module.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\lib\osdobj_common.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\opengl\gl_shader_mgr.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\opengl\gl_shader_tool.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\opengl\osd_opengl.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\opengl\SDL1211_opengl.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\render\drawd3d.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\render\d3d\d3dcomm.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\render\d3d\d3dhlsl.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\render\d3d\d3dintf.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\windows\input.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\windows\output.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\windows\video.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\windows\window.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\osdwindow.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\windows\winmain.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\osdepend.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\debugger\win\consolewininfo.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\debugger\win\debugbaseinfo.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\debugger\win\debugviewinfo.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\debugger\win\debugwininfo.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\debugger\win\disasmbasewininfo.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\debugger\win\disasmviewinfo.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\debugger\win\disasmwininfo.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\debugger\win\editwininfo.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\debugger\win\logwininfo.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\debugger\win\memoryviewinfo.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\debugger\win\memorywininfo.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\debugger\win\pointswininfo.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\debugger\win\uimetrics.h" />
+    <ClInclude Include="..\..\..\..\..\src\osd\modules\debugger\win\debugwin.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\src\osd\osdnet.cpp">
+      <ObjectFileName>$(IntDir)src\osd\osdnet.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\lib\osdobj_common.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\lib\osdobj_common.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\debugger\none.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\debugger\none.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\debugger\debugint.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\debugger\debugint.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\debugger\debugwin.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\debugger\debugwin.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\font\font_sdl.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\font\font_sdl.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\font\font_windows.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\font\font_windows.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\font\font_osx.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\font\font_osx.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\font\font_none.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\font\font_none.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\netdev\taptun.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\netdev\taptun.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\netdev\pcap.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\netdev\pcap.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\netdev\none.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\netdev\none.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\midi\portmidi.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\midi\portmidi.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\midi\none.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\midi\none.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\sound\js_sound.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\sound\js_sound.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\sound\direct_sound.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\sound\direct_sound.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\sound\coreaudio_sound.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\sound\coreaudio_sound.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\sound\sdl_sound.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\sound\sdl_sound.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\sound\none.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\sound\none.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\render\drawogl.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\render\drawogl.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\opengl\gl_shader_tool.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\opengl\gl_shader_tool.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\opengl\gl_shader_mgr.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\opengl\gl_shader_mgr.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\render\drawbgfx.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\render\drawbgfx.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\render\drawd3d.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\render\drawd3d.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\render\d3d\d3d9intf.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\render\d3d\d3d9intf.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\render\d3d\d3dhlsl.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\render\d3d\d3dhlsl.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\render\drawdd.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\render\drawdd.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\render\drawgdi.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\render\drawgdi.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\render\drawnone.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\render\drawnone.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\windows\input.cpp">
+      <ObjectFileName>$(IntDir)src\osd\windows\input.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\windows\output.cpp">
+      <ObjectFileName>$(IntDir)src\osd\windows\output.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\windows\video.cpp">
+      <ObjectFileName>$(IntDir)src\osd\windows\video.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\windows\window.cpp">
+      <ObjectFileName>$(IntDir)src\osd\windows\window.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\windows\winmenu.cpp">
+      <ObjectFileName>$(IntDir)src\osd\windows\winmenu.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\windows\winmain.cpp">
+      <ObjectFileName>$(IntDir)src\osd\windows\winmain.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\debugger\win\consolewininfo.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\debugger\win\consolewininfo.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\debugger\win\debugbaseinfo.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\debugger\win\debugbaseinfo.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\debugger\win\debugviewinfo.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\debugger\win\debugviewinfo.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\debugger\win\debugwininfo.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\debugger\win\debugwininfo.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\debugger\win\disasmbasewininfo.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\debugger\win\disasmbasewininfo.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\debugger\win\disasmviewinfo.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\debugger\win\disasmviewinfo.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\debugger\win\disasmwininfo.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\debugger\win\disasmwininfo.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\debugger\win\editwininfo.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\debugger\win\editwininfo.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\debugger\win\logwininfo.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\debugger\win\logwininfo.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\debugger\win\memoryviewinfo.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\debugger\win\memoryviewinfo.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\debugger\win\memorywininfo.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\debugger\win\memorywininfo.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\debugger\win\pointswininfo.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\debugger\win\pointswininfo.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\osd\modules\debugger\win\uimetrics.cpp">
+      <ObjectFileName>$(IntDir)src\osd\modules\debugger\win\uimetrics.obj</ObjectFileName>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

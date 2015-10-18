@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{665EF8AC-2A4C-4C3E-A05F-FD1E5DB11DE9}</ProjectGuid>
+    <RootNamespace>netlist</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\..\..\vs2015\bin\x32\Debug\</OutDir>
+    <IntDir>..\..\..\..\vs2015\obj\x32\Debug\netlist\</IntDir>
+    <TargetName>netlist</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>..\..\..\..\vs2015\bin\x64\Debug\</OutDir>
+    <IntDir>..\..\..\..\vs2015\obj\x64\Debug\netlist\</IntDir>
+    <TargetName>netlist</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\..\..\vs2015\bin\x32\Release\</OutDir>
+    <IntDir>..\..\..\..\vs2015\obj\x32\Release\netlist\</IntDir>
+    <TargetName>netlist</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\..\..\..\vs2015\bin\x64\Release\</OutDir>
+    <IntDir>..\..\..\..\vs2015\obj\x64\Release\netlist\</IntDir>
+    <TargetName>netlist</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\lib\netlist;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib\util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_APIINTCASTS;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)netlist.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_APIINTCASTS;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\lib\netlist;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib\util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)netlist.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX86</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\lib\netlist;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib\util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_APIINTCASTS;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)netlist.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_APIINTCASTS;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\lib\netlist;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib\util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)netlist.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX64</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\lib\netlist;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib\util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_APIINTCASTS;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_APIINTCASTS;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\lib\netlist;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib\util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)netlist.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX86</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\lib\netlist;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib\util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_APIINTCASTS;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_APIINTCASTS;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\lib\netlist;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib\util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)netlist.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX64</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\nl_config.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\nl_dice_compat.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\nl_lists.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\nl_time.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\nl_util.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\nl_base.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\nl_parser.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\nl_setup.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\nl_factory.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\plib\pconfig.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\plib\palloc.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\plib\pfmtlog.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\plib\plists.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\plib\poptions.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\plib\pparser.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\plib\pstate.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\plib\pstring.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\plib\pstream.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\plib\ptypes.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\tools\nl_convert.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\analog\nld_bjt.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\analog\nld_fourterm.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\analog\nld_switches.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\analog\nld_twoterm.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\analog\nld_opamps.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\solver\nld_solver.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\solver\nld_ms_direct.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\solver\nld_ms_direct1.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\solver\nld_ms_direct2.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\solver\nld_ms_sor.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\solver\nld_ms_sor_mat.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\solver\nld_ms_gmres.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\solver\mat_cr.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\solver\nld_ms_direct_lu.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\solver\vector_base.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_4020.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_4066.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_7400.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_7402.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_7404.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_7408.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_7410.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_7411.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_7420.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_7425.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_7427.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_7430.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_7432.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_7437.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_7448.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_7450.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_7474.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_7483.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_7486.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_7490.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_7493.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_74107.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_74123.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_74153.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_74175.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_74192.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_74193.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_74279.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_74ls629.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_82S16.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_9310.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_9312.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_9316.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_ne555.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_mm5837.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_r2r_dac.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_legacy.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\net_lib.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_log.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_system.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_cmos.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_signal.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\devices\nld_truthtable.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\macro\nlm_ttl74xx.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\macro\nlm_cd4xxx.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\macro\nlm_opamp.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\netlist\macro\nlm_other.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\nl_base.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\nl_base.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\nl_parser.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\nl_parser.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\nl_setup.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\nl_setup.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\nl_factory.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\nl_factory.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\plib\palloc.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\plib\palloc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\plib\pfmtlog.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\plib\pfmtlog.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\plib\pparser.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\plib\pparser.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\plib\pstate.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\plib\pstate.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\plib\pstring.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\plib\pstring.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\plib\pstream.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\plib\pstream.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\tools\nl_convert.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\tools\nl_convert.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\analog\nld_bjt.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\analog\nld_bjt.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\analog\nld_fourterm.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\analog\nld_fourterm.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\analog\nld_switches.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\analog\nld_switches.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\analog\nld_twoterm.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\analog\nld_twoterm.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\analog\nld_opamps.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\analog\nld_opamps.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\solver\nld_solver.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\solver\nld_solver.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_4020.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_4020.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_4066.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_4066.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_7400.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_7400.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_7402.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_7402.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_7404.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_7404.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_7408.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_7408.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_7410.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_7410.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_7411.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_7411.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_7420.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_7420.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_7425.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_7425.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_7427.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_7427.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_7430.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_7430.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_7432.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_7432.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_7437.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_7437.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_7448.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_7448.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_7450.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_7450.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_7474.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_7474.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_7483.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_7483.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_7486.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_7486.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_7490.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_7490.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_7493.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_7493.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_74107.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_74107.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_74123.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_74123.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_74153.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_74153.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_74175.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_74175.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_74192.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_74192.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_74193.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_74193.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_74279.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_74279.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_74ls629.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_74ls629.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_82S16.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_82S16.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_9310.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_9310.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_9312.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_9312.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_9316.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_9316.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_ne555.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_ne555.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_mm5837.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_mm5837.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_r2r_dac.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_r2r_dac.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_legacy.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_legacy.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\net_lib.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\net_lib.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_log.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_log.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_system.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_system.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\devices\nld_truthtable.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\devices\nld_truthtable.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\macro\nlm_ttl74xx.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\macro\nlm_ttl74xx.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\macro\nlm_cd4xxx.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\macro\nlm_cd4xxx.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\macro\nlm_opamp.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\macro\nlm_opamp.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\netlist\macro\nlm_other.cpp">
+      <ObjectFileName>$(IntDir)src\lib\netlist\macro\nlm_other.obj</ObjectFileName>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

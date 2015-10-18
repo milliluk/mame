@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{22489AD0-4CB2-4D91-AD81-24B0D80CA30A}</ProjectGuid>
+    <RootNamespace>utils</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\..\..\vs2015\bin\x32\Debug\</OutDir>
+    <IntDir>..\..\..\..\vs2015\obj\x32\Debug\utils\</IntDir>
+    <TargetName>utils</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>..\..\..\..\vs2015\bin\x64\Debug\</OutDir>
+    <IntDir>..\..\..\..\vs2015\obj\x64\Debug\utils\</IntDir>
+    <TargetName>utils</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\..\..\vs2015\bin\x32\Release\</OutDir>
+    <IntDir>..\..\..\..\vs2015\obj\x32\Release\utils\</IntDir>
+    <TargetName>utils</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\..\..\..\vs2015\bin\x64\Release\</OutDir>
+    <IntDir>..\..\..\..\vs2015\obj\x64\Release\utils\</IntDir>
+    <TargetName>utils</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_APIINTCASTS;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)utils.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_APIINTCASTS;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)utils.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX86</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_APIINTCASTS;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)utils.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_APIINTCASTS;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)utils.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX64</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_APIINTCASTS;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_APIINTCASTS;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)utils.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX86</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_APIINTCASTS;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_APIINTCASTS;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)utils.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX64</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\src\lib\util\bitstream.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\coretmpl.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\avhuff.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\aviio.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\bitmap.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\cdrom.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\chd.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\chdcd.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\chdcodec.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\corealloc.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\corefile.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\corestr.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\coreutil.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\cstrpool.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\delegate.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\flac.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\harddisk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\hashing.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\huffman.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\jedparse.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\md5.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\opresolv.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\options.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\palette.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\plaparse.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\png.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\pool.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\sha1.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\tagmap.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\unicode.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\unzip.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\un7z.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\vbiparse.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\xmlfile.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\util\zippath.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\avhuff.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\avhuff.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\aviio.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\aviio.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\bitmap.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\bitmap.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\cdrom.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\cdrom.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\chd.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\chd.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\chdcd.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\chdcd.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\chdcodec.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\chdcodec.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\corealloc.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\corealloc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\corefile.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\corefile.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\corestr.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\corestr.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\coreutil.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\coreutil.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\cstrpool.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\cstrpool.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\delegate.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\delegate.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\flac.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\flac.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\harddisk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\harddisk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\hashing.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\hashing.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\huffman.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\huffman.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\jedparse.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\jedparse.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\md5.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\md5.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\opresolv.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\opresolv.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\options.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\options.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\palette.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\palette.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\plaparse.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\plaparse.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\png.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\png.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\pool.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\pool.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\sha1.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\sha1.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\unicode.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\unicode.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\unzip.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\unzip.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\un7z.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\un7z.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\vbiparse.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\vbiparse.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\xmlfile.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\xmlfile.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\util\zippath.cpp">
+      <ObjectFileName>$(IntDir)src\lib\util\zippath.obj</ObjectFileName>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

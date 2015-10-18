@@ -1,0 +1,828 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F69636B1-FCCE-45CE-B09A-113E371A2D7A}</ProjectGuid>
+    <RootNamespace>formats</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\..\..\vs2015\bin\x32\Debug\</OutDir>
+    <IntDir>..\..\..\..\vs2015\obj\x32\Debug\formats\</IntDir>
+    <TargetName>formats</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>..\..\..\..\vs2015\bin\x64\Debug\</OutDir>
+    <IntDir>..\..\..\..\vs2015\obj\x64\Debug\formats\</IntDir>
+    <TargetName>formats</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\..\..\vs2015\bin\x32\Release\</OutDir>
+    <IntDir>..\..\..\..\vs2015\obj\x32\Release\formats\</IntDir>
+    <TargetName>formats</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\..\..\..\vs2015\bin\x64\Release\</OutDir>
+    <IntDir>..\..\..\..\vs2015\obj\x64\Release\formats\</IntDir>
+    <TargetName>formats</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_APIINTCASTS;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)formats.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_APIINTCASTS;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)formats.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX86</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_APIINTCASTS;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)formats.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_APIINTCASTS;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)formats.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX64</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_APIINTCASTS;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_APIINTCASTS;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)formats.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX86</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_APIINTCASTS;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_APIINTCASTS;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)formats.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX64</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\2d_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\cassimg.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\flopimg.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\imageutl.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\ioprocs.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\basicdsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\a26_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\a5105_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\abc800_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\abcfd2_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\ace_tap.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\adam_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\adam_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\ami_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\ap2_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\apf_apt.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\apridisk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\apollo_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\ap_dsk35.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\applix_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\asst128_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\atari_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\atom_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\atom_tap.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\bbc_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\bw2_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\bw12_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\c3040_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\c4040_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\c8280_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\camplynx_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\camplynx_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\cbm_crt.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\cbm_tap.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\ccvf_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\cd90_640_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\cgen_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\cgenie_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\coco_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\comx35_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\concept_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\coupedsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\cpis_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\cqm_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\csw_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\d64_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\d71_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\d80_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\d81_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\d82_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\d88_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\dcp_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\dfi_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\dim_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\dip_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\dmk_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\dmv_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\dsk_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\ep64_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\esq8_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\esq16_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\excali64_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\fc100_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\fdd_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\flex_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\fm7_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\fmsx_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\fmtowns_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\fsd_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\g64_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\gtp_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\guab_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\hect_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\hect_tap.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\hector_minidisc.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\iq151_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\imd_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\ipf_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\jvc_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\kaypro_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\kc_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\kc85_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\kim1_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\lviv_lvt.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\m20_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\m5_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\mbee_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\mm_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\msx_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\mfi_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\mfm_hd.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\mz_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\nanos_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\nascom_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\naslite_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\nes_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\nfd_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\orao_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\oric_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\oric_tap.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\p6001_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\pasti_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\pc_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\pc98_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\pc98fdi_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\phc25_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\pk8020_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\pmd_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\primoptp.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\pyldin_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\ql_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\rk_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\rx50_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\sc3000_bit.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\sf7000_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\smx_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\sol_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\sorc_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\sorc_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\sord_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\spc1000_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\st_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\svi_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\svi_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\tandy2k_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\td0_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\thom_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\thom_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\ti99_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\tiki100_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\trd_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\trs_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\trs80_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\tvc_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\tvc_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\tzx_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\uef_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\upd765_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\vdk_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\vector06_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\victor9k_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\vg5k_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\vt_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\wavfile.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\wd177x_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\x07_cas.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\x1_tap.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\xdf_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\zx81_p.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\hxcmfm_dsk.h" />
+    <ClInclude Include="..\..\..\..\..\src\lib\formats\itt3030_dsk.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\2d_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\2d_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\cassimg.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\cassimg.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\flopimg.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\flopimg.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\imageutl.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\imageutl.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\ioprocs.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\ioprocs.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\basicdsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\basicdsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\a26_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\a26_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\a5105_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\a5105_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\abc800_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\abc800_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\abcfd2_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\abcfd2_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\ace_tap.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\ace_tap.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\adam_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\adam_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\adam_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\adam_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\ami_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\ami_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\ap2_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\ap2_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\apf_apt.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\apf_apt.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\apridisk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\apridisk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\apollo_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\apollo_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\ap_dsk35.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\ap_dsk35.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\applix_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\applix_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\asst128_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\asst128_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\atari_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\atari_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\atom_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\atom_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\atom_tap.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\atom_tap.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\bbc_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\bbc_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\bw2_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\bw2_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\bw12_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\bw12_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\c3040_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\c3040_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\c4040_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\c4040_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\c8280_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\c8280_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\camplynx_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\camplynx_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\camplynx_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\camplynx_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\cbm_crt.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\cbm_crt.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\cbm_tap.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\cbm_tap.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\ccvf_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\ccvf_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\cd90_640_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\cd90_640_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\cgen_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\cgen_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\cgenie_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\cgenie_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\coco_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\coco_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\comx35_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\comx35_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\concept_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\concept_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\coupedsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\coupedsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\cpis_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\cpis_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\cqm_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\cqm_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\csw_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\csw_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\d64_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\d64_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\d71_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\d71_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\d80_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\d80_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\d81_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\d81_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\d82_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\d82_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\d88_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\d88_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\dcp_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\dcp_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\dfi_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\dfi_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\dim_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\dim_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\dip_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\dip_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\dmk_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\dmk_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\dmv_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\dmv_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\dsk_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\dsk_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\ep64_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\ep64_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\esq8_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\esq8_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\esq16_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\esq16_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\excali64_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\excali64_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\fc100_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\fc100_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\fdi_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\fdi_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\fdd_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\fdd_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\flex_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\flex_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\fm7_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\fm7_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\fmsx_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\fmsx_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\fmtowns_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\fmtowns_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\fsd_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\fsd_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\g64_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\g64_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\gtp_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\gtp_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\guab_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\guab_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\hect_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\hect_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\hect_tap.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\hect_tap.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\hector_minidisc.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\hector_minidisc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\iq151_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\iq151_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\imd_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\imd_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\ipf_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\ipf_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\jvc_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\jvc_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\kaypro_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\kaypro_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\kc_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\kc_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\kc85_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\kc85_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\kim1_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\kim1_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\lviv_lvt.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\lviv_lvt.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\m20_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\m20_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\m5_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\m5_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\mbee_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\mbee_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\mm_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\mm_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\msx_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\msx_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\mfi_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\mfi_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\mfm_hd.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\mfm_hd.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\mz_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\mz_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\nanos_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\nanos_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\nascom_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\nascom_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\naslite_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\naslite_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\nes_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\nes_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\nfd_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\nfd_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\orao_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\orao_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\oric_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\oric_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\oric_tap.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\oric_tap.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\p6001_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\p6001_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\pasti_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\pasti_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\pc_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\pc_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\pc98_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\pc98_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\pc98fdi_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\pc98fdi_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\phc25_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\phc25_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\pk8020_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\pk8020_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\pmd_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\pmd_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\primoptp.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\primoptp.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\pyldin_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\pyldin_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\ql_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\ql_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\rk_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\rk_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\rx50_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\rx50_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\sc3000_bit.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\sc3000_bit.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\sf7000_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\sf7000_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\smx_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\smx_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\sol_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\sol_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\sorc_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\sorc_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\sorc_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\sorc_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\sord_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\sord_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\spc1000_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\spc1000_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\st_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\st_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\svi_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\svi_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\svi_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\svi_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\tandy2k_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\tandy2k_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\td0_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\td0_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\thom_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\thom_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\thom_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\thom_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\ti99_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\ti99_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\tiki100_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\tiki100_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\trd_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\trd_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\trs_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\trs_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\trs80_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\trs80_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\tvc_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\tvc_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\tvc_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\tvc_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\tzx_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\tzx_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\uef_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\uef_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\upd765_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\upd765_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\vdk_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\vdk_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\vector06_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\vector06_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\victor9k_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\victor9k_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\vg5k_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\vg5k_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\vt_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\vt_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\wavfile.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\wavfile.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\wd177x_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\wd177x_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\x07_cas.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\x07_cas.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\x1_tap.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\x1_tap.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\xdf_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\xdf_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\zx81_p.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\zx81_p.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\hxcmfm_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\hxcmfm_dsk.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\lib\formats\itt3030_dsk.cpp">
+      <ObjectFileName>$(IntDir)src\lib\formats\itt3030_dsk.obj</ObjectFileName>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

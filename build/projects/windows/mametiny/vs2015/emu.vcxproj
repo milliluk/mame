@@ -1,0 +1,901 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E6FA15E4-A354-4526-ACEF-13C8E80FCACF}</ProjectGuid>
+    <RootNamespace>emu</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\..\..\vs2015\bin\x32\Debug\mame_tiny\</OutDir>
+    <IntDir>..\..\..\..\vs2015\obj\x32\Debug\emu\</IntDir>
+    <TargetName>emu</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>..\..\..\..\vs2015\bin\x64\Debug\mame_tiny\</OutDir>
+    <IntDir>..\..\..\..\vs2015\obj\x64\Debug\emu\</IntDir>
+    <TargetName>emu</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\..\..\vs2015\bin\x32\Release\mame_tiny\</OutDir>
+    <IntDir>..\..\..\..\vs2015\obj\x32\Release\emu\</IntDir>
+    <TargetName>emu</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\..\..\..\vs2015\bin\x64\Release\mame_tiny\</OutDir>
+    <IntDir>..\..\..\..\vs2015\obj\x64\Release\emu\</IntDir>
+    <TargetName>emu</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\emu;..\..\..\..\generated\emu\layout;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\lua\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_APIINTCASTS;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)emu.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_APIINTCASTS;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\emu;..\..\..\..\generated\emu\layout;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\lua\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)emu.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX86</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\emu;..\..\..\..\generated\emu\layout;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\lua\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_APIINTCASTS;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)emu.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_APIINTCASTS;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\emu;..\..\..\..\generated\emu\layout;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\lua\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)emu.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX64</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\emu;..\..\..\..\generated\emu\layout;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\lua\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_APIINTCASTS;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_APIINTCASTS;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\emu;..\..\..\..\generated\emu\layout;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\lua\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)emu.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX86</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\emu;..\..\..\..\generated\emu\layout;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\lua\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_APIINTCASTS;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_APIINTCASTS;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\emu;..\..\..\..\generated\emu\layout;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\lua\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)emu.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX64</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\src\emu\emu.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\gamedrv.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\hashfile.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\addrmap.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\attotime.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\audit.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\cheat.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\clifront.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\cliopts.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\config.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\crsshair.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\debugger.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\devdelegate.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\devcb.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\devcpu.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\devfind.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\device.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\didisasm.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\diexec.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\digfx.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\diimage.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\dimemory.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\dinetwork.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\dinvram.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\dioutput.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\dipty.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\dirtc.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\diserial.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\dislot.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\disound.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\dispatch.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\distate.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\divideo.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\drawgfx.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\drawgfxm.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\driver.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\drivenum.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\emualloc.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\emucore.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\emuopts.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\emupal.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\fileio.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\hash.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\image.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\info.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\input.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ioport.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\inpttype.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\luaengine.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\mame.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\machine.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\mconfig.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\memarray.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\memory.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\network.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\parameters.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\output.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\render.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\rendfont.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\rendlay.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\rendutil.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\romload.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\save.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\schedule.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\screen.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\softlist.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\sound.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\speaker.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\sprite.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\tilemap.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\timer.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\uiinput.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ui\ui.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ui\devctrl.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ui\menu.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ui\mainmenu.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ui\miscmenu.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ui\barcode.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ui\cheatopt.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ui\devopt.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ui\filemngr.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ui\filesel.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ui\imgcntrl.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ui\info.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ui\info_pty.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ui\inputmap.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ui\selgame.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ui\sliders.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ui\slotopt.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ui\swlist.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ui\tapectrl.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ui\videoopt.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\ui\viewgfx.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\validity.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\video.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\debug\debugcmd.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\debug\debugcon.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\debug\debugcpu.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\debug\debughlp.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\debug\debugvw.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\debug\dvdisasm.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\debug\dvmemory.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\debug\dvbpoints.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\debug\dvwpoints.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\debug\dvstate.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\debug\dvtext.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\debug\express.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\debug\textbuf.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\profiler.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\sound\filter.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\flt_vol.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\flt_rc.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\sound\wavwrite.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\samples.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\drivers\xtal.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\bcreader.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\buffer.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\clock.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\machine\generic.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\keyboard.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\laserdsc.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\latch.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\nvram.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\ram.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\legscsi.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\terminal.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\bitbngr.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\cassette.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\chd_cd.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\diablo.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\flopdrv.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\floppy.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\harddriv.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\mfmhd.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\midiin.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\midiout.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\printer.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\snapquik.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\video\generic.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\video\resnet.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\video\rgbutil.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\video\rgbgen.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\video\rgbsse.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\video\rgbvmx.h" />
+    <ClInclude Include="..\..\..\..\..\src\emu\video\vector.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\video\poly.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\src\emu\hashfile.cpp">
+      <ObjectFileName>$(IntDir)src\emu\hashfile.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\addrmap.cpp">
+      <ObjectFileName>$(IntDir)src\emu\addrmap.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\attotime.cpp">
+      <ObjectFileName>$(IntDir)src\emu\attotime.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\audit.cpp">
+      <ObjectFileName>$(IntDir)src\emu\audit.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\cheat.cpp">
+      <ObjectFileName>$(IntDir)src\emu\cheat.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\clifront.cpp">
+      <ObjectFileName>$(IntDir)src\emu\clifront.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\cliopts.cpp">
+      <ObjectFileName>$(IntDir)src\emu\cliopts.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\config.cpp">
+      <ObjectFileName>$(IntDir)src\emu\config.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\crsshair.cpp">
+      <ObjectFileName>$(IntDir)src\emu\crsshair.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\debugger.cpp">
+      <ObjectFileName>$(IntDir)src\emu\debugger.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\devdelegate.cpp">
+      <ObjectFileName>$(IntDir)src\emu\devdelegate.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\devcb.cpp">
+      <ObjectFileName>$(IntDir)src\emu\devcb.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\devcpu.cpp">
+      <ObjectFileName>$(IntDir)src\emu\devcpu.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\devfind.cpp">
+      <ObjectFileName>$(IntDir)src\emu\devfind.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\device.cpp">
+      <ObjectFileName>$(IntDir)src\emu\device.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\didisasm.cpp">
+      <ObjectFileName>$(IntDir)src\emu\didisasm.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\diexec.cpp">
+      <ObjectFileName>$(IntDir)src\emu\diexec.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\digfx.cpp">
+      <ObjectFileName>$(IntDir)src\emu\digfx.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\diimage.cpp">
+      <ObjectFileName>$(IntDir)src\emu\diimage.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\dimemory.cpp">
+      <ObjectFileName>$(IntDir)src\emu\dimemory.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\dinetwork.cpp">
+      <ObjectFileName>$(IntDir)src\emu\dinetwork.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\dinvram.cpp">
+      <ObjectFileName>$(IntDir)src\emu\dinvram.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\dioutput.cpp">
+      <ObjectFileName>$(IntDir)src\emu\dioutput.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\dipty.cpp">
+      <ObjectFileName>$(IntDir)src\emu\dipty.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\dirtc.cpp">
+      <ObjectFileName>$(IntDir)src\emu\dirtc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\diserial.cpp">
+      <ObjectFileName>$(IntDir)src\emu\diserial.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\dislot.cpp">
+      <ObjectFileName>$(IntDir)src\emu\dislot.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\disound.cpp">
+      <ObjectFileName>$(IntDir)src\emu\disound.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\dispatch.cpp">
+      <ObjectFileName>$(IntDir)src\emu\dispatch.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\distate.cpp">
+      <ObjectFileName>$(IntDir)src\emu\distate.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\divideo.cpp">
+      <ObjectFileName>$(IntDir)src\emu\divideo.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\drawgfx.cpp">
+      <ObjectFileName>$(IntDir)src\emu\drawgfx.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\driver.cpp">
+      <ObjectFileName>$(IntDir)src\emu\driver.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\drivenum.cpp">
+      <ObjectFileName>$(IntDir)src\emu\drivenum.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\emualloc.cpp">
+      <ObjectFileName>$(IntDir)src\emu\emualloc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\emucore.cpp">
+      <ObjectFileName>$(IntDir)src\emu\emucore.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\emuopts.cpp">
+      <ObjectFileName>$(IntDir)src\emu\emuopts.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\emupal.cpp">
+      <ObjectFileName>$(IntDir)src\emu\emupal.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\fileio.cpp">
+      <ObjectFileName>$(IntDir)src\emu\fileio.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\hash.cpp">
+      <ObjectFileName>$(IntDir)src\emu\hash.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\image.cpp">
+      <ObjectFileName>$(IntDir)src\emu\image.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\info.cpp">
+      <ObjectFileName>$(IntDir)src\emu\info.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\input.cpp">
+      <ObjectFileName>$(IntDir)src\emu\input.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\ioport.cpp">
+      <ObjectFileName>$(IntDir)src\emu\ioport.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\luaengine.cpp">
+      <ObjectFileName>$(IntDir)src\emu\luaengine.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\mame.cpp">
+      <ObjectFileName>$(IntDir)src\emu\mame.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\machine.cpp">
+      <ObjectFileName>$(IntDir)src\emu\machine.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\mconfig.cpp">
+      <ObjectFileName>$(IntDir)src\emu\mconfig.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\memarray.cpp">
+      <ObjectFileName>$(IntDir)src\emu\memarray.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\memory.cpp">
+      <ObjectFileName>$(IntDir)src\emu\memory.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\network.cpp">
+      <ObjectFileName>$(IntDir)src\emu\network.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\parameters.cpp">
+      <ObjectFileName>$(IntDir)src\emu\parameters.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\output.cpp">
+      <ObjectFileName>$(IntDir)src\emu\output.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\render.cpp">
+      <ObjectFileName>$(IntDir)src\emu\render.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\rendfont.cpp">
+      <ObjectFileName>$(IntDir)src\emu\rendfont.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\rendlay.cpp">
+      <ObjectFileName>$(IntDir)src\emu\rendlay.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\rendutil.cpp">
+      <ObjectFileName>$(IntDir)src\emu\rendutil.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\romload.cpp">
+      <ObjectFileName>$(IntDir)src\emu\romload.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\save.cpp">
+      <ObjectFileName>$(IntDir)src\emu\save.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\schedule.cpp">
+      <ObjectFileName>$(IntDir)src\emu\schedule.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\screen.cpp">
+      <ObjectFileName>$(IntDir)src\emu\screen.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\softlist.cpp">
+      <ObjectFileName>$(IntDir)src\emu\softlist.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\sound.cpp">
+      <ObjectFileName>$(IntDir)src\emu\sound.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\speaker.cpp">
+      <ObjectFileName>$(IntDir)src\emu\speaker.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\sprite.cpp">
+      <ObjectFileName>$(IntDir)src\emu\sprite.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\tilemap.cpp">
+      <ObjectFileName>$(IntDir)src\emu\tilemap.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\timer.cpp">
+      <ObjectFileName>$(IntDir)src\emu\timer.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\uiinput.cpp">
+      <ObjectFileName>$(IntDir)src\emu\uiinput.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\ui\ui.cpp">
+      <ObjectFileName>$(IntDir)src\emu\ui\ui.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\ui\menu.cpp">
+      <ObjectFileName>$(IntDir)src\emu\ui\menu.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\ui\mainmenu.cpp">
+      <ObjectFileName>$(IntDir)src\emu\ui\mainmenu.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\ui\miscmenu.cpp">
+      <ObjectFileName>$(IntDir)src\emu\ui\miscmenu.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\ui\barcode.cpp">
+      <ObjectFileName>$(IntDir)src\emu\ui\barcode.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\ui\cheatopt.cpp">
+      <ObjectFileName>$(IntDir)src\emu\ui\cheatopt.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\ui\devopt.cpp">
+      <ObjectFileName>$(IntDir)src\emu\ui\devopt.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\ui\filemngr.cpp">
+      <ObjectFileName>$(IntDir)src\emu\ui\filemngr.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\ui\filesel.cpp">
+      <ObjectFileName>$(IntDir)src\emu\ui\filesel.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\ui\imgcntrl.cpp">
+      <ObjectFileName>$(IntDir)src\emu\ui\imgcntrl.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\ui\info.cpp">
+      <ObjectFileName>$(IntDir)src\emu\ui\info.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\ui\info_pty.cpp">
+      <ObjectFileName>$(IntDir)src\emu\ui\info_pty.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\ui\inputmap.cpp">
+      <ObjectFileName>$(IntDir)src\emu\ui\inputmap.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\ui\selgame.cpp">
+      <ObjectFileName>$(IntDir)src\emu\ui\selgame.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\ui\sliders.cpp">
+      <ObjectFileName>$(IntDir)src\emu\ui\sliders.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\ui\slotopt.cpp">
+      <ObjectFileName>$(IntDir)src\emu\ui\slotopt.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\ui\swlist.cpp">
+      <ObjectFileName>$(IntDir)src\emu\ui\swlist.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\ui\tapectrl.cpp">
+      <ObjectFileName>$(IntDir)src\emu\ui\tapectrl.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\ui\videoopt.cpp">
+      <ObjectFileName>$(IntDir)src\emu\ui\videoopt.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\ui\viewgfx.cpp">
+      <ObjectFileName>$(IntDir)src\emu\ui\viewgfx.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\validity.cpp">
+      <ObjectFileName>$(IntDir)src\emu\validity.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\video.cpp">
+      <ObjectFileName>$(IntDir)src\emu\video.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\debug\debugcmd.cpp">
+      <ObjectFileName>$(IntDir)src\emu\debug\debugcmd.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\debug\debugcon.cpp">
+      <ObjectFileName>$(IntDir)src\emu\debug\debugcon.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\debug\debugcpu.cpp">
+      <ObjectFileName>$(IntDir)src\emu\debug\debugcpu.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\debug\debughlp.cpp">
+      <ObjectFileName>$(IntDir)src\emu\debug\debughlp.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\debug\debugvw.cpp">
+      <ObjectFileName>$(IntDir)src\emu\debug\debugvw.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\debug\dvdisasm.cpp">
+      <ObjectFileName>$(IntDir)src\emu\debug\dvdisasm.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\debug\dvmemory.cpp">
+      <ObjectFileName>$(IntDir)src\emu\debug\dvmemory.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\debug\dvbpoints.cpp">
+      <ObjectFileName>$(IntDir)src\emu\debug\dvbpoints.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\debug\dvwpoints.cpp">
+      <ObjectFileName>$(IntDir)src\emu\debug\dvwpoints.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\debug\dvstate.cpp">
+      <ObjectFileName>$(IntDir)src\emu\debug\dvstate.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\debug\dvtext.cpp">
+      <ObjectFileName>$(IntDir)src\emu\debug\dvtext.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\debug\express.cpp">
+      <ObjectFileName>$(IntDir)src\emu\debug\express.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\debug\textbuf.cpp">
+      <ObjectFileName>$(IntDir)src\emu\debug\textbuf.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\profiler.cpp">
+      <ObjectFileName>$(IntDir)src\emu\profiler.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\sound\filter.cpp">
+      <ObjectFileName>$(IntDir)src\emu\sound\filter.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\flt_vol.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\flt_vol.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\flt_rc.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\flt_rc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\sound\wavwrite.cpp">
+      <ObjectFileName>$(IntDir)src\emu\sound\wavwrite.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\samples.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\samples.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\drivers\empty.cpp">
+      <ObjectFileName>$(IntDir)src\emu\drivers\empty.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\drivers\testcpu.cpp">
+      <ObjectFileName>$(IntDir)src\emu\drivers\testcpu.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\bcreader.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\bcreader.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\buffer.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\buffer.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\clock.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\clock.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\machine\generic.cpp">
+      <ObjectFileName>$(IntDir)src\emu\machine\generic.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\keyboard.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\keyboard.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\laserdsc.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\laserdsc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\latch.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\latch.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\nvram.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\nvram.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\ram.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\ram.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\legscsi.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\legscsi.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\terminal.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\terminal.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\bitbngr.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\bitbngr.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\cassette.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\cassette.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\chd_cd.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\chd_cd.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\diablo.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\diablo.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\flopdrv.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\flopdrv.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\floppy.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\floppy.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\harddriv.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\harddriv.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\mfmhd.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\mfmhd.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\midiin.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\midiin.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\midiout.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\midiout.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\printer.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\printer.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\snapquik.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\snapquik.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\video\generic.cpp">
+      <ObjectFileName>$(IntDir)src\emu\video\generic.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\video\resnet.cpp">
+      <ObjectFileName>$(IntDir)src\emu\video\resnet.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\video\rgbgen.cpp">
+      <ObjectFileName>$(IntDir)src\emu\video\rgbgen.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\video\rgbsse.cpp">
+      <ObjectFileName>$(IntDir)src\emu\video\rgbsse.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\video\rgbvmx.cpp">
+      <ObjectFileName>$(IntDir)src\emu\video\rgbvmx.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\emu\video\vector.cpp">
+      <ObjectFileName>$(IntDir)src\emu\video\vector.obj</ObjectFileName>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\..\src\emu\rendersw.inc" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\..\..\src\emu\layout\lcd_rot.lay">
+      <FileType>Text</FileType>
+      <Command>@echo Converting src/emu/layout/lcd_rot.lay...
+python ../../../../../scripts/build/file2str.py  ../../../../../src/emu/layout/lcd_rot.lay  ../../../../generated/emu/layout/lcd_rot.lh  layout_lcd_rot
+</Command>
+      <Outputs>../../../../generated/emu/layout/lcd_rot.lh;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\emu\layout\quadhsxs.lay">
+      <FileType>Text</FileType>
+      <Command>@echo Converting src/emu/layout/quadhsxs.lay...
+python ../../../../../scripts/build/file2str.py  ../../../../../src/emu/layout/quadhsxs.lay  ../../../../generated/emu/layout/quadhsxs.lh  layout_quadhsxs
+</Command>
+      <Outputs>../../../../generated/emu/layout/quadhsxs.lh;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\emu\layout\dualhsxs.lay">
+      <FileType>Text</FileType>
+      <Command>@echo Converting src/emu/layout/dualhsxs.lay...
+python ../../../../../scripts/build/file2str.py  ../../../../../src/emu/layout/dualhsxs.lay  ../../../../generated/emu/layout/dualhsxs.lh  layout_dualhsxs
+</Command>
+      <Outputs>../../../../generated/emu/layout/dualhsxs.lh;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\emu\layout\horizont.lay">
+      <FileType>Text</FileType>
+      <Command>@echo Converting src/emu/layout/horizont.lay...
+python ../../../../../scripts/build/file2str.py  ../../../../../src/emu/layout/horizont.lay  ../../../../generated/emu/layout/horizont.lh  layout_horizont
+</Command>
+      <Outputs>../../../../generated/emu/layout/horizont.lh;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\emu\layout\triphsxs.lay">
+      <FileType>Text</FileType>
+      <Command>@echo Converting src/emu/layout/triphsxs.lay...
+python ../../../../../scripts/build/file2str.py  ../../../../../src/emu/layout/triphsxs.lay  ../../../../generated/emu/layout/triphsxs.lh  layout_triphsxs
+</Command>
+      <Outputs>../../../../generated/emu/layout/triphsxs.lh;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\emu\layout\dualhuov.lay">
+      <FileType>Text</FileType>
+      <Command>@echo Converting src/emu/layout/dualhuov.lay...
+python ../../../../../scripts/build/file2str.py  ../../../../../src/emu/layout/dualhuov.lay  ../../../../generated/emu/layout/dualhuov.lh  layout_dualhuov
+</Command>
+      <Outputs>../../../../generated/emu/layout/dualhuov.lh;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\emu\layout\snap.lay">
+      <FileType>Text</FileType>
+      <Command>@echo Converting src/emu/layout/snap.lay...
+python ../../../../../scripts/build/file2str.py  ../../../../../src/emu/layout/snap.lay  ../../../../generated/emu/layout/snap.lh  layout_snap
+</Command>
+      <Outputs>../../../../generated/emu/layout/snap.lh;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\emu\layout\vertical.lay">
+      <FileType>Text</FileType>
+      <Command>@echo Converting src/emu/layout/vertical.lay...
+python ../../../../../scripts/build/file2str.py  ../../../../../src/emu/layout/vertical.lay  ../../../../generated/emu/layout/vertical.lh  layout_vertical
+</Command>
+      <Outputs>../../../../generated/emu/layout/vertical.lh;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\emu\layout\noscreens.lay">
+      <FileType>Text</FileType>
+      <Command>@echo Converting src/emu/layout/noscreens.lay...
+python ../../../../../scripts/build/file2str.py  ../../../../../src/emu/layout/noscreens.lay  ../../../../generated/emu/layout/noscreens.lh  layout_noscreens
+</Command>
+      <Outputs>../../../../generated/emu/layout/noscreens.lh;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\emu\uismall.png">
+      <FileType>Text</FileType>
+      <Command>@echo Converting uismall.png...
+python ../../../../../scripts/build/png2bdc.py  ../../../../../src/emu/uismall.png  temp.bdc
+python ../../../../../scripts/build/file2str.py  temp.bdc ../../../../generated/emu/uismall.fh  font_uismall UINT8
+</Command>
+      <Outputs>../../../../generated/emu/uismall.fh;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\emu\layout\dualhovu.lay">
+      <FileType>Text</FileType>
+      <Command>@echo Converting src/emu/layout/dualhovu.lay...
+python ../../../../../scripts/build/file2str.py  ../../../../../src/emu/layout/dualhovu.lay  ../../../../generated/emu/layout/dualhovu.lh  layout_dualhovu
+</Command>
+      <Outputs>../../../../generated/emu/layout/dualhovu.lh;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\emu\layout\lcd.lay">
+      <FileType>Text</FileType>
+      <Command>@echo Converting src/emu/layout/lcd.lay...
+python ../../../../../scripts/build/file2str.py  ../../../../../src/emu/layout/lcd.lay  ../../../../generated/emu/layout/lcd.lh  layout_lcd
+</Command>
+      <Outputs>../../../../generated/emu/layout/lcd.lh;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
