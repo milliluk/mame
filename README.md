@@ -1,76 +1,71 @@
+# MAME
 
-# **MAME** #
+This is the MILLILUK fork of MAME -- the Multiple Arcade Machine Emulator.
 
-[![Build Status](https://travis-ci.org/mamedev/mame.svg)](https://travis-ci.org/mamedev/mame) [![Build status](https://ci.appveyor.com/api/projects/status/te0qy56b72tp5kmo?svg=true)](https://ci.appveyor.com/project/startaq/mame) [![Join the chat at https://gitter.im/mamedev/mame](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mamedev/mame?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+You probably want the official version:  
+Please visit <https://github.com/mamedev/mame>.
 
-What is MAME?
-=============
+Project goals:
 
-MAME stands for Multiple Arcade Machine Emulator.
+* hackishly provide an improved development environment for the TRS-80 CoCo and its relatives (MC-10, Dragon, etc.)
+* cleanly provide ideas for possible inclusion in MAME
 
-MAME's purpose is to preserve decades of video-game history. As gaming technology continues to rush forward, MAME prevents these important "vintage" games from being lost and forgotten. This is achieved by documenting the hardware and how it functions. The source code to MAME serves as this documentation. The fact that the games are playable serves primarily to validate the accuracy of the documentation (how else can you prove that you have recreated the hardware faithfully?).
+### Changelog
 
+#### 0.167 M1 
+* Enable GIME to set screen height in legacy graphics modes (Robert Gault bug report)
 
-What is MESS?
-=============
+#### 0.166 M1 
+* Add more accurate CoCo 3 composite palette and support for phase invert
+* Improve 6309 register display in the debugger
+* Add LOG (0x103E) and BREAK (0x113E) support to 6809/6309
+[inspired by Tim Lindner's EMUBRK]
+* Add DEBUGCONTROL port and frame and cycle counts
+* Do not break into MAME debugger on launch (use ~)
+* Improved mouse cursor hiding on Windows
+* Optionally enable old Western Digital floppy code (less accurate but much faster)
+* Build a subset of CoCo-related drivers as "mametiny"
+* Include Visual Studio build files: /build/projects/windows/mametiny/vs2015/mametiny.sln
 
-MESS (Multi Emulator Super System) is the sister project of MAME. MESS documents the hardware for a wide variety of (mostly vintage) computers, video game consoles, and calculators, as MAME does for arcade games.
+#### Fake Opcodes
 
-The MESS and MAME projects live in the same source repository and share much of the same code, but are different build targets.
+BREAK - breaks into the MAME debugger  
+LOG - writes printf-style output to the MAME debug window
 
+          LOG
+          FDB   FSTR
+          FDB   X1
+          FDB   Y1
+          FDB   X2
+          FDB   Y2
 
-License
-=======
+    ; execution continues here
 
-MAME is in the process of becoming a Free and Open Source project. We are still in the process of contacting all developers who have contributed in the past. We have received approval for the vast majority of contributions.
+          RTS
 
-Going forward, we will be using the 3-Clause BSD license for the core, and the LGPL version 2.1 or later, and the GPL version 2.0 or later, for certain drivers. As a whole, MAME will be delivered under the GPL version 2.0 or later.
-As we are still contacting developers, MAME is still distributed under the [MAME license](docs/mamelicense.txt) as of this time. If you have not been contacted yet, and believe you have contributed code to MAME in the past, please [contact us](mailto:mamedev@mamedev.org).
+    ; format string
+    FSTR  FCC   "%hu,%hhu - %hu,%hhu"
+          FCB   10,0
 
-How to compile?
-=============
+#### Additional timing support
 
-If you're on a *nix system, it could be as easy as typing
+    ADDRESS    NAME            READ    WRITE
 
-```
-make
-```
+    FF04       DEBUGCONTROL    N/A     Bit 0: Set to '1' causes the System Cycle Count at $FF05 to be snapshot.
+                               N/A     Bit 1: Set to '1' causes the video Frame count at $FF09 to be snapshot.
+                               N/A     Bit 2...7: N/A
 
-for a MAME build,
+    FF05-FF08  CYCLECOUNT      When read, the values between $FF05 and $FF08 represent a snapshot of the system's 
+                               internal cycle counter. The snapshot occurs when the appropriate write is made to 
+                               the control register at $FF04. The most significant byte begins at $FF05, the 
+                               least significant byte of the 32-bit value is at $FF08.
 
-```
-make SUBTARGET=arcade
-```
+    FF09-FF0C  FRAMECOUNT      When read, the values between $FF09 and $FF0B represent a snapshot of the system's
+                               video frame counter. The snapshot occurs when the appropriate write is made to the
+                               control register at $FF04. The most significant byte begins at $FF09, the least
+                               significant byte of the 32-bit value is at $FF0C.
 
-for an arcade-only build, or
+### License
 
-```
-make SUBTARGET=mess
-```
-
-for a MESS build (provided you have all the [prerequisites](http://forums.bannister.org/ubbthreads.php?ubb=showflat&Number=35138)).
-
-For Windows users, we provide a ready-made [build environment](http://mamedev.org/tools/) based on MinGW-w64. [Visual Studio builds](http://wiki.mamedev.org/index.php?title=Building_MAME_using_Microsoft_Visual_Studio_compilers) are also possible.
-
-
-
-
-Where can I find out more?
-=============
-
-* [Official MAME Development Team Site](http://mamedev.org/) (includes binary downloads for MAME and MESS, wiki, forums, and more)
-* [Official MESS Wiki](http://www.mess.org/)
-* [MAME Testers](http://mametesters.org/) (official bug tracker for MAME and MESS)
-
-
-Contributing
-=============
-
-## Coding standard
-
-MAME source code should be viewed and edited with your editor set to use four spaces per tab. Tabs are used for initial indentation of lines, with one tab used per indentation level. Spaces are used for other alignment within a line.
-
-Some parts of the code follow [GNU style](http://www.gnu.org/prep/standards/html_node/Formatting.html); some parts of the code follow [K&R style](https://en.wikipedia.org/wiki/Indent_style#K.26R_style) -- mostly depending on who wrote the original version. **Above all else, be consistent with what you modify, and keep whitespace changes to a minimum when modifying existing source.** For new code, the majority tends to prefer GNU style, so if you don't care much, use that.
-
-All contributors need to either add standard header for license info (on new files) or send us their wish under which of licenses they would like their code to be published under :[BSD-3-Clause](http://spdx.org/licenses/BSD-3-Clause), or for new files in mame/ or mess/, either the [BSD-3-Clause](http://spdx.org/licenses/BSD-3-Clause) license, the [LGPL-2.1+](http://spdx.org/licenses/LGPL-2.1+), or the [GPL-2.0+](http://spdx.org/licenses/GPL-2.0+).
+All modifications are licensed under the [BSD 3 Clause license](http://opensource.org/licenses/BSD-3-Clause).
 
