@@ -385,6 +385,11 @@ const options_entry windows_options::s_option_entries[] =
 //  utf8_main
 //============================================================
 
+#ifdef _MSC_VER
+// get rid of the extra console window
+#pragma comment(linker, "/subsystem:windows")
+#endif
+
 int main(int argc, char *argv[])
 {
 	// use small output buffers on non-TTYs (i.e. pipes)
