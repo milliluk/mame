@@ -17,7 +17,7 @@
 # NOWERROR = 1
 
 # TARGET = mame
-# SUBTARGET = tiny
+SUBTARGET = tiny
 # TOOLS = 1
 # TESTS = 1
 # OSD = sdl

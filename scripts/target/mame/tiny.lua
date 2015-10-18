@@ -16,58 +16,41 @@
 -- drivers referenced in tiny.lst.
 --------------------------------------------------
 
-CPUS["Z80"] = true
-CPUS["M6502"] = true
-CPUS["MCS48"] = true
-CPUS["MCS51"] = true
-CPUS["M6800"] = true
 CPUS["M6809"] = true
-CPUS["M680X0"] = true
-CPUS["TMS9900"] = true
-CPUS["COP400"] = true
+CPUS["M6800"] = true
 
 --------------------------------------------------
 -- Specify all the sound cores necessary for the
 -- drivers referenced in tiny.lst.
 --------------------------------------------------
 
-SOUNDS["SAMPLES"] = true
 SOUNDS["DAC"] = true
-SOUNDS["DISCRETE"] = true
+SOUNDS["WAVE"] = true
 SOUNDS["AY8910"] = true
-SOUNDS["YM2151"] = true
-SOUNDS["ASTROCADE"] = true
-SOUNDS["TMS5220"] = true
-SOUNDS["OKIM6295"] = true
-SOUNDS["HC55516"] = true
-SOUNDS["YM3812"] = true
-SOUNDS["CEM3394"] = true
-SOUNDS["VOTRAX"] = true
 
 --------------------------------------------------
 -- specify available video cores
 --------------------------------------------------
 
+VIDEOS["MC6847"] = true
+VIDEOS["EF9345"] = true
+VIDEOS["MC6845"] = true
+
 --------------------------------------------------
 -- specify available machine cores
 --------------------------------------------------
 
+MACHINES["DS1315"] = true
+MACHINES["MOS6551"] = true
 MACHINES["6821PIA"] = true
-MACHINES["TTL74148"] = true
-MACHINES["TTL74153"] = true
-MACHINES["TTL7474"] = true
-MACHINES["RIOT6532"] = true
-MACHINES["PIT8253"] = true
-MACHINES["Z80CTC"] = true
-MACHINES["68681"] = true
-MACHINES["BANKDEV"] = true
-
+MACHINES["MSM6242"] = true
 
 --------------------------------------------------
 -- specify available bus cores
 --------------------------------------------------
 
-BUSES["CENTRONICS"] = true
+BUSES["COCO"] = true
+BUSES["RS232"] = true
 
 --------------------------------------------------
 -- This is the list of files that are necessary
@@ -91,63 +74,32 @@ function createProjects_mame_tiny(_target, _subtarget)
 		MAME_DIR .. "src/lib/util",
 		MAME_DIR .. "3rdparty",
 		GEN_DIR  .. "mame/layout",
+		MAME_DIR .. "src/tools/imgtool/",
 	}
 
-files{
-	MAME_DIR .. "src/mame/machine/ticket.cpp",
-	MAME_DIR .. "src/mame/machine/ticket.h",
-	MAME_DIR .. "src/mame/drivers/carpolo.cpp",
-	MAME_DIR .. "src/mame/includes/carpolo.h",
-	MAME_DIR .. "src/mame/machine/carpolo.cpp",
-	MAME_DIR .. "src/mame/video/carpolo.cpp",
-	MAME_DIR .. "src/mame/drivers/circus.cpp",
-	MAME_DIR .. "src/mame/includes/circus.h",
-	MAME_DIR .. "src/mame/audio/circus.cpp",
-	MAME_DIR .. "src/mame/video/circus.cpp",
-	MAME_DIR .. "src/mame/drivers/exidy.cpp",
-	MAME_DIR .. "src/mame/includes/exidy.h",
-	MAME_DIR .. "src/mame/audio/exidy.cpp",
-	MAME_DIR .. "src/mame/audio/exidy.h",
-	MAME_DIR .. "src/mame/video/exidy.cpp",
-	MAME_DIR .. "src/mame/audio/exidy440.cpp",
-	MAME_DIR .. "src/mame/audio/exidy440.h",
-	MAME_DIR .. "src/mame/drivers/starfire.cpp",
-	MAME_DIR .. "src/mame/includes/starfire.h",
-	MAME_DIR .. "src/mame/video/starfire.cpp",
-	MAME_DIR .. "src/mame/drivers/vertigo.cpp",
-	MAME_DIR .. "src/mame/includes/vertigo.h",
-	MAME_DIR .. "src/mame/machine/vertigo.cpp",
-	MAME_DIR .. "src/mame/video/vertigo.cpp",
-	MAME_DIR .. "src/mame/drivers/victory.cpp",
-	MAME_DIR .. "src/mame/includes/victory.h",
-	MAME_DIR .. "src/mame/video/victory.cpp",
-	MAME_DIR .. "src/mame/audio/targ.cpp",
-	MAME_DIR .. "src/mame/drivers/astrocde.cpp",
-	MAME_DIR .. "src/mame/includes/astrocde.h",
-	MAME_DIR .. "src/mame/video/astrocde.cpp",
-	MAME_DIR .. "src/mame/drivers/gridlee.cpp",
-	MAME_DIR .. "src/mame/includes/gridlee.h",
-	MAME_DIR .. "src/mame/audio/gridlee.cpp",
-	MAME_DIR .. "src/mame/video/gridlee.cpp",
-	MAME_DIR .. "src/mame/drivers/williams.cpp",
-	MAME_DIR .. "src/mame/includes/williams.h",
-	MAME_DIR .. "src/mame/machine/williams.cpp",
-	MAME_DIR .. "src/mame/audio/williams.cpp",
-	MAME_DIR .. "src/mame/audio/williams.h",
-	MAME_DIR .. "src/mame/video/williams.cpp",
-	MAME_DIR .. "src/mame/audio/gorf.cpp",
-	MAME_DIR .. "src/mame/audio/wow.cpp",
-	MAME_DIR .. "src/mame/drivers/gaelco.cpp",
-	MAME_DIR .. "src/mame/includes/gaelco.h",
-	MAME_DIR .. "src/mame/video/gaelco.cpp",
-	MAME_DIR .. "src/mame/machine/gaelcrpt.cpp",
-	MAME_DIR .. "src/mame/drivers/wrally.cpp",
-	MAME_DIR .. "src/mame/includes/wrally.h",
-	MAME_DIR .. "src/mame/machine/wrally.cpp",
-	MAME_DIR .. "src/mame/video/wrally.cpp",
-	MAME_DIR .. "src/mame/drivers/looping.cpp",
-	MAME_DIR .. "src/mame/drivers/supertnk.cpp",
-}
+	files{
+		MAME_DIR .. "src/mame/drivers/coco12.cpp",    
+		MAME_DIR .. "src/mame/drivers/coco3.cpp",     
+		MAME_DIR .. "src/mame/drivers/dragon.cpp",    
+		MAME_DIR .. "src/mame/drivers/mc10.cpp",      
+		MAME_DIR .. "src/mame/machine/6883sam.cpp",   
+		MAME_DIR .. "src/mame/machine/coco.cpp",      
+		MAME_DIR .. "src/mame/machine/coco12.cpp",    
+		MAME_DIR .. "src/mame/machine/coco3.cpp",     
+		MAME_DIR .. "src/mame/machine/coco_vhd.cpp",  
+		MAME_DIR .. "src/mame/machine/dragon.cpp",    
+		MAME_DIR .. "src/mame/machine/dgnalpha.cpp",  
+		MAME_DIR .. "src/mame/video/gime.cpp",
+		MAME_DIR .. "src/devices/machine/wd17xx.cpp",
+		MAME_DIR .. "src/devices/machine/wd_fdc.cpp",
+		MAME_DIR .. "src/devices/machine/fdc_pll.cpp",
+		MAME_DIR .. "src/tools/imgtool/formats/coco_dsk.cpp",
+		MAME_DIR .. "src/devices/cpu/m6809/formatter.cpp",
+
+		MAME_DIR .. "src/mame/drivers/dgn_beta.cpp",
+		MAME_DIR .. "src/mame/machine/dgn_beta.cpp",
+		MAME_DIR .. "src/mame/video/dgn_beta.cpp", 
+	}
 end
 
 function linkProjects_mame_tiny(_target, _subtarget)
