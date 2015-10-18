@@ -262,6 +262,10 @@ private:
 
 	// safety to prevent stack overflow when reading floating bus
 	bool m_in_floating_bus_read;
+
+	// Greg's wacky debug stuff
+	UINT32 m_LatchedCycleCount;
+	UINT32 m_LatchedVBlankCounter;
 };
 
 #endif // __COCO__
