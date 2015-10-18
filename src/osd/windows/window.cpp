@@ -681,6 +681,7 @@ void winwindow_update_cursor_state(running_machine &machine)
 {
 	assert(GetCurrentThreadId() == main_threadid);
 
+#if 0  // MILLILUK!
 	// If no windows, just return
 	if (osd_common_t::s_window_list.empty())
 		return;
@@ -711,6 +712,7 @@ void winwindow_update_cursor_state(running_machine &machine)
 		// allow cursor to move freely
 		window->release_pointer();
 	}
+#endif
 }
 
 
@@ -1132,6 +1134,9 @@ LRESULT CALLBACK win_window_info::video_window_proc(HWND wnd, UINT message, WPAR
 {
 	LONG_PTR ptr = GetWindowLongPtr(wnd, GWLP_USERDATA);
 	win_window_info *window = (win_window_info *)ptr;
+	static HCURSOR milliluk_cursor = NULL;
+
+	if (milliluk_cursor == NULL) milliluk_cursor = LoadCursor(NULL, IDC_ARROW);
 
 	// we may get called before SetWindowLongPtr is called
 	if (window != nullptr)
@@ -1143,6 +1148,13 @@ LRESULT CALLBACK win_window_info::video_window_proc(HWND wnd, UINT message, WPAR
 	// handle a few messages
 	switch (message)
 	{
+		case WM_SETCURSOR: // milliluk!
+			if (LOWORD(lparam) == HTCLIENT)
+				SetCursor(NULL);
+			else
+				SetCursor(milliluk_cursor);
+			return TRUE;
+
 		// paint: redraw the last bitmap
 		case WM_PAINT:
 		{
