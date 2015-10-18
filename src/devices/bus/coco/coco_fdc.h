@@ -9,8 +9,11 @@
 #include "cococart.h"
 #include "machine/msm6242.h"
 #include "machine/ds1315.h"
+#ifdef NEW_FDC
 #include "machine/wd_fdc.h"
-
+#else
+#include "machine/wd17xx.h"
+#endif
 
 //**************************************************************************
 //  TYPE DEFINITIONS
@@ -37,7 +40,9 @@ public:
 		coco_fdc_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
 		coco_fdc_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
 
+#ifdef NEW_FDC
 		DECLARE_FLOPPY_FORMATS(floppy_formats);
+#endif
 
 		// optional information overrides
 		virtual machine_config_constructor device_mconfig_additions() const override;
@@ -68,14 +73,26 @@ protected:
 		UINT8 m_drq : 1;
 		UINT8 m_intrq : 1;
 
+#ifdef NEW_FDC
 		optional_device<wd1773_t> m_wd17xx;              /* WD17xx */
 		optional_device<wd2797_t> m_wd2797;              /* WD2797 */
+#else
+		optional_device<wd1773_device> m_wd17xx;              /* WD17xx */
+		optional_device<wd2797_device> m_wd2797;              /* WD2797 */
+
+#endif
 		optional_device<ds1315_device> m_ds1315;         /* DS1315 */
 
 		/* Disto RTC */
 		optional_device<msm6242_device> m_disto_msm6242;        /* 6242 RTC on Disto interface */
 
 		offs_t m_msm6242_rtc_address;
+private:
+		void start_throttle();
+		void end_throttle();
+
+		bool m_throttle_disk_io;
+		bool m_throttle_save;
 };
 
 

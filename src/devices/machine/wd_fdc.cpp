@@ -4,12 +4,12 @@
 
 #include "debugger.h"
 
+#if 0 // milliluk
 const device_type FD1771 = &device_creator<fd1771_t>;
 const device_type FD1781 = &device_creator<fd1781_t>;
 const device_type FD1791 = &device_creator<fd1791_t>;
 const device_type FD1792 = &device_creator<fd1792_t>;
 const device_type FD1793 = &device_creator<fd1793_t>;
-const device_type KR1818VG93 = &device_creator<kr1818vg93_t>;
 const device_type FD1794 = &device_creator<fd1794_t>;
 const device_type FD1795 = &device_creator<fd1795_t>;
 const device_type FD1797 = &device_creator<fd1797_t>;
@@ -27,6 +27,10 @@ const device_type WD2797 = &device_creator<wd2797_t>;
 const device_type WD1770 = &device_creator<wd1770_t>;
 const device_type WD1772 = &device_creator<wd1772_t>;
 const device_type WD1773 = &device_creator<wd1773_t>;
+#endif
+
+const device_type KR1818VG93 = &device_creator<kr1818vg93_t>;
+
 
 /*
     Debugging flags. Set to 0 or 1.

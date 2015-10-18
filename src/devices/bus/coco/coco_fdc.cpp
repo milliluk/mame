@@ -73,9 +73,14 @@
 #include "imagedev/flopdrv.h"
 #include "includes/coco.h"
 #include "imagedev/flopdrv.h"
+#ifdef NEW_FDC
 #include "formats/dmk_dsk.h"
 #include "formats/jvc_dsk.h"
 #include "formats/vdk_dsk.h"
+#else
+#include "formats/flopimg.h"
+#include "../tools/imgtool/formats/coco_dsk.h"
+#endif
 
 
 /***************************************************************************
@@ -96,16 +101,23 @@
     LOCAL VARIABLES
 ***************************************************************************/
 
+#ifdef NEW_FDC
 FLOPPY_FORMATS_MEMBER( coco_fdc_device::floppy_formats )
 	FLOPPY_DMK_FORMAT,
 	FLOPPY_JVC_FORMAT,
 	FLOPPY_VDK_FORMAT
 FLOPPY_FORMATS_END
-
-static SLOT_INTERFACE_START( coco_fdc_floppies )
-	SLOT_INTERFACE("qd", FLOPPY_525_QD)
+static SLOT_INTERFACE_START(coco_fdc_floppies)
+SLOT_INTERFACE("qd", FLOPPY_525_QD)
 SLOT_INTERFACE_END
-
+#else
+static const floppy_interface coco_floppy_interface =
+{
+	FLOPPY_STANDARD_5_25_DSHD,
+	LEGACY_FLOPPY_OPTIONS_NAME(coco),
+	"floppy_5_25"
+};
+#endif
 
 /***************************************************************************
     IMPLEMENTATION
@@ -154,6 +166,7 @@ WRITE_LINE_MEMBER( coco_fdc_device::fdc_drq_w )
 //**************************************************************************
 
 static MACHINE_CONFIG_FRAGMENT(coco_fdc)
+#ifdef NEW_FDC
 	MCFG_WD1773_ADD(WD_TAG, XTAL_8MHz)
 	MCFG_WD_FDC_INTRQ_CALLBACK(WRITELINE(coco_fdc_device, fdc_intrq_w))
 	MCFG_WD_FDC_DRQ_CALLBACK(WRITELINE(coco_fdc_device, fdc_drq_w))
@@ -162,7 +175,13 @@ static MACHINE_CONFIG_FRAGMENT(coco_fdc)
 	MCFG_FLOPPY_DRIVE_ADD(WD_TAG ":1", coco_fdc_floppies, "qd", coco_fdc_device::floppy_formats)
 	MCFG_FLOPPY_DRIVE_ADD(WD_TAG ":2", coco_fdc_floppies, "", coco_fdc_device::floppy_formats)
 	MCFG_FLOPPY_DRIVE_ADD(WD_TAG ":3", coco_fdc_floppies, "", coco_fdc_device::floppy_formats)
-
+#else
+	MCFG_DEVICE_ADD(WD_TAG, WD1773, 0)
+	MCFG_WD17XX_DEFAULT_DRIVE4_TAGS
+	MCFG_WD17XX_INTRQ_CALLBACK(WRITELINE(coco_fdc_device, fdc_intrq_w))
+	MCFG_WD17XX_DRQ_CALLBACK(WRITELINE(coco_fdc_device, fdc_drq_w))
+	MCFG_LEGACY_FLOPPY_4_DRIVES_ADD(coco_floppy_interface)
+#endif
 	MCFG_DEVICE_ADD(DISTO_TAG, MSM6242, XTAL_32_768kHz)
 	MCFG_DS1315_ADD(CLOUD9_TAG)
 MACHINE_CONFIG_END
@@ -183,7 +202,9 @@ coco_fdc_device::coco_fdc_device(const machine_config &mconfig, device_type type
 		m_wd17xx(*this, WD_TAG),
 		m_wd2797(*this, WD2797_TAG),
 		m_ds1315(*this, CLOUD9_TAG),
-		m_disto_msm6242(*this, DISTO_TAG), m_msm6242_rtc_address(0)
+		m_disto_msm6242(*this, DISTO_TAG), 
+		m_msm6242_rtc_address(0),
+		m_throttle_disk_io(false)
 {
 }
 
@@ -193,7 +214,8 @@ coco_fdc_device::coco_fdc_device(const machine_config &mconfig, const char *tag,
 		m_wd17xx(*this, WD_TAG),
 		m_wd2797(*this, WD2797_TAG),
 		m_ds1315(*this, CLOUD9_TAG),
-		m_disto_msm6242(*this, DISTO_TAG), m_msm6242_rtc_address(0)
+		m_disto_msm6242(*this, DISTO_TAG),
+		m_msm6242_rtc_address(0)
 	{
 }
 
@@ -298,17 +320,30 @@ void coco_fdc_device::dskreg_w(UINT8 data)
 	else if (data & 0x40)
 		drive = 3;
 
+#ifdef NEW_FDC
 	floppy_image_device *floppy[4];
 
 	floppy[0] = subdevice<floppy_connector>(WD_TAG ":0")->get_device();
 	floppy[1] = subdevice<floppy_connector>(WD_TAG ":1")->get_device();
 	floppy[2] = subdevice<floppy_connector>(WD_TAG ":2")->get_device();
 	floppy[3] = subdevice<floppy_connector>(WD_TAG ":3")->get_device();
+#else
+	legacy_floppy_image_device *floppy[4];
+
+	floppy[0] = subdevice<legacy_floppy_image_device>(FLOPPY_0);
+	floppy[1] = subdevice<legacy_floppy_image_device>(FLOPPY_1);
+	floppy[2] = subdevice<legacy_floppy_image_device>(FLOPPY_2);
+	floppy[3] = subdevice<legacy_floppy_image_device>(FLOPPY_3);
+#endif
 
 	for (int i = 0; i < 4; i++)
 	{
+#ifdef NEW_FDC
 		if (floppy[i])
 			floppy[i]->mon_w(i == drive ? CLEAR_LINE : ASSERT_LINE);
+#else
+		floppy[i]->floppy_mon_w(i == drive ? CLEAR_LINE : ASSERT_LINE);
+#endif
 	}
 
 	head = ((data & 0x40) && (drive != 3)) ? 1 : 0;
@@ -317,12 +352,34 @@ void coco_fdc_device::dskreg_w(UINT8 data)
 
 	update_lines();
 
+#ifdef NEW_FDC
 	m_wd17xx->set_floppy(floppy[drive]);
 
 	if (floppy[drive])
 		floppy[drive]->ss_w(head);
+#else
+	m_wd17xx->set_drive(drive);
+	m_wd17xx->set_side(head);
+#endif
 
 	m_wd17xx->dden_w(!BIT(m_dskreg, 5));
+}
+
+/*--------------------------------------------------
+what do we want? FAST DISK! when do we want it? NOW!
+--------------------------------------------------*/
+
+void coco_fdc_device::start_throttle()
+{
+	if (m_throttle_disk_io) return;
+	m_throttle_save = machine().video().throttled();
+	machine().video().set_throttled(false);
+}
+
+void coco_fdc_device::end_throttle()
+{
+	if (m_throttle_disk_io) return;
+	machine().video().set_throttled(m_throttle_save);
 }
 
 /*-------------------------------------------------
@@ -332,6 +389,8 @@ void coco_fdc_device::dskreg_w(UINT8 data)
 READ8_MEMBER(coco_fdc_device::read)
 {
 	UINT8 result = 0;
+
+	start_throttle();
 
 	switch(offset & 0xEF)
 	{
@@ -372,6 +431,8 @@ READ8_MEMBER(coco_fdc_device::read)
 				result = m_ds1315->read_data(space, offset);
 			break;
 	}
+
+	end_throttle();
 	return result;
 }
 
@@ -383,14 +444,20 @@ READ8_MEMBER(coco_fdc_device::read)
 
 WRITE8_MEMBER(coco_fdc_device::write)
 {
-	switch(offset & 0x1F)
+	start_throttle();
+
+	switch (offset & 0x1F)
 	{
 		case 0: case 1: case 2: case 3:
 		case 4: case 5: case 6: case 7:
 			dskreg_w(data);
 			break;
 		case 8:
+#ifdef NEW_FDC
 			m_wd17xx->cmd_w(space, 0, data);
+#else
+			m_wd17xx->command_w(space, 0, data);
+#endif
 			break;
 		case 9:
 			m_wd17xx->track_w(space, 0, data);
@@ -417,6 +484,8 @@ WRITE8_MEMBER(coco_fdc_device::write)
 				m_msm6242_rtc_address = data & 0x0f;
 			break;
 	}
+
+	end_throttle();
 }
 
 
@@ -425,12 +494,18 @@ WRITE8_MEMBER(coco_fdc_device::write)
 //**************************************************************************
 
 static MACHINE_CONFIG_FRAGMENT(dragon_fdc)
+#ifdef NEW_FDC
 	MCFG_WD2797_ADD(WD2797_TAG, XTAL_1MHz)
 
 	MCFG_FLOPPY_DRIVE_ADD(WD2797_TAG ":0", coco_fdc_floppies, "qd", coco_fdc_device::floppy_formats)
 	MCFG_FLOPPY_DRIVE_ADD(WD2797_TAG ":1", coco_fdc_floppies, "qd", coco_fdc_device::floppy_formats)
 	MCFG_FLOPPY_DRIVE_ADD(WD2797_TAG ":2", coco_fdc_floppies, "", coco_fdc_device::floppy_formats)
 	MCFG_FLOPPY_DRIVE_ADD(WD2797_TAG ":3", coco_fdc_floppies, "", coco_fdc_device::floppy_formats)
+#else
+	MCFG_DEVICE_ADD(WD2797_TAG, WD2797, 0)
+	MCFG_WD17XX_DEFAULT_DRIVE4_TAGS
+	MCFG_LEGACY_FLOPPY_4_DRIVES_ADD(coco_floppy_interface)
+#endif
 MACHINE_CONFIG_END
 
 
@@ -525,8 +600,8 @@ void dragon_fdc_device::dskreg_w(UINT8 data)
 			data);
 	}
 
+#ifdef NEW_FDC
 	floppy_image_device *floppy = nullptr;
-
 	switch (data & 0x03)
 	{
 	case 0: floppy = subdevice<floppy_connector>(WD2797_TAG ":0")->get_device(); break;
@@ -536,6 +611,10 @@ void dragon_fdc_device::dskreg_w(UINT8 data)
 	}
 
 	m_wd2797->set_floppy(floppy);
+#else
+	if (data & 0x04)
+		m_wd2797->set_drive(data & 0x03);
+#endif
 
 	m_wd2797->dden_w(BIT(data, 3));
 
@@ -580,7 +659,16 @@ WRITE8_MEMBER(dragon_fdc_device::write)
 	switch(offset & 0xEF)
 	{
 		case 0:
+#ifdef NEW_FDC
 			m_wd2797->cmd_w(space, 0, data);
+#else
+			m_wd2797->command_w(space, 0, data);
+			
+			/* disk head is encoded in the command byte */
+			/* Only for type 3 & 4 commands */
+			if (data & 0x80)
+				m_wd2797->set_side((data & 0x02) ? 1 : 0);
+#endif
 			break;
 		case 1:
 			m_wd2797->track_w(space, 0, data);
@@ -711,3 +799,4 @@ const rom_entry *cp400_fdc_device::device_rom_region() const
 {
 	return ROM_NAME( cp400_fdc );
 }
+
