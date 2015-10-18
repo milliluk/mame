@@ -81,6 +81,7 @@ March 2013 NPW:
 
 #include "emu.h"
 #include "debugger.h"
+#include "debug/debugcon.h"
 #include "m6809.h"
 #include "m6809inl.h"
 
@@ -113,12 +114,25 @@ const device_type M6809E = &device_creator<m6809e_device>;
 
 m6809_base_device::m6809_base_device(const machine_config &mconfig, const char *name, const char *tag, device_t *owner, uint32_t clock, const device_type type, int divider, const char *shortname, const char *source)
 	: cpu_device(mconfig, type, name, tag, owner, clock, shortname, source),
+    m_mintf(nullptr),
 	m_lic_func(*this),
 	m_program_config("program", ENDIANNESS_BIG, 8, 16),
 	m_sprogram_config("decrypted_opcodes", ENDIANNESS_BIG, 8, 16),
-	m_clock_divider(divider)
+	m_clock_divider(divider),
+	m_FormatLogFile(nullptr)
 {
-	m_mintf = nullptr;
+}
+
+void m6809_base_device::dbg_msg(void)
+{
+	char	b[32768];
+	m_pc.w += gsprintf(&b[0], sizeof(b), m_pc.w);
+	machine().debugger().console().printf("%s", &b[0]);
+	if (m_FormatLogFile)
+	{
+		fprintf(m_FormatLogFile, "%s", &b[0]);
+		fflush(m_FormatLogFile);
+	}
 }
 
 //-------------------------------------------------

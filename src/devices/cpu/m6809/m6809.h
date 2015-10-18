@@ -13,6 +13,8 @@
 #ifndef __M6809_H__
 #define __M6809_H__
 
+#include <stdio.h>
+#include "debugger.h"
 
 //**************************************************************************
 //  TYPE DEFINITIONS
@@ -24,6 +26,16 @@ class m6809_device;
 // device type definition
 extern const device_type M6809;
 extern const device_type M6809E;
+
+	typedef struct SprintfData
+	{
+		char *sd_Dest;
+		int   sd_MaxLength;
+		int   sd_LengthUsed;
+		int   sd_ArgumentsParsed;
+	} SprintfData;
+
+
 
 // ======================> m6809_base_device
 
@@ -193,6 +205,18 @@ protected:
 	inline void eat(int cycles)                          { m_icount -= cycles; }
 	void eat_remaining();
 
+	// formatting	
+	unsigned char read_mem8(unsigned short a)	;
+	unsigned short read_mem16(unsigned short a);
+	unsigned int read_mem32(unsigned short a);
+	int DoFormat(void *userData, unsigned short argptrpointer, bool wides);
+	int Str_FormatASCII(void *userData, unsigned short ap);
+	int vsprintfputc(char c, SprintfData *sd);
+	unsigned short gvsprintf(char *buff, int maxlen, unsigned short ap);
+	unsigned short gsprintf(char *buf, int maxlen, unsigned short argptr);
+
+protected:
+
 	// read a byte from given memory location
 	inline uint8_t read_memory(uint16_t address)             { eat(1); return m_mintf->read(address); }
 
@@ -250,6 +274,8 @@ protected:
 	bool add8_sets_h()                              { return true; }
 	bool hd6309_native_mode()                       { return false; }
 
+	void dbg_msg( void );
+
 	// index reg
 	uint16_t &ireg();
 
@@ -296,6 +322,8 @@ private:
 	// functions
 	inline void execute_one();
 	const char *inputnum_string(int inputnum);
+
+	FILE						*m_FormatLogFile;
 };
 
 // ======================> m6809_device
