@@ -321,10 +321,41 @@ UINT8 coco_state::floating_bus_read(void)
 
 READ8_MEMBER( coco_state::ff00_read )
 {
-	return m_pia_0->read(space, offset, mem_mask);
+	if (offset < 4)
+		return m_pia_0->read(space, offset, mem_mask);
+
+	/*
+	 * offset 4 = No purpose on read
+	 *
+	 * 5 = MSB of Cycle Counter
+	 * 6 = NSB
+	 * 7 = NSB
+	 * 8 = LSB of Cycle Counter
+	 * 9 = MSB of VBlank counter
+	 * 10 = NSB
+	 * 11 = NSB
+	 * 12 = LSB of VBlank counter
+	 */
+	if ( (offset >= 5) && (offset <= 8) )
+	{
+		int shift=(8-offset)*8;
+		UINT32 v=((m_LatchedCycleCount >> shift) & 0xFF);
+		return ((UINT8) v);
+	}
+	if ( (offset >= 9) && (offset <= 12) )
+	{
+		int shift=(12-offset)*8;
+		UINT32 v=((m_LatchedVBlankCounter >> shift) & 0xFF);
+		return ((UINT8) v);
+	}
+
+	return(0);
 }
 
-
+extern "C"
+{
+	extern UINT64	GregCycles;
+};
 
 //-------------------------------------------------
 //  ff00_write
@@ -332,7 +363,25 @@ READ8_MEMBER( coco_state::ff00_read )
 
 WRITE8_MEMBER( coco_state::ff00_write )
 {
-	m_pia_0->write(space, offset, data, mem_mask);
+	if (offset < 4)
+		m_pia_0->write(space, offset, data, mem_mask);
+	/*
+	 *
+	 * offset 4:
+	 * 		Bit 0 = Write 1, latch the Cycle Counter.  Latched value will be readable from offsets 5-8.
+	 * 		Bit 1 = Write 1, latch the VBlank Counter.  Latched value will be readable from offsets 9-12.
+	 */
+	if (offset == 4)
+	{
+		if (data & 1)
+		{
+			m_LatchedCycleCount = (UINT32) (GregCycles & 0xFFFFFFFF);
+		}
+		if (data & 2)
+		{
+			m_LatchedVBlankCounter = machine().first_screen()->frame_number();
+		}
+	}
 }
 
 

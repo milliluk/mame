@@ -11,6 +11,18 @@
 #include "emu.h"
 #include "debugger.h"
 
+// for now, make buggy GCC/Mingw STFU about I64FMT
+#if (defined(__MINGW32__) && (__GNUC__ >= 5))
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat"
+#pragma GCC diagnostic ignored "-Wformat-extra-args"
+#endif
+
+extern "C"
+{
+	UINT64 GregCycles;
+};
+
 //**************************************************************************
 //  DEBUGGING
 //**************************************************************************
@@ -488,7 +500,7 @@ void device_scheduler::timeslice()
 
 					// account for these cycles
 					exec->m_totalcycles += ran;
-
+	GregCycles = exec->m_totalcycles;
 					// update the local time for this CPU
 					attotime deltatime(0, exec->m_attoseconds_per_cycle * ran);
 					assert(deltatime >= attotime::zero);
