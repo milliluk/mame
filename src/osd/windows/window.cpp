@@ -602,6 +602,7 @@ void winwindow_update_cursor_state(running_machine &machine)
 
 	assert(GetCurrentThreadId() == main_threadid);
 
+#if 0  // MILLILUK!
 	// if we should hide the mouse cursor, then do it
 	// rules are:
 	//   1. we must have focus before hiding the cursor
@@ -640,6 +641,7 @@ void winwindow_update_cursor_state(running_machine &machine)
 			saved_cursor_pos.x = saved_cursor_pos.y = -1;
 		}
 	}
+#endif
 }
 
 
@@ -1251,6 +1253,9 @@ LRESULT CALLBACK win_window_info::video_window_proc(HWND wnd, UINT message, WPAR
 {
 	LONG_PTR ptr = GetWindowLongPtr(wnd, GWLP_USERDATA);
 	win_window_info *window = (win_window_info *)ptr;
+	static HCURSOR milliluk_cursor = NULL;
+
+	if (milliluk_cursor == NULL) milliluk_cursor = LoadCursor(NULL, IDC_ARROW);
 
 	// we may get called before SetWindowLongPtr is called
 	if (window != NULL)
@@ -1262,6 +1267,13 @@ LRESULT CALLBACK win_window_info::video_window_proc(HWND wnd, UINT message, WPAR
 	// handle a few messages
 	switch (message)
 	{
+		case WM_SETCURSOR: // milliluk!
+			if (LOWORD(lparam) == HTCLIENT)
+				SetCursor(NULL);
+			else
+				SetCursor(milliluk_cursor);
+			return TRUE;
+
 		// paint: redraw the last bitmap
 		case WM_PAINT:
 		{
