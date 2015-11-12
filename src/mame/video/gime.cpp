@@ -1532,7 +1532,7 @@ void gime_base_device::update_geometry(void)
 {
 	UINT16 top_border_scanlines, body_scanlines;
 
-	switch(m_legacy_video ? 0x00 : (m_gime_registers[9] & 0x60))
+	switch(m_gime_registers[9] & 0x60) // GIME affects scanlines change even in legacy modes
 	{
 		case 0x00:
 			// 192 lines (and legacy video)
