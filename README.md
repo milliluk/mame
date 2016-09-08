@@ -2,7 +2,7 @@
 
 This is the MILLILUK development fork of MAME -- the Multiple Arcade Machine Emulator.
 
-Modifications current as of MAME 0.183.
+Modifications current as of MAME 0.177.
 
 | OS | Status | 
 | --- |:---:| 
@@ -19,7 +19,7 @@ Modifications current as of MAME 0.183.
 
 Mac/Linux: visit <http://mamedev.org/tools/>
 
-Windows: See above to build from the command line and/or generate Visual Studio 2015 files for your environment. 
+Windows: Use the Mac/Linux toolset to build from the command line and/or generate Visual Studio 2015 files for your environment ('make vs2015')
 
 Or use the generated Visual Studio 2015 project files checked in here. (Sorry, MAME hardcodes the path.)
 
@@ -36,6 +36,7 @@ Or use the generated Visual Studio 2015 project files checked in here. (Sorry, M
 - [ ] Add DEBUGCONTROL port and frame and cycle counts
 - [ ] Do not break into MAME debugger on launch (use ~)
 - [ ] Improved mouse cursor hiding on Windows
+- [ ] Optionally enable old Western Digital floppy code (less accurate but much faster for dev cycles)
 - [ ] Build a subset of CoCo-related drivers as "mametiny"
 - [ ] Include Visual Studio build files: /build/projects/windows/mametiny/vs2015/mametiny.sln
 

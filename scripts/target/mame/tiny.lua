@@ -16,17 +16,34 @@
 -- drivers referenced in tiny.lst.
 --------------------------------------------------
 
-CPUS["M6809"] = true
+CPUS["Z80"] = true
+CPUS["M6502"] = true
+CPUS["MCS48"] = true
+CPUS["MCS51"] = true
 CPUS["M6800"] = true
+CPUS["M6809"] = true
+CPUS["M680X0"] = true
+CPUS["TMS9900"] = true
+CPUS["COP400"] = true
 
 --------------------------------------------------
 -- Specify all the sound cores necessary for the
 -- drivers referenced in tiny.lst.
 --------------------------------------------------
 
+SOUNDS["SAMPLES"] = true
 SOUNDS["DAC"] = true
-SOUNDS["WAVE"] = true
+SOUNDS["DISCRETE"] = true
 SOUNDS["AY8910"] = true
+SOUNDS["YM2151"] = true
+SOUNDS["ASTROCADE"] = true
+SOUNDS["TMS5220"] = true
+SOUNDS["OKIM6295"] = true
+SOUNDS["HC55516"] = true
+SOUNDS["YM3812"] = true
+SOUNDS["CEM3394"] = true
+SOUNDS["VOTRAX"] = true
+SOUNDS["WAVE"] = true
 SOUNDS["BEEP"] = true
 
 --------------------------------------------------
@@ -35,25 +52,43 @@ SOUNDS["BEEP"] = true
 
 VIDEOS["MC6847"] = true
 VIDEOS["EF9345"] = true
-VIDEOS["MC6845"] = true
 
 --------------------------------------------------
 -- specify available machine cores
 --------------------------------------------------
 
-MACHINES["DS1315"] = true
-MACHINES["MOS6551"] = true
 MACHINES["6821PIA"] = true
+MACHINES["TTL74148"] = true
+MACHINES["TTL74153"] = true
+MACHINES["TTL7474"] = true
+MACHINES["RIOT6532"] = true
+MACHINES["PIT8253"] = true
+MACHINES["Z80CTC"] = true
+MACHINES["68681"] = true
+MACHINES["BANKDEV"] = true
+MACHINES["GEN_LATCH"] = true
+MACHINES["WATCHDOG"] = true
+MACHINES["MOS6551"] = true
 MACHINES["MSM6242"] = true
+MACHINES["DS1315"] = true
 
 --------------------------------------------------
 -- specify available bus cores
 --------------------------------------------------
 
+BUSES["CENTRONICS"] = true
 BUSES["COCO"] = true
 BUSES["RS232"] = true
 BUSES["SUNKBD"] = true
-BUSES["HLEKBD"] = true
+
+--------------------------------------------------
+-- specify available formats
+--------------------------------------------------
+
+FORMATS["COCO_CAS"] = true
+FORMATS["BASICDSK"] = true
+FORMATS["VDK_DSK"] = true
+FORMATS["DMK_DSK"] = true
 
 --------------------------------------------------
 -- specify available formats
@@ -88,7 +123,6 @@ function createProjects_mame_tiny(_target, _subtarget)
 		MAME_DIR .. "src/lib/util",
 		MAME_DIR .. "3rdparty",
 		GEN_DIR  .. "mame/layout",
-		MAME_DIR .. "src/tools/imgtool/",
 	}
 
 	files{
@@ -113,6 +147,9 @@ function createProjects_mame_tiny(_target, _subtarget)
 		MAME_DIR .. "src/mame/drivers/dgn_beta.cpp",
 		MAME_DIR .. "src/mame/machine/dgn_beta.cpp",
 		MAME_DIR .. "src/mame/video/dgn_beta.cpp", 
+
+		MAME_DIR .. "src/lib/formats/flopimg.cpp",
+		MAME_DIR .. "src/lib/formats/flopimg.h"
 	}
 end
 
@@ -120,4 +157,4 @@ function linkProjects_mame_tiny(_target, _subtarget)
 	links {
 		"mame_tiny",
 	}
-end 
+end
