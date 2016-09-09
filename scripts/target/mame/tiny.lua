@@ -52,6 +52,7 @@ SOUNDS["BEEP"] = true
 
 VIDEOS["MC6847"] = true
 VIDEOS["EF9345"] = true
+VIDEOS["MC6845"] = true
 
 --------------------------------------------------
 -- specify available machine cores

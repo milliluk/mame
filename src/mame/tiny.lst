@@ -10,23 +10,23 @@
 ******************************************************************************/
 
 coco      // Color Computer
-//cocoe    // Color Computer (Extended BASIC 1.0)
-//coco2    // Color Computer 2
+cocoe    // Color Computer (Extended BASIC 1.0)
+coco2    // Color Computer 2
 coco2b  // Color Computer 2B (uses M6847T1 video chip)
 coco3    // Color Computer 3 (NTSC)
-//coco3p  // Color Computer 3 (PAL)
+coco3p  // Color Computer 3 (PAL)
 coco3h  // Hacked Color Computer 3 (6309)
-//coco3dw1  // Coco 3 with HDB-DOS
+coco3dw1  // Coco 3 with HDB-DOS
 dragon32  // Dragon 32
 dragon64  // Dragon 64
 dragon200 // Dragon 200
 dragon200e // Dragon 200E
 d64plus   // Dragon 64 + Compusense Plus addon
-//dgnalpha  // Dragon Alpha
-//dgnbeta   // Dragon Beta
+dgnalpha  // Dragon Alpha
+dgnbeta   // Dragon Beta
 tanodr64  // Tano Dragon 64 (NTSC)
-//cp400    // Prologica CP400
-//lzcolor64 // Digiponto LZ Color64
-//mx1600  // Dynacom MX-1600
+cp400    // Prologica CP400
+lzcolor64 // Digiponto LZ Color64
+mx1600  // Dynacom MX-1600
 mc10      // MC-10
 
