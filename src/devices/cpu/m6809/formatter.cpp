@@ -104,7 +104,7 @@ int m6809_base_device::DoFormat(void *userData, unsigned short argptrpointer, bo
 
 	error = 0;
 	numChars = 0;
-	while (TRUE)
+	while (true)
 	{
 		ch = GetCh();
 		if (ch == 0)
@@ -120,7 +120,7 @@ int m6809_base_device::DoFormat(void *userData, unsigned short argptrpointer, bo
 
 		/* isolate the flags */
 		flags = 0;
-		done = FALSE;
+		done = false;
 		do
 		{
 			ch = GetCh();
@@ -131,7 +131,7 @@ int m6809_base_device::DoFormat(void *userData, unsigned short argptrpointer, bo
 				case ' ':	flags |= FLG_SPACE; break;
 				case '#':	flags |= FLG_HASH;  break;
 				case '0':	flags |= FLG_ZERO;  break;
-				default:	done = TRUE;        break;
+				default:	done = true;        break;
 			}
 		} while (!done);
 
@@ -201,7 +201,7 @@ int m6809_base_device::DoFormat(void *userData, unsigned short argptrpointer, bo
 		}
 
 		/* isolate the size */
-		while (TRUE)
+		while (true)
 		{
 			if (ch == 'h')
 			{
@@ -566,7 +566,7 @@ exit:
 
 int m6809_base_device::Str_FormatASCII(void *userData, unsigned short ap)
 {
-	return DoFormat(userData, ap, FALSE);
+	return DoFormat(userData, ap, false);
 }
 
 

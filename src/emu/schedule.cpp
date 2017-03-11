@@ -20,7 +20,7 @@
 
 extern "C"
 {
-	UINT64 GregCycles;
+	uint64_t GregCycles;
 };
 
 //**************************************************************************
@@ -505,7 +505,7 @@ void device_scheduler::timeslice()
 
 					// account for these cycles
 					exec->m_totalcycles += ran;
-	GregCycles = exec->m_totalcycles;
+					GregCycles = exec->m_totalcycles;
 					// update the local time for this CPU
 					attotime deltatime(0, exec->m_attoseconds_per_cycle * ran);
 					assert(deltatime >= attotime::zero);

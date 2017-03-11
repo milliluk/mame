@@ -642,6 +642,8 @@ static const opcodeinfo m6x09_opcodes[] =
 	{ 0x103A, 2, "PSHUW", INH,  HD6309_EXCLUSIVE },
 	{ 0x103B, 2, "PULUW", INH,  HD6309_EXCLUSIVE },
 
+	{ 0x103E, 2, "LOG",	  INH,  M6x09_GENERAL }, // MILLILUK
+
 	{ 0x103F, 2, "SWI2",  INH,  HD6309_EXCLUSIVE },
 
 	{ 0x1040, 2, "NEGD",  INH,  HD6309_EXCLUSIVE },
@@ -777,6 +779,8 @@ static const opcodeinfo m6x09_opcodes[] =
 
 	{ 0x113C, 3, "BITMD", IMM,  HD6309_EXCLUSIVE },
 	{ 0x113D, 3, "LDMD",  IMM,  HD6309_EXCLUSIVE },
+
+	{ 0x113E, 2, "BREAK", INH,  M6x09_GENERAL }, // MILLILUK
 
 	{ 0x113F, 2, "SWI3",  INH,  M6x09_GENERAL },
 

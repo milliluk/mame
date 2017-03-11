@@ -325,14 +325,14 @@ READ8_MEMBER( coco_state::ff00_read )
 	if ( (offset >= 5) && (offset <= 8) )
 	{
 		int shift=(8-offset)*8;
-		UINT32 v=((m_LatchedCycleCount >> shift) & 0xFF);
-		return ((UINT8) v);
+		uint32_t v=((m_LatchedCycleCount >> shift) & 0xFF);
+		return ((uint8_t) v);
 	}
 	if ( (offset >= 9) && (offset <= 12) )
 	{
 		int shift=(12-offset)*8;
-		UINT32 v=((m_LatchedVBlankCounter >> shift) & 0xFF);
-		return ((UINT8) v);
+		uint32_t v=((m_LatchedVBlankCounter >> shift) & 0xFF);
+		return ((uint8_t) v);
 	}
 
 	return(0);
@@ -340,7 +340,7 @@ READ8_MEMBER( coco_state::ff00_read )
 
 extern "C"
 {
-	extern UINT64	GregCycles;
+	extern uint64_t GregCycles;
 };
 
 //-------------------------------------------------
@@ -361,7 +361,7 @@ WRITE8_MEMBER( coco_state::ff00_write )
 	{
 		if (data & 1)
 		{
-			m_LatchedCycleCount = (UINT32) (GregCycles & 0xFFFFFFFF);
+			m_LatchedCycleCount = (uint32_t) (GregCycles & 0xFFFFFFFF);
 		}
 		if (data & 2)
 		{

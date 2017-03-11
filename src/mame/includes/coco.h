@@ -264,8 +264,8 @@ private:
 	bool m_in_floating_bus_read;
 
 	// Greg's wacky debug stuff
-	UINT32 m_LatchedCycleCount;
-	UINT32 m_LatchedVBlankCounter;
+	uint32_t m_LatchedCycleCount;
+	uint32_t m_LatchedVBlankCounter;
 };
 
 #endif // __COCO__
