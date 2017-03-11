@@ -45,6 +45,7 @@ SOUNDS["CEM3394"] = true
 SOUNDS["VOTRAX"] = true
 SOUNDS["WAVE"] = true
 SOUNDS["BEEP"] = true
+SOUNDS["VOLT_REG"] = true
 
 --------------------------------------------------
 -- specify available video cores
@@ -72,6 +73,7 @@ MACHINES["WATCHDOG"] = true
 MACHINES["MOS6551"] = true
 MACHINES["MSM6242"] = true
 MACHINES["DS1315"] = true
+MACHINES["ACIA6850"] = true
 
 --------------------------------------------------
 -- specify available bus cores
@@ -139,7 +141,6 @@ function createProjects_mame_tiny(_target, _subtarget)
 		MAME_DIR .. "src/mame/machine/dragon.cpp",    
 		MAME_DIR .. "src/mame/machine/dgnalpha.cpp",  
 		MAME_DIR .. "src/mame/video/gime.cpp",
-		MAME_DIR .. "src/devices/machine/wd17xx.cpp",
 		MAME_DIR .. "src/devices/machine/wd_fdc.cpp",
 		MAME_DIR .. "src/devices/machine/fdc_pll.cpp",
 		MAME_DIR .. "src/tools/imgtool/formats/coco_dsk.cpp",
@@ -150,7 +151,7 @@ function createProjects_mame_tiny(_target, _subtarget)
 		MAME_DIR .. "src/mame/video/dgn_beta.cpp", 
 
 		MAME_DIR .. "src/lib/formats/flopimg.cpp",
-		MAME_DIR .. "src/lib/formats/flopimg.h"
+		MAME_DIR .. "src/lib/formats/flopimg.h",
 	}
 end
 

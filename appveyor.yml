@@ -4,13 +4,13 @@ branches:
   only:
     - master
 
-os: Visual Studio 2015
+shallow_clone: true
+
+os: Visual Studio 2017
 
 platform: x64
 configuration: Release
 
-clone_folder: c:\src\milliluk\mame
-
 build:
-  project: c:\src\milliluk\mame\build\projects\windows\mametiny\vs2015\mametiny.sln
-
+  project: build\projects\windows\mametiny\vs2017\mametiny.sln
+  

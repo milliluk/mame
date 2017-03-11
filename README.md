@@ -2,29 +2,27 @@
 
 This is the MILLILUK development fork of MAME -- the Multiple Arcade Machine Emulator.
 
-Modifications current as of MAME 0.177.
+Modifications current as of MAME 0.183.
 
 | OS | Status | 
 | --- |:---:| 
-| Mac | [![Build Status](https://travis-ci.org/milliluk/mame.svg?branch=master)](https://travis-ci.org/milliluk/mame) |
+| Linux / Mac | [![Build Status](https://travis-ci.org/milliluk/mame.svg?branch=master)](https://travis-ci.org/milliluk/mame) |
 | Windows | [![Build status](https://ci.appveyor.com/api/projects/status/3mf0eo75hsaoj2ox/branch/master?svg=true)](https://ci.appveyor.com/project/milliluk/mame/branch/master) |
 
 ### Project Goals
 
-* improve the CoCo family of emulators (help wanted!)
-* cleanly provide ideas for possible inclusion in MAME
-* hackishly provide an improved development environment for the TRS-80 CoCo and its relatives (MC-10, Dragon, etc.)
+* Improve the CoCo family of emulators (help wanted!)
+* Cleanly provide ideas for possible inclusion in MAME
+* Hackishly provide an improved development environment for the TRS-80 CoCo and its relatives (MC-10, Dragon, etc.)
 
 ### How to Contribute
 
-Mac/Linux: visit <http://mamedev.org/tools/>
+Mac/Linux: Visit <http://mamedev.org/tools/>. This also works if you want a command line environment on Windows (you don't).
 
-Windows: Use the Mac/Linux toolset to build from the command line and/or generate Visual Studio 2015 files for your environment ('make vs2015')
+Windows: Generated ("make vs2017") Visual Studio 2017 project files are checked in for your convenience:
 
-Or use the generated Visual Studio 2015 project files checked in here. (Sorry, MAME hardcodes the path.)
-
-- Clone as follows: git clone https://github.com/milliluk/mame.git c:/src/milliluk/mame
-- Then launch: c:/src/milliluk/mame/build/projects/windows/mametiny/vs2015/mametiny.sln
+- Clone as follows: git clone https://github.com/milliluk/mame.git
+- Then launch: mame/build/projects/windows/mametiny/vs2017/mametiny.sln
 
 ### Changelog
 
@@ -36,11 +34,10 @@ Or use the generated Visual Studio 2015 project files checked in here. (Sorry, M
 - [ ] Add DEBUGCONTROL port and frame and cycle counts
 - [ ] Do not break into MAME debugger on launch (use ~)
 - [ ] Improved mouse cursor hiding on Windows
-- [ ] Optionally enable old Western Digital floppy code (less accurate but much faster for dev cycles)
 - [ ] Build a subset of CoCo-related drivers as "mametiny"
-- [ ] Include Visual Studio build files: /build/projects/windows/mametiny/vs2015/mametiny.sln
+- [ ] Include Visual Studio build files: /build/projects/windows/mametiny/vs2017/mametiny.sln
 
-Checked boxes indicates patch accepted into main MAME code base.
+Checked boxes indicates patches accepted into the main MAME code base.
 
 ### Developer Enhancements
 
