@@ -1,0 +1,1965 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{28B827C9-9422-DC3F-DD60-8DE5490ABA94}</ProjectGuid>
+    <RootNamespace>mametiny</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\..\..\..\</OutDir>
+    <IntDir>..\..\..\..\vs2017\obj\x32\Debug\mametiny\</IntDir>
+    <TargetName>mametinyd</TargetName>
+    <TargetExt>.exe</TargetExt>
+    <LinkIncremental>false</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>..\..\..\..\..\</OutDir>
+    <IntDir>..\..\..\..\vs2017\obj\x64\Debug\mametiny\</IntDir>
+    <TargetName>mametiny64d</TargetName>
+    <TargetExt>.exe</TargetExt>
+    <LinkIncremental>false</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\..\..\..\</OutDir>
+    <IntDir>..\..\..\..\vs2017\obj\x32\Release\mametiny\</IntDir>
+    <TargetName>mametiny</TargetName>
+    <TargetExt>.exe</TargetExt>
+    <LinkIncremental>false</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\..\..\..\..\</OutDir>
+    <IntDir>..\..\..\..\vs2017\obj\x64\Release\mametiny\</IntDir>
+    <TargetName>mametiny64</TargetName>
+    <TargetExt>.exe</TargetExt>
+    <LinkIncremental>false</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4334 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319 /wd4592  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\mame;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\mame\layout;..\..\..\..\generated\resource;..\..\..\..\..\3rdparty\zlib;..\..\..\..\..\3rdparty\libflac\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_ALL;LUA_COMPAT_5_1;LUA_COMPAT_5_2;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_CRT_STDIO_LEGACY_WIDE_SPECIFIERS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)mametinyd.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_ALL;LUA_COMPAT_5_1;LUA_COMPAT_5_2;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_CRT_STDIO_LEGACY_WIDE_SPECIFIERS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\mame;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\mame\layout;..\..\..\..\generated\resource;..\..\..\..\..\3rdparty\zlib;..\..\..\..\..\3rdparty\libflac\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>user32.lib;winmm.lib;advapi32.lib;shlwapi.lib;wsock32.lib;ws2_32.lib;psapi.lib;iphlpapi.lib;shell32.lib;userenv.lib;setupapi.lib;opengl32.lib;gdi32.lib;dsound.lib;dxguid.lib;oleaut32.lib;dinput8.lib;comctl32.lib;comdlg32.lib;ole32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)mametinyd.exe</OutputFile>
+      <EntryPointSymbol>wmainCRTStartup</EntryPointSymbol>
+      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PreBuildEvent>
+      <Command>mkdir ..\..\..\..\..\build\generated\resource\ 2&gt;NUL&#x0D;&#x0A;@echo Emitting mamevers.rc...&#x0D;&#x0A;python ..\..\..\..\..\scripts\build\verinfo.py -r -b mame ..\..\..\..\..\build\generated\version.cpp &gt; ..\..\..\..\..\build\generated\resource\mamevers.rc</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4334 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319 /wd4592  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\mame;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\mame\layout;..\..\..\..\generated\resource;..\..\..\..\..\3rdparty\zlib;..\..\..\..\..\3rdparty\libflac\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_ALL;LUA_COMPAT_5_1;LUA_COMPAT_5_2;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_CRT_STDIO_LEGACY_WIDE_SPECIFIERS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)mametiny64d.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_ALL;LUA_COMPAT_5_1;LUA_COMPAT_5_2;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_CRT_STDIO_LEGACY_WIDE_SPECIFIERS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\mame;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\mame\layout;..\..\..\..\generated\resource;..\..\..\..\..\3rdparty\zlib;..\..\..\..\..\3rdparty\libflac\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>user32.lib;winmm.lib;advapi32.lib;shlwapi.lib;wsock32.lib;ws2_32.lib;psapi.lib;iphlpapi.lib;shell32.lib;userenv.lib;setupapi.lib;opengl32.lib;gdi32.lib;dsound.lib;dxguid.lib;oleaut32.lib;dinput8.lib;comctl32.lib;comdlg32.lib;ole32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)mametiny64d.exe</OutputFile>
+      <EntryPointSymbol>wmainCRTStartup</EntryPointSymbol>
+      <TargetMachine>MachineX64</TargetMachine>
+      <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PreBuildEvent>
+      <Command>mkdir ..\..\..\..\..\build\generated\resource\ 2&gt;NUL&#x0D;&#x0A;@echo Emitting mamevers.rc...&#x0D;&#x0A;python ..\..\..\..\..\scripts\build\verinfo.py -r -b mame ..\..\..\..\..\build\generated\version.cpp &gt; ..\..\..\..\..\build\generated\resource\mamevers.rc</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4334 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319 /wd4592  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\mame;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\mame\layout;..\..\..\..\generated\resource;..\..\..\..\..\3rdparty\zlib;..\..\..\..\..\3rdparty\libflac\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_ALL;LUA_COMPAT_5_1;LUA_COMPAT_5_2;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_CRT_STDIO_LEGACY_WIDE_SPECIFIERS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)mametiny.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_ALL;LUA_COMPAT_5_1;LUA_COMPAT_5_2;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_CRT_STDIO_LEGACY_WIDE_SPECIFIERS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\mame;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\mame\layout;..\..\..\..\generated\resource;..\..\..\..\..\3rdparty\zlib;..\..\..\..\..\3rdparty\libflac\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>user32.lib;winmm.lib;advapi32.lib;shlwapi.lib;wsock32.lib;ws2_32.lib;psapi.lib;iphlpapi.lib;shell32.lib;userenv.lib;setupapi.lib;opengl32.lib;gdi32.lib;dsound.lib;dxguid.lib;oleaut32.lib;dinput8.lib;comctl32.lib;comdlg32.lib;ole32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)mametiny.exe</OutputFile>
+      <EntryPointSymbol>wmainCRTStartup</EntryPointSymbol>
+      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PreBuildEvent>
+      <Command>mkdir ..\..\..\..\..\build\generated\resource\ 2&gt;NUL&#x0D;&#x0A;@echo Emitting mamevers.rc...&#x0D;&#x0A;python ..\..\..\..\..\scripts\build\verinfo.py -r -b mame ..\..\..\..\..\build\generated\version.cpp &gt; ..\..\..\..\..\build\generated\resource\mamevers.rc</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4334 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319 /wd4592  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\mame;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\mame\layout;..\..\..\..\generated\resource;..\..\..\..\..\3rdparty\zlib;..\..\..\..\..\3rdparty\libflac\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_ALL;LUA_COMPAT_5_1;LUA_COMPAT_5_2;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_CRT_STDIO_LEGACY_WIDE_SPECIFIERS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)mametiny64.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_ALL;LUA_COMPAT_5_1;LUA_COMPAT_5_2;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_CRT_STDIO_LEGACY_WIDE_SPECIFIERS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\mame;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\mame\layout;..\..\..\..\generated\resource;..\..\..\..\..\3rdparty\zlib;..\..\..\..\..\3rdparty\libflac\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>user32.lib;winmm.lib;advapi32.lib;shlwapi.lib;wsock32.lib;ws2_32.lib;psapi.lib;iphlpapi.lib;shell32.lib;userenv.lib;setupapi.lib;opengl32.lib;gdi32.lib;dsound.lib;dxguid.lib;oleaut32.lib;dinput8.lib;comctl32.lib;comdlg32.lib;ole32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)mametiny64.exe</OutputFile>
+      <EntryPointSymbol>wmainCRTStartup</EntryPointSymbol>
+      <TargetMachine>MachineX64</TargetMachine>
+      <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PreBuildEvent>
+      <Command>mkdir ..\..\..\..\..\build\generated\resource\ 2&gt;NUL&#x0D;&#x0A;@echo Emitting mamevers.rc...&#x0D;&#x0A;python ..\..\..\..\..\scripts\build\verinfo.py -r -b mame ..\..\..\..\..\build\generated\version.cpp &gt; ..\..\..\..\..\build\generated\resource\mamevers.rc</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\src\mame\mame.cpp">
+      <ObjectFileName>$(IntDir)src\mame\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\generated\version.cpp">
+      <ObjectFileName>$(IntDir)generated\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\generated\mame\tiny\drivlist.cpp">
+      <ObjectFileName>$(IntDir)generated\mame\tiny\</ObjectFileName>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\..\scripts\resources\uwp\assets\LockScreenLogo.scale-200.png" />
+    <None Include="..\..\..\..\..\scripts\resources\uwp\assets\SplashScreen.scale-200.png" />
+    <None Include="..\..\..\..\..\scripts\resources\uwp\assets\Square150x150Logo.scale-200.png" />
+    <None Include="..\..\..\..\..\scripts\resources\uwp\assets\Square44x44Logo.scale-200.png" />
+    <None Include="..\..\..\..\..\scripts\resources\uwp\assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <None Include="..\..\..\..\..\scripts\resources\uwp\assets\StoreLogo.png" />
+    <None Include="..\..\..\..\..\scripts\resources\uwp\assets\Wide310x150Logo.scale-200.png" />
+    <None Include="..\..\..\..\..\artwork\aperture-grille.png" />
+    <None Include="..\..\..\..\..\artwork\LICENSE" />
+    <None Include="..\..\..\..\..\artwork\monochrome-chessboard.png" />
+    <None Include="..\..\..\..\..\artwork\monochrome-matrix.png" />
+    <None Include="..\..\..\..\..\artwork\README.md" />
+    <None Include="..\..\..\..\..\artwork\shadow-mask.png" />
+    <None Include="..\..\..\..\..\artwork\slot-mask-aligned.png" />
+    <None Include="..\..\..\..\..\artwork\slot-mask.png" />
+    <None Include="..\..\..\..\..\artwork\white.png" />
+    <None Include="..\..\..\..\..\artwork\bgfx\border_blur\default.lay" />
+    <None Include="..\..\..\..\..\artwork\bgfx\chains\hq2x.png" />
+    <None Include="..\..\..\..\..\artwork\bgfx\chains\hq3x.png" />
+    <None Include="..\..\..\..\..\artwork\bgfx\chains\hq4x.png" />
+    <None Include="..\..\..\..\..\artwork\bgfx\chains\crt-geom\aperture_1_2_bgr.png" />
+    <None Include="..\..\..\..\..\artwork\bgfx\chains\crt-geom\aperture_1_4_rgb.png" />
+    <None Include="..\..\..\..\..\artwork\bgfx\chains\crt-geom\aperture_2_4_rgb.png" />
+    <None Include="..\..\..\..\..\artwork\bgfx\chains\crt-geom\aperture_2_5_bgr.png" />
+    <None Include="..\..\..\..\..\artwork\bgfx\chains\crt-geom\aperture_3_6_rgb.png" />
+    <None Include="..\..\..\..\..\artwork\bgfx\chains\crt-geom\delta_1_2x1_bgr.png" />
+    <None Include="..\..\..\..\..\artwork\bgfx\chains\crt-geom\delta_1_4x1_rgb.png" />
+    <None Include="..\..\..\..\..\artwork\bgfx\chains\crt-geom\delta_2_4x1_rgb.png" />
+    <None Include="..\..\..\..\..\artwork\bgfx\chains\crt-geom\delta_2_4x2_rgb.png" />
+    <None Include="..\..\..\..\..\artwork\bgfx\chains\crt-geom\none.png" />
+    <None Include="..\..\..\..\..\artwork\bgfx\chains\crt-geom\slot_2_4x4_rgb.png" />
+    <None Include="..\..\..\..\..\artwork\bgfx\chains\crt-geom\slot_2_5x4_bgr.png" />
+    <None Include="..\..\..\..\..\artwork\bgfx\chains\crt-geom\slot_3_7x6_rgb.png" />
+    <None Include="..\..\..\..\..\bgfx\LICENSE" />
+    <None Include="..\..\..\..\..\bgfx\README.md" />
+    <None Include="..\..\..\..\..\bgfx\chains\crt-geom-deluxe.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\crt-geom.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\default.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\hlsl.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\LICENSE" />
+    <None Include="..\..\..\..\..\bgfx\chains\pillarbox_left_horizontal.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\pillarbox_left_vertical.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\pillarbox_right_horizontal.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\pillarbox_right_vertical.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\README.md" />
+    <None Include="..\..\..\..\..\bgfx\chains\unfiltered.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\eagle\super-eagle.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\hqx\hq2x.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\hqx\hq3x.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\hqx\hq4x.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\super-2xbr-3d-2p.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\super-2xbr-3d-3p-smoother.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\super-4xbr-3d-4p.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\super-4xbr-3d-6p-smoother.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\super-xbr-2p.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\super-xbr-3p-smoother.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\super-xbr-6p.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\super-xbr-deposterize.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\super-xbr-fast-3p.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\super-xbr-fast-6p.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\xbr-hybrid.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\xbr-lv1-noblend.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\xbr-lv2-3d.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\xbr-lv2-accuracy-multipass.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\xbr-lv2-accuracy-smart-blur.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\xbr-lv2-deposterize.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\xbr-lv2-fast.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\xbr-lv2-multipass.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\xbr-lv2-noblend.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\xbr-lv2.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\xbr-lv3-multipass.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\xbr-lv3-noblend.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\xbr-lv3.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\xbr-mlv4-dilation.json" />
+    <None Include="..\..\..\..\..\bgfx\chains\xbr\xbr-mlv4-multipass.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\gui_add.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\gui_blend.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\gui_multiply.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\gui_opaque.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\LICENSE" />
+    <None Include="..\..\..\..\..\bgfx\effects\README.md" />
+    <None Include="..\..\..\..\..\bgfx\effects\screen_add.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\screen_blend.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\screen_multiply.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\screen_opaque.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\blurs\smart-blur.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\crt-geom\crt-geom-deluxe.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\crt-geom\crt-geom.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\crt-geom\gaussx.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\crt-geom\gaussy.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\crt-geom\phosphor_apply.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\crt-geom\phosphor_update.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\default\blit.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\default\LICENSE" />
+    <None Include="..\..\..\..\..\bgfx\effects\default\README.md" />
+    <None Include="..\..\..\..\..\bgfx\effects\eagle\supereagle.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\hlsl\blit.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\hlsl\color.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\hlsl\deconverge.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\hlsl\defocus.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\hlsl\distortion.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\hlsl\LICENSE" />
+    <None Include="..\..\..\..\..\bgfx\effects\hlsl\ntsc_decode.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\hlsl\ntsc_encode.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\hlsl\phosphor.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\hlsl\post.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\hlsl\prescale.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\hlsl\README.md" />
+    <None Include="..\..\..\..\..\bgfx\effects\hqx\hq2x.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\hqx\hq3x.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\hqx\hq4x.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\misc\blit.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\misc\deposterize-pass0.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\misc\deposterize-pass1.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\misc\saturation.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\pillarbox_left_horizontal\gaussian.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\pillarbox_left_horizontal\offset_sat.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\pillarbox_left_vertical\gaussian.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\pillarbox_left_vertical\offset_sat.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\pillarbox_right_horizontal\gaussian.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\pillarbox_right_horizontal\offset_sat.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\pillarbox_right_vertical\gaussian.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\pillarbox_right_vertical\offset_sat.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\unfiltered\blit.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\unfiltered\LICENSE" />
+    <None Include="..\..\..\..\..\bgfx\effects\unfiltered\README.md" />
+    <None Include="..\..\..\..\..\bgfx\effects\warp\dilation-horizontal-fast.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-lv1-noblend.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-lv2-3d.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-lv2-fast.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-lv2-noblend.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-lv2.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-lv3-noblend.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-lv3.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\super-xbr\custom-jinc2-sharper.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\super-xbr\super-2xbr-3d-pass0.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\super-xbr\super-2xbr-3d-pass1.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\super-xbr\super-2xbr-3d-pass2.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\super-xbr\super-4xbr-3d-pass0.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\super-xbr\super-4xbr-3d-pass1.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\super-xbr\super-4xbr-3d-pass2.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\super-xbr\super-4xbr-3d-pass3.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\super-xbr\super-xbr-fast-pass0.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\super-xbr\super-xbr-fast-pass1.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\super-xbr\super-xbr-fast-pass2.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\super-xbr\super-xbr-pass0.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\super-xbr\super-xbr-pass1.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\super-xbr\super-xbr-pass2.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-hybrid\2xbr-hybrid-sharp.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-hybrid\2xbr-hybrid-v2-gamma.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-hybrid\2xbr-hybrid-v2.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-hybrid\2xbr-hybrid-v4-gamma.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-hybrid\2xbr-hybrid-v4.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-hybrid\2xbr-hybrid-v4b.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-hybrid\2xbr-hybrid-v5-gamma.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-hybrid\2xbr-hybrid.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-lv2-multipass\xbr-lv2-a-pass0.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-lv2-multipass\xbr-lv2-accuracy-pass0.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-lv2-multipass\xbr-lv2-accuracy-pass1.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-lv2-multipass\xbr-lv2-b-pass0.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-lv2-multipass\xbr-lv2-c-pass0.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-lv2-multipass\xbr-lv2-d-pass0.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-lv2-multipass\xbr-lv2-noblend-pass1.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-lv2-multipass\xbr-lv2-pass1.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-lv3-multipass\xbr-lv3-pass0.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-lv3-multipass\xbr-lv3-pass1.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-mlv4-multipass\xbr-mlv4-pass1.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-mlv4-multipass\xbr-mlv4-pass2.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-mlv4-multipass\xbr-mlv4-pass3.json" />
+    <None Include="..\..\..\..\..\bgfx\effects\xbr\xbr-mlv4-multipass\xbr-mlv4-pass4.json" />
+    <None Include="..\..\..\..\..\bgfx\layouts\sample\horizontal\default.lay" />
+    <None Include="..\..\..\..\..\bgfx\layouts\sample\vertical\default.lay" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\fs_gui.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\fs_screen.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\vs_gui.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\vs_screen.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\blurs\fs_smart-blur.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\blurs\vs_smart-blur.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\crt\fs_crt-caligari.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\crt\vs_crt-caligari.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\crt-geom\fs_crt-geom-deluxe.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\crt-geom\fs_crt-geom.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\crt-geom\fs_gaussx.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\crt-geom\fs_gaussy.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\crt-geom\fs_phosphor_apply.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\crt-geom\fs_phosphor_update.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\crt-geom\vs_crt-geom.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\crt-geom\vs_gaussx.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\crt-geom\vs_gaussy.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\crt-geom\vs_phosphor_apply.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\crt-geom\vs_phosphor_update.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\default\fs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\default\vs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\eagle\fs_eagle.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\eagle\vs_eagle.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hlsl\fs_color.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hlsl\fs_deconverge.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hlsl\fs_defocus.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hlsl\fs_distortion.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hlsl\fs_ntsc_decode.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hlsl\fs_ntsc_encode.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hlsl\fs_phosphor.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hlsl\fs_post.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hlsl\fs_prescale.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hlsl\vs_color.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hlsl\vs_deconverge.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hlsl\vs_defocus.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hlsl\vs_distortion.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hlsl\vs_ntsc_decode.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hlsl\vs_ntsc_encode.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hlsl\vs_phosphor.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hlsl\vs_post.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hlsl\vs_prescale.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hqx\fs_hq2x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hqx\fs_hq3x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hqx\fs_hq4x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hqx\vs_hq2x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hqx\vs_hq3x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\hqx\vs_hq4x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\misc\fs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\misc\fs_bob-and-ghost-deinterlace.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\misc\fs_deposterize-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\misc\fs_deposterize-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\misc\fs_saturation.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\misc\vs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\misc\vs_bob-and-ghost-deinterlace.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\misc\vs_deposterize-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\misc\vs_deposterize-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\misc\vs_saturation.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\pillarbox_left_horizontal\fs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\pillarbox_left_horizontal\fs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\pillarbox_left_horizontal\vs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\pillarbox_left_horizontal\vs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\pillarbox_left_vertical\fs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\pillarbox_left_vertical\fs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\pillarbox_left_vertical\vs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\pillarbox_left_vertical\vs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\pillarbox_right_horizontal\fs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\pillarbox_right_horizontal\fs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\pillarbox_right_horizontal\vs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\pillarbox_right_horizontal\vs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\pillarbox_right_vertical\fs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\pillarbox_right_vertical\fs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\pillarbox_right_vertical\vs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\pillarbox_right_vertical\vs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\unfiltered\fs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\unfiltered\vs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\warp\fs_dilation-horizontal-fast.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\warp\vs_dilation-horizontal-fast.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\fs_xbr-lv1-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\fs_xbr-lv2-3d.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\fs_xbr-lv2-fast.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\fs_xbr-lv2-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\fs_xbr-lv2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\fs_xbr-lv3-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\fs_xbr-lv3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\vs_xbr-lv1-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\vs_xbr-lv2-3d.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\vs_xbr-lv2-fast.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\vs_xbr-lv2-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\vs_xbr-lv2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\vs_xbr-lv3-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\vs_xbr-lv3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\fs_custom-jinc2-sharper.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\fs_super-2xbr-3d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\fs_super-2xbr-3d-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\fs_super-2xbr-3d-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\fs_super-4xbr-3d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\fs_super-4xbr-3d-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\fs_super-4xbr-3d-pass1f.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\fs_super-4xbr-3d-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\fs_super-4xbr-3d-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\fs_super-4xbr-3d-pass3f.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\fs_super-xbr-fast-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\fs_super-xbr-fast-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\fs_super-xbr-fast-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\fs_super-xbr-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\fs_super-xbr-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\fs_super-xbr-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\vs_custom-jinc2-sharper.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\vs_super-2xbr-3d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\vs_super-2xbr-3d-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\vs_super-2xbr-3d-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\vs_super-4xbr-3d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\vs_super-4xbr-3d-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\vs_super-4xbr-3d-pass1f.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\vs_super-4xbr-3d-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\vs_super-4xbr-3d-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\vs_super-4xbr-3d-pass3f.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\vs_super-xbr-fast-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\vs_super-xbr-fast-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\vs_super-xbr-fast-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\vs_super-xbr-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\vs_super-xbr-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\vs_super-xbr-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\super-xbr\vs_super-xbr-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-sharp.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v2-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v4-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v4.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v4b.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v5-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-hybrid\fs_2xbr-hybrid.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-sharp.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v2-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v4-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v4.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v4b.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v5-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-hybrid\vs_2xbr-hybrid.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-a-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-accuracy-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-accuracy-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-b-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-c-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-noblend-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-a-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-accuracy-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-accuracy-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-b-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-c-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-noblend-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-lv3-multipass\fs_xbr-lv3-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-lv3-multipass\fs_xbr-lv3-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-lv3-multipass\vs_xbr-lv3-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-lv3-multipass\vs_xbr-lv3-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-mlv4-multipass\fs_xbr-mlv4-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-mlv4-multipass\fs_xbr-mlv4-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-mlv4-multipass\fs_xbr-mlv4-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-mlv4-multipass\fs_xbr-mlv4-pass4.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-mlv4-multipass\vs_xbr-mlv4-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-mlv4-multipass\vs_xbr-mlv4-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-mlv4-multipass\vs_xbr-mlv4-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx11\chains\xbr\xbr-mlv4-multipass\vs_xbr-mlv4-pass4.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\fs_gui.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\fs_screen.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\vs_gui.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\vs_screen.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\blurs\fs_smart-blur.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\blurs\vs_smart-blur.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\crt\fs_crt-caligari.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\crt\vs_crt-caligari.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\crt-geom\fs_crt-geom-deluxe.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\crt-geom\fs_crt-geom.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\crt-geom\fs_gaussx.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\crt-geom\fs_gaussy.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\crt-geom\fs_phosphor_apply.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\crt-geom\fs_phosphor_update.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\crt-geom\vs_crt-geom.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\crt-geom\vs_gaussx.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\crt-geom\vs_gaussy.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\crt-geom\vs_phosphor_apply.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\crt-geom\vs_phosphor_update.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\default\fs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\default\vs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\eagle\fs_eagle.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\eagle\vs_eagle.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hlsl\fs_color.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hlsl\fs_deconverge.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hlsl\fs_defocus.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hlsl\fs_distortion.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hlsl\fs_ntsc_decode.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hlsl\fs_ntsc_encode.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hlsl\fs_phosphor.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hlsl\fs_post.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hlsl\fs_prescale.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hlsl\vs_color.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hlsl\vs_deconverge.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hlsl\vs_defocus.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hlsl\vs_distortion.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hlsl\vs_ntsc_decode.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hlsl\vs_ntsc_encode.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hlsl\vs_phosphor.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hlsl\vs_post.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hlsl\vs_prescale.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hqx\fs_hq2x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hqx\fs_hq3x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hqx\fs_hq4x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hqx\vs_hq2x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hqx\vs_hq3x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\hqx\vs_hq4x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\misc\fs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\misc\fs_bob-and-ghost-deinterlace.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\misc\fs_deposterize-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\misc\fs_deposterize-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\misc\fs_saturation.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\misc\vs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\misc\vs_bob-and-ghost-deinterlace.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\misc\vs_deposterize-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\misc\vs_deposterize-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\misc\vs_saturation.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\pillarbox_left_horizontal\fs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\pillarbox_left_horizontal\fs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\pillarbox_left_horizontal\vs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\pillarbox_left_horizontal\vs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\pillarbox_left_vertical\fs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\pillarbox_left_vertical\fs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\pillarbox_left_vertical\vs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\pillarbox_left_vertical\vs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\pillarbox_right_horizontal\fs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\pillarbox_right_horizontal\fs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\pillarbox_right_horizontal\vs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\pillarbox_right_horizontal\vs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\pillarbox_right_vertical\fs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\pillarbox_right_vertical\fs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\pillarbox_right_vertical\vs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\pillarbox_right_vertical\vs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\unfiltered\fs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\unfiltered\vs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\warp\fs_dilation-horizontal-fast.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\warp\vs_dilation-horizontal-fast.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\fs_xbr-lv1-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\fs_xbr-lv2-3d.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\fs_xbr-lv2-fast.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\fs_xbr-lv2-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\fs_xbr-lv2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\fs_xbr-lv3-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\fs_xbr-lv3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\vs_xbr-lv1-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\vs_xbr-lv2-3d.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\vs_xbr-lv2-fast.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\vs_xbr-lv2-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\vs_xbr-lv2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\vs_xbr-lv3-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\vs_xbr-lv3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\fs_custom-jinc2-sharper.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\fs_super-2xbr-3d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\fs_super-2xbr-3d-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\fs_super-2xbr-3d-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\fs_super-4xbr-3d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\fs_super-4xbr-3d-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\fs_super-4xbr-3d-pass1f.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\fs_super-4xbr-3d-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\fs_super-4xbr-3d-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\fs_super-4xbr-3d-pass3f.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\fs_super-xbr-fast-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\fs_super-xbr-fast-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\fs_super-xbr-fast-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\fs_super-xbr-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\fs_super-xbr-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\fs_super-xbr-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\vs_custom-jinc2-sharper.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\vs_super-2xbr-3d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\vs_super-2xbr-3d-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\vs_super-2xbr-3d-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\vs_super-4xbr-3d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\vs_super-4xbr-3d-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\vs_super-4xbr-3d-pass1f.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\vs_super-4xbr-3d-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\vs_super-4xbr-3d-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\vs_super-4xbr-3d-pass3f.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\vs_super-xbr-fast-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\vs_super-xbr-fast-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\vs_super-xbr-fast-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\vs_super-xbr-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\vs_super-xbr-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\vs_super-xbr-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\super-xbr\vs_super-xbr-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-sharp.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v2-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v4-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v4.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v4b.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v5-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-hybrid\fs_2xbr-hybrid.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-sharp.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v2-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v4-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v4.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v4b.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v5-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-hybrid\vs_2xbr-hybrid.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-a-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-accuracy-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-accuracy-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-b-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-c-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-noblend-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-a-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-accuracy-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-accuracy-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-b-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-c-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-noblend-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-lv3-multipass\fs_xbr-lv3-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-lv3-multipass\fs_xbr-lv3-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-lv3-multipass\vs_xbr-lv3-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-lv3-multipass\vs_xbr-lv3-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-mlv4-multipass\fs_xbr-mlv4-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-mlv4-multipass\fs_xbr-mlv4-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-mlv4-multipass\fs_xbr-mlv4-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-mlv4-multipass\fs_xbr-mlv4-pass4.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-mlv4-multipass\vs_xbr-mlv4-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-mlv4-multipass\vs_xbr-mlv4-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-mlv4-multipass\vs_xbr-mlv4-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\dx9\chains\xbr\xbr-mlv4-multipass\vs_xbr-mlv4-pass4.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\fs_gui.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\fs_screen.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\vs_gui.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\vs_screen.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\blurs\fs_smart-blur.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\blurs\vs_smart-blur.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\crt\fs_crt-caligari.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\crt\vs_crt-caligari.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\crt-geom\fs_crt-geom-deluxe.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\crt-geom\fs_crt-geom.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\crt-geom\fs_gaussx.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\crt-geom\fs_gaussy.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\crt-geom\fs_phosphor_apply.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\crt-geom\fs_phosphor_update.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\crt-geom\vs_crt-geom.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\crt-geom\vs_gaussx.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\crt-geom\vs_gaussy.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\crt-geom\vs_phosphor_apply.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\crt-geom\vs_phosphor_update.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\default\fs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\default\vs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\eagle\fs_eagle.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\eagle\vs_eagle.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hlsl\fs_color.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hlsl\fs_deconverge.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hlsl\fs_defocus.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hlsl\fs_distortion.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hlsl\fs_ntsc_decode.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hlsl\fs_ntsc_encode.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hlsl\fs_phosphor.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hlsl\fs_post.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hlsl\fs_prescale.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hlsl\vs_color.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hlsl\vs_deconverge.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hlsl\vs_defocus.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hlsl\vs_distortion.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hlsl\vs_ntsc_decode.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hlsl\vs_ntsc_encode.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hlsl\vs_phosphor.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hlsl\vs_post.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hlsl\vs_prescale.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hqx\fs_hq2x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hqx\fs_hq3x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hqx\fs_hq4x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hqx\vs_hq2x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hqx\vs_hq3x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\hqx\vs_hq4x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\misc\fs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\misc\fs_bob-and-ghost-deinterlace.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\misc\fs_deposterize-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\misc\fs_deposterize-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\misc\fs_saturation.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\misc\vs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\misc\vs_bob-and-ghost-deinterlace.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\misc\vs_deposterize-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\misc\vs_deposterize-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\misc\vs_saturation.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\pillarbox_left_horizontal\fs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\pillarbox_left_horizontal\fs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\pillarbox_left_horizontal\vs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\pillarbox_left_horizontal\vs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\pillarbox_left_vertical\fs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\pillarbox_left_vertical\fs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\pillarbox_left_vertical\vs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\pillarbox_left_vertical\vs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\pillarbox_right_horizontal\fs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\pillarbox_right_horizontal\fs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\pillarbox_right_horizontal\vs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\pillarbox_right_horizontal\vs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\pillarbox_right_vertical\fs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\pillarbox_right_vertical\fs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\pillarbox_right_vertical\vs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\pillarbox_right_vertical\vs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\unfiltered\fs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\unfiltered\vs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\warp\fs_dilation-horizontal-fast.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\warp\vs_dilation-horizontal-fast.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\fs_xbr-lv1-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\fs_xbr-lv2-3d.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\fs_xbr-lv2-fast.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\fs_xbr-lv2-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\fs_xbr-lv2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\fs_xbr-lv3-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\fs_xbr-lv3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\vs_xbr-lv1-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\vs_xbr-lv2-3d.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\vs_xbr-lv2-fast.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\vs_xbr-lv2-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\vs_xbr-lv2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\vs_xbr-lv3-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\vs_xbr-lv3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\fs_custom-jinc2-sharper.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\fs_super-2xbr-3d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\fs_super-2xbr-3d-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\fs_super-2xbr-3d-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\fs_super-4xbr-3d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\fs_super-4xbr-3d-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\fs_super-4xbr-3d-pass1f.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\fs_super-4xbr-3d-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\fs_super-4xbr-3d-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\fs_super-4xbr-3d-pass3f.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\fs_super-xbr-fast-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\fs_super-xbr-fast-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\fs_super-xbr-fast-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\fs_super-xbr-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\fs_super-xbr-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\fs_super-xbr-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\vs_custom-jinc2-sharper.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\vs_super-2xbr-3d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\vs_super-2xbr-3d-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\vs_super-2xbr-3d-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\vs_super-4xbr-3d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\vs_super-4xbr-3d-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\vs_super-4xbr-3d-pass1f.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\vs_super-4xbr-3d-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\vs_super-4xbr-3d-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\vs_super-4xbr-3d-pass3f.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\vs_super-xbr-fast-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\vs_super-xbr-fast-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\vs_super-xbr-fast-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\vs_super-xbr-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\vs_super-xbr-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\vs_super-xbr-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\super-xbr\vs_super-xbr-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-sharp.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v2-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v4-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v4.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v4b.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v5-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-hybrid\fs_2xbr-hybrid.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-sharp.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v2-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v4-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v4.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v4b.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v5-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-hybrid\vs_2xbr-hybrid.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-a-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-accuracy-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-accuracy-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-b-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-c-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-noblend-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-a-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-accuracy-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-accuracy-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-b-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-c-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-noblend-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-lv3-multipass\fs_xbr-lv3-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-lv3-multipass\fs_xbr-lv3-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-lv3-multipass\vs_xbr-lv3-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-lv3-multipass\vs_xbr-lv3-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-mlv4-multipass\fs_xbr-mlv4-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-mlv4-multipass\fs_xbr-mlv4-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-mlv4-multipass\fs_xbr-mlv4-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-mlv4-multipass\fs_xbr-mlv4-pass4.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-mlv4-multipass\vs_xbr-mlv4-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-mlv4-multipass\vs_xbr-mlv4-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-mlv4-multipass\vs_xbr-mlv4-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\essl\chains\xbr\xbr-mlv4-multipass\vs_xbr-mlv4-pass4.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\fs_gui.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\fs_screen.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\vs_gui.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\vs_screen.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\blurs\fs_smart-blur.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\blurs\vs_smart-blur.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\crt\fs_crt-caligari.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\crt\vs_crt-caligari.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\crt-geom\fs_crt-geom-deluxe.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\crt-geom\fs_crt-geom.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\crt-geom\fs_gaussx.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\crt-geom\fs_gaussy.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\crt-geom\fs_phosphor_apply.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\crt-geom\fs_phosphor_update.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\crt-geom\vs_crt-geom.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\crt-geom\vs_gaussx.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\crt-geom\vs_gaussy.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\crt-geom\vs_phosphor_apply.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\crt-geom\vs_phosphor_update.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\default\fs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\default\vs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\eagle\fs_eagle.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\eagle\vs_eagle.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hlsl\fs_color.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hlsl\fs_deconverge.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hlsl\fs_defocus.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hlsl\fs_distortion.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hlsl\fs_ntsc_decode.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hlsl\fs_ntsc_encode.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hlsl\fs_phosphor.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hlsl\fs_post.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hlsl\fs_prescale.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hlsl\vs_color.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hlsl\vs_deconverge.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hlsl\vs_defocus.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hlsl\vs_distortion.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hlsl\vs_ntsc_decode.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hlsl\vs_ntsc_encode.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hlsl\vs_phosphor.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hlsl\vs_post.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hlsl\vs_prescale.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hqx\fs_hq2x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hqx\fs_hq3x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hqx\fs_hq4x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hqx\vs_hq2x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hqx\vs_hq3x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\hqx\vs_hq4x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\misc\fs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\misc\fs_bob-and-ghost-deinterlace.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\misc\fs_deposterize-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\misc\fs_deposterize-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\misc\fs_saturation.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\misc\vs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\misc\vs_bob-and-ghost-deinterlace.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\misc\vs_deposterize-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\misc\vs_deposterize-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\misc\vs_saturation.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\pillarbox_left_horizontal\fs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\pillarbox_left_horizontal\fs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\pillarbox_left_horizontal\vs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\pillarbox_left_horizontal\vs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\pillarbox_left_vertical\fs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\pillarbox_left_vertical\fs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\pillarbox_left_vertical\vs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\pillarbox_left_vertical\vs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\pillarbox_right_horizontal\fs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\pillarbox_right_horizontal\fs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\pillarbox_right_horizontal\vs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\pillarbox_right_horizontal\vs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\pillarbox_right_vertical\fs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\pillarbox_right_vertical\fs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\pillarbox_right_vertical\vs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\pillarbox_right_vertical\vs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\unfiltered\fs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\unfiltered\vs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\warp\fs_dilation-horizontal-fast.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\warp\vs_dilation-horizontal-fast.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\fs_xbr-lv1-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\fs_xbr-lv2-3d.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\fs_xbr-lv2-fast.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\fs_xbr-lv2-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\fs_xbr-lv2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\fs_xbr-lv3-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\fs_xbr-lv3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\vs_xbr-lv1-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\vs_xbr-lv2-3d.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\vs_xbr-lv2-fast.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\vs_xbr-lv2-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\vs_xbr-lv2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\vs_xbr-lv3-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\vs_xbr-lv3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\fs_custom-jinc2-sharper.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\fs_super-2xbr-3d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\fs_super-2xbr-3d-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\fs_super-2xbr-3d-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\fs_super-4xbr-3d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\fs_super-4xbr-3d-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\fs_super-4xbr-3d-pass1f.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\fs_super-4xbr-3d-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\fs_super-4xbr-3d-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\fs_super-4xbr-3d-pass3f.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\fs_super-xbr-fast-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\fs_super-xbr-fast-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\fs_super-xbr-fast-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\fs_super-xbr-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\fs_super-xbr-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\fs_super-xbr-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\vs_custom-jinc2-sharper.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\vs_super-2xbr-3d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\vs_super-2xbr-3d-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\vs_super-2xbr-3d-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\vs_super-4xbr-3d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\vs_super-4xbr-3d-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\vs_super-4xbr-3d-pass1f.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\vs_super-4xbr-3d-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\vs_super-4xbr-3d-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\vs_super-4xbr-3d-pass3f.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\vs_super-xbr-fast-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\vs_super-xbr-fast-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\vs_super-xbr-fast-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\vs_super-xbr-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\vs_super-xbr-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\vs_super-xbr-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\super-xbr\vs_super-xbr-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-sharp.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v2-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v4-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v4.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v4b.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v5-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-hybrid\fs_2xbr-hybrid.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-sharp.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v2-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v4-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v4.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v4b.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v5-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-hybrid\vs_2xbr-hybrid.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-a-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-accuracy-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-accuracy-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-b-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-c-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-noblend-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-a-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-accuracy-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-accuracy-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-b-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-c-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-noblend-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-lv3-multipass\fs_xbr-lv3-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-lv3-multipass\fs_xbr-lv3-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-lv3-multipass\vs_xbr-lv3-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-lv3-multipass\vs_xbr-lv3-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-mlv4-multipass\fs_xbr-mlv4-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-mlv4-multipass\fs_xbr-mlv4-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-mlv4-multipass\fs_xbr-mlv4-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-mlv4-multipass\fs_xbr-mlv4-pass4.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-mlv4-multipass\vs_xbr-mlv4-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-mlv4-multipass\vs_xbr-mlv4-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-mlv4-multipass\vs_xbr-mlv4-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\glsl\chains\xbr\xbr-mlv4-multipass\vs_xbr-mlv4-pass4.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\fs_gui.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\fs_screen.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\vs_gui.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\vs_screen.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\blurs\fs_smart-blur.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\blurs\vs_smart-blur.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\crt\fs_crt-caligari.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\crt\vs_crt-caligari.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\crt-geom\fs_crt-geom-deluxe.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\crt-geom\fs_crt-geom.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\crt-geom\fs_gaussx.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\crt-geom\fs_gaussy.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\crt-geom\fs_phosphor_apply.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\crt-geom\fs_phosphor_update.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\crt-geom\vs_crt-geom.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\crt-geom\vs_gaussx.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\crt-geom\vs_gaussy.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\crt-geom\vs_phosphor_apply.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\crt-geom\vs_phosphor_update.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\default\fs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\default\vs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\eagle\fs_eagle.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\eagle\vs_eagle.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hlsl\fs_color.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hlsl\fs_deconverge.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hlsl\fs_defocus.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hlsl\fs_distortion.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hlsl\fs_ntsc_decode.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hlsl\fs_ntsc_encode.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hlsl\fs_phosphor.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hlsl\fs_post.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hlsl\fs_prescale.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hlsl\vs_color.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hlsl\vs_deconverge.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hlsl\vs_defocus.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hlsl\vs_distortion.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hlsl\vs_ntsc_decode.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hlsl\vs_ntsc_encode.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hlsl\vs_phosphor.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hlsl\vs_post.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hlsl\vs_prescale.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hqx\fs_hq2x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hqx\fs_hq3x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hqx\fs_hq4x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hqx\vs_hq2x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hqx\vs_hq3x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\hqx\vs_hq4x.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\misc\fs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\misc\fs_bob-and-ghost-deinterlace.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\misc\fs_deposterize-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\misc\fs_deposterize-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\misc\fs_saturation.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\misc\vs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\misc\vs_bob-and-ghost-deinterlace.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\misc\vs_deposterize-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\misc\vs_deposterize-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\misc\vs_saturation.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\pillarbox_left_horizontal\fs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\pillarbox_left_horizontal\fs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\pillarbox_left_horizontal\vs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\pillarbox_left_horizontal\vs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\pillarbox_left_vertical\fs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\pillarbox_left_vertical\fs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\pillarbox_left_vertical\vs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\pillarbox_left_vertical\vs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\pillarbox_right_horizontal\fs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\pillarbox_right_horizontal\fs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\pillarbox_right_horizontal\vs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\pillarbox_right_horizontal\vs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\pillarbox_right_vertical\fs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\pillarbox_right_vertical\fs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\pillarbox_right_vertical\vs_gaussian.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\pillarbox_right_vertical\vs_offset_sat.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\unfiltered\fs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\unfiltered\vs_blit.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\warp\fs_dilation-horizontal-fast.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\warp\vs_dilation-horizontal-fast.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\fs_xbr-lv1-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\fs_xbr-lv2-3d.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\fs_xbr-lv2-fast.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\fs_xbr-lv2-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\fs_xbr-lv2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\fs_xbr-lv3-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\fs_xbr-lv3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\vs_xbr-lv1-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\vs_xbr-lv2-3d.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\vs_xbr-lv2-fast.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\vs_xbr-lv2-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\vs_xbr-lv2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\vs_xbr-lv3-noblend.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\vs_xbr-lv3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\fs_custom-jinc2-sharper.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\fs_super-2xbr-3d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\fs_super-2xbr-3d-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\fs_super-2xbr-3d-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\fs_super-4xbr-3d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\fs_super-4xbr-3d-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\fs_super-4xbr-3d-pass1f.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\fs_super-4xbr-3d-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\fs_super-4xbr-3d-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\fs_super-4xbr-3d-pass3f.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\fs_super-xbr-fast-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\fs_super-xbr-fast-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\fs_super-xbr-fast-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\fs_super-xbr-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\fs_super-xbr-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\fs_super-xbr-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\vs_custom-jinc2-sharper.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\vs_super-2xbr-3d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\vs_super-2xbr-3d-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\vs_super-2xbr-3d-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\vs_super-4xbr-3d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\vs_super-4xbr-3d-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\vs_super-4xbr-3d-pass1f.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\vs_super-4xbr-3d-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\vs_super-4xbr-3d-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\vs_super-4xbr-3d-pass3f.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\vs_super-xbr-fast-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\vs_super-xbr-fast-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\vs_super-xbr-fast-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\vs_super-xbr-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\vs_super-xbr-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\vs_super-xbr-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\super-xbr\vs_super-xbr-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-sharp.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v2-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v4-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v4.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v4b.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-hybrid\fs_2xbr-hybrid-v5-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-hybrid\fs_2xbr-hybrid.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-sharp.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v2-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v4-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v4.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v4b.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-hybrid\vs_2xbr-hybrid-v5-gamma.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-hybrid\vs_2xbr-hybrid.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-a-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-accuracy-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-accuracy-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-b-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-c-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-noblend-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-lv2-multipass\fs_xbr-lv2-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-a-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-accuracy-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-accuracy-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-b-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-c-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-d-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-noblend-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-lv2-multipass\vs_xbr-lv2-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-lv3-multipass\fs_xbr-lv3-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-lv3-multipass\fs_xbr-lv3-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-lv3-multipass\vs_xbr-lv3-pass0.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-lv3-multipass\vs_xbr-lv3-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-mlv4-multipass\fs_xbr-mlv4-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-mlv4-multipass\fs_xbr-mlv4-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-mlv4-multipass\fs_xbr-mlv4-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-mlv4-multipass\fs_xbr-mlv4-pass4.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-mlv4-multipass\vs_xbr-mlv4-pass1.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-mlv4-multipass\vs_xbr-mlv4-pass2.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-mlv4-multipass\vs_xbr-mlv4-pass3.bin" />
+    <None Include="..\..\..\..\..\bgfx\shaders\metal\chains\xbr\xbr-mlv4-multipass\vs_xbr-mlv4-pass4.bin" />
+    <None Include="..\..\..\..\..\hash\32x.xml" />
+    <None Include="..\..\..\..\..\hash\3do_m2.xml" />
+    <None Include="..\..\..\..\..\hash\a2600.xml" />
+    <None Include="..\..\..\..\..\hash\a2600_cass.xml" />
+    <None Include="..\..\..\..\..\hash\a5200.hsi" />
+    <None Include="..\..\..\..\..\hash\a5200.xml" />
+    <None Include="..\..\..\..\..\hash\a7800.xml" />
+    <None Include="..\..\..\..\..\hash\a800.xml" />
+    <None Include="..\..\..\..\..\hash\a800_flop.xml" />
+    <None Include="..\..\..\..\..\hash\abc1600.xml" />
+    <None Include="..\..\..\..\..\hash\abc800.xml" />
+    <None Include="..\..\..\..\..\hash\abc800_hdd.xml" />
+    <None Include="..\..\..\..\..\hash\abc806.xml" />
+    <None Include="..\..\..\..\..\hash\abc80_cass.xml" />
+    <None Include="..\..\..\..\..\hash\abc80_flop.xml" />
+    <None Include="..\..\..\..\..\hash\adam_cart.xml" />
+    <None Include="..\..\..\..\..\hash\adam_cass.xml" />
+    <None Include="..\..\..\..\..\hash\adam_flop.xml" />
+    <None Include="..\..\..\..\..\hash\advantage.xml" />
+    <None Include="..\..\..\..\..\hash\advision.xml" />
+    <None Include="..\..\..\..\..\hash\aim65_cart.xml" />
+    <None Include="..\..\..\..\..\hash\aleste.xml" />
+    <None Include="..\..\..\..\..\hash\alice32.xml" />
+    <None Include="..\..\..\..\..\hash\alice90.xml" />
+    <None Include="..\..\..\..\..\hash\alphatro_flop.xml" />
+    <None Include="..\..\..\..\..\hash\altos5.xml" />
+    <None Include="..\..\..\..\..\hash\amigaaga_flop.xml" />
+    <None Include="..\..\..\..\..\hash\amigaecs_flop.xml" />
+    <None Include="..\..\..\..\..\hash\amigaocs_flop.xml" />
+    <None Include="..\..\..\..\..\hash\amiga_a1000.xml" />
+    <None Include="..\..\..\..\..\hash\amiga_a3000.xml" />
+    <None Include="..\..\..\..\..\hash\amiga_apps.xml" />
+    <None Include="..\..\..\..\..\hash\amiga_flop.xml" />
+    <None Include="..\..\..\..\..\hash\amiga_hardware.xml" />
+    <None Include="..\..\..\..\..\hash\amiga_workbench.xml" />
+    <None Include="..\..\..\..\..\hash\ampro.xml" />
+    <None Include="..\..\..\..\..\hash\apc.xml" />
+    <None Include="..\..\..\..\..\hash\apfimag_cass.xml" />
+    <None Include="..\..\..\..\..\hash\apfm1000.xml" />
+    <None Include="..\..\..\..\..\hash\apogee.xml" />
+    <None Include="..\..\..\..\..\hash\apollo_ctape.xml" />
+    <None Include="..\..\..\..\..\hash\apple1.xml" />
+    <None Include="..\..\..\..\..\hash\apple2.xml" />
+    <None Include="..\..\..\..\..\hash\apple2gs.xml" />
+    <None Include="..\..\..\..\..\hash\apple3.xml" />
+    <None Include="..\..\..\..\..\hash\apricot_flop.xml" />
+    <None Include="..\..\..\..\..\hash\aquarius.xml" />
+    <None Include="..\..\..\..\..\hash\arcadia.xml" />
+    <None Include="..\..\..\..\..\hash\archimedes.xml" />
+    <None Include="..\..\..\..\..\hash\astrocde.xml" />
+    <None Include="..\..\..\..\..\hash\atom_cass.xml" />
+    <None Include="..\..\..\..\..\hash\atom_flop.xml" />
+    <None Include="..\..\..\..\..\hash\atom_rom.xml" />
+    <None Include="..\..\..\..\..\hash\attache.xml" />
+    <None Include="..\..\..\..\..\hash\b2m.xml" />
+    <None Include="..\..\..\..\..\hash\bbca_cass.xml" />
+    <None Include="..\..\..\..\..\hash\bbcbc.xml" />
+    <None Include="..\..\..\..\..\hash\bbcb_cass.xml" />
+    <None Include="..\..\..\..\..\hash\bbcb_cass_de.xml" />
+    <None Include="..\..\..\..\..\hash\bbcb_flop.xml" />
+    <None Include="..\..\..\..\..\hash\bbcb_flop_orig.xml" />
+    <None Include="..\..\..\..\..\hash\bbcb_flop_us.xml" />
+    <None Include="..\..\..\..\..\hash\bbcmc_flop.xml" />
+    <None Include="..\..\..\..\..\hash\bbcm_cart.xml" />
+    <None Include="..\..\..\..\..\hash\bbcm_cass.xml" />
+    <None Include="..\..\..\..\..\hash\bbcm_flop.xml" />
+    <None Include="..\..\..\..\..\hash\bbc_flop_32016.xml" />
+    <None Include="..\..\..\..\..\hash\bbc_flop_6502.xml" />
+    <None Include="..\..\..\..\..\hash\bbc_flop_65c102.xml" />
+    <None Include="..\..\..\..\..\hash\bbc_flop_68000.xml" />
+    <None Include="..\..\..\..\..\hash\bbc_flop_80186.xml" />
+    <None Include="..\..\..\..\..\hash\bbc_flop_arm.xml" />
+    <None Include="..\..\..\..\..\hash\bbc_flop_torch.xml" />
+    <None Include="..\..\..\..\..\hash\bbc_flop_z80.xml" />
+    <None Include="..\..\..\..\..\hash\bk0010.xml" />
+    <None Include="..\..\..\..\..\hash\bml3_flop.xml" />
+    <None Include="..\..\..\..\..\hash\bw12.xml" />
+    <None Include="..\..\..\..\..\hash\bw14.xml" />
+    <None Include="..\..\..\..\..\hash\bw2.xml" />
+    <None Include="..\..\..\..\..\hash\bx256hp_flop.xml" />
+    <None Include="..\..\..\..\..\hash\c128_cart.xml" />
+    <None Include="..\..\..\..\..\hash\c128_flop.xml" />
+    <None Include="..\..\..\..\..\hash\c128_rom.xml" />
+    <None Include="..\..\..\..\..\hash\c64_cart.xml" />
+    <None Include="..\..\..\..\..\hash\c64_cass.xml" />
+    <None Include="..\..\..\..\..\hash\c64_flop.xml" />
+    <None Include="..\..\..\..\..\hash\c65_flop.xml" />
+    <None Include="..\..\..\..\..\hash\casloopy.xml" />
+    <None Include="..\..\..\..\..\hash\cbm2_cart.xml" />
+    <None Include="..\..\..\..\..\hash\cbm2_flop.xml" />
+    <None Include="..\..\..\..\..\hash\cbm8096_flop.xml" />
+    <None Include="..\..\..\..\..\hash\cbm8296_flop.xml" />
+    <None Include="..\..\..\..\..\hash\cc40_cart.xml" />
+    <None Include="..\..\..\..\..\hash\cd32.xml" />
+    <None Include="..\..\..\..\..\hash\cdi.xml" />
+    <None Include="..\..\..\..\..\hash\cdtv.xml" />
+    <None Include="..\..\..\..\..\hash\cgenie_cart.xml" />
+    <None Include="..\..\..\..\..\hash\cgenie_cass.xml" />
+    <None Include="..\..\..\..\..\hash\channelf.xml" />
+    <None Include="..\..\..\..\..\hash\chessmstdm.xml" />
+    <None Include="..\..\..\..\..\hash\coco_cart.xml" />
+    <None Include="..\..\..\..\..\hash\coco_flop.xml" />
+    <None Include="..\..\..\..\..\hash\coleco.xml" />
+    <None Include="..\..\..\..\..\hash\compclr2_flop.xml" />
+    <None Include="..\..\..\..\..\hash\compis.xml" />
+    <None Include="..\..\..\..\..\hash\comx35_flop.xml" />
+    <None Include="..\..\..\..\..\hash\copera.xml" />
+    <None Include="..\..\..\..\..\hash\cpc_cass.xml" />
+    <None Include="..\..\..\..\..\hash\cpc_flop.xml" />
+    <None Include="..\..\..\..\..\hash\crvision.xml" />
+    <None Include="..\..\..\..\..\hash\cx3000tc.xml" />
+    <None Include="..\..\..\..\..\hash\dai_cass.xml" />
+    <None Include="..\..\..\..\..\hash\database.xml" />
+    <None Include="..\..\..\..\..\hash\dim68k.xml" />
+    <None Include="..\..\..\..\..\hash\dmv.xml" />
+    <None Include="..\..\..\..\..\hash\dps1.xml" />
+    <None Include="..\..\..\..\..\hash\e01_flop.xml" />
+    <None Include="..\..\..\..\..\hash\ec1841.xml" />
+    <None Include="..\..\..\..\..\hash\einstein.xml" />
+    <None Include="..\..\..\..\..\hash\electron_cart.xml" />
+    <None Include="..\..\..\..\..\hash\electron_cass.xml" />
+    <None Include="..\..\..\..\..\hash\electron_flop.xml" />
+    <None Include="..\..\..\..\..\hash\ep64_cart.xml" />
+    <None Include="..\..\..\..\..\hash\ep64_cass.xml" />
+    <None Include="..\..\..\..\..\hash\ep64_flop.xml" />
+    <None Include="..\..\..\..\..\hash\epson_cpm.xml" />
+    <None Include="..\..\..\..\..\hash\exl100.xml" />
+    <None Include="..\..\..\..\..\hash\famicom_cass.xml" />
+    <None Include="..\..\..\..\..\hash\famicom_flop.xml" />
+    <None Include="..\..\..\..\..\hash\fidel_scc.xml" />
+    <None Include="..\..\..\..\..\hash\fm77av.xml" />
+    <None Include="..\..\..\..\..\hash\fm7_cass.xml" />
+    <None Include="..\..\..\..\..\hash\fm7_disk.xml" />
+    <None Include="..\..\..\..\..\hash\fmtowns_cd.xml" />
+    <None Include="..\..\..\..\..\hash\fmtowns_flop.xml" />
+    <None Include="..\..\..\..\..\hash\g7400.xml" />
+    <None Include="..\..\..\..\..\hash\galaxy.xml" />
+    <None Include="..\..\..\..\..\hash\gamate.xml" />
+    <None Include="..\..\..\..\..\hash\gameboy.xml" />
+    <None Include="..\..\..\..\..\hash\gamecom.xml" />
+    <None Include="..\..\..\..\..\hash\gamegear.xml" />
+    <None Include="..\..\..\..\..\hash\gameking.xml" />
+    <None Include="..\..\..\..\..\hash\gameking3.xml" />
+    <None Include="..\..\..\..\..\hash\gamepock.xml" />
+    <None Include="..\..\..\..\..\hash\gba.xml" />
+    <None Include="..\..\..\..\..\hash\gba_ereader.xml" />
+    <None Include="..\..\..\..\..\hash\gbcolor.xml" />
+    <None Include="..\..\..\..\..\hash\genius.xml" />
+    <None Include="..\..\..\..\..\hash\gimix.xml" />
+    <None Include="..\..\..\..\..\hash\gjmovie.xml" />
+    <None Include="..\..\..\..\..\hash\gl2000.xml" />
+    <None Include="..\..\..\..\..\hash\gl6000sl.xml" />
+    <None Include="..\..\..\..\..\hash\glcolor.xml" />
+    <None Include="..\..\..\..\..\hash\gmaster.xml" />
+    <None Include="..\..\..\..\..\hash\gp32.xml" />
+    <None Include="..\..\..\..\..\hash\guab.xml" />
+    <None Include="..\..\..\..\..\hash\gx4000.xml" />
+    <None Include="..\..\..\..\..\hash\h21.xml" />
+    <None Include="..\..\..\..\..\hash\horizon.xml" />
+    <None Include="..\..\..\..\..\hash\hp9835a_rom.xml" />
+    <None Include="..\..\..\..\..\hash\hp9845a_rom.xml" />
+    <None Include="..\..\..\..\..\hash\hp9845b_rom.xml" />
+    <None Include="..\..\..\..\..\hash\hp_ipc.xml" />
+    <None Include="..\..\..\..\..\hash\ht68k.xml" />
+    <None Include="..\..\..\..\..\hash\i7000_card.xml" />
+    <None Include="..\..\..\..\..\hash\ibm5140.xml" />
+    <None Include="..\..\..\..\..\hash\ibm5150.xml" />
+    <None Include="..\..\..\..\..\hash\ibm5150_cass.xml" />
+    <None Include="..\..\..\..\..\hash\ibm5170.xml" />
+    <None Include="..\..\..\..\..\hash\ibm5170_cdrom.xml" />
+    <None Include="..\..\..\..\..\hash\ibm6580.xml" />
+    <None Include="..\..\..\..\..\hash\ibmpcjr_cart.xml" />
+    <None Include="..\..\..\..\..\hash\ibmpcjr_flop.xml" />
+    <None Include="..\..\..\..\..\hash\interact.xml" />
+    <None Include="..\..\..\..\..\hash\intv.hsi" />
+    <None Include="..\..\..\..\..\hash\intv.xml" />
+    <None Include="..\..\..\..\..\hash\intvecs.xml" />
+    <None Include="..\..\..\..\..\hash\iq128.xml" />
+    <None Include="..\..\..\..\..\hash\iq151_cart.xml" />
+    <None Include="..\..\..\..\..\hash\iq151_flop.xml" />
+    <None Include="..\..\..\..\..\hash\jaguar.xml" />
+    <None Include="..\..\..\..\..\hash\juicebox.xml" />
+    <None Include="..\..\..\..\..\hash\jupace_cass.xml" />
+    <None Include="..\..\..\..\..\hash\k28m2.xml" />
+    <None Include="..\..\..\..\..\hash\kayproii.xml" />
+    <None Include="..\..\..\..\..\hash\kc_cart.xml" />
+    <None Include="..\..\..\..\..\hash\kc_cass.xml" />
+    <None Include="..\..\..\..\..\hash\kc_flop.xml" />
+    <None Include="..\..\..\..\..\hash\kim1_cass.xml" />
+    <None Include="..\..\..\..\..\hash\korvet_flop.xml" />
+    <None Include="..\..\..\..\..\hash\lantutor.xml" />
+    <None Include="..\..\..\..\..\hash\leapster.xml" />
+    <None Include="..\..\..\..\..\hash\LICENSE" />
+    <None Include="..\..\..\..\..\hash\lisa.xml" />
+    <None Include="..\..\..\..\..\hash\lisa2.xml" />
+    <None Include="..\..\..\..\..\hash\lviv.xml" />
+    <None Include="..\..\..\..\..\hash\lynx.xml" />
+    <None Include="..\..\..\..\..\hash\m20.xml" />
+    <None Include="..\..\..\..\..\hash\m5_cart.xml" />
+    <None Include="..\..\..\..\..\hash\m5_cass.xml" />
+    <None Include="..\..\..\..\..\hash\m5_flop.xml" />
+    <None Include="..\..\..\..\..\hash\mac_flop.xml" />
+    <None Include="..\..\..\..\..\hash\mac_hdd.xml" />
+    <None Include="..\..\..\..\..\hash\mbc200.xml" />
+    <None Include="..\..\..\..\..\hash\mbc55x.xml" />
+    <None Include="..\..\..\..\..\hash\mc10.xml" />
+    <None Include="..\..\..\..\..\hash\mc1000_cass.xml" />
+    <None Include="..\..\..\..\..\hash\mc1502_flop.xml" />
+    <None Include="..\..\..\..\..\hash\md2_flop.xml" />
+    <None Include="..\..\..\..\..\hash\megacd.xml" />
+    <None Include="..\..\..\..\..\hash\megacdj.xml" />
+    <None Include="..\..\..\..\..\hash\megadriv.xml" />
+    <None Include="..\..\..\..\..\hash\megaduck.xml" />
+    <None Include="..\..\..\..\..\hash\megapc.xml" />
+    <None Include="..\..\..\..\..\hash\megatech.xml" />
+    <None Include="..\..\..\..\..\hash\microvision.xml" />
+    <None Include="..\..\..\..\..\hash\mikro80.xml" />
+    <None Include="..\..\..\..\..\hash\mikrosha_cart.xml" />
+    <None Include="..\..\..\..\..\hash\mikrosha_cass.xml" />
+    <None Include="..\..\..\..\..\hash\misterx.xml" />
+    <None Include="..\..\..\..\..\hash\mm1_flop.xml" />
+    <None Include="..\..\..\..\..\hash\mo5_cart.xml" />
+    <None Include="..\..\..\..\..\hash\mo5_cass.xml" />
+    <None Include="..\..\..\..\..\hash\mo5_flop.xml" />
+    <None Include="..\..\..\..\..\hash\mo5_qd.xml" />
+    <None Include="..\..\..\..\..\hash\mo6_cass.xml" />
+    <None Include="..\..\..\..\..\hash\mo6_flop.xml" />
+    <None Include="..\..\..\..\..\hash\mpu1000.xml" />
+    <None Include="..\..\..\..\..\hash\mpz80.xml" />
+    <None Include="..\..\..\..\..\hash\msx.hsi" />
+    <None Include="..\..\..\..\..\hash\msx1_cart.xml" />
+    <None Include="..\..\..\..\..\hash\msx1_cass.xml" />
+    <None Include="..\..\..\..\..\hash\msx1_flop.xml" />
+    <None Include="..\..\..\..\..\hash\msx2.hsi" />
+    <None Include="..\..\..\..\..\hash\msx2p_flop.xml" />
+    <None Include="..\..\..\..\..\hash\msx2_cart.xml" />
+    <None Include="..\..\..\..\..\hash\msx2_cass.xml" />
+    <None Include="..\..\..\..\..\hash\msx2_flop.xml" />
+    <None Include="..\..\..\..\..\hash\msxr_flop.xml" />
+    <None Include="..\..\..\..\..\hash\mtx_cass.xml" />
+    <None Include="..\..\..\..\..\hash\myvision.xml" />
+    <None Include="..\..\..\..\..\hash\mz2000_cass.xml" />
+    <None Include="..\..\..\..\..\hash\mz2000_flop.xml" />
+    <None Include="..\..\..\..\..\hash\mz2500.xml" />
+    <None Include="..\..\..\..\..\hash\mz700_cass.xml" />
+    <None Include="..\..\..\..\..\hash\mz800_cass.xml" />
+    <None Include="..\..\..\..\..\hash\n64.xml" />
+    <None Include="..\..\..\..\..\hash\n64dd.xml" />
+    <None Include="..\..\..\..\..\hash\nascom_flop.xml" />
+    <None Include="..\..\..\..\..\hash\nascom_socket.xml" />
+    <None Include="..\..\..\..\..\hash\neocd.xml" />
+    <None Include="..\..\..\..\..\hash\neogeo.xml" />
+    <None Include="..\..\..\..\..\hash\nes.hsi" />
+    <None Include="..\..\..\..\..\hash\nes.xml" />
+    <None Include="..\..\..\..\..\hash\nes_ade.xml" />
+    <None Include="..\..\..\..\..\hash\nes_datach.xml" />
+    <None Include="..\..\..\..\..\hash\nes_kstudio.xml" />
+    <None Include="..\..\..\..\..\hash\nes_ntbrom.xml" />
+    <None Include="..\..\..\..\..\hash\next.xml" />
+    <None Include="..\..\..\..\..\hash\ngp.xml" />
+    <None Include="..\..\..\..\..\hash\ngpc.xml" />
+    <None Include="..\..\..\..\..\hash\nimbus.xml" />
+    <None Include="..\..\..\..\..\hash\octopus.xml" />
+    <None Include="..\..\..\..\..\hash\odyssey2.xml" />
+    <None Include="..\..\..\..\..\hash\ondra.xml" />
+    <None Include="..\..\..\..\..\hash\orao.xml" />
+    <None Include="..\..\..\..\..\hash\orionpro_flop.xml" />
+    <None Include="..\..\..\..\..\hash\orion_cart.xml" />
+    <None Include="..\..\..\..\..\hash\orion_cass.xml" />
+    <None Include="..\..\..\..\..\hash\orion_flop.xml" />
+    <None Include="..\..\..\..\..\hash\osborne1.xml" />
+    <None Include="..\..\..\..\..\hash\osborne2.xml" />
+    <None Include="..\..\..\..\..\hash\p500_flop.xml" />
+    <None Include="..\..\..\..\..\hash\partner_cass.xml" />
+    <None Include="..\..\..\..\..\hash\partner_flop.xml" />
+    <None Include="..\..\..\..\..\hash\pasogo.xml" />
+    <None Include="..\..\..\..\..\hash\pb2000c.xml" />
+    <None Include="..\..\..\..\..\hash\pc1000.xml" />
+    <None Include="..\..\..\..\..\hash\pc1512_flop.xml" />
+    <None Include="..\..\..\..\..\hash\pc1512_hdd.xml" />
+    <None Include="..\..\..\..\..\hash\pc1640_flop.xml" />
+    <None Include="..\..\..\..\..\hash\pc1640_hdd.xml" />
+    <None Include="..\..\..\..\..\hash\pc8201.xml" />
+    <None Include="..\..\..\..\..\hash\pc8801_cass.xml" />
+    <None Include="..\..\..\..\..\hash\pc8801_flop.xml" />
+    <None Include="..\..\..\..\..\hash\pc88va.xml" />
+    <None Include="..\..\..\..\..\hash\pc98.xml" />
+    <None Include="..\..\..\..\..\hash\pc98_cd.xml" />
+    <None Include="..\..\..\..\..\hash\pce.xml" />
+    <None Include="..\..\..\..\..\hash\pcecd.xml" />
+    <None Include="..\..\..\..\..\hash\pce_tourvision.xml" />
+    <None Include="..\..\..\..\..\hash\pcw.xml" />
+    <None Include="..\..\..\..\..\hash\pcw16.xml" />
+    <None Include="..\..\..\..\..\hash\pecom_cass.xml" />
+    <None Include="..\..\..\..\..\hash\pegasus_cart.xml" />
+    <None Include="..\..\..\..\..\hash\pencil2.xml" />
+    <None Include="..\..\..\..\..\hash\pentagon_cass.xml" />
+    <None Include="..\..\..\..\..\hash\pet_cass.xml" />
+    <None Include="..\..\..\..\..\hash\pet_flop.xml" />
+    <None Include="..\..\..\..\..\hash\pet_hdd.xml" />
+    <None Include="..\..\..\..\..\hash\pet_rom.xml" />
+    <None Include="..\..\..\..\..\hash\pico.xml" />
+    <None Include="..\..\..\..\..\hash\pippin.xml" />
+    <None Include="..\..\..\..\..\hash\pippin_flop.xml" />
+    <None Include="..\..\..\..\..\hash\plus4_cart.xml" />
+    <None Include="..\..\..\..\..\hash\plus4_cass.xml" />
+    <None Include="..\..\..\..\..\hash\plus4_flop.xml" />
+    <None Include="..\..\..\..\..\hash\pmd85_cass.xml" />
+    <None Include="..\..\..\..\..\hash\pockchalv2.xml" />
+    <None Include="..\..\..\..\..\hash\pockchalw.xml" />
+    <None Include="..\..\..\..\..\hash\pofo.xml" />
+    <None Include="..\..\..\..\..\hash\poisk1_flop.xml" />
+    <None Include="..\..\..\..\..\hash\pokemini.xml" />
+    <None Include="..\..\..\..\..\hash\pro128s_flop.xml" />
+    <None Include="..\..\..\..\..\hash\pro128_cart.xml" />
+    <None Include="..\..\..\..\..\hash\pro128_cass.xml" />
+    <None Include="..\..\..\..\..\hash\pro128_flop.xml" />
+    <None Include="..\..\..\..\..\hash\prof180.xml" />
+    <None Include="..\..\..\..\..\hash\prof80.xml" />
+    <None Include="..\..\..\..\..\hash\psion1.xml" />
+    <None Include="..\..\..\..\..\hash\psion2.xml" />
+    <None Include="..\..\..\..\..\hash\psx.xml" />
+    <None Include="..\..\..\..\..\hash\pt68k2.xml" />
+    <None Include="..\..\..\..\..\hash\pv1000.xml" />
+    <None Include="..\..\..\..\..\hash\pv2000.xml" />
+    <None Include="..\..\..\..\..\hash\px4_cart.xml" />
+    <None Include="..\..\..\..\..\hash\pyl601.xml" />
+    <None Include="..\..\..\..\..\hash\ql_cart.xml" />
+    <None Include="..\..\..\..\..\hash\ql_cass.xml" />
+    <None Include="..\..\..\..\..\hash\ql_flop.xml" />
+    <None Include="..\..\..\..\..\hash\qx10_flop.xml" />
+    <None Include="..\..\..\..\..\hash\r9751.xml" />
+    <None Include="..\..\..\..\..\hash\radio86_cart.xml" />
+    <None Include="..\..\..\..\..\hash\radio86_cass.xml" />
+    <None Include="..\..\..\..\..\hash\rainbow.xml" />
+    <None Include="..\..\..\..\..\hash\README.md" />
+    <None Include="..\..\..\..\..\hash\rwtrntcs.xml" />
+    <None Include="..\..\..\..\..\hash\rx78.xml" />
+    <None Include="..\..\..\..\..\hash\sage2.xml" />
+    <None Include="..\..\..\..\..\hash\samcoupe_cass.xml" />
+    <None Include="..\..\..\..\..\hash\samcoupe_flop.xml" />
+    <None Include="..\..\..\..\..\hash\saturn.xml" />
+    <None Include="..\..\..\..\..\hash\sat_cart.xml" />
+    <None Include="..\..\..\..\..\hash\sat_vccart.xml" />
+    <None Include="..\..\..\..\..\hash\sawatte.xml" />
+    <None Include="..\..\..\..\..\hash\sc3000_cart.xml" />
+    <None Include="..\..\..\..\..\hash\sc3000_cass.xml" />
+    <None Include="..\..\..\..\..\hash\scv.xml" />
+    <None Include="..\..\..\..\..\hash\segacd.xml" />
+    <None Include="..\..\..\..\..\hash\sf7000.xml" />
+    <None Include="..\..\..\..\..\hash\sg1000.xml" />
+    <None Include="..\..\..\..\..\hash\sgx.xml" />
+    <None Include="..\..\..\..\..\hash\sitcom.xml" />
+    <None Include="..\..\..\..\..\hash\smc777.xml" />
+    <None Include="..\..\..\..\..\hash\sms.xml" />
+    <None Include="..\..\..\..\..\hash\snes.xml" />
+    <None Include="..\..\..\..\..\hash\snes_bspack.xml" />
+    <None Include="..\..\..\..\..\hash\snes_strom.xml" />
+    <None Include="..\..\..\..\..\hash\snes_vkun.xml" />
+    <None Include="..\..\..\..\..\hash\snotec.xml" />
+    <None Include="..\..\..\..\..\hash\snread.xml" />
+    <None Include="..\..\..\..\..\hash\snspell.xml" />
+    <None Include="..\..\..\..\..\hash\socrates.xml" />
+    <None Include="..\..\..\..\..\hash\softbox.xml" />
+    <None Include="..\..\..\..\..\hash\softwarelist.dtd" />
+    <None Include="..\..\..\..\..\hash\sol20_cass.xml" />
+    <None Include="..\..\..\..\..\hash\sorcerer_cart.xml" />
+    <None Include="..\..\..\..\..\hash\sorcerer_cass.xml" />
+    <None Include="..\..\..\..\..\hash\sorcerer_flop.xml" />
+    <None Include="..\..\..\..\..\hash\spc1000_cass.xml" />
+    <None Include="..\..\..\..\..\hash\spc1500_cass.xml" />
+    <None Include="..\..\..\..\..\hash\special_cass.xml" />
+    <None Include="..\..\..\..\..\hash\special_flop.xml" />
+    <None Include="..\..\..\..\..\hash\specpls3_flop.xml" />
+    <None Include="..\..\..\..\..\hash\spectrum_cart.xml" />
+    <None Include="..\..\..\..\..\hash\spectrum_cass.xml" />
+    <None Include="..\..\..\..\..\hash\studio2.xml" />
+    <None Include="..\..\..\..\..\hash\stv.xml" />
+    <None Include="..\..\..\..\..\hash\st_cart.xml" />
+    <None Include="..\..\..\..\..\hash\st_flop.xml" />
+    <None Include="..\..\..\..\..\hash\super6.xml" />
+    <None Include="..\..\..\..\..\hash\super80_cass.xml" />
+    <None Include="..\..\..\..\..\hash\superpet_flop.xml" />
+    <None Include="..\..\..\..\..\hash\supracan.xml" />
+    <None Include="..\..\..\..\..\hash\sv8000.xml" />
+    <None Include="..\..\..\..\..\hash\svi318_cart.xml" />
+    <None Include="..\..\..\..\..\hash\svi318_cass.xml" />
+    <None Include="..\..\..\..\..\hash\svi318_flop.xml" />
+    <None Include="..\..\..\..\..\hash\svision.xml" />
+    <None Include="..\..\..\..\..\hash\svmu.xml" />
+    <None Include="..\..\..\..\..\hash\t1000.xml" />
+    <None Include="..\..\..\..\..\hash\tandy200.xml" />
+    <None Include="..\..\..\..\..\hash\tandy2k.xml" />
+    <None Include="..\..\..\..\..\hash\tandy6k.xml" />
+    <None Include="..\..\..\..\..\hash\tdv2324.xml" />
+    <None Include="..\..\..\..\..\hash\tek4052_cart.xml" />
+    <None Include="..\..\..\..\..\hash\tg16.xml" />
+    <None Include="..\..\..\..\..\hash\ti74_cart.xml" />
+    <None Include="..\..\..\..\..\hash\ti99_cart.xml" />
+    <None Include="..\..\..\..\..\hash\tiki100.xml" />
+    <None Include="..\..\..\..\..\hash\timex_dock.xml" />
+    <None Include="..\..\..\..\..\hash\tntell.xml" />
+    <None Include="..\..\..\..\..\hash\to770a_cart.xml" />
+    <None Include="..\..\..\..\..\hash\to770_cart.xml" />
+    <None Include="..\..\..\..\..\hash\to7_cart.xml" />
+    <None Include="..\..\..\..\..\hash\to7_cass.xml" />
+    <None Include="..\..\..\..\..\hash\to7_qd.xml" />
+    <None Include="..\..\..\..\..\hash\to8_cass.xml" />
+    <None Include="..\..\..\..\..\hash\to8_qd.xml" />
+    <None Include="..\..\..\..\..\hash\to_flop.xml" />
+    <None Include="..\..\..\..\..\hash\trs80m2.xml" />
+    <None Include="..\..\..\..\..\hash\trsm100.xml" />
+    <None Include="..\..\..\..\..\hash\tutor.xml" />
+    <None Include="..\..\..\..\..\hash\tvc_cart.xml" />
+    <None Include="..\..\..\..\..\hash\tvc_cass.xml" />
+    <None Include="..\..\..\..\..\hash\tvc_flop.xml" />
+    <None Include="..\..\..\..\..\hash\unichamp.xml" />
+    <None Include="..\..\..\..\..\hash\ut88.xml" />
+    <None Include="..\..\..\..\..\hash\uzebox.xml" />
+    <None Include="..\..\..\..\..\hash\v1050_flop.xml" />
+    <None Include="..\..\..\..\..\hash\v1050_hdd.xml" />
+    <None Include="..\..\..\..\..\hash\vboy.xml" />
+    <None Include="..\..\..\..\..\hash\vc4000.xml" />
+    <None Include="..\..\..\..\..\hash\vector06_cart.xml" />
+    <None Include="..\..\..\..\..\hash\vector06_flop.xml" />
+    <None Include="..\..\..\..\..\hash\vectrex.xml" />
+    <None Include="..\..\..\..\..\hash\vg5k.xml" />
+    <None Include="..\..\..\..\..\hash\vic10.xml" />
+    <None Include="..\..\..\..\..\hash\vic1001_cart.xml" />
+    <None Include="..\..\..\..\..\hash\vic1001_cass.xml" />
+    <None Include="..\..\..\..\..\hash\vic1001_flop.xml" />
+    <None Include="..\..\..\..\..\hash\victor9k_flop.xml" />
+    <None Include="..\..\..\..\..\hash\vidbrain.xml" />
+    <None Include="..\..\..\..\..\hash\vii.xml" />
+    <None Include="..\..\..\..\..\hash\vip.xml" />
+    <None Include="..\..\..\..\..\hash\visicom.xml" />
+    <None Include="..\..\..\..\..\hash\vixen.xml" />
+    <None Include="..\..\..\..\..\hash\vreader.xml" />
+    <None Include="..\..\..\..\..\hash\vsmileb_cart.xml" />
+    <None Include="..\..\..\..\..\hash\vsmilem_cart.xml" />
+    <None Include="..\..\..\..\..\hash\vsmile_cart.xml" />
+    <None Include="..\..\..\..\..\hash\vsmile_cd.xml" />
+    <None Include="..\..\..\..\..\hash\vz_cass.xml" />
+    <None Include="..\..\..\..\..\hash\wangpc.xml" />
+    <None Include="..\..\..\..\..\hash\wicat.xml" />
+    <None Include="..\..\..\..\..\hash\wmbullet.xml" />
+    <None Include="..\..\..\..\..\hash\wscolor.xml" />
+    <None Include="..\..\..\..\..\hash\wswan.xml" />
+    <None Include="..\..\..\..\..\hash\x07_card.xml" />
+    <None Include="..\..\..\..\..\hash\x07_cass.xml" />
+    <None Include="..\..\..\..\..\hash\x1_cass.xml" />
+    <None Include="..\..\..\..\..\hash\x1_flop.xml" />
+    <None Include="..\..\..\..\..\hash\x68k_flop.xml" />
+    <None Include="..\..\..\..\..\hash\xegs.xml" />
+    <None Include="..\..\..\..\..\hash\xerox820.xml" />
+    <None Include="..\..\..\..\..\hash\xerox820ii.xml" />
+    <None Include="..\..\..\..\..\hash\z88_cart.xml" />
+    <None Include="..\..\..\..\..\hash\zorba.xml" />
+    <None Include="..\..\..\..\..\hash\zx80_cass.xml" />
+    <None Include="..\..\..\..\..\hash\zx81_cass.xml" />
+    <None Include="..\..\..\..\..\language\LICENSE" />
+    <None Include="..\..\..\..\..\language\README.md" />
+    <None Include="..\..\..\..\..\language\Afrikaans\strings.mo" />
+    <None Include="..\..\..\..\..\language\Afrikaans\strings.po" />
+    <None Include="..\..\..\..\..\language\Albanian\strings.mo" />
+    <None Include="..\..\..\..\..\language\Albanian\strings.po" />
+    <None Include="..\..\..\..\..\language\Arabic\strings.mo" />
+    <None Include="..\..\..\..\..\language\Arabic\strings.po" />
+    <None Include="..\..\..\..\..\language\Basque\strings.mo" />
+    <None Include="..\..\..\..\..\language\Basque\strings.po" />
+    <None Include="..\..\..\..\..\language\Belarusian\strings.mo" />
+    <None Include="..\..\..\..\..\language\Belarusian\strings.po" />
+    <None Include="..\..\..\..\..\language\Bosnian\strings.mo" />
+    <None Include="..\..\..\..\..\language\Bosnian\strings.po" />
+    <None Include="..\..\..\..\..\language\Bulgarian\strings.mo" />
+    <None Include="..\..\..\..\..\language\Bulgarian\strings.po" />
+    <None Include="..\..\..\..\..\language\Burmese\strings.mo" />
+    <None Include="..\..\..\..\..\language\Burmese\strings.po" />
+    <None Include="..\..\..\..\..\language\Catalan\strings.mo" />
+    <None Include="..\..\..\..\..\language\Catalan\strings.po" />
+    <None Include="..\..\..\..\..\language\Chinese_Simplified\strings.mo" />
+    <None Include="..\..\..\..\..\language\Chinese_Simplified\strings.po" />
+    <None Include="..\..\..\..\..\language\Chinese_Traditional\strings.mo" />
+    <None Include="..\..\..\..\..\language\Chinese_Traditional\strings.po" />
+    <None Include="..\..\..\..\..\language\Croatian\strings.mo" />
+    <None Include="..\..\..\..\..\language\Croatian\strings.po" />
+    <None Include="..\..\..\..\..\language\Czech\strings.mo" />
+    <None Include="..\..\..\..\..\language\Czech\strings.po" />
+    <None Include="..\..\..\..\..\language\Danish\strings.mo" />
+    <None Include="..\..\..\..\..\language\Danish\strings.po" />
+    <None Include="..\..\..\..\..\language\Dutch\strings.mo" />
+    <None Include="..\..\..\..\..\language\Dutch\strings.po" />
+    <None Include="..\..\..\..\..\language\English\strings.mo" />
+    <None Include="..\..\..\..\..\language\English\strings.po" />
+    <None Include="..\..\..\..\..\language\Estonian\strings.mo" />
+    <None Include="..\..\..\..\..\language\Estonian\strings.po" />
+    <None Include="..\..\..\..\..\language\Finnish\strings.mo" />
+    <None Include="..\..\..\..\..\language\Finnish\strings.po" />
+    <None Include="..\..\..\..\..\language\French\strings.mo" />
+    <None Include="..\..\..\..\..\language\French\strings.po" />
+    <None Include="..\..\..\..\..\language\French_Belgium\strings.mo" />
+    <None Include="..\..\..\..\..\language\French_Belgium\strings.po" />
+    <None Include="..\..\..\..\..\language\French_Canada\strings.mo" />
+    <None Include="..\..\..\..\..\language\French_Canada\strings.po" />
+    <None Include="..\..\..\..\..\language\Georgian\strings.mo" />
+    <None Include="..\..\..\..\..\language\Georgian\strings.po" />
+    <None Include="..\..\..\..\..\language\German\strings.mo" />
+    <None Include="..\..\..\..\..\language\German\strings.po" />
+    <None Include="..\..\..\..\..\language\Greek\strings.mo" />
+    <None Include="..\..\..\..\..\language\Greek\strings.po" />
+    <None Include="..\..\..\..\..\language\Hebrew\strings.mo" />
+    <None Include="..\..\..\..\..\language\Hebrew\strings.po" />
+    <None Include="..\..\..\..\..\language\Hindi\strings.mo" />
+    <None Include="..\..\..\..\..\language\Hindi\strings.po" />
+    <None Include="..\..\..\..\..\language\Hungarian\strings.mo" />
+    <None Include="..\..\..\..\..\language\Hungarian\strings.po" />
+    <None Include="..\..\..\..\..\language\Indonesian\strings.mo" />
+    <None Include="..\..\..\..\..\language\Indonesian\strings.po" />
+    <None Include="..\..\..\..\..\language\Italian\strings.mo" />
+    <None Include="..\..\..\..\..\language\Italian\strings.po" />
+    <None Include="..\..\..\..\..\language\Japanese\strings.mo" />
+    <None Include="..\..\..\..\..\language\Japanese\strings.po" />
+    <None Include="..\..\..\..\..\language\Korean\strings.mo" />
+    <None Include="..\..\..\..\..\language\Korean\strings.po" />
+    <None Include="..\..\..\..\..\language\Latvian\strings.mo" />
+    <None Include="..\..\..\..\..\language\Latvian\strings.po" />
+    <None Include="..\..\..\..\..\language\Lithuanian\strings.mo" />
+    <None Include="..\..\..\..\..\language\Lithuanian\strings.po" />
+    <None Include="..\..\..\..\..\language\Macedonian\strings.mo" />
+    <None Include="..\..\..\..\..\language\Macedonian\strings.po" />
+    <None Include="..\..\..\..\..\language\Norwegian\strings.mo" />
+    <None Include="..\..\..\..\..\language\Norwegian\strings.po" />
+    <None Include="..\..\..\..\..\language\Persian\strings.mo" />
+    <None Include="..\..\..\..\..\language\Persian\strings.po" />
+    <None Include="..\..\..\..\..\language\Polish\strings.mo" />
+    <None Include="..\..\..\..\..\language\Polish\strings.po" />
+    <None Include="..\..\..\..\..\language\Portuguese\strings.mo" />
+    <None Include="..\..\..\..\..\language\Portuguese\strings.po" />
+    <None Include="..\..\..\..\..\language\Portuguese_Brazil\strings.mo" />
+    <None Include="..\..\..\..\..\language\Portuguese_Brazil\strings.po" />
+    <None Include="..\..\..\..\..\language\Romanian\strings.mo" />
+    <None Include="..\..\..\..\..\language\Romanian\strings.po" />
+    <None Include="..\..\..\..\..\language\Russian\strings.mo" />
+    <None Include="..\..\..\..\..\language\Russian\strings.po" />
+    <None Include="..\..\..\..\..\language\Serbian\strings.mo" />
+    <None Include="..\..\..\..\..\language\Serbian\strings.po" />
+    <None Include="..\..\..\..\..\language\Serbian_Cyrillic\strings.mo" />
+    <None Include="..\..\..\..\..\language\Serbian_Cyrillic\strings.po" />
+    <None Include="..\..\..\..\..\language\Slovak\strings.mo" />
+    <None Include="..\..\..\..\..\language\Slovak\strings.po" />
+    <None Include="..\..\..\..\..\language\Slovenian\strings.mo" />
+    <None Include="..\..\..\..\..\language\Slovenian\strings.po" />
+    <None Include="..\..\..\..\..\language\Spanish\strings.mo" />
+    <None Include="..\..\..\..\..\language\Spanish\strings.po" />
+    <None Include="..\..\..\..\..\language\Spanish_Mexico\strings.mo" />
+    <None Include="..\..\..\..\..\language\Spanish_Mexico\strings.po" />
+    <None Include="..\..\..\..\..\language\Swedish\strings.mo" />
+    <None Include="..\..\..\..\..\language\Swedish\strings.po" />
+    <None Include="..\..\..\..\..\language\Thai\strings.mo" />
+    <None Include="..\..\..\..\..\language\Thai\strings.po" />
+    <None Include="..\..\..\..\..\language\Turkish\strings.mo" />
+    <None Include="..\..\..\..\..\language\Turkish\strings.po" />
+    <None Include="..\..\..\..\..\language\Ukrainian\strings.mo" />
+    <None Include="..\..\..\..\..\language\Ukrainian\strings.po" />
+    <None Include="..\..\..\..\..\language\Vietnamese\strings.mo" />
+    <None Include="..\..\..\..\..\language\Vietnamese\strings.po" />
+    <None Include="..\..\..\..\..\plugins\boot.lua" />
+    <None Include="..\..\..\..\..\plugins\README.md" />
+    <None Include="..\..\..\..\..\plugins\cheat\conv_cheat.lua" />
+    <None Include="..\..\..\..\..\plugins\cheat\init.lua" />
+    <None Include="..\..\..\..\..\plugins\cheat\plugin.json" />
+    <None Include="..\..\..\..\..\plugins\cheat\simple_conv.lua" />
+    <None Include="..\..\..\..\..\plugins\cheat\xml_conv.lua" />
+    <None Include="..\..\..\..\..\plugins\cheatfind\init.lua" />
+    <None Include="..\..\..\..\..\plugins\cheatfind\plugin.json" />
+    <None Include="..\..\..\..\..\plugins\console\init.lua" />
+    <None Include="..\..\..\..\..\plugins\console\plugin.json" />
+    <None Include="..\..\..\..\..\plugins\data\button_char.lua" />
+    <None Include="..\..\..\..\..\plugins\data\data_command.lua" />
+    <None Include="..\..\..\..\..\plugins\data\data_gameinit.lua" />
+    <None Include="..\..\..\..\..\plugins\data\data_hiscore.lua" />
+    <None Include="..\..\..\..\..\plugins\data\data_history.lua" />
+    <None Include="..\..\..\..\..\plugins\data\data_mameinfo.lua" />
+    <None Include="..\..\..\..\..\plugins\data\data_messinfo.lua" />
+    <None Include="..\..\..\..\..\plugins\data\data_story.lua" />
+    <None Include="..\..\..\..\..\plugins\data\data_sysinfo.lua" />
+    <None Include="..\..\..\..\..\plugins\data\init.lua" />
+    <None Include="..\..\..\..\..\plugins\data\load_dat.lua" />
+    <None Include="..\..\..\..\..\plugins\data\plugin.json" />
+    <None Include="..\..\..\..\..\plugins\dummy\init.lua" />
+    <None Include="..\..\..\..\..\plugins\dummy\plugin.json" />
+    <None Include="..\..\..\..\..\plugins\hiscore\hiscore.dat" />
+    <None Include="..\..\..\..\..\plugins\hiscore\init.lua" />
+    <None Include="..\..\..\..\..\plugins\hiscore\plugin.json" />
+    <None Include="..\..\..\..\..\plugins\hiscore\sort_hiscore.lua" />
+    <None Include="..\..\..\..\..\plugins\json\init.lua" />
+    <None Include="..\..\..\..\..\plugins\json\LICENSE" />
+    <None Include="..\..\..\..\..\plugins\json\plugin.json" />
+    <None Include="..\..\..\..\..\plugins\json\README.md" />
+    <None Include="..\..\..\..\..\plugins\layout\init.lua" />
+    <None Include="..\..\..\..\..\plugins\layout\plugin.json" />
+    <None Include="..\..\..\..\..\plugins\timer\init.lua" />
+    <None Include="..\..\..\..\..\plugins\timer\plugin.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\..\..\src\mame\tiny.lst">
+      <FileType>Text</FileType>
+      <Command>@echo Building driver list...
+python ../../../../../scripts/build/makelist.py  ../../../../../src/mame/tiny.lst  > ../../../../generated/mame/tiny/drivlist.cpp 
+</Command>
+      <Outputs>../../../../generated/mame/tiny/drivlist.cpp;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\..\..\..\scripts\resources\windows\mame\mame.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="..\..\..\..\..\scripts\resources\uwp\Package.appxmanifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="mame_tiny.vcxproj">
+      <Project>{CF13943C-3BD4-0F73-040F-59F0708E544F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="osd_windows.vcxproj">
+      <Project>{D5E1A481-4197-1D77-CA8B-174E3640147B}</Project>
+    </ProjectReference>
+    <ProjectReference Include="qtdbg_windows.vcxproj">
+      <Project>{01D73598-6D97-B1CE-36D2-FA4BA251F6AA}</Project>
+    </ProjectReference>
+    <ProjectReference Include="frontend.vcxproj">
+      <Project>{E98E14C4-82A4-4988-BA29-01C90C817AB8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="optional.vcxproj">
+      <Project>{DBCADC81-C7AE-9DD7-300F-982A1C128859}</Project>
+    </ProjectReference>
+    <ProjectReference Include="emu.vcxproj">
+      <Project>{E6FA15E4-A354-4526-ACEF-13C8E80FCACF}</Project>
+    </ProjectReference>
+    <ProjectReference Include="formats.vcxproj">
+      <Project>{714813EC-DD5E-1182-26D6-9CA3922BE209}</Project>
+    </ProjectReference>
+    <ProjectReference Include="dasm.vcxproj">
+      <Project>{F2D28B0A-6DA5-4F78-B629-D834AA00429D}</Project>
+    </ProjectReference>
+    <ProjectReference Include="utils.vcxproj">
+      <Project>{22489AD0-4CB2-4D91-AD81-24B0D80CA30A}</Project>
+    </ProjectReference>
+    <ProjectReference Include="expat.vcxproj">
+      <Project>{F4CD40B1-C37C-452D-9785-640F26F0BF54}</Project>
+    </ProjectReference>
+    <ProjectReference Include="softfloat.vcxproj">
+      <Project>{04FBF89E-4761-4CF2-8A12-64500CF0C5C5}</Project>
+    </ProjectReference>
+    <ProjectReference Include="jpeg.vcxproj">
+      <Project>{447C6800-DCFD-4C48-B72A-A8223BB409CA}</Project>
+    </ProjectReference>
+    <ProjectReference Include="7z.vcxproj">
+      <Project>{AD573D62-E76A-4B11-AE34-5110A6789A42}</Project>
+    </ProjectReference>
+    <ProjectReference Include="lua.vcxproj">
+      <Project>{D9E2EED1-F1AB-4737-A6AC-863700B1A5A9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="lualibs.vcxproj">
+      <Project>{1D84EDAB-94CF-48FB-83EE-B75BC697660E}</Project>
+    </ProjectReference>
+    <ProjectReference Include="linenoise-ng.vcxproj">
+      <Project>{7320FFC8-2748-4ADD-8864-AE29B72A8511}</Project>
+    </ProjectReference>
+    <ProjectReference Include="zlib.vcxproj">
+      <Project>{3D78BD2A-2BD0-4449-8087-42DDFAEF7EC9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="flac.vcxproj">
+      <Project>{B6FC19E8-073A-4541-BB7B-D24B548D424A}</Project>
+    </ProjectReference>
+    <ProjectReference Include="utf8proc.vcxproj">
+      <Project>{1F881F09-0395-4483-AC37-2935FB092187}</Project>
+    </ProjectReference>
+    <ProjectReference Include="sqlite3.vcxproj">
+      <Project>{5CB3D495-57ED-461C-81E5-80DC0857517D}</Project>
+    </ProjectReference>
+    <ProjectReference Include="portaudio.vcxproj">
+      <Project>{0755C5F5-ECCF-47F3-98A9-DF67018A94D4}</Project>
+    </ProjectReference>
+    <ProjectReference Include="portmidi.vcxproj">
+      <Project>{587F2DA6-3274-4A65-86A2-F13EA315BB98}</Project>
+    </ProjectReference>
+    <ProjectReference Include="bgfx.vcxproj">
+      <Project>{D3E7E119-35CF-4F4F-ABA0-D3BDCD1B879A}</Project>
+    </ProjectReference>
+    <ProjectReference Include="bx.vcxproj">
+      <Project>{238318FE-49F5-4EB4-88BE-0618900F5EAC}</Project>
+    </ProjectReference>
+    <ProjectReference Include="ocore_windows.vcxproj">
+      <Project>{678AFACB-D34A-7602-9C85-BF7F0805BBDE}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,909 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{DBCADC81-C7AE-9DD7-300F-982A1C128859}</ProjectGuid>
+    <RootNamespace>optional</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\..\..\vs2017\bin\x32\Debug\mame_tiny\</OutDir>
+    <IntDir>..\..\..\..\vs2017\obj\x32\Debug\optional\</IntDir>
+    <TargetName>optional</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>..\..\..\..\vs2017\bin\x64\Debug\mame_tiny\</OutDir>
+    <IntDir>..\..\..\..\vs2017\obj\x64\Debug\optional\</IntDir>
+    <TargetName>optional</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\..\..\vs2017\bin\x32\Release\mame_tiny\</OutDir>
+    <IntDir>..\..\..\..\vs2017\obj\x32\Release\optional\</IntDir>
+    <TargetName>optional</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\..\..\..\vs2017\bin\x64\Release\mame_tiny\</OutDir>
+    <IntDir>..\..\..\..\vs2017\obj\x64\Release\optional\</IntDir>
+    <TargetName>optional</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4334 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319 /wd4592  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\mame;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\emu;..\..\..\..\generated\emu\layout;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\libflac\include;..\..\..\..\..\3rdparty\asio\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_ALL;LUA_COMPAT_5_1;LUA_COMPAT_5_2;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_CRT_STDIO_LEGACY_WIDE_SPECIFIERS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)optional.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_ALL;LUA_COMPAT_5_1;LUA_COMPAT_5_2;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_CRT_STDIO_LEGACY_WIDE_SPECIFIERS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\mame;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\emu;..\..\..\..\generated\emu\layout;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\libflac\include;..\..\..\..\..\3rdparty\asio\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)optional.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX86</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4334 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319 /wd4592  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\mame;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\emu;..\..\..\..\generated\emu\layout;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\libflac\include;..\..\..\..\..\3rdparty\asio\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_ALL;LUA_COMPAT_5_1;LUA_COMPAT_5_2;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_CRT_STDIO_LEGACY_WIDE_SPECIFIERS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)optional.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;MAME_DEBUG;MAME_PROFILER;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_ALL;LUA_COMPAT_5_1;LUA_COMPAT_5_2;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_CRT_STDIO_LEGACY_WIDE_SPECIFIERS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\mame;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\emu;..\..\..\..\generated\emu\layout;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\libflac\include;..\..\..\..\..\3rdparty\asio\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)optional.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX64</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4334 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319 /wd4592  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\mame;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\emu;..\..\..\..\generated\emu\layout;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\libflac\include;..\..\..\..\..\3rdparty\asio\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_ALL;LUA_COMPAT_5_1;LUA_COMPAT_5_2;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_CRT_STDIO_LEGACY_WIDE_SPECIFIERS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x86;LUA_COMPAT_ALL;LUA_COMPAT_5_1;LUA_COMPAT_5_2;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_CRT_STDIO_LEGACY_WIDE_SPECIFIERS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\mame;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\emu;..\..\..\..\generated\emu\layout;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\libflac\include;..\..\..\..\..\3rdparty\asio\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)optional.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX86</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalOptions>/WX /wd4025 /wd4003 /wd4018 /wd4061 /wd4100 /wd4127 /wd4131 /wd4141 /wd4146 /wd4150 /wd4189 /wd4191 /wd4201 /wd4232 /wd4242 /wd4244 /wd4250 /wd4255 /wd4296 /wd4306 /wd4310 /wd4312 /wd4324 /wd4347 /wd4435 /wd4510 /wd4512 /wd4514 /wd4571 /wd4610 /wd4611 /wd4619 /wd4625 /wd4626 /wd4640 /wd4668 /wd4702 /wd4706 /wd4710 /wd4711 /wd4805 /wd4820 /wd4826 /wd4365 /wd4389 /wd4245 /wd4388 /wd4267 /wd4005 /wd4350 /wd4996 /wd4060 /wd4065 /wd4290 /wd4355 /wd4800 /wd4371 /wd4548 /wd4334 /wd4456 /wd4457 /wd4458 /wd4459 /wd4838 /wd4091 /wd4463 /wd4297 /wd4319 /wd4592  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\mame;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\emu;..\..\..\..\generated\emu\layout;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\libflac\include;..\..\..\..\..\3rdparty\asio\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_ALL;LUA_COMPAT_5_1;LUA_COMPAT_5_2;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_CRT_STDIO_LEGACY_WIDE_SPECIFIERS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader></PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>X64_WINDOWS_ABI;PTR64=1;NDEBUG;CRLF=3;LSB_FIRST;FLAC__NO_DLL;NATIVE_DRC=drcbe_x64;LUA_COMPAT_ALL;LUA_COMPAT_5_1;LUA_COMPAT_5_2;_WIN64;XML_STATIC;WIN32;_WIN32;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;_CRT_STDIO_LEGACY_WIDE_SPECIFIERS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\3rdparty\dxsdk\Include;..\..\..\..\..\src\osd;..\..\..\..\..\src\emu;..\..\..\..\..\src\devices;..\..\..\..\..\src\mame;..\..\..\..\..\src\lib;..\..\..\..\..\src\lib\util;..\..\..\..\..\3rdparty;..\..\..\..\generated\emu;..\..\..\..\generated\emu\layout;..\..\..\..\..\3rdparty\expat\lib;..\..\..\..\..\3rdparty\libflac\include;..\..\..\..\..\3rdparty\asio\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  <Lib>
+    <OutputFile>$(OutDir)optional.lib</OutputFile>
+    <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    <TargetMachine>MachineX64</TargetMachine>
+  </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\cop400\cop400.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\cop400\cop400op.hxx" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\mcs48\mcs48.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\mcs51\mcs51.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\mcs51\mcs51ops.hxx" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6502\deco16.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6502\m4510.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6502\m6502.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6502\m65c02.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6502\m65ce02.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6502\m65sc02.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6502\m6504.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6502\m6507.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6502\m6509.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6502\m6510.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6502\m6510t.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6502\m7501.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6502\m8502.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6502\n2a03.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6502\r65c02.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6502\m740.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6502\m3745x.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6502\m5074x.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6800\m6800.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6800\6800ops.hxx" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6800\6800tbl.hxx" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6809\m6809.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6809\hd6309.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6809\konami.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m6809\m6809inl.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m68000\m68kcpu.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m68000\m68kops.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m68000\m68000.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m68000\m68kfpu.hxx" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\m68000\m68kmmu.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\tms9900\tms9900.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\tms9900\tms9980a.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\tms9900\tms9995.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\tms9900\ti990_10.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\tms9900\tms99com.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\z80\z80.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\z80\z80daisy.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\z80\tmpz84c011.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\z80\tmpz84c015.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\cpu\z80\kl5c80a12.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\flt_vol.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\flt_rc.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\samples.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\dac.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\beep.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\discrete.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\disc_cls.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\disc_dev.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\disc_dev.hxx" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\disc_flt.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\disc_flt.hxx" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\disc_inp.hxx" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\disc_mth.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\disc_mth.hxx" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\disc_sys.hxx" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\disc_wav.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\disc_wav.hxx" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\astrocde.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\cem3394.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\ay8910.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\hc55516.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\okiadpcm.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\okim6295.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\tms5220.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\tms5110r.hxx" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\spchrom.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\votrax.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\wave.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\ym2151.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\3812intf.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\fmopl.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\ymdeltat.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\3526intf.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\8950intf.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\sound\volt_reg.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\video\poly.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\video\sprite.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\video\vector.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\video\ef9345.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\video\mc6845.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\video\mc6847.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\video\cgapal.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\bcreader.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\buffer.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\clock.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\keyboard.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\laserdsc.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\latch.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\nvram.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\ram.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\legscsi.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\terminal.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\bitbngr.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\cassette.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\chd_cd.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\diablo.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\flopdrv.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\floppy.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\harddriv.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\mfmhd.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\midiin.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\midiout.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\printer.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\imagedev\snapquik.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\6532riot.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\6821pia.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\mc68681.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\74148.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\74153.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\7474.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\bankdev.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\ds1315.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\mos6551.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\msm6242.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\pit8253.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\z80ctc.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\gen_latch.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\machine\watchdog.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\centronics\ctronics.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\centronics\comxpl80.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\centronics\covox.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\centronics\dsjoy.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\centronics\epson_ex800.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\centronics\epson_lx800.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\centronics\epson_lx810l.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\centronics\nec_p72.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\centronics\printer.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\centronics\digiblst.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\rs232\keyboard.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\rs232\loopback.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\rs232\null_modem.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\rs232\printer.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\rs232\rs232.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\rs232\pty.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\rs232\ser_mouse.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\rs232\sun_kbd.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\rs232\terminal.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\rs232\xvd701.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\coco\cococart.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\coco\coco_232.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\coco\coco_orch90.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\coco\coco_pak.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\coco\coco_fdc.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\coco\coco_multi.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\coco\coco_dwsock.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\sunkbd\hlekbd.h" />
+    <ClInclude Include="..\..\..\..\..\src\devices\bus\sunkbd\sunkbd.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\cop400\cop400.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\cop400\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\mcs48\mcs48.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\mcs48\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\mcs51\mcs51.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\mcs51\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6502\deco16.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6502\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6502\m4510.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6502\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6502\m6502.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6502\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6502\m65c02.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6502\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6502\m65ce02.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6502\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6502\m65sc02.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6502\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6502\m6504.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6502\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6502\m6507.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6502\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6502\m6509.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6502\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6502\m6510.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6502\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6502\m6510t.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6502\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6502\m7501.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6502\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6502\m8502.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6502\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6502\n2a03.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6502\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6502\r65c02.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6502\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6502\m740.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6502\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6502\m3745x.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6502\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6502\m5074x.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6502\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6800\m6800.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6800\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6809\m6809.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6809\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6809\hd6309.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6809\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m6809\konami.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m6809\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m68000\m68kcpu.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m68000\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\m68000\m68kops.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\m68000\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\tms9900\tms9900.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\tms9900\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\tms9900\tms9980a.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\tms9900\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\tms9900\tms9995.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\tms9900\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\tms9900\ti990_10.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\tms9900\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\z80\z80.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\z80\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\z80\z80daisy.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\z80\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\z80\tmpz84c011.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\z80\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\z80\tmpz84c015.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\z80\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\cpu\z80\kl5c80a12.cpp">
+      <ObjectFileName>$(IntDir)src\devices\cpu\z80\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\flt_vol.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\flt_rc.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\samples.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\dac.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\beep.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\discrete.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\astrocde.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\cem3394.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\ay8910.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\hc55516.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\okiadpcm.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\okim6295.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\tms5220.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\spchrom.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\votrax.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\wave.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\ym2151.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\3812intf.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\fmopl.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\ymdeltat.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\3526intf.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\8950intf.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\sound\volt_reg.cpp">
+      <ObjectFileName>$(IntDir)src\devices\sound\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\video\sprite.cpp">
+      <ObjectFileName>$(IntDir)src\devices\video\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\video\vector.cpp">
+      <ObjectFileName>$(IntDir)src\devices\video\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\video\ef9345.cpp">
+      <ObjectFileName>$(IntDir)src\devices\video\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\video\mc6845.cpp">
+      <ObjectFileName>$(IntDir)src\devices\video\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\video\mc6847.cpp">
+      <ObjectFileName>$(IntDir)src\devices\video\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\video\cgapal.cpp">
+      <ObjectFileName>$(IntDir)src\devices\video\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\bcreader.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\buffer.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\clock.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\keyboard.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\laserdsc.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\latch.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\nvram.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\ram.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\legscsi.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\terminal.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\bitbngr.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\cassette.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\chd_cd.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\diablo.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\flopdrv.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\floppy.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\harddriv.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\mfmhd.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\midiin.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\midiout.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\printer.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\imagedev\snapquik.cpp">
+      <ObjectFileName>$(IntDir)src\devices\imagedev\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\6532riot.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\6821pia.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\mc68681.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\74148.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\74153.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\7474.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\bankdev.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\ds1315.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\mos6551.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\msm6242.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\pit8253.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\z80ctc.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\gen_latch.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\machine\watchdog.cpp">
+      <ObjectFileName>$(IntDir)src\devices\machine\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\centronics\ctronics.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\centronics\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\centronics\comxpl80.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\centronics\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\centronics\covox.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\centronics\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\centronics\dsjoy.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\centronics\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\centronics\epson_ex800.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\centronics\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\centronics\epson_lx800.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\centronics\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\centronics\epson_lx810l.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\centronics\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\centronics\nec_p72.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\centronics\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\centronics\printer.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\centronics\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\centronics\digiblst.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\centronics\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\rs232\keyboard.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\rs232\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\rs232\loopback.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\rs232\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\rs232\null_modem.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\rs232\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\rs232\printer.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\rs232\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\rs232\rs232.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\rs232\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\rs232\pty.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\rs232\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\rs232\ser_mouse.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\rs232\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\rs232\sun_kbd.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\rs232\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\rs232\terminal.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\rs232\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\rs232\xvd701.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\rs232\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\coco\cococart.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\coco\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\coco\coco_232.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\coco\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\coco\coco_orch90.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\coco\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\coco\coco_pak.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\coco\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\coco\coco_fdc.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\coco\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\coco\coco_multi.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\coco\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\coco\coco_dwsock.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\coco\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\coco\dragon_fdc.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\coco\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\coco\coco_t4426.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\coco\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\sunkbd\hlekbd.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\sunkbd\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\devices\bus\sunkbd\sunkbd.cpp">
+      <ObjectFileName>$(IntDir)src\devices\bus\sunkbd\</ObjectFileName>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\..\src\devices\machine\keyboard.ipp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\..\..\src\devices\cpu\m6502\odeco16.lst">
+      <FileType>Text</FileType>
+      <Command>@echo Generating deco16 source file...
+python ../../../../../src/devices/cpu/m6502/m6502make.py  deco16_device ../../../../../src/devices/cpu/m6502/odeco16.lst  ../../../../../src/devices/cpu/m6502/ddeco16.lst  ../../../../generated/emu/cpu/m6502/deco16.hxx 
+</Command>
+      <Outputs>../../../../generated/emu/cpu/m6502/deco16.hxx;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\devices\cpu\m6502\om6510.lst">
+      <FileType>Text</FileType>
+      <Command>@echo Generating m6510 source file...
+python ../../../../../src/devices/cpu/m6502/m6502make.py  m6510_device ../../../../../src/devices/cpu/m6502/om6510.lst  ../../../../../src/devices/cpu/m6502/dm6510.lst  ../../../../generated/emu/cpu/m6502/m6510.hxx 
+</Command>
+      <Outputs>../../../../generated/emu/cpu/m6502/m6510.hxx;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\devices\cpu\m6809\hd6309.ops">
+      <FileType>Text</FileType>
+      <Command>@echo Generating hd6309 source file...
+python ../../../../../src/devices/cpu/m6809/m6809make.py  ../../../../../src/devices/cpu/m6809/hd6309.ops  > ../../../../generated/emu/cpu/m6809/hd6309.hxx 
+</Command>
+      <Outputs>../../../../generated/emu/cpu/m6809/hd6309.hxx;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\devices\cpu\m6502\om740.lst">
+      <FileType>Text</FileType>
+      <Command>@echo Generating m740 source file...
+python ../../../../../src/devices/cpu/m6502/m6502make.py  m740_device ../../../../../src/devices/cpu/m6502/om740.lst  ../../../../../src/devices/cpu/m6502/dm740.lst  ../../../../generated/emu/cpu/m6502/m740.hxx 
+</Command>
+      <Outputs>../../../../generated/emu/cpu/m6502/m740.hxx;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\devices\cpu\m6809\konami.ops">
+      <FileType>Text</FileType>
+      <Command>@echo Generating konami source file...
+python ../../../../../src/devices/cpu/m6809/m6809make.py  ../../../../../src/devices/cpu/m6809/konami.ops  > ../../../../generated/emu/cpu/m6809/konami.hxx 
+</Command>
+      <Outputs>../../../../generated/emu/cpu/m6809/konami.hxx;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\devices\cpu\m6502\om6502.lst">
+      <FileType>Text</FileType>
+      <Command>@echo Generating m6502 source file...
+python ../../../../../src/devices/cpu/m6502/m6502make.py  m6502_device ../../../../../src/devices/cpu/m6502/om6502.lst  ../../../../../src/devices/cpu/m6502/dm6502.lst  ../../../../generated/emu/cpu/m6502/m6502.hxx 
+</Command>
+      <Outputs>../../../../generated/emu/cpu/m6502/m6502.hxx;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\devices\cpu\m6502\om65ce02.lst">
+      <FileType>Text</FileType>
+      <Command>@echo Generating m65ce02 source file...
+python ../../../../../src/devices/cpu/m6502/m6502make.py  m65ce02_device ../../../../../src/devices/cpu/m6502/om65ce02.lst  ../../../../../src/devices/cpu/m6502/dm65ce02.lst  ../../../../generated/emu/cpu/m6502/m65ce02.hxx 
+</Command>
+      <Outputs>../../../../generated/emu/cpu/m6502/m65ce02.hxx;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\devices\cpu\m6809\m6809.ops">
+      <FileType>Text</FileType>
+      <Command>@echo Generating m6809 source file...
+python ../../../../../src/devices/cpu/m6809/m6809make.py  ../../../../../src/devices/cpu/m6809/m6809.ops  > ../../../../generated/emu/cpu/m6809/m6809.hxx 
+</Command>
+      <Outputs>../../../../generated/emu/cpu/m6809/m6809.hxx;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\emu\layout\lx800.lay">
+      <FileType>Text</FileType>
+      <Command>@echo Compressing src/emu/layout/lx800.lay...
+python ../../../../../scripts/build/complay.py  ../../../../../src/emu/layout/lx800.lay  ../../../../generated/emu/layout/lx800.lh  layout_lx800
+</Command>
+      <Outputs>../../../../generated/emu/layout/lx800.lh;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\emu\layout\ex800.lay">
+      <FileType>Text</FileType>
+      <Command>@echo Compressing src/emu/layout/ex800.lay...
+python ../../../../../scripts/build/complay.py  ../../../../../src/emu/layout/ex800.lay  ../../../../generated/emu/layout/ex800.lh  layout_ex800
+</Command>
+      <Outputs>../../../../generated/emu/layout/ex800.lh;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\devices\cpu\m6502\om65c02.lst">
+      <FileType>Text</FileType>
+      <Command>@echo Generating m65c02 source file...
+python ../../../../../src/devices/cpu/m6502/m6502make.py  m65c02_device ../../../../../src/devices/cpu/m6502/om65c02.lst  ../../../../../src/devices/cpu/m6502/dm65c02.lst  ../../../../generated/emu/cpu/m6502/m65c02.hxx 
+</Command>
+      <Outputs>../../../../generated/emu/cpu/m6502/m65c02.hxx;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\devices\cpu\m6502\dr65c02.lst">
+      <FileType>Text</FileType>
+      <Command>@echo Generating r65c02 source file...
+python ../../../../../src/devices/cpu/m6502/m6502make.py  r65c02_device - ../../../../../src/devices/cpu/m6502/dr65c02.lst  ../../../../generated/emu/cpu/m6502/r65c02.hxx 
+</Command>
+      <Outputs>../../../../generated/emu/cpu/m6502/r65c02.hxx;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\devices\cpu\m6502\om4510.lst">
+      <FileType>Text</FileType>
+      <Command>@echo Generating m4510 source file...
+python ../../../../../src/devices/cpu/m6502/m6502make.py  m4510_device ../../../../../src/devices/cpu/m6502/om4510.lst  ../../../../../src/devices/cpu/m6502/dm4510.lst  ../../../../generated/emu/cpu/m6502/m4510.hxx 
+</Command>
+      <Outputs>../../../../generated/emu/cpu/m6502/m4510.hxx;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\devices\cpu\m6502\on2a03.lst">
+      <FileType>Text</FileType>
+      <Command>@echo Generating n2a03 source file...
+python ../../../../../src/devices/cpu/m6502/m6502make.py  n2a03_device ../../../../../src/devices/cpu/m6502/on2a03.lst  ../../../../../src/devices/cpu/m6502/dn2a03.lst  ../../../../generated/emu/cpu/m6502/n2a03.hxx 
+</Command>
+      <Outputs>../../../../generated/emu/cpu/m6502/n2a03.hxx;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\src\devices\cpu\m6502\om6509.lst">
+      <FileType>Text</FileType>
+      <Command>@echo Generating m6509 source file...
+python ../../../../../src/devices/cpu/m6502/m6502make.py  m6509_device ../../../../../src/devices/cpu/m6502/om6509.lst  ../../../../../src/devices/cpu/m6502/dm6509.lst  ../../../../generated/emu/cpu/m6502/m6509.hxx 
+</Command>
+      <Outputs>../../../../generated/emu/cpu/m6502/m6509.hxx;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+      <Message></Message>
+    </CustomBuild>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
