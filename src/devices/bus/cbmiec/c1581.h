@@ -11,7 +11,6 @@
 #ifndef __C1581__
 #define __C1581__
 
-#include "emu.h"
 #include "cbmiec.h"
 #include "cpu/m6502/m6502.h"
 #include "formats/d81_dsk.h"
@@ -39,8 +38,8 @@ class c1581_t :  public device_t,
 {
 public:
 	// construction/destruction
-	c1581_t(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
-	c1581_t(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	c1581_t(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint32_t clock, const char *shortname, const char *source);
+	c1581_t(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual const tiny_rom_entry *device_rom_region() const override;
@@ -96,7 +95,7 @@ class c1563_t :  public c1581_t
 {
 public:
 	// construction/destruction
-	c1563_t(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	c1563_t(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual const tiny_rom_entry *device_rom_region() const override;

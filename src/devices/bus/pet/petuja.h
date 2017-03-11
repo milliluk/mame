@@ -12,7 +12,6 @@
 #define __PETUJA__
 
 
-#include "emu.h"
 #include "user.h"
 
 
@@ -28,7 +27,7 @@ class pet_userport_joystick_adapter_device : public device_t,
 {
 public:
 	// construction/destruction
-	pet_userport_joystick_adapter_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	pet_userport_joystick_adapter_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual ioport_constructor device_input_ports() const override;

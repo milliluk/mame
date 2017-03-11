@@ -633,7 +633,7 @@ READ16_MEMBER(itech32_state::wcbowl_prot_result_r)
 
 READ32_MEMBER(itech32_state::itech020_prot_result_r)
 {
-	UINT32 result = ((UINT32 *)m_main_ram.target())[m_itech020_prot_address >> 2];
+	uint32_t result = ((uint32_t *)m_main_ram.target())[m_itech020_prot_address >> 2];
 	result >>= (~m_itech020_prot_address & 3) * 8;
 	return (result & 0xff) << 8;
 }
@@ -739,7 +739,7 @@ WRITE8_MEMBER(itech32_state::drivedge_portb_out)
 	output().set_led_value(1, data & 0x01);
 	output().set_led_value(2, data & 0x02);
 	output().set_led_value(3, data & 0x04);
-	machine().device<ticket_dispenser_device>("ticket")->write(machine().driver_data()->generic_space(), 0, (data & 0x10) << 3);
+	machine().device<ticket_dispenser_device>("ticket")->write(machine().dummy_space(), 0, (data & 0x10) << 3);
 	machine().bookkeeping().coin_counter_w(0, (data & 0x20) >> 5);
 }
 
@@ -757,7 +757,7 @@ WRITE8_MEMBER(itech32_state::pia_portb_out)
 	/* bit 4 controls the ticket dispenser */
 	/* bit 5 controls the coin counter */
 	/* bit 6 controls the diagnostic sound LED */
-	machine().device<ticket_dispenser_device>("ticket")->write(machine().driver_data()->generic_space(), 0, (data & 0x10) << 3);
+	machine().device<ticket_dispenser_device>("ticket")->write(machine().dummy_space(), 0, (data & 0x10) << 3);
 	machine().bookkeeping().coin_counter_w(0, (data & 0x20) >> 5);
 }
 
@@ -877,11 +877,11 @@ void itech32_state::nvram_init(nvram_device &nvram, void *base, size_t length)
 	// if nvram is the main RAM, don't overwrite exception vectors
 	int start = (base == m_main_ram) ? 0x80 : 0x00;
 	for (int i = start; i < length; i++)
-		((UINT8 *)base)[i] = machine().rand();
+		((uint8_t *)base)[i] = machine().rand();
 
 	// due to accessing uninitialized RAM, we need this hack
 	if (m_is_drivedge)
-		((UINT32 *)m_main_ram.target())[0x2ce4/4] = 0x0000001e;
+		((uint32_t *)m_main_ram.target())[0x2ce4/4] = 0x0000001e;
 }
 
 
@@ -939,7 +939,7 @@ READ32_MEMBER(itech32_state::test1_r)
 	if (ACCESSING_BITS_16_23 && !m_written[0x100 + offset*4+1]) logerror("%06X:read from uninitialized memory %04X\n", space.device().safe_pc(), 0x100 + offset*4+1);
 	if (ACCESSING_BITS_8_15 && !m_written[0x100 + offset*4+2]) logerror("%06X:read from uninitialized memory %04X\n", space.device().safe_pc(), 0x100 + offset*4+2);
 	if (ACCESSING_BITS_0_7 && !m_written[0x100 + offset*4+3]) logerror("%06X:read from uninitialized memory %04X\n", space.device().safe_pc(), 0x100 + offset*4+3);
-	return ((UINT32 *)m_main_ram)[0x100/4 + offset];
+	return ((uint32_t *)m_main_ram)[0x100/4 + offset];
 }
 
 WRITE32_MEMBER(itech32_state::test1_w)
@@ -948,7 +948,7 @@ WRITE32_MEMBER(itech32_state::test1_w)
 	if (ACCESSING_BITS_16_23) m_written[0x100 + offset*4+1] = 1;
 	if (ACCESSING_BITS_8_15) m_written[0x100 + offset*4+2] = 1;
 	if (ACCESSING_BITS_0_7) m_written[0x100 + offset*4+3] = 1;
-	COMBINE_DATA(&((UINT32 *)m_main_ram)[0x100/4 + offset]);
+	COMBINE_DATA(&((uint32_t *)m_main_ram)[0x100/4 + offset]);
 }
 
 READ32_MEMBER(itech32_state::test2_r)
@@ -957,7 +957,7 @@ READ32_MEMBER(itech32_state::test2_r)
 	if (ACCESSING_BITS_16_23 && !m_written[0xc00 + offset*4+1]) logerror("%06X:read from uninitialized memory %04X\n", space.device().safe_pc(), 0xc00 + offset*4+1);
 	if (ACCESSING_BITS_8_15 && !m_written[0xc00 + offset*4+2]) logerror("%06X:read from uninitialized memory %04X\n", space.device().safe_pc(), 0xc00 + offset*4+2);
 	if (ACCESSING_BITS_0_7 && !m_written[0xc00 + offset*4+3]) logerror("%06X:read from uninitialized memory %04X\n", space.device().safe_pc(), 0xc00 + offset*4+3);
-	return ((UINT32 *)m_main_ram)[0xc00/4 + offset];
+	return ((uint32_t *)m_main_ram)[0xc00/4 + offset];
 }
 
 WRITE32_MEMBER(itech32_state::test2_w)
@@ -966,7 +966,7 @@ WRITE32_MEMBER(itech32_state::test2_w)
 	if (ACCESSING_BITS_16_23) m_written[0xc00 + offset*4+1] = 1;
 	if (ACCESSING_BITS_8_15) m_written[0xc00 + offset*4+2] = 1;
 	if (ACCESSING_BITS_0_7) m_written[0xc00 + offset*4+3] = 1;
-	COMBINE_DATA(&((UINT32 *)m_main_ram)[0xc00/4 + offset]);
+	COMBINE_DATA(&((uint32_t *)m_main_ram)[0xc00/4 + offset]);
 }
 #endif
 
@@ -2139,8 +2139,8 @@ ROM_END
 
 ROM_START( pairs )  /* Version 1.2 (3-tier board set: P/N 1059 Rev 3, P/N 1061 Rev 1 &  P/N 1060 Rev 0) */
 	ROM_REGION16_BE( 0x80000, "user1", 0 )
-	ROM_LOAD16_BYTE( "pair0_u83_v1.2.u83", 0x00000, 0x20000, CRC(a9c761d8) SHA1(2618c9c3f336cf30f760fd88f12c09985cfd4ee7) )
-	ROM_LOAD16_BYTE( "pair1_u88_v1.2.u88", 0x00001, 0x20000, CRC(5141eb86) SHA1(3bb10d588e6334a33e5c2c468651699e84f46cdc) )
+	ROM_LOAD16_BYTE( "pair0_u83_x_v1.2.u83", 0x00000, 0x20000, CRC(a9c761d8) SHA1(2618c9c3f336cf30f760fd88f12c09985cfd4ee7) )
+	ROM_LOAD16_BYTE( "pair1_u88_x_v1.2.u88", 0x00001, 0x20000, CRC(5141eb86) SHA1(3bb10d588e6334a33e5c2c468651699e84f46cdc) )
 
 	ROM_REGION( 0x28000, "soundcpu", 0 )
 	ROM_LOAD( "pairsnd_u17_v1.u17", 0x10000, 0x18000, CRC(7a514cfd) SHA1(ef5bc74c9560d2c058298051070fa748e58f07e1) )

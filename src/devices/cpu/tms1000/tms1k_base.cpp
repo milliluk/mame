@@ -65,6 +65,7 @@ unknown cycle: CME, SSE, SSS
 
 */
 
+#include "emu.h"
 #include "tms1k_base.h"
 #include "debugger.h"
 
@@ -74,6 +75,7 @@ void tms1k_base_device::state_string_export(const device_state_entry &entry, std
 	switch (entry.index())
 	{
 		case STATE_GENPC:
+		case STATE_GENPCBASE:
 			str = string_format("%03X", m_rom_address << ((m_byte_bits > 8) ? 1 : 0));
 			break;
 	}
@@ -194,7 +196,8 @@ void tms1k_base_device::device_start()
 	state_add(TMS1XXX_Y,      "Y",      m_y     ).formatstr("%01X");
 	state_add(TMS1XXX_STATUS, "STATUS", m_status).formatstr("%01X");
 
-	state_add(STATE_GENPC, "curpc", m_rom_address).formatstr("%03X").noshow();
+	state_add(STATE_GENPC, "GENPC", m_rom_address).formatstr("%03X").noshow();
+	state_add(STATE_GENPCBASE, "CURPC", m_rom_address).formatstr("%03X").noshow();
 	state_add(STATE_GENFLAGS, "GENFLAGS", m_sr).formatstr("%8s").noshow();
 
 	m_icountptr = &m_icount;
@@ -218,6 +221,8 @@ void tms1k_base_device::device_reset()
 	m_eac = 0;
 	m_bl = 0;
 	m_add = 0;
+	m_status = 0;
+	m_clatch = 0;
 
 	m_opcode = 0;
 	m_micro = 0;
@@ -272,7 +277,7 @@ void tms1k_base_device::read_opcode()
 //  i/o handling
 //-------------------------------------------------
 
-void tms1k_base_device::write_o_output(UINT8 index)
+void tms1k_base_device::write_o_output(u8 index)
 {
 	// a hardcoded table is supported if the output pla is unknown
 	m_o_index = index;
@@ -280,7 +285,7 @@ void tms1k_base_device::write_o_output(UINT8 index)
 	m_write_o(0, m_o & m_o_mask, 0xffff);
 }
 
-UINT8 tms1k_base_device::read_k_input()
+u8 tms1k_base_device::read_k_input()
 {
 	// K1,2,4,8 (KC test pin is not emulated)
 	return m_read_k(0, 0xff) & 0xf;
@@ -341,7 +346,7 @@ void tms1k_base_device::op_call()
 	// CALL/CALLL: conditional call
 	if (m_status)
 	{
-		UINT8 prev_pa = m_pa;
+		u8 prev_pa = m_pa;
 
 		if (m_clatch == 0)
 		{

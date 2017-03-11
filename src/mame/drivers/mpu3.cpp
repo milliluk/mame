@@ -1,5 +1,6 @@
 // license:BSD-3-Clause
 // copyright-holders:James Wallace
+// thanks-to:Chris Wren, Tony Friery, MFME
 /* Notes 17/07/11 DH
  added most other MPU3 sets
 
@@ -12,7 +13,10 @@
  */
 
 /***********************************************************************************************************
-  Barcrest MPU3 highly preliminary driver by J.Wallace, and Anonymous.
+  Barcrest MPU3 highly preliminary driver
+  based on MPU4 driver (see mpu4.cpp for credits)
+
+  Thanks to Chris Wren and MFME for documentation, particularly of meters and characteriser.
 
 --- Board Setup ---
 
@@ -166,8 +170,8 @@ TODO: - Distinguish door switches using manual
 
 struct mpu3_chr_table
 {
-	UINT8 call;
-	UINT8 response;
+	uint8_t call;
+	uint8_t response;
 };
 
 class mpu3_state : public driver_device
@@ -204,8 +208,8 @@ public:
 	int m_aux1_input;
 	int m_aux2_input;
 	int m_input_strobe;   /* IC11 74LS138 A = CA2 IC3, B = CA2 IC4, C = CA2 IC5 */
-	UINT8 m_lamp_strobe;
-	UINT8 m_led_strobe;
+	uint8_t m_lamp_strobe;
+	uint8_t m_led_strobe;
 	int m_signal_50hz;
 
 	const mpu3_chr_table* m_current_chr_table;
@@ -224,9 +228,9 @@ public:
 	DECLARE_WRITE8_MEMBER(mpu3ptm_w);
 	DECLARE_READ8_MEMBER(mpu3ptm_r);
 	DECLARE_WRITE_LINE_MEMBER(cpu0_irq);
-	DECLARE_WRITE8_MEMBER(ic2_o1_callback);
-	DECLARE_WRITE8_MEMBER(ic2_o2_callback);
-	DECLARE_WRITE8_MEMBER(ic2_o3_callback);
+	DECLARE_WRITE_LINE_MEMBER(ic2_o1_callback);
+	DECLARE_WRITE_LINE_MEMBER(ic2_o2_callback);
+	DECLARE_WRITE_LINE_MEMBER(ic2_o3_callback);
 	DECLARE_READ8_MEMBER(pia_ic3_porta_r);
 	DECLARE_WRITE8_MEMBER(pia_ic3_portb_w);
 	DECLARE_WRITE_LINE_MEMBER(pia_ic3_ca2_w);
@@ -319,17 +323,17 @@ WRITE_LINE_MEMBER(mpu3_state::cpu0_irq)
 
 
 /* IC2 6840 PTM handler probably clocked from elsewhere*/
-WRITE8_MEMBER(mpu3_state::ic2_o1_callback)
+WRITE_LINE_MEMBER(mpu3_state::ic2_o1_callback)
 {
 }
 
 //FIXME FROM HERE
-WRITE8_MEMBER(mpu3_state::ic2_o2_callback)
+WRITE_LINE_MEMBER(mpu3_state::ic2_o2_callback)
 {
 }
 
 
-WRITE8_MEMBER(mpu3_state::ic2_o3_callback)
+WRITE_LINE_MEMBER(mpu3_state::ic2_o3_callback)
 {
 }
 
@@ -853,12 +857,11 @@ static MACHINE_CONFIG_START( mpu3base, mpu3_state )
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("555_ic10", mpu3_state, ic10_callback, PERIOD_OF_555_ASTABLE(10000,1000,0.0000001))
 
 	/* 6840 PTM */
-	MCFG_DEVICE_ADD("ptm_ic2", PTM6840, 0)
-	MCFG_PTM6840_INTERNAL_CLOCK(MPU3_MASTER_CLOCK)
+	MCFG_DEVICE_ADD("ptm_ic2", PTM6840, MPU3_MASTER_CLOCK)
 	MCFG_PTM6840_EXTERNAL_CLOCKS(0, 0, 0)
-	MCFG_PTM6840_OUT0_CB(WRITE8(mpu3_state, ic2_o1_callback))
-	MCFG_PTM6840_OUT1_CB(WRITE8(mpu3_state, ic2_o2_callback))
-	MCFG_PTM6840_OUT2_CB(WRITE8(mpu3_state, ic2_o3_callback))
+	MCFG_PTM6840_OUT0_CB(WRITELINE(mpu3_state, ic2_o1_callback))
+	MCFG_PTM6840_OUT1_CB(WRITELINE(mpu3_state, ic2_o2_callback))
+	MCFG_PTM6840_OUT2_CB(WRITELINE(mpu3_state, ic2_o3_callback))
 	MCFG_PTM6840_IRQ_CB(WRITELINE(mpu3_state, cpu0_irq))
 
 	MCFG_DEVICE_ADD("pia_ic3", PIA6821, 0)

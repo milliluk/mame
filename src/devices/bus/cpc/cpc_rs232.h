@@ -9,7 +9,6 @@
 #ifndef CPC_RS232_H_
 #define CPC_RS232_H_
 
-#include "emu.h"
 #include "machine/z80dart.h"
 #include "machine/pit8253.h"
 #include "bus/rs232/rs232.h"
@@ -20,8 +19,8 @@ class cpc_rs232_device : public device_t,
 {
 public:
 	// construction/destruction
-	cpc_rs232_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
-	cpc_rs232_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
+	cpc_rs232_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	cpc_rs232_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint32_t clock, const char *shortname, const char *source);
 
 			// optional information overrides
 	virtual machine_config_constructor device_mconfig_additions() const override;
@@ -52,7 +51,7 @@ class cpc_ams_rs232_device : public cpc_rs232_device
 {
 public:
 	// construction/destruction
-	cpc_ams_rs232_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	cpc_ams_rs232_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 protected:
 	virtual const tiny_rom_entry *device_rom_region() const override;

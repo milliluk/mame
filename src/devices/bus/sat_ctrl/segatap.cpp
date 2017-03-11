@@ -6,6 +6,7 @@
 
 **********************************************************************/
 
+#include "emu.h"
 #include "segatap.h"
 
 
@@ -25,7 +26,7 @@ const device_type SATURN_SEGATAP = &device_creator<saturn_segatap_device>;
 //  saturn_segatap_device - constructor
 //-------------------------------------------------
 
-saturn_segatap_device::saturn_segatap_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock) :
+saturn_segatap_device::saturn_segatap_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
 	device_t(mconfig, SATURN_SEGATAP, "Sega Saturn SegaTap", tag, owner, clock, "saturn_segatap", __FILE__),
 	device_saturn_control_port_interface(mconfig, *this),
 	m_subctrl1_port(*this, "ctrl1"),
@@ -60,9 +61,9 @@ void saturn_segatap_device::device_reset()
 //  read_ctrl
 //-------------------------------------------------
 
-UINT8 saturn_segatap_device::read_ctrl(UINT8 offset)
+uint8_t saturn_segatap_device::read_ctrl(uint8_t offset)
 {
-	UINT8 res = 0;
+	uint8_t res = 0;
 	switch (offset)
 	{
 		default:
@@ -90,7 +91,7 @@ UINT8 saturn_segatap_device::read_ctrl(UINT8 offset)
 //  read_id
 //-------------------------------------------------
 
-UINT8 saturn_segatap_device::read_id(int idx)
+uint8_t saturn_segatap_device::read_id(int idx)
 {
 	switch (idx)
 	{

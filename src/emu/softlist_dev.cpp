@@ -78,7 +78,7 @@ bool image_software_list_loader::load_software(device_image_interface &device, s
 //  software_list_device - constructor
 //-------------------------------------------------
 
-software_list_device::software_list_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+software_list_device::software_list_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock)
 	: device_t(mconfig, SOFTWARE_LIST, "Software list", tag, owner, clock, "software_list", __FILE__),
 	m_list_type(SOFTWARE_LIST_ORIGINAL_SYSTEM),
 	m_filter(nullptr),
@@ -145,29 +145,31 @@ void software_list_device::find_approx_matches(const std::string &name, int matc
 	// iterate over our info (will cause a parse if needed)
 	for (const software_info &swinfo : get_info())
 	{
-		const software_part &part = swinfo.parts().front();
-		if ((interface == nullptr || part.matches_interface(interface)) && is_compatible(part) == SOFTWARE_IS_COMPATIBLE)
+		for (const software_part &swpart : swinfo.parts())
 		{
-			// pick the best match between driver name and description
-			int longpenalty = driver_list::penalty_compare(name.c_str(), swinfo.longname().c_str());
-			int shortpenalty = driver_list::penalty_compare(name.c_str(), swinfo.shortname().c_str());
-			int curpenalty = std::min(longpenalty, shortpenalty);
-
-			// insert into the sorted table of matches
-			for (int matchnum = matches - 1; matchnum >= 0; matchnum--)
+			if ((interface == nullptr || swpart.matches_interface(interface)) && is_compatible(swpart) == SOFTWARE_IS_COMPATIBLE)
 			{
-				// stop if we're worse than the current entry
-				if (curpenalty >= penalty[matchnum])
-					break;
+				// pick the best match between driver name and description
+				int longpenalty = driver_list::penalty_compare(name.c_str(), swinfo.longname().c_str());
+				int shortpenalty = driver_list::penalty_compare(name.c_str(), swinfo.shortname().c_str());
+				int curpenalty = std::min(longpenalty, shortpenalty);
 
-				// as long as this isn't the last entry, bump this one down
-				if (matchnum < matches - 1)
+				// insert into the sorted table of matches
+				for (int matchnum = matches - 1; matchnum >= 0; matchnum--)
 				{
-					penalty[matchnum + 1] = penalty[matchnum];
-					list[matchnum + 1] = list[matchnum];
+					// stop if we're worse than the current entry
+					if (curpenalty >= penalty[matchnum])
+						break;
+
+					// as long as this isn't the last entry, bump this one down
+					if (matchnum < matches - 1)
+					{
+						penalty[matchnum + 1] = penalty[matchnum];
+						list[matchnum + 1] = list[matchnum];
+					}
+					list[matchnum] = &swinfo;
+					penalty[matchnum] = curpenalty;
 				}
-				list[matchnum] = &swinfo;
-				penalty[matchnum] = curpenalty;
 			}
 		}
 	}
@@ -413,12 +415,14 @@ void software_list_device::device_validity_check(validity_checker &valid) const
 
 void software_list_device::internal_validity_check(validity_checker &valid)
 {
-	enum { NAME_LEN_PARENT = 8, NAME_LEN_CLONE = 16 };
+	enum { NAME_LEN_PARENT = 16, NAME_LEN_CLONE = 16 };
 
 	softlist_map names;
 	softlist_map descriptions;
 	for (const software_info &swinfo : get_info())
 	{
+		std::string const &shortname(swinfo.shortname());
+
 		// first parse and output core errors if any
 		if (m_errors.length() > 0)
 		{
@@ -431,52 +435,51 @@ void software_list_device::internal_validity_check(validity_checker &valid)
 		// Did we lost any description?
 		if (swinfo.longname().empty())
 		{
-			osd_printf_error("%s: %s has no description\n", filename(), swinfo.shortname().c_str());
+			osd_printf_error("%s: %s has no description\n", filename(), shortname.c_str());
 			break;
 		}
 
 		// Did we lost any year?
 		if (swinfo.year().empty())
 		{
-			osd_printf_error("%s: %s has no year\n", filename(), swinfo.shortname().c_str());
+			osd_printf_error("%s: %s has no year\n", filename(), shortname.c_str());
 			break;
 		}
 
 		// Did we lost any publisher?
 		if (swinfo.publisher().empty())
 		{
-			osd_printf_error("%s: %s has no publisher\n", filename(), swinfo.shortname().c_str());
+			osd_printf_error("%s: %s has no publisher\n", filename(), shortname.c_str());
 			break;
 		}
 
 		// Did we lost the software parts?
 		if (swinfo.parts().empty())
 		{
-			osd_printf_error("%s: %s has no part\n", filename(), swinfo.shortname().c_str());
+			osd_printf_error("%s: %s has no part\n", filename(), shortname.c_str());
 			break;
 		}
 
 		// Second, since the xml is fine, run additional checks:
 
 		// check for duplicate names
-		if (!names.insert(std::make_pair(swinfo.shortname(), &swinfo)).second)
+		if (!names.insert(std::make_pair(shortname, &swinfo)).second)
 		{
-			const software_info *match = names.find(swinfo.shortname())->second;
-			osd_printf_error("%s: %s is a duplicate name (%s)\n", filename(), swinfo.shortname().c_str(), match->shortname().c_str());
+			const software_info *match = names.find(shortname)->second;
+			osd_printf_error("%s: %s is a duplicate name (%s)\n", filename(), shortname.c_str(), match->shortname().c_str());
 		}
 
 		// check for duplicate descriptions
-		std::string longname = std::string(swinfo.longname());
+		std::string longname(swinfo.longname());
 		if (!descriptions.insert(std::make_pair(strmakelower(longname), &swinfo)).second)
-			osd_printf_error("%s: %s is a duplicate description (%s)\n", filename(), swinfo.longname().c_str(), swinfo.shortname().c_str());
+			osd_printf_error("%s: %s is a duplicate description (%s)\n", filename(), swinfo.longname().c_str(), shortname.c_str());
 
-		bool is_clone = false;
-		if (!swinfo.parentname().empty())
+		bool const is_clone(!swinfo.parentname().empty());
+		if (is_clone)
 		{
-			is_clone = true;
-			if (swinfo.parentname() == swinfo.shortname())
+			if (swinfo.parentname() == shortname)
 			{
-				osd_printf_error("%s: %s is set as a clone of itself\n", filename(), swinfo.shortname().c_str());
+				osd_printf_error("%s: %s is set as a clone of itself\n", filename(), shortname.c_str());
 				break;
 			}
 
@@ -484,21 +487,29 @@ void software_list_device::internal_validity_check(validity_checker &valid)
 			const software_info *swinfo2 = find(swinfo.parentname().c_str());
 
 			if (swinfo2 == nullptr)
-				osd_printf_error("%s: parent '%s' software for '%s' not found\n", filename(), swinfo.parentname().c_str(), swinfo.shortname().c_str());
+				osd_printf_error("%s: parent '%s' software for '%s' not found\n", filename(), swinfo.parentname().c_str(), shortname.c_str());
 			else if (!swinfo2->parentname().empty())
-				osd_printf_error("%s: %s is a clone of a clone\n", filename(), swinfo.shortname().c_str());
+				osd_printf_error("%s: %s is a clone of a clone\n", filename(), shortname.c_str());
 		}
 
-		// make sure the driver name is 8 chars or less
-		if ((is_clone && swinfo.shortname().length() > NAME_LEN_CLONE) || (!is_clone && swinfo.shortname().length() > NAME_LEN_PARENT))
-			osd_printf_error("%s: %s %s driver name must be %d characters or less\n", filename(), swinfo.shortname().c_str(),
-				is_clone ? "clone" : "parent", is_clone ? NAME_LEN_CLONE : NAME_LEN_PARENT);
+		// make sure the driver name isn't too long
+		if (shortname.length() > (is_clone ? NAME_LEN_CLONE : NAME_LEN_PARENT))
+			osd_printf_error("%s: %s %s software name must be %d characters or less\n", filename(), shortname.c_str(),
+					is_clone ? "clone" : "parent", is_clone ? NAME_LEN_CLONE : NAME_LEN_PARENT);
+
+		// make sure the driver name doesn't contain invalid characters
+		for (char ch : shortname)
+			if (((ch < '0') || (ch > '9')) && ((ch < 'a') || (ch > 'z')) && (ch != '_'))
+			{
+				osd_printf_error("%s: %s contains invalid characters\n", filename(), shortname.c_str());
+				break;
+			}
 
 		// make sure the year is only digits, '?' or '+'
-		for (const char *s = swinfo.year().c_str(); *s != 0; s++)
-			if (!isdigit((UINT8)*s) && *s != '?' && *s != '+')
+		for (char ch : swinfo.year())
+			if (!isdigit(u8(ch)) && (ch != '?') && (ch != '+'))
 			{
-				osd_printf_error("%s: %s has an invalid year '%s'\n", filename(), swinfo.shortname().c_str(), swinfo.year().c_str());
+				osd_printf_error("%s: %s has an invalid year '%s'\n", filename(), shortname.c_str(), swinfo.year().c_str());
 				break;
 			}
 
@@ -506,18 +517,16 @@ void software_list_device::internal_validity_check(validity_checker &valid)
 		for (const software_part &part : swinfo.parts())
 		{
 			if (part.interface().empty())
-				osd_printf_error("%s: %s has a part (%s) without interface\n", filename(), swinfo.shortname().c_str(), part.name().c_str());
+				osd_printf_error("%s: %s has a part (%s) without interface\n", filename(), shortname.c_str(), part.name().c_str());
 
 			if (part.romdata().empty())
-				osd_printf_error("%s: %s has a part (%s) with no data\n", filename(), swinfo.shortname().c_str(), part.name().c_str());
+				osd_printf_error("%s: %s has a part (%s) with no data\n", filename(), shortname.c_str(), part.name().c_str());
 
 			if (!part_names.insert(std::make_pair(part.name(), &swinfo)).second)
-				osd_printf_error("%s: %s has a part (%s) whose name is duplicate\n", filename(), swinfo.shortname().c_str(), part.name().c_str());
+				osd_printf_error("%s: %s has a part (%s) whose name is duplicate\n", filename(), shortname.c_str(), part.name().c_str());
 		}
 	}
 
 	// release all the memory
 	release();
 }
-
-

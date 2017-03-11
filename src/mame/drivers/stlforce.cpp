@@ -88,7 +88,7 @@ WRITE16_MEMBER(stlforce_state::eeprom_w)
 
 WRITE16_MEMBER(stlforce_state::oki_bank_w)
 {
-	m_oki->set_bank_base(0x40000 * ((data>>8) & 3));
+	m_oki->set_rom_bank((data>>8) & 3);
 }
 
 static ADDRESS_MAP_START( stlforce_map, AS_PROGRAM, 16, stlforce_state )
@@ -210,7 +210,7 @@ static MACHINE_CONFIG_START( stlforce, stlforce_state )
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")
 
-	MCFG_OKIM6295_ADD("oki", 937500 , OKIM6295_PIN7_HIGH)
+	MCFG_OKIM6295_ADD("oki", XTAL_32MHz/32 , OKIM6295_PIN7_HIGH)
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
 MACHINE_CONFIG_END
 

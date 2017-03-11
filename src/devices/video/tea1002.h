@@ -24,7 +24,6 @@
 #ifndef __TEA1002_H__
 #define __TEA1002_H__
 
-#include "emu.h"
 
 
 //**************************************************************************
@@ -45,7 +44,7 @@ class tea1002_device : public device_t
 {
 public:
 	// construction/destruction
-	tea1002_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	tea1002_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	rgb_t color(int index);
 

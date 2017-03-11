@@ -46,14 +46,16 @@ public:
 	ibm3153_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag)
 		, m_maincpu(*this, "maincpu")
-	{ }
+		, m_p_chargen(*this, "chargen")
+		{ }
 
-	const UINT8 *m_p_chargen;
 	DECLARE_PALETTE_INIT(ibm3153);
-	UINT32 screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+
 private:
 	virtual void machine_reset() override;
 	required_device<cpu_device> m_maincpu;
+	required_region_ptr<u8> m_p_chargen;
 };
 
 
@@ -73,7 +75,7 @@ ADDRESS_MAP_END
 static INPUT_PORTS_START( ibm3153 )
 INPUT_PORTS_END
 
-UINT32 ibm3153_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t ibm3153_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	return 0;
 }
@@ -87,7 +89,6 @@ PALETTE_INIT_MEMBER( ibm3153_state, ibm3153 )
 
 void ibm3153_state::machine_reset()
 {
-	m_p_chargen = memregion("chargen")->base();
 }
 
 static MACHINE_CONFIG_START( ibm3153, ibm3153_state )

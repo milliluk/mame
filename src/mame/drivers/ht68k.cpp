@@ -28,6 +28,7 @@ Lot of infos available at: http://www.classiccmp.org/cini/ht68k.htm
 
 ****************************************************************************/
 
+#include "emu.h"
 #include "bus/rs232/rs232.h"
 #include "cpu/m68000/m68000.h"
 #include "machine/mc68681.h"
@@ -62,7 +63,7 @@ public:
 	DECLARE_WRITE_LINE_MEMBER(duart_irq_handler);
 	DECLARE_WRITE_LINE_MEMBER(duart_txb);
 	DECLARE_WRITE8_MEMBER(duart_output);
-	required_shared_ptr<UINT16> m_p_ram;
+	required_shared_ptr<uint16_t> m_p_ram;
 	virtual void machine_reset() override;
 };
 
@@ -83,9 +84,9 @@ INPUT_PORTS_END
 
 void ht68k_state::machine_reset()
 {
-	UINT8* user1 = memregion("user1")->base();
+	uint8_t* user1 = memregion("user1")->base();
 
-	memcpy((UINT8*)m_p_ram.target(),user1,0x8000);
+	memcpy((uint8_t*)m_p_ram.target(),user1,0x8000);
 
 	m_maincpu->reset();
 

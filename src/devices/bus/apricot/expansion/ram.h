@@ -11,7 +11,6 @@
 #ifndef __APRICOT_RAM__
 #define __APRICOT_RAM__
 
-#include "emu.h"
 #include "expansion.h"
 
 
@@ -26,7 +25,7 @@ class apricot_256k_ram_device : public device_t, public device_apricot_expansion
 {
 public:
 	// construction/destruction
-	apricot_256k_ram_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	apricot_256k_ram_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 protected:
 	virtual ioport_constructor device_input_ports() const override;
@@ -36,7 +35,7 @@ protected:
 private:
 	required_ioport m_sw;
 
-	std::vector<UINT16> m_ram;
+	std::vector<uint16_t> m_ram;
 };
 
 
@@ -46,7 +45,7 @@ class apricot_128k_ram_device : public device_t, public device_apricot_expansion
 {
 public:
 	// construction/destruction
-	apricot_128k_ram_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	apricot_128k_ram_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 protected:
 	virtual ioport_constructor device_input_ports() const override;
@@ -56,7 +55,7 @@ protected:
 private:
 	required_ioport m_strap;
 
-	std::vector<UINT16> m_ram;
+	std::vector<uint16_t> m_ram;
 };
 
 
@@ -66,7 +65,7 @@ class apricot_512k_ram_device : public device_t, public device_apricot_expansion
 {
 public:
 	// construction/destruction
-	apricot_512k_ram_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	apricot_512k_ram_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 protected:
 	virtual ioport_constructor device_input_ports() const override;
@@ -76,7 +75,7 @@ protected:
 private:
 	required_ioport m_strap;
 
-	std::vector<UINT16> m_ram;
+	std::vector<uint16_t> m_ram;
 };
 
 

@@ -24,7 +24,6 @@
 #ifndef __DS75160A__
 #define __DS75160A__
 
-#include "emu.h"
 
 
 
@@ -48,7 +47,7 @@ class ds75160a_device : public device_t
 {
 public:
 	// construction/destruction
-	ds75160a_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	ds75160a_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	template<class _read, class _write> void set_callbacks(_read rd, _write wr) {
 		m_read.set_callback(rd);
@@ -69,7 +68,7 @@ private:
 	devcb_read8  m_read;
 	devcb_write8 m_write;
 
-	UINT8 m_data;
+	uint8_t m_data;
 
 	int m_te;
 	int m_pe;

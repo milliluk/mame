@@ -11,7 +11,6 @@
 #ifndef __ADAM_PRN__
 #define __ADAM_PRN__
 
-#include "emu.h"
 #include "adamnet.h"
 #include "cpu/m6800/m6800.h"
 
@@ -28,7 +27,7 @@ class adam_printer_device :  public device_t,
 {
 public:
 	// construction/destruction
-	adam_printer_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	adam_printer_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual const tiny_rom_entry *device_rom_region() const override;

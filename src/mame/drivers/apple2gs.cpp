@@ -55,12 +55,11 @@
 #include "machine/appldriv.h"
 #include "sound/es5503.h"
 #include "machine/applefdc.h"
-#include "machine/8530scc.h"
+#include "machine/z80scc.h"
 #include "sound/speaker.h"
 #include "machine/ram.h"
 
 #include "bus/a2bus/a2bus.h"
-#include "bus/a2bus/a2lang.h"
 #include "bus/a2bus/a2diskii.h"
 #include "bus/a2bus/a2mockingboard.h"
 #include "bus/a2bus/a2cffa.h"
@@ -78,6 +77,8 @@
 #include "bus/a2bus/a2zipdrive.h"
 //#include "bus/a2bus/a2udrive.h"
 #include "bus/a2bus/a2hsscsi.h"
+
+#include "bus/rs232/rs232.h"
 
 #include "softlist.h"
 
@@ -208,7 +209,7 @@ READ8_MEMBER(apple2gs_state::adbmicro_p1_in)
 
 READ8_MEMBER(apple2gs_state::adbmicro_p2_in)
 {
-	UINT8 rv = 0;
+	uint8_t rv = 0;
 
 	rv |= 0x40;     // no reset
 	rv |= (m_adb_line) ? 0x00 : 0x80;
@@ -374,7 +375,6 @@ static MACHINE_CONFIG_START( apple2gs, apple2gs_state )
 	MCFG_A2BUS_OUT_IRQ_CB(WRITELINE(apple2gs_state, a2bus_irq_w))
 	MCFG_A2BUS_OUT_NMI_CB(WRITELINE(apple2gs_state, a2bus_nmi_w))
 	MCFG_A2BUS_OUT_INH_CB(WRITELINE(apple2gs_state, a2bus_inh_w))
-	MCFG_A2BUS_ONBOARD_ADD("a2bus", "sl0", A2BUS_LANG, NOOP)
 	MCFG_A2BUS_SLOT_ADD("a2bus", "sl1", apple2_cards, nullptr)
 	MCFG_A2BUS_SLOT_ADD("a2bus", "sl2", apple2_cards, nullptr)
 	MCFG_A2BUS_SLOT_ADD("a2bus", "sl3", apple2_cards, nullptr)
@@ -386,7 +386,19 @@ static MACHINE_CONFIG_START( apple2gs, apple2gs_state )
 	MCFG_IWM_ADD("fdc", apple2_fdc_interface)
 
 	/* SCC */
-	MCFG_DEVICE_ADD("scc", SCC8530, APPLE2GS_14M/2)
+	MCFG_SCC85C30_ADD(SCC_TAG, APPLE2GS_14M/2, 0, 0, 0, 0)
+	MCFG_Z80SCC_OUT_TXDA_CB(DEVWRITELINE(RS232A_TAG, rs232_port_device, write_txd))
+	MCFG_Z80SCC_OUT_TXDB_CB(DEVWRITELINE(RS232B_TAG, rs232_port_device, write_txd))
+
+	MCFG_RS232_PORT_ADD(RS232A_TAG, default_rs232_devices, nullptr)
+	MCFG_RS232_RXD_HANDLER(DEVWRITELINE(SCC_TAG, z80scc_device, rxa_w))
+	MCFG_RS232_DCD_HANDLER(DEVWRITELINE(SCC_TAG, z80scc_device, dcda_w))
+	MCFG_RS232_CTS_HANDLER(DEVWRITELINE(SCC_TAG, z80scc_device, ctsa_w))
+
+	MCFG_RS232_PORT_ADD(RS232B_TAG, default_rs232_devices, nullptr)
+	MCFG_RS232_RXD_HANDLER(DEVWRITELINE(SCC_TAG, z80scc_device, rxb_w))
+	MCFG_RS232_DCD_HANDLER(DEVWRITELINE(SCC_TAG, z80scc_device, dcdb_w))
+	MCFG_RS232_CTS_HANDLER(DEVWRITELINE(SCC_TAG, z80scc_device, ctsb_w))
 
 	MCFG_LEGACY_FLOPPY_APPLE_2_DRIVES_ADD(apple2gs_floppy525_floppy_interface,15,16)
 	MCFG_LEGACY_FLOPPY_SONY_2_DRIVES_ADDITIONAL_ADD(apple2gs_floppy35_floppy_interface)

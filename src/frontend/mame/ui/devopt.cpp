@@ -26,7 +26,7 @@ menu_device_config::menu_device_config(mame_ui_manager &mui, render_container &c
 	m_mounted = slot->device().subdevice(option->name()) != nullptr;
 }
 
-void menu_device_config::populate()
+void menu_device_config::populate(float &customtop, float &custombottom)
 {
 	std::ostringstream str;
 	device_t *dev;
@@ -112,7 +112,7 @@ void menu_device_config::populate()
 		std::unordered_set<std::string> soundtags;
 		for (device_sound_interface &sound : snditer)
 		{
-			if (!soundtags.insert(sound.device().tag()).second)
+			if (!sound.issound() || !soundtags.insert(sound.device().tag()).second)
 				continue;
 
 			// count how many identical sound chips we have

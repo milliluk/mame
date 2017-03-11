@@ -14,7 +14,6 @@
 #ifndef __SMS_EXPANSION_SLOT__
 #define __SMS_EXPANSION_SLOT__
 
-#include "emu.h"
 
 
 
@@ -41,7 +40,7 @@ class sms_expansion_slot_device : public device_t,
 {
 public:
 	// construction/destruction
-	sms_expansion_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	sms_expansion_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	virtual ~sms_expansion_slot_device();
 
 	// reading and writing

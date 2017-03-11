@@ -16,13 +16,12 @@ class wave_device : public device_t,
 									public device_sound_interface
 {
 public:
-	wave_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	wave_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	static void static_set_cassette_tag(device_t &device, const char *cassette_tag);
 
 protected:
 	// device-level overrides
-	virtual void device_config_complete() override;
 	virtual void device_start() override;
 
 	// sound stream update overrides

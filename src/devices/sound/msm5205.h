@@ -43,31 +43,35 @@ class msm5205_device : public device_t,
 							public device_sound_interface
 {
 public:
-	msm5205_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
-	msm5205_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
+	msm5205_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock);
+	msm5205_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, u32 clock, const char *shortname, const char *source);
 	~msm5205_device() {}
 
-	static void set_prescaler_selector(device_t &device, int select) { downcast<msm5205_device &>(device).m_select = select; }
+	static void set_prescaler_selector(device_t &device, int select);
 	template<class _Object> static devcb_base &set_vclk_callback(device_t &device, _Object object) { return downcast<msm5205_device &>(device).m_vclk_cb.set_callback(object); }
 
 	// reset signal should keep for 2cycle of VCLK
-	void reset_w(int reset);
+	DECLARE_WRITE_LINE_MEMBER(reset_w);
+
 	// adpcmata is latched after vclk_interrupt callback
 	void data_w(int data);
+	DECLARE_WRITE8_MEMBER(data_w);
+
 	// VCLK slave mode option
 	// if VCLK and reset or data is changed at the same time,
 	// call vclk_w after data_w and reset_w.
-	void vclk_w(int vclk);
-	// option , selected pin seletor
-	void playmode_w(int select);
+	DECLARE_WRITE_LINE_MEMBER(vclk_w);
 
-	void set_volume(int volume);
-	void change_clock_w(INT32 clock);
+	// option , selected pin selector
+	void playmode_w(int select);
+	DECLARE_WRITE_LINE_MEMBER(s1_w);
+	DECLARE_WRITE_LINE_MEMBER(s2_w);
 
 protected:
 	// device-level overrides
 	virtual void device_start() override;
 	virtual void device_reset() override;
+	virtual void device_clock_changed() override;
 
 	TIMER_CALLBACK_MEMBER(vclk_callback);
 
@@ -75,20 +79,20 @@ protected:
 	virtual void sound_stream_update(sound_stream &stream, stream_sample_t **inputs, stream_sample_t **outputs, int samples) override;
 
 	void compute_tables();
+	virtual int get_prescaler() const;
 
 	// internal state
-	sound_stream * m_stream;    /* number of stream system      */
-	INT32 m_mod_clock;          /* clock rate                   */
-	emu_timer *m_timer;         /* VCLK callback timer          */
-	INT32 m_data;               /* next adpcm data              */
-	INT32 m_vclk;               /* vclk signal (external mode)  */
-	INT32 m_reset;              /* reset pin signal             */
-	INT32 m_prescaler;          /* prescaler selector S1 and S2 */
-	INT32 m_bitwidth;           /* bit width selector -3B/4B    */
-	INT32 m_signal;             /* current ADPCM signal         */
-	INT32 m_step;               /* current ADPCM step           */
+	sound_stream * m_stream;    // number of stream system
+	emu_timer *m_timer;         // VCK callback timer
+	u8 m_data;                  // next adpcm data
+	bool m_vclk;                // VCK signal (external mode)
+	bool m_reset;               // reset pin signal
+	bool m_s1;                  // prescaler selector S1
+	bool m_s2;                  // prescaler selector S2
+	u8 m_bitwidth;              // bit width selector -3B/4B
+	s32 m_signal;               // current ADPCM signal
+	s32 m_step;                 // current ADPCM step
 	int m_diff_lookup[49*16];
-	int m_select;
 	devcb_write_line m_vclk_cb;
 };
 
@@ -97,7 +101,10 @@ extern const device_type MSM5205;
 class msm6585_device : public msm5205_device
 {
 public:
-	msm6585_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	msm6585_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock);
+
+protected:
+	virtual int get_prescaler() const override;
 
 	// sound stream update overrides
 	virtual void sound_stream_update(sound_stream &stream, stream_sample_t **inputs, stream_sample_t **outputs, int samples) override;

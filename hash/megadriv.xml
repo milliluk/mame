@@ -3,33 +3,33 @@
 <!--
     UNDUMPED / TO BE REDUMPED LIST
 
-    ADVANCED DAISENRYAKU            JAPAN       we have Rev A, Rev 0 needed (does it exist?)
-    CAPTAIN PLANET              ASIA
-    DYNAMITE HEADDY SAMPLE          JAPAN
-    ECCO JR                 USA/PAL     graphic corruption on later revision
-    F-22 (JUNE 1992)                USA/PAL     needs proper dump
-    FATAL FURY 2                PAL     Australia-only PAL release
-    FERRARI GRAND PRIX CHALLENGE        PAL     we have Rev A, Rev 0 needed (does it exist?)
-    FIFA SOCCER                 JAPAN
-    FIRE SHARK                  PAL     dump check
-    GALAXY FORCE II             ALL     we have Rev B, Rev 0 and Rev A needed (does it exist?)
+    ADVANCED DAISENRYAKU                JAPAN       we have Rev A, Rev 0 needed (does it exist?)
+    CAPTAIN PLANET                      ASIA
+    DYNAMITE HEADDY SAMPLE              JAPAN
+    ECCO JR                             USA/PAL     graphic corruption on later revision
+    F-22 (JUNE 1992)                    USA/PAL     needs proper dump
+    FATAL FURY 2                        PAL         Australia-only PAL release
+    FERRARI GRAND PRIX CHALLENGE        PAL         we have Rev A, Rev 0 needed (does it exist?)
+    FIFA SOCCER                         JAPAN
+    FIRE SHARK                          PAL         dump check
+    GALAXY FORCE II                     ALL         we have Rev B, Rev 0 and Rev A needed (does it exist?)
     INTERNATIONAL SUPERSTAR SOCCER      BRAZIL
-    JEWEL MASTER                USA/PAL     we have Rev A, Rev 0 needed (does it match Japanese release?)
+    JEWEL MASTER                        USA/PAL     we have Rev A, Rev 0 needed (does it match Japanese release?)
     NBA PLAYOFFS - BULLS VS BLAZERS     JAPAN       (alt) version contain a checksum check which have been wiped out of the non-alt revision
-    NFL PRO FOOTBALL '94            JAPAN
-    OSAKA BANK MY LINE              JAPAN
-    OSAKA BANK MY LINE DEMO         JAPAN
-    OUTBACK JOEY - PERSONAL TRAINER     ???     http://www.guardiana.net/MDG-Database/Mega%20Drive/Outback%20Joey/#v3553
-    PGA TOUR GOLF               USA/PAL     we have v1.1 and v1.2, v1.0 needed (does it exist?)
-    ROAD RASH                   USA     needs proper dump
-    SIDE POCKET                 JAPAN/USA   conflict in current info
-    SMURFS                  PAL     we have Rev A, Rev 0 needed (does it exist?)
-    SUMISEI HOME TANMATSU           JAPAN
-    TOM & JERRY                 JAPAN
-    VALIS III                   JAPAN       we have v1.1 (Rev A?), v1.0 (Rev 0?) needed
-    WONDER MIDI                 JAPAN
-    WORLD CUP SOCCER                JAPAN/USA   we have v1.0 (Rev ?), v1.2 (Rev ?) and v1.3 (Rev B), v1.1 (Rev ?) needed
-    WORLD OF ILLUSION               JAPAN       we have v1.0 (Rev 0?), v1.1 (Rev A?) needed (confirmed by Xacrow)
+    NFL PRO FOOTBALL '94                JAPAN
+    OSAKA BANK MY LINE                  JAPAN
+    OSAKA BANK MY LINE DEMO             JAPAN
+    OUTBACK JOEY - PERSONAL TRAINER     ???         http://www.guardiana.net/MDG-Database/Mega%20Drive/Outback%20Joey/#v3553
+    PGA TOUR GOLF                       USA/PAL     we have v1.1 and v1.2, v1.0 needed (does it exist?)
+    ROAD RASH                           USA         needs proper dump
+    SIDE POCKET                         JAPAN/USA   conflict in current info
+    SMURFS                              PAL         we have Rev A, Rev 0 needed (does it exist?)
+    SUMISEI HOME TANMATSU               JAPAN
+    TOM & JERRY                         JAPAN
+    VALIS III                           JAPAN       we have v1.1 (Rev A?), v1.0 (Rev 0?) needed
+    WONDER MIDI                         JAPAN
+    WORLD CUP SOCCER                    JAPAN/USA   we have v1.0 (Rev ?), v1.2 (Rev ?) and v1.3 (Rev B), v1.1 (Rev ?) needed
+    WORLD OF ILLUSION                   JAPAN       we have v1.0 (Rev 0?), v1.1 (Rev A?) needed (confirmed by Xacrow)
 -->
 
 <!--
@@ -1682,6 +1682,25 @@ Info on Sega chip labels (from Sunbeam / Digital Corruption)
 		</part>
 	</software>
 
+	<software name="coolspotp" cloneof="coolspot">
+		<description>Cool Spot (Euro, Prototype)</description>
+		<year>1993</year>
+		<publisher>Virgin Games</publisher>
+		<part name="cart" interface="megadriv_cart">
+			<feature name="pcb" value="171-5694-01"/>
+			<feature name="ic1" value="IC1"/> <!-- EPROM1 -->
+			<feature name="ic2" value="IC2"/> <!-- EPROM2 -->
+			<feature name="ic3" value="IC3"/> <!-- EPROM3 -->
+			<feature name="ic4" value="IC4"/> <!-- EPROM4 -->
+			<feature name="ic5" value="IC5"/> <!-- 74HC139P -->
+			<dataarea name="rom" width="16" endianness="big" size="1048576">
+				<rom name="Cool Spot Sega Mega Drive EP ROM 0 of 4.ic1" size="262144" crc="eaa7a911" sha1="663b8394eee1d6b679db7ae45ee39df9e3aaabd6" offset="0x000000"/>
+				<rom name="Cool Spot Sega Mega Drive EP ROM 1 of 4.ic2" size="262144" crc="c7bc6cfb" sha1="e5d818993d162b5f2ed18b74848a514525cfd587" offset="0x040000"/>
+				<rom name="Cool Spot Sega Mega Drive EP ROM 2 of 4.ic3" size="262144" crc="3dff64f4" sha1="380c1e183769d8a32b9e52ce7465090ac3872580" offset="0x080000"/>
+				<rom name="Cool Spot Sega Mega Drive EP ROM 3 of 4.ic4" size="262144" crc="8fcce53a" sha1="cbe736a696319771b670c6c539f49d7d1956cd8e" offset="0x0c0000"/>
+			</dataarea>
+		</part>
+	</software>
 
 	<software name="coolspotu" cloneof="coolspot">
 		<description>Cool Spot (USA)</description>
@@ -4797,11 +4816,12 @@ Info on Sega chip labels (from Sunbeam / Digital Corruption)
 		<description>Mega Games I (Euro)</description>
 		<year>1992</year>
 		<publisher>Sega</publisher>
+		<info name="release" value="19921001"/>
 		<part name="cart" interface="megadriv_cart">
-			<feature name="pcb" value="171-5978BA"/>
+			<feature name="pcb" value="171-5978BA"/> <!-- Also found with 171-5978B -->
 			<feature name="u1" value="MPR-15009 W50"/> <!-- location not really marked on PCB, using u1 for consistency -->
 			<dataarea name="rom" width="16" endianness="big" size="1048576">
-				<rom name="mpr-15009 w50.u1" size="1048576" crc="db753224" sha1="076df34a01094ce0893f32600e24323567e2a23b" offset="0x000000"/>
+				<rom name="MPR-15009 W50.u1" size="1048576" crc="db753224" sha1="076df34a01094ce0893f32600e24323567e2a23b" offset="0x000000"/>
 			</dataarea>
 		</part>
 	</software>
@@ -7366,11 +7386,12 @@ Info on Sega chip labels (from Sunbeam / Digital Corruption)
 		<description>Sonic the Hedgehog (Euro, USA)</description>
 		<year>1991</year>
 		<publisher>Sega</publisher>
+		<info name="release" value="19910623"/>
 		<part name="cart" interface="megadriv_cart">
 			<feature name="pcb" value="171-5703"/>
 			<feature name="ic1" value="MPR-13913-F, MPR-13913 W33"/>
 			<dataarea name="rom" width="16" endianness="big" size="524288">
-				<rom name="mpr-13913-f.ic1" size="524288" crc="f9394e97" sha1="6ddb7de1e17e7f6cdb88927bd906352030daa194" offset="0x000000"/>
+				<rom name="MPR-13913-F.ic1" size="524288" crc="f9394e97" sha1="6ddb7de1e17e7f6cdb88927bd906352030daa194" offset="0x000000"/>
 			</dataarea>
 		</part>
 	</software>
@@ -24527,46 +24548,54 @@ Notice that these are not working on real hardware due to bugged code with VDP i
 		</part>
 	</software>
 
-	<software name="skp10" cloneof="sk">
+	<software name="skp06" cloneof="sk">
 		<description>Sonic &amp; Knuckles (Prototype 0606, 19940606, 10.02)</description>
 		<year>1994</year>
 		<publisher>Sega</publisher>
 		<part name="cart" interface="megadriv_cart">
-			<dataarea name="rom" width="16" endianness="big" size="2097152">
+			<feature name="slot" value="rom_sk"/>
+			<dataarea name="rom" width="16" endianness="big" size="3407872">
 				<rom name="sonic &amp; knuckles (prototype 0606 - jun 06, 1994, 10.02).bin" size="2097152" crc="03a52f63" sha1="173524ffae78438b5ddd039ec8b8def786f28aee" offset="0x000000"/>
+				<rom name="sonic &amp; knuckles (s2k chip) (prototype 0606 - jun 05, 1994, 22.25).bin" size="262144" crc="bd619ea9" sha1="f557741d93f8d3e8a84099ab88f0331ced2875c8" offset="0x300000"/>
 			</dataarea>
 		</part>
 	</software>
 
-	<software name="skp08" cloneof="sk">
+	<software name="skp05" cloneof="sk">
 		<description>Sonic &amp; Knuckles (Prototype 0608, 19940608, 05.03)</description>
 		<year>1994</year>
 		<publisher>Sega</publisher>
 		<part name="cart" interface="megadriv_cart">
-			<dataarea name="rom" width="16" endianness="big" size="2097152">
+			<feature name="slot" value="rom_sk"/>
+			<dataarea name="rom" width="16" endianness="big" size="3407872">
 				<rom name="sonic &amp; knuckles (prototype 0608 - jun 08, 1994, 05.03).bin" size="2097152" crc="7a6c1317" sha1="a55b784590e602a82719d6721b2789f686564d2b" offset="0x000000"/>
-			</dataarea>
-		</part>
-	</software>
-
-	<software name="skp06" cloneof="sk">
-		<description>Sonic &amp; Knuckles (Prototype 0610, 19940610, 07.49)</description>
-		<year>1994</year>
-		<publisher>Sega</publisher>
-		<part name="cart" interface="megadriv_cart">
-			<dataarea name="rom" width="16" endianness="big" size="2097152">
-				<rom name="sonic &amp; knuckles (prototype 0610 - jun 10, 1994, 07.49).bin" size="2097152" crc="7092f368" sha1="bc67cb9edb8958a66723a8346c9d58d43d18ca80" offset="0x000000"/>
+				<rom name="sonic &amp; knuckles (s2k chip) (prototype 0608 - jun 08, 1994, 03.35).bin" size="262144" crc="6a5dcbe6" sha1="f27434f63ce45de92c361b0b3aabdfde80c237da" offset="0x300000"/>
 			</dataarea>
 		</part>
 	</software>
 
 	<software name="skp04" cloneof="sk">
+		<description>Sonic &amp; Knuckles (Prototype 0610, 19940610, 07.49)</description>
+		<year>1994</year>
+		<publisher>Sega</publisher>
+		<part name="cart" interface="megadriv_cart">
+			<feature name="slot" value="rom_sk"/>
+			<dataarea name="rom" width="16" endianness="big" size="3407872">
+				<rom name="sonic &amp; knuckles (prototype 0610 - jun 10, 1994, 07.49).bin" size="2097152" crc="7092f368" sha1="bc67cb9edb8958a66723a8346c9d58d43d18ca80" offset="0x000000"/>
+				<rom name="sonic &amp; knuckles (s2k chip) (prototype 0610 - jun 10, 1994, 03.11).bin" size="262144" crc="0f6ff22b" sha1="d2b4003a7110f258641b7b76d7716acbcb3b62ab" offset="0x300000"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="skp03" cloneof="sk">
 		<description>Sonic &amp; Knuckles (Prototype 0612, 19940612, 18.27)</description>
 		<year>1994</year>
 		<publisher>Sega</publisher>
 		<part name="cart" interface="megadriv_cart">
-			<dataarea name="rom" width="16" endianness="big" size="2097152">
+			<feature name="slot" value="rom_sk"/>
+			<dataarea name="rom" width="16" endianness="big" size="3407872">
 				<rom name="sonic &amp; knuckles (prototype 0612 - jun 12, 1994, 18.27).bin" size="2097152" crc="b0a253e8" sha1="8585b617e6828bf0b255d4ef747384db7ff67826" offset="0x000000"/>
+				<rom name="sonic &amp; knuckles (s2k chip) (prototype 0612 - jun 12, 1994, 18.18).bin" size="262144" crc="9a5f8183" sha1="eb29700a161a1949ed3057a3580911c7932315a5" offset="0x300000"/>
 			</dataarea>
 		</part>
 	</software>
@@ -24576,8 +24605,10 @@ Notice that these are not working on real hardware due to bugged code with VDP i
 		<year>1994</year>
 		<publisher>Sega</publisher>
 		<part name="cart" interface="megadriv_cart">
-			<dataarea name="rom" width="16" endianness="big" size="2097152">
+			<feature name="slot" value="rom_sk"/>
+			<dataarea name="rom" width="16" endianness="big" size="3407872">
 				<rom name="sonic &amp; knuckles (prototype 0618 - jun 18, 1994, 09.15).bin" size="2097152" crc="2615f5dc" sha1="e365c42a2c754b9df98b5b74dbc3e7f94c1a84f4" offset="0x000000"/>
+				<rom name="sonic &amp; knuckles (s2k chip) (prototype 0618 - jun 18, 1994, 9.07).bin" size="262144" crc="4dcfd55c" sha1="70429f1d80503a0632f603bf762fe0bbaa881d22" offset="0x300000"/>
 			</dataarea>
 		</part>
 	</software>
@@ -24587,86 +24618,32 @@ Notice that these are not working on real hardware due to bugged code with VDP i
 		<year>1994</year>
 		<publisher>Sega</publisher>
 		<part name="cart" interface="megadriv_cart">
-			<dataarea name="rom" width="16" endianness="big" size="2097152">
+			<feature name="slot" value="rom_sk"/>
+			<dataarea name="rom" width="16" endianness="big" size="3407872">
 				<rom name="sonic &amp; knuckles (prototype 0619 - jun 19, 1994, 08.18).bin" size="2097152" crc="1ea5b9d1" sha1="b84d197e646ceece8681d35af3b4014c1bbeae35" offset="0x000000"/>
+				<rom name="sonic &amp; knuckles (s2k chip) (prototype 0618 - jun 18, 1994, 9.07).bin" size="262144" crc="4dcfd55c" sha1="70429f1d80503a0632f603bf762fe0bbaa881d22" offset="0x300000"/>
 			</dataarea>
 		</part>
 	</software>
 
-<!-- These are just dumps of the mpr-16911-s.ic2 lock-on chip. should be matched with the SK data above to get proper sets to be locked on Sonic 2... -->
-	<software name="skp11" cloneof="sk" supported="no">
-		<description>Sonic &amp; Knuckles (Prototype 0606, 19940605, 22.25, S2K chip)</description>
-		<year>1994</year>
-		<publisher>Sega</publisher>
-		<part name="cart" interface="megadriv_cart">
-			<dataarea name="rom" width="16" endianness="big" size="262144">
-				<rom name="sonic &amp; knuckles (s2k chip) (prototype 0606 - jun 05, 1994, 22.25).bin" size="262144" crc="bd619ea9" sha1="f557741d93f8d3e8a84099ab88f0331ced2875c8" offset="0x000000"/>
-			</dataarea>
-		</part>
-	</software>
-
-	<software name="skp09" cloneof="sk" supported="no">
-		<description>Sonic &amp; Knuckles (Prototype 0608, 19940608, 03.35, S2K chip)</description>
-		<year>1994</year>
-		<publisher>Sega</publisher>
-		<part name="cart" interface="megadriv_cart">
-			<dataarea name="rom" width="16" endianness="big" size="262144">
-				<rom name="sonic &amp; knuckles (s2k chip) (prototype 0608 - jun 08, 1994, 03.35).bin" size="262144" crc="6a5dcbe6" sha1="f27434f63ce45de92c361b0b3aabdfde80c237da" offset="0x000000"/>
-			</dataarea>
-		</part>
-	</software>
-
-	<software name="skp07" cloneof="sk" supported="no">
-		<description>Sonic &amp; Knuckles (Prototype 0610, 19940610, 03.11, S2K chip)</description>
-		<year>1994</year>
-		<publisher>Sega</publisher>
-		<part name="cart" interface="megadriv_cart">
-			<dataarea name="rom" width="16" endianness="big" size="262144">
-				<rom name="sonic &amp; knuckles (s2k chip) (prototype 0610 - jun 10, 1994, 03.11).bin" size="262144" crc="0f6ff22b" sha1="d2b4003a7110f258641b7b76d7716acbcb3b62ab" offset="0x000000"/>
-			</dataarea>
-		</part>
-	</software>
-
-	<software name="skp05" cloneof="sk" supported="no">
-		<description>Sonic &amp; Knuckles (Prototype 0612, 19940612, 18.18, S2K chip)</description>
-		<year>1994</year>
-		<publisher>Sega</publisher>
-		<part name="cart" interface="megadriv_cart">
-			<dataarea name="rom" width="16" endianness="big" size="262144">
-				<rom name="sonic &amp; knuckles (s2k chip) (prototype 0612 - jun 12, 1994, 18.18).bin" size="262144" crc="9a5f8183" sha1="eb29700a161a1949ed3057a3580911c7932315a5" offset="0x000000"/>
-			</dataarea>
-		</part>
-	</software>
-
-	<software name="skp03" cloneof="sk" supported="no">
-		<description>Sonic &amp; Knuckles (Prototype 0618, 19940618, 9.07, S2K chip)</description>
-		<year>1994</year>
-		<publisher>Sega</publisher>
-		<part name="cart" interface="megadriv_cart">
-			<dataarea name="rom" width="16" endianness="big" size="262144">
-				<rom name="sonic &amp; knuckles (s2k chip) (prototype 0618 - jun 18, 1994, 9.07).bin" size="262144" crc="4dcfd55c" sha1="70429f1d80503a0632f603bf762fe0bbaa881d22" offset="0x000000"/>
-			</dataarea>
-		</part>
-	</software>
-
-	<software name="knucklp">
-		<description>Knuckles in Sonic 2 (Prototype 0524, 19940527, 10.46)</description>
-		<year>199?</year>
-		<publisher>&lt;unknown&gt;</publisher>
-		<part name="cart" interface="megadriv_cart">
-			<dataarea name="rom" width="16" endianness="big" size="4194304">
-				<rom name="knuckles in sonic 2 (prototype 0524 - may 27, 1994, 10.46).bin" size="4194304" crc="8878c1a8" sha1="3a827d575f5a484c24e6c31417f32d6c5f0045de" offset="0x000000"/>
-			</dataarea>
-		</part>
-	</software>
-
-	<software name="skp12" cloneof="sk">
+	<software name="skp07" cloneof="sk">
 		<description>Sonic &amp; Knuckles (Prototype 0525, 19940525, 15.28)</description>
 		<year>1994</year>
 		<publisher>Sega</publisher>
 		<part name="cart" interface="megadriv_cart">
 			<dataarea name="rom" width="16" endianness="big" size="4194304">
 				<rom name="sonic &amp; knuckles (prototype 0525 - may 25, 1994, 15.28).bin" size="4194304" crc="8e8dadd0" sha1="5f2c4dc4e739d562e9f0525361ba83f3e0551e21" offset="0x000000"/>
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="knucklp">
+		<description>Knuckles in Sonic 2 (Prototype 0524, 19940527, 10.46)</description>
+		<year>1994</year>
+		<publisher>Sega</publisher>
+		<part name="cart" interface="megadriv_cart">
+			<dataarea name="rom" width="16" endianness="big" size="4194304">
+				<rom name="knuckles in sonic 2 (prototype 0524 - may 27, 1994, 10.46).bin" size="4194304" crc="8878c1a8" sha1="3a827d575f5a484c24e6c31417f32d6c5f0045de" offset="0x000000"/>
 			</dataarea>
 		</part>
 	</software>

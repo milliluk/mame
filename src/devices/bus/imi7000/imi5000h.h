@@ -13,7 +13,6 @@
 #ifndef __IMI5000H__
 #define __IMI5000H__
 
-#include "emu.h"
 #include "imi7000.h"
 #include "cpu/z80/z80.h"
 #include "cpu/z80/z80daisy.h"
@@ -33,7 +32,7 @@ class imi5000h_device :  public device_t,
 {
 public:
 	// construction/destruction
-	imi5000h_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	imi5000h_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual const tiny_rom_entry *device_rom_region() const override;

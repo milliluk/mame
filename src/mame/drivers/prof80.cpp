@@ -25,6 +25,7 @@
 
 */
 
+#include "emu.h"
 #include "includes/prof80.h"
 #include "softlist.h"
 
@@ -209,7 +210,7 @@ READ8_MEMBER( prof80_state::status_r )
 
 	*/
 
-	UINT8 data = 0;
+	uint8_t data = 0;
 
 	// serial receive
 	data |= !m_rs232a->rxd_r();
@@ -246,7 +247,7 @@ READ8_MEMBER( prof80_state::status2_r )
 
 	*/
 
-	UINT8 data = 0;
+	uint8_t data = 0;
 	int js4 = 0, js5 = 0;
 
 	// floppy motor

@@ -89,6 +89,7 @@ TODO:
    epp/ecp modes in parallel port not supported yet
    so ui disabled */
 
+#include "emu.h"
 #include "includes/pcw16.h"
 #include "bus/rs232/rs232.h"
 #include "bus/rs232/ser_mouse.h"
@@ -149,7 +150,7 @@ WRITE8_MEMBER(pcw16_state::pcw16_palette_w)
 	m_colour_palette[offset & 0x0f] = data & 31;
 }
 
-UINT8 pcw16_state::read_bank_data(UINT8 type, UINT16 offset)
+uint8_t pcw16_state::read_bank_data(uint8_t type, uint16_t offset)
 {
 	if(type & 0x80) // DRAM
 	{
@@ -172,7 +173,7 @@ UINT8 pcw16_state::read_bank_data(UINT8 type, UINT16 offset)
 	}
 }
 
-void pcw16_state::write_bank_data(UINT8 type, UINT16 offset, UINT8 data)
+void pcw16_state::write_bank_data(uint8_t type, uint16_t offset, uint8_t data)
 {
 	if(type & 0x80) // DRAM
 	{
@@ -193,7 +194,7 @@ void pcw16_state::write_bank_data(UINT8 type, UINT16 offset, UINT8 data)
 	}
 }
 
-UINT8 pcw16_state::pcw16_read_mem(UINT8 bank, UINT16 offset)
+uint8_t pcw16_state::pcw16_read_mem(uint8_t bank, uint16_t offset)
 {
 	switch(bank)
 	{
@@ -209,7 +210,7 @@ UINT8 pcw16_state::pcw16_read_mem(UINT8 bank, UINT16 offset)
 	return 0xff;
 }
 
-void pcw16_state::pcw16_write_mem(UINT8 bank, UINT16 offset, UINT8 data)
+void pcw16_state::pcw16_write_mem(uint8_t bank, uint16_t offset, uint8_t data)
 {
 	switch(bank)
 	{
@@ -528,7 +529,7 @@ WRITE_LINE_MEMBER(pcw16_state::pcw16_keyboard_callback)
 	{
 		int data;
 
-		data = m_keyboard->read(machine().driver_data()->generic_space(), 0);
+		data = m_keyboard->read(machine().dummy_space(), 0);
 
 		if (data)
 		{

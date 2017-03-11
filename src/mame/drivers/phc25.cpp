@@ -37,6 +37,7 @@ RUN
 
 *****************************************************************************/
 
+#include "emu.h"
 #include "includes/phc25.h"
 
 /* Read/Write Handlers */
@@ -58,7 +59,7 @@ READ8_MEMBER( phc25_state::port40_r )
 
 	*/
 
-	UINT8 data = 0;
+	uint8_t data = 0;
 
 	/* vertical sync */
 	data |= !m_vdg->fs_r() << 4;

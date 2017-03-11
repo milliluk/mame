@@ -11,7 +11,6 @@
 #ifndef __A2BUS_CORVFDC01__
 #define __A2BUS_CORVFDC01__
 
-#include "emu.h"
 #include "a2bus.h"
 #include "machine/wd_fdc.h"
 #include "formats/imd_dsk.h"
@@ -26,8 +25,8 @@ class a2bus_corvfdc01_device:
 {
 public:
 	// construction/destruction
-	a2bus_corvfdc01_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
-	a2bus_corvfdc01_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	a2bus_corvfdc01_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint32_t clock, const char *shortname, const char *source);
+	a2bus_corvfdc01_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual machine_config_constructor device_mconfig_additions() const override;
@@ -43,9 +42,9 @@ protected:
 	virtual void device_reset() override;
 
 	// overrides of standard a2bus slot functions
-	virtual UINT8 read_c0nx(address_space &space, UINT8 offset) override;
-	virtual void write_c0nx(address_space &space, UINT8 offset, UINT8 data) override;
-	virtual UINT8 read_cnxx(address_space &space, UINT8 offset) override;
+	virtual uint8_t read_c0nx(address_space &space, uint8_t offset) override;
+	virtual void write_c0nx(address_space &space, uint8_t offset, uint8_t data) override;
+	virtual uint8_t read_cnxx(address_space &space, uint8_t offset) override;
 
 	required_device<fd1793_t> m_wdfdc;
 	required_device<floppy_connector> m_con1;
@@ -54,8 +53,8 @@ protected:
 	required_device<floppy_connector> m_con4;
 
 private:
-	UINT8 *m_rom;
-	UINT8 m_fdc_local_status, m_fdc_local_command;
+	uint8_t *m_rom;
+	uint8_t m_fdc_local_status, m_fdc_local_command;
 	floppy_image_device *m_curfloppy;
 };
 

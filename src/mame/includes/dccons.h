@@ -24,7 +24,6 @@ public:
 	DECLARE_READ64_MEMBER(dcus_idle_skip_r);
 	DECLARE_READ64_MEMBER(dcjp_idle_skip_r);
 
-	DECLARE_MACHINE_RESET(dc_console);
 	DECLARE_READ64_MEMBER(dc_pdtra_r);
 	DECLARE_WRITE64_MEMBER(dc_pdtra_w);
 	DECLARE_READ64_MEMBER(dc_arm_r);
@@ -42,7 +41,7 @@ public:
 //  DECLARE_WRITE8_MEMBER( dc_flash_w );
 
 private:
-	UINT64 PDTRA, PCTRA;
+	uint64_t PDTRA, PCTRA;
 	emu_timer *atapi_timer;
 	int atapi_xferlen, atapi_xferbase;
 };

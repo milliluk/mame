@@ -83,6 +83,7 @@ Notes:
 */
 
 
+#include "emu.h"
 #include "s1410.h"
 #include "cpu/z80/z80.h"
 #include "imagedev/harddriv.h"
@@ -192,7 +193,7 @@ machine_config_constructor s1410_device::device_mconfig_additions() const
 //  s1410_device - constructor
 //-------------------------------------------------
 
-s1410_device::s1410_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+s1410_device::s1410_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: scsihd_device(mconfig, S1410, "Xebec S1410", tag, owner, clock, "s1410", __FILE__)
 {
 }
@@ -256,7 +257,7 @@ void s1410_device::ExecCommand()
 
 		if ((m_disk) && (m_blocks))
 		{
-			dynamic_buffer data(m_sector_bytes);
+			std::vector<uint8_t> data(m_sector_bytes);
 			memset(&data[0], 0xc6, m_sector_bytes);
 
 			while (m_blocks > 0)
@@ -314,7 +315,7 @@ void s1410_device::ExecCommand()
 	}
 }
 
-void s1410_device::WriteData( UINT8 *data, int dataLength )
+void s1410_device::WriteData( uint8_t *data, int dataLength )
 {
 	switch( command[ 0 ] )
 	{
@@ -333,9 +334,9 @@ void s1410_device::WriteData( UINT8 *data, int dataLength )
 				break;
 			}
 
-			UINT16 tracks = ((data[0]<<8)+data[1]);
-			UINT8 heads = data[2];
-			UINT32 capacity = tracks * heads * sectorsPerTrack * m_sector_bytes;
+			uint16_t tracks = ((data[0]<<8)+data[1]);
+			uint8_t heads = data[2];
+			uint32_t capacity = tracks * heads * sectorsPerTrack * m_sector_bytes;
 
 			logerror("S1410_CMD_INIT_DRIVE_PARAMS Tracks=%d, Heads=%d, Capacity=%d\n",tracks,heads,capacity);
 		}
@@ -347,7 +348,7 @@ void s1410_device::WriteData( UINT8 *data, int dataLength )
 	}
 }
 
-void s1410_device::ReadData( UINT8 *data, int dataLength )
+void s1410_device::ReadData( uint8_t *data, int dataLength )
 {
 	switch( command[ 0 ] )
 	{

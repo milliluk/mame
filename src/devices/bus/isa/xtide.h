@@ -5,7 +5,6 @@
 #ifndef __XTIDE_H__
 #define __XTIDE_H__
 
-#include "emu.h"
 #include "machine/ataintf.h"
 #include "machine/eeprompar.h"
 #include "isa.h"
@@ -19,7 +18,7 @@ class xtide_device : public device_t,
 {
 public:
 	// construction/destruction
-	xtide_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	xtide_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual machine_config_constructor device_mconfig_additions() const override;
@@ -40,8 +39,8 @@ private:
 	required_device<ata_interface_device> m_ata;
 	required_device<eeprom_parallel_28xx_device> m_eeprom;
 
-	UINT8 m_irq_number;
-	UINT8 m_d8_d15_latch;
+	uint8_t m_irq_number;
+	uint8_t m_d8_d15_latch;
 };
 
 

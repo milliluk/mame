@@ -5,7 +5,6 @@
 #ifndef __ISA_FINALCHS_H__
 #define __ISA_FINALCHS_H__
 
-#include "emu.h"
 #include "isa.h"
 
 //**************************************************************************
@@ -20,7 +19,7 @@ class isa8_finalchs_device :
 {
 public:
 		// construction/destruction
-		isa8_finalchs_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+		isa8_finalchs_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 		DECLARE_READ8_MEMBER(finalchs_r);
 		DECLARE_WRITE8_MEMBER(finalchs_w);
@@ -40,7 +39,7 @@ protected:
 
 private:
 		// internal state
-		UINT8 m_FCH_latch_data;
+		uint8_t m_FCH_latch_data;
 };
 
 

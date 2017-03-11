@@ -27,9 +27,8 @@
     February 2012: rewritten as a class, adding DSR support
 
 ****************************************************************************/
+#include "emu.h"
 #include "myarcmem.h"
-
-#define RAMREGION "ram512K"
 
 /* This card has two CRU bases where it answers. */
 #define MYARCMEM_CRU_BASE1 0x1000
@@ -41,9 +40,9 @@ enum
 	SIZE_512
 };
 
-myarc_memory_expansion_device::myarc_memory_expansion_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+myarc_memory_expansion_device::myarc_memory_expansion_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 : ti_expansion_card_device(mconfig, TI99_MYARCMEM, "Myarc Memory expansion card MEXP-1", tag, owner, clock, "ti99_myarcmem", __FILE__),
-	m_ram(*this, RAMREGION),
+	m_ram(*this, RAM_TAG),
 	m_dsrrom(nullptr), m_bank(0), m_size(0)
 {
 }
@@ -166,6 +165,8 @@ WRITE8_MEMBER(myarc_memory_expansion_device::cruwrite)
 void myarc_memory_expansion_device::device_start()
 {
 	m_dsrrom = memregion(DSRROM)->base();
+	save_item(NAME(m_bank));
+	save_item(NAME(m_size));
 }
 
 void myarc_memory_expansion_device::device_reset()
@@ -190,7 +191,7 @@ ROM_START( myarc_exp )
 ROM_END
 
 MACHINE_CONFIG_FRAGMENT( myarc_exp )
-	MCFG_RAM_ADD(RAMREGION)
+	MCFG_RAM_ADD(RAM_TAG)
 	MCFG_RAM_DEFAULT_SIZE("512k")
 	MCFG_RAM_DEFAULT_VALUE(0)
 MACHINE_CONFIG_END

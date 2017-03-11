@@ -19,6 +19,7 @@ for various things, but none of that is working.
 
 ****************************************************************************/
 
+#include "emu.h"
 #include "includes/mc80.h"
 
 static ADDRESS_MAP_START(mc8020_mem, AS_PROGRAM, 8, mc80_state)
@@ -140,7 +141,7 @@ TIMER_DEVICE_CALLBACK_MEMBER(mc80_state::mc8020_kbd)
 {
 	address_space &mem = m_maincpu->space(AS_PROGRAM);
 	char kbdrow[6];
-	UINT8 i;
+	uint8_t i;
 	for (i = 1; i < 8; i++)
 	{
 		sprintf(kbdrow,"X%X", i);

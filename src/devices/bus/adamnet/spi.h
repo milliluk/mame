@@ -11,7 +11,6 @@
 #ifndef __ADAM_SPI__
 #define __ADAM_SPI__
 
-#include "emu.h"
 #include "adamnet.h"
 #include "bus/centronics/ctronics.h"
 #include "bus/rs232/rs232.h"
@@ -31,7 +30,7 @@ class adam_spi_device :  public device_t,
 {
 public:
 	// construction/destruction
-	adam_spi_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	adam_spi_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual const tiny_rom_entry *device_rom_region() const override;

@@ -5,16 +5,16 @@
  *
  */
 
+#include  "nlid_truthtable.h"
 #include "nld_7448.h"
-#include "nld_truthtable.h"
 
 namespace netlist
 {
 	namespace devices
 	{
-	#if (USE_TRUTHTABLE_7448 && USE_TRUTHTABLE)
+	#if (USE_TRUTHTABLE_7448)
 
-	NETLIB_TRUTHTABLE(7448, 7, 7, 0);
+	NETLIB_TRUTHTABLE(7448, 7, 7);
 
 	#else
 
@@ -62,7 +62,7 @@ namespace netlist
 			register_subalias("2", m_C);
 			register_subalias("3", m_LTQ);
 			register_subalias("4", m_BIQ);
-			register_subalias("5",m_RBIQ);
+			register_subalias("5", m_RBIQ);
 			register_subalias("6", m_D);
 			register_subalias("7", m_A);
 
@@ -78,9 +78,9 @@ namespace netlist
 	#endif
 
 
-	#if (USE_TRUTHTABLE_7448 && USE_TRUTHTABLE)
+	#if (USE_TRUTHTABLE_7448)
 	nld_7448::truthtable_t nld_7448::m_ttbl;
-	const char *nld_7448::m_desc[] = {
+	std::vector<pstring> nld_7448::m_desc = {
 			" LTQ,BIQ,RBIQ, A , B , C , D | a, b, c, d, e, f, g",
 
 			"  1,  1,  1,   0,  0,  0,  0 | 1, 1, 1, 1, 1, 1, 0|100,100,100,100,100,100,100",

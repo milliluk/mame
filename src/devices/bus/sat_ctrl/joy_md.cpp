@@ -6,6 +6,7 @@
 
 **********************************************************************/
 
+#include "emu.h"
 #include "joy_md.h"
 
 //**************************************************************************
@@ -69,7 +70,7 @@ ioport_constructor saturn_joymd6b_device::device_input_ports() const
 //  constructors
 //-------------------------------------------------
 
-saturn_joymd3b_device::saturn_joymd3b_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock) :
+saturn_joymd3b_device::saturn_joymd3b_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
 					device_t(mconfig, SATURN_JOYMD3B, "Sega Saturn Joypad MD 3buttons", tag, owner, clock, "saturn_md3b", __FILE__),
 					device_saturn_control_port_interface(mconfig, *this),
 					m_joy(*this, "JOY")
@@ -78,7 +79,7 @@ saturn_joymd3b_device::saturn_joymd3b_device(const machine_config &mconfig, cons
 }
 
 
-saturn_joymd6b_device::saturn_joymd6b_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock) :
+saturn_joymd6b_device::saturn_joymd6b_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
 					device_t(mconfig, SATURN_JOYMD6B, "Sega Saturn Joypad MD 6buttons", tag, owner, clock, "saturn_md6b", __FILE__),
 					device_saturn_control_port_interface(mconfig, *this),
 					m_joy(*this, "JOY")
@@ -91,9 +92,9 @@ saturn_joymd6b_device::saturn_joymd6b_device(const machine_config &mconfig, cons
 //  read_ctrl
 //-------------------------------------------------
 
-UINT8 saturn_joymd3b_device::read_ctrl(UINT8 offset)
+uint8_t saturn_joymd3b_device::read_ctrl(uint8_t offset)
 {
-	UINT8 res = 0;
+	uint8_t res = 0;
 	switch (offset)
 	{
 		case 0:
@@ -104,9 +105,9 @@ UINT8 saturn_joymd3b_device::read_ctrl(UINT8 offset)
 	return res;
 }
 
-UINT8 saturn_joymd6b_device::read_ctrl(UINT8 offset)
+uint8_t saturn_joymd6b_device::read_ctrl(uint8_t offset)
 {
-	UINT8 res = 0;
+	uint8_t res = 0;
 	switch (offset)
 	{
 		case 0:

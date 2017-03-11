@@ -11,7 +11,6 @@
 #ifndef __A2BUS_CORVFDC02__
 #define __A2BUS_CORVFDC02__
 
-#include "emu.h"
 #include "a2bus.h"
 #include "machine/upd765.h"
 #include "formats/imd_dsk.h"
@@ -26,8 +25,8 @@ class a2bus_corvfdc02_device:
 {
 public:
 	// construction/destruction
-	a2bus_corvfdc02_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
-	a2bus_corvfdc02_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	a2bus_corvfdc02_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint32_t clock, const char *shortname, const char *source);
+	a2bus_corvfdc02_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual machine_config_constructor device_mconfig_additions() const override;
@@ -44,9 +43,9 @@ protected:
 	virtual void device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr) override;
 
 	// overrides of standard a2bus slot functions
-	virtual UINT8 read_c0nx(address_space &space, UINT8 offset) override;
-	virtual void write_c0nx(address_space &space, UINT8 offset, UINT8 data) override;
-	virtual UINT8 read_cnxx(address_space &space, UINT8 offset) override;
+	virtual uint8_t read_c0nx(address_space &space, uint8_t offset) override;
+	virtual void write_c0nx(address_space &space, uint8_t offset, uint8_t data) override;
+	virtual uint8_t read_cnxx(address_space &space, uint8_t offset) override;
 
 	required_device<upd765a_device> m_fdc;
 	required_device<floppy_connector> m_con1;
@@ -55,10 +54,10 @@ protected:
 	required_device<floppy_connector> m_con4;
 
 private:
-	UINT8 *m_rom;
-	UINT8 m_fdc_local_status, m_fdc_local_command;
-	UINT16 m_bufptr;
-	UINT8 m_buffer[2048];   // 1x6116 SRAM
+	uint8_t *m_rom;
+	uint8_t m_fdc_local_status, m_fdc_local_command;
+	uint16_t m_bufptr;
+	uint8_t m_buffer[2048];   // 1x6116 SRAM
 	floppy_image_device *m_curfloppy;
 	bool m_in_drq;
 	emu_timer *m_timer;

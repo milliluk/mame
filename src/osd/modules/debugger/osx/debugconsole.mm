@@ -6,6 +6,7 @@
 //
 //============================================================
 
+#include "emu.h"
 #import "debugconsole.h"
 
 #import "debugcommandhistory.h"
@@ -28,11 +29,11 @@
 @implementation MAMEDebugConsole
 
 - (id)initWithMachine:(running_machine &)m {
-	NSSplitView		*regSplit, *dasmSplit;
-	NSScrollView	*regScroll, *dasmScroll, *consoleScroll;
-	NSView			*consoleContainer;
-	NSPopUpButton	*actionButton;
-	NSRect			rct;
+	NSSplitView     *regSplit, *dasmSplit;
+	NSScrollView    *regScroll, *dasmScroll, *consoleScroll;
+	NSView          *consoleContainer;
+	NSPopUpButton   *actionButton;
+	NSRect          rct;
 
 	// initialise superclass
 	if (!(self = [super initWithMachine:m title:@"Debug"]))
@@ -48,6 +49,7 @@
 	[regScroll setHasVerticalScroller:YES];
 	[regScroll setAutohidesScrollers:YES];
 	[regScroll setBorderType:NSBezelBorder];
+	[regScroll setDrawsBackground:NO];
 	[regScroll setDocumentView:regView];
 	[regView release];
 
@@ -59,6 +61,7 @@
 	[dasmScroll setHasVerticalScroller:YES];
 	[dasmScroll setAutohidesScrollers:YES];
 	[dasmScroll setBorderType:NSBezelBorder];
+	[dasmScroll setDrawsBackground:NO];
 	[dasmScroll setDocumentView:dasmView];
 	[dasmView release];
 
@@ -70,6 +73,7 @@
 	[consoleScroll setHasVerticalScroller:YES];
 	[consoleScroll setAutohidesScrollers:YES];
 	[consoleScroll setBorderType:NSBezelBorder];
+	[consoleScroll setDrawsBackground:NO];
 	[consoleScroll setDocumentView:consoleView];
 	[consoleView release];
 
@@ -133,24 +137,24 @@
 	[window makeFirstResponder:commandField];
 
 	// calculate the optimal size for everything
-	NSRect const	available = [[NSScreen mainScreen] visibleFrame];
-	NSSize const	regCurrent = [regScroll frame].size;
-	NSSize const	regSize = [NSScrollView frameSizeForContentSize:[regView maximumFrameSize]
+	NSRect const    available = [[NSScreen mainScreen] visibleFrame];
+	NSSize const    regCurrent = [regScroll frame].size;
+	NSSize const    regSize = [NSScrollView frameSizeForContentSize:[regView maximumFrameSize]
 											  hasHorizontalScroller:YES
 												hasVerticalScroller:YES
 														 borderType:[regScroll borderType]];
-	NSSize const	dasmCurrent = [dasmScroll frame].size;
-	NSSize const	dasmSize = [NSScrollView frameSizeForContentSize:[dasmView maximumFrameSize]
+	NSSize const    dasmCurrent = [dasmScroll frame].size;
+	NSSize const    dasmSize = [NSScrollView frameSizeForContentSize:[dasmView maximumFrameSize]
 											  hasHorizontalScroller:YES
 												hasVerticalScroller:YES
 														 borderType:[dasmScroll borderType]];
-	NSSize const	consoleCurrent = [consoleContainer frame].size;
-	NSSize			consoleSize = [NSScrollView frameSizeForContentSize:[consoleView maximumFrameSize]
+	NSSize const    consoleCurrent = [consoleContainer frame].size;
+	NSSize          consoleSize = [NSScrollView frameSizeForContentSize:[consoleView maximumFrameSize]
 												  hasHorizontalScroller:YES
 													hasVerticalScroller:YES
 															 borderType:[consoleScroll borderType]];
-	NSRect			windowFrame = [window frame];
-	NSSize			adjustment;
+	NSRect          windowFrame = [window frame];
+	NSSize          adjustment;
 
 	consoleSize.width += consoleCurrent.width - [consoleScroll frame].size.width;
 	consoleSize.height += consoleCurrent.height - [consoleScroll frame].size.height;
@@ -160,7 +164,7 @@
 
 	windowFrame.size.width += adjustment.width;
 	windowFrame.size.height += adjustment.height; // not used - better to go for fixed height
-	windowFrame.size.height = std::min(512.0, available.size.height);
+	windowFrame.size.height = std::min(CGFloat(512.0), available.size.height);
 	windowFrame.size.width = std::min(windowFrame.size.width, available.size.width);
 	windowFrame.origin.x = available.origin.x + available.size.width - windowFrame.size.width;
 	windowFrame.origin.y = available.origin.y;
@@ -405,7 +409,7 @@
 			}
 			return YES;
 		}
-    }
+	}
 	return NO;
 }
 
@@ -430,8 +434,8 @@
 
 
 - (CGFloat)splitView:(NSSplitView *)sender constrainMaxCoordinate:(CGFloat)max ofSubviewAt:(NSInteger)offs {
-	NSSize	sz = [sender bounds].size;
-	CGFloat	allowed = ([sender isVertical] ? sz.width : sz.height) - 100 - [sender dividerThickness];
+	NSSize  sz = [sender bounds].size;
+	CGFloat allowed = ([sender isVertical] ? sz.width : sz.height) - 100 - [sender dividerThickness];
 	return (max > allowed) ? allowed : max;
 }
 

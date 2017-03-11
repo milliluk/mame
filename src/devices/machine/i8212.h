@@ -26,7 +26,6 @@
 #ifndef __I8212__
 #define __I8212__
 
-#include "emu.h"
 
 
 
@@ -67,7 +66,7 @@ class i8212_device :    public device_t
 {
 public:
 	// construction/destruction
-	i8212_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	i8212_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	template<class _Object> static devcb_base &set_irq_wr_callback(device_t &device, _Object object) { return downcast<i8212_device &>(device).m_write_irq.set_callback(object); }
 	template<class _Object> static devcb_base &set_di_rd_callback(device_t &device, _Object object) { return downcast<i8212_device &>(device).m_read_di.set_callback(object); }
@@ -91,7 +90,7 @@ private:
 
 	int m_md;                   // mode
 	int m_stb;                  // strobe
-	UINT8 m_data;               // data latch
+	uint8_t m_data;               // data latch
 };
 
 

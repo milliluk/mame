@@ -5,7 +5,6 @@
 #ifndef __ABC_SIO__
 #define __ABC_SIO__
 
-#include "emu.h"
 #include "abcbus.h"
 #include "machine/z80ctc.h"
 #include "machine/z80dart.h"
@@ -23,7 +22,7 @@ class abc_sio_device :  public device_t,
 {
 public:
 	// construction/destruction
-	abc_sio_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	abc_sio_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual const tiny_rom_entry *device_rom_region() const override;
@@ -35,8 +34,8 @@ protected:
 	virtual void device_reset() override;
 
 	// device_abcbus_interface overrides
-	virtual void abcbus_cs(UINT8 data) override;
-	virtual UINT8 abcbus_xmemfl(offs_t offset) override;
+	virtual void abcbus_cs(uint8_t data) override;
+	virtual uint8_t abcbus_xmemfl(offs_t offset) override;
 
 private:
 	required_device<z80ctc_device> m_ctc;

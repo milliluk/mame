@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2016 Branimir Karadzic. All rights reserved.
+ * Copyright 2011-2017 Branimir Karadzic. All rights reserved.
  * License: https://github.com/bkaradzic/bgfx#license-bsd-2-clause
  */
 
@@ -49,6 +49,7 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 #include "renderer.h"
 #include "renderer_d3d.h"
 #include "shader_dxbc.h"
+#include "debug_renderdoc.h"
 
 namespace bgfx { namespace d3d12
 {
@@ -483,7 +484,7 @@ namespace bgfx { namespace d3d12
 
 		ID3D12Resource*  m_readback;
 		ID3D12QueryHeap* m_queryHeap;
-		OcclusionQueryHandle m_handle[BGFX_CONFIG_MAX_OCCUSION_QUERIES];
+		OcclusionQueryHandle m_handle[BGFX_CONFIG_MAX_OCCLUSION_QUERIES];
 		uint64_t* m_result;
 		bx::RingBufferControl m_control;
 	};

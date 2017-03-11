@@ -13,7 +13,6 @@
 #ifndef __BUDDHA_H__
 #define __BUDDHA_H__
 
-#include "emu.h"
 #include "zorro.h"
 #include "machine/autoconfig.h"
 #include "machine/ataintf.h"
@@ -29,7 +28,9 @@ class buddha_device : public device_t, public device_zorro2_card_interface, publ
 {
 public:
 	// construction/destruction
-	buddha_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	buddha_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+
+	DECLARE_ADDRESS_MAP(mmio_map, 16);
 
 	// speed register
 	DECLARE_READ16_MEMBER( speed_r );

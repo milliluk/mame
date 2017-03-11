@@ -68,9 +68,9 @@ menu_control_device_image::menu_control_device_image(mame_ui_manager &mui, rende
 			m_current_directory = m_image.working_directory();
 		}
 
-		// check to see if the path exists; if not clear it
+		// check to see if the path exists; if not then set to current directory
 		if (util::zippath_opendir(m_current_directory, nullptr) != osd_file::error::NONE)
-			m_current_directory.clear();
+			osd_get_full_path(m_current_directory, ".");
 	}
 }
 
@@ -168,7 +168,7 @@ void menu_control_device_image::hook_load(const std::string &name)
 //  populate
 //-------------------------------------------------
 
-void menu_control_device_image::populate()
+void menu_control_device_image::populate(float &customtop, float &custombottom)
 {
 }
 
@@ -223,7 +223,7 @@ void menu_control_device_image::handle()
 		}
 		else
 		{
-			m_swp = &m_swi->parts().front();
+			m_swp = m_swi->find_part("", m_image.image_interface());
 			load_software_part();
 		}
 		break;

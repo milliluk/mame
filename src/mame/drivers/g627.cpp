@@ -39,6 +39,7 @@ ToDo:
 *******************************************************************************/
 
 
+#include "emu.h"
 #include "machine/genpin.h"
 #include "cpu/z80/z80.h"
 #include "machine/i8155.h"
@@ -64,9 +65,9 @@ public:
 	DECLARE_WRITE8_MEMBER(disp_w);
 	DECLARE_WRITE8_MEMBER(lamp_w);
 private:
-	UINT8 m_seg[6];
-	UINT8 m_portc;
-	UINT8 m_motor;
+	uint8_t m_seg[6];
+	uint8_t m_portc;
+	uint8_t m_motor;
 	bool m_type;
 	required_device<cpu_device> m_maincpu;
 	required_ioport_array<7> m_switch;
@@ -227,7 +228,7 @@ WRITE8_MEMBER( g627_state::portc_w )
 // save segments until we can write the digits
 WRITE8_MEMBER( g627_state::disp_w )
 {
-	static const UINT8 patterns[16] = { 0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7c,0x07,0x7f,0x67,0x58,0x4c,0x62,0x69,0x78,0 }; // 7448
+	static const uint8_t patterns[16] = { 0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7c,0x07,0x7f,0x67,0x58,0x4c,0x62,0x69,0x78,0 }; // 7448
 	offset <<= 1;
 	m_seg[offset] = patterns[data>>4];
 	m_seg[++offset] = patterns[data&15];
@@ -254,7 +255,7 @@ WRITE8_MEMBER( g627_state::lamp_w )
 
  */
 
-	UINT16 solenoid = (offset << 8) | data;
+	uint16_t solenoid = (offset << 8) | data;
 	switch (solenoid)
 	{
 		case 0x0101:
@@ -330,6 +331,6 @@ ROM_START(rota_101)
 	ROM_LOAD("v101-c.bin", 0x1000, 0x0800, CRC(c7e85638) SHA1(b59805d8b558ab8f5ea5b4b9261e862afca4b9d3))
 ROM_END
 
-GAME(1978,  rotation,  0,         g627,  g627, g627_state, v117,  ROT0,  "Midway", "Rotation VIII (v. 1.17)", MACHINE_MECHANICAL )
-GAME(1978,  rota_115,  rotation,  g627,  g627, g627_state, v115,  ROT0,  "Midway", "Rotation VIII (v. 1.15)", MACHINE_MECHANICAL )
-GAME(1978,  rota_101,  rotation,  g627,  g627, g627_state, v115,  ROT0,  "Midway", "Rotation VIII (v. 1.01)", MACHINE_MECHANICAL )
+GAME(1978,  rotation,  0,         g627,  g627, g627_state, v117,  ROT0,  "Midway", "Rotation VIII (v. 1.17)", MACHINE_MECHANICAL | MACHINE_NOT_WORKING )
+GAME(1978,  rota_115,  rotation,  g627,  g627, g627_state, v115,  ROT0,  "Midway", "Rotation VIII (v. 1.15)", MACHINE_MECHANICAL | MACHINE_NOT_WORKING )
+GAME(1978,  rota_101,  rotation,  g627,  g627, g627_state, v115,  ROT0,  "Midway", "Rotation VIII (v. 1.01)", MACHINE_MECHANICAL | MACHINE_NOT_WORKING )

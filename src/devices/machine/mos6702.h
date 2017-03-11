@@ -24,7 +24,6 @@
 #ifndef __MOS6702__
 #define __MOS6702__
 
-#include "emu.h"
 
 
 
@@ -47,7 +46,7 @@ class mos6702_device :  public device_t
 {
 public:
 	// construction/destruction
-	mos6702_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	mos6702_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	DECLARE_READ8_MEMBER( read );
 	DECLARE_WRITE8_MEMBER( write );

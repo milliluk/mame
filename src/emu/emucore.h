@@ -55,14 +55,24 @@
 //  FUNDAMENTAL TYPES
 //**************************************************************************
 
+// explicitly sized integers
+using osd::u8;
+using osd::u16;
+using osd::u32;
+using osd::u64;
+using osd::s8;
+using osd::s16;
+using osd::s32;
+using osd::s64;
+
 // genf is a generic function pointer; cast function pointers to this instead of void *
 typedef void genf(void);
 
 // pen_t is used to represent pixel values in bitmaps
-typedef UINT32 pen_t;
+typedef u32 pen_t;
 
 // stream_sample_t is used to represent a single sample in a sound stream
-typedef INT32 stream_sample_t;
+typedef s32 stream_sample_t;
 
 // running_machine is core to pretty much everything
 class running_machine;
@@ -73,38 +83,22 @@ class running_machine;
 //  USEFUL COMPOSITE TYPES
 //**************************************************************************
 
-// generic_ptr is a union of pointers to various sizes
-union generic_ptr
-{
-	generic_ptr(void *value) { v = value; }
-	void *      v;
-	INT8 *      i8;
-	UINT8 *     u8;
-	INT16 *     i16;
-	UINT16 *    u16;
-	INT32 *     i32;
-	UINT32 *    u32;
-	INT64 *     i64;
-	UINT64 *    u64;
-};
-
-
 // PAIR is an endian-safe union useful for representing 32-bit CPU registers
 union PAIR
 {
 #ifdef LSB_FIRST
-	struct { UINT8 l,h,h2,h3; } b;
-	struct { UINT16 l,h; } w;
-	struct { INT8 l,h,h2,h3; } sb;
-	struct { INT16 l,h; } sw;
+	struct { u8 l,h,h2,h3; } b;
+	struct { u16 l,h; } w;
+	struct { s8 l,h,h2,h3; } sb;
+	struct { s16 l,h; } sw;
 #else
-	struct { UINT8 h3,h2,h,l; } b;
-	struct { INT8 h3,h2,h,l; } sb;
-	struct { UINT16 h,l; } w;
-	struct { INT16 h,l; } sw;
+	struct { u8 h3,h2,h,l; } b;
+	struct { s8 h3,h2,h,l; } sb;
+	struct { u16 h,l; } w;
+	struct { s16 h,l; } sw;
 #endif
-	UINT32 d;
-	INT32 sd;
+	u32 d;
+	s32 sd;
 };
 
 
@@ -112,14 +106,14 @@ union PAIR
 union PAIR16
 {
 #ifdef LSB_FIRST
-	struct { UINT8 l,h; } b;
-	struct { INT8 l,h; } sb;
+	struct { u8 l,h; } b;
+	struct { s8 l,h; } sb;
 #else
-	struct { UINT8 h,l; } b;
-	struct { INT8 h,l; } sb;
+	struct { u8 h,l; } b;
+	struct { s8 h,l; } sb;
 #endif
-	UINT16 w;
-	INT16 sw;
+	u16 w;
+	s16 sw;
 };
 
 
@@ -127,22 +121,22 @@ union PAIR16
 union PAIR64
 {
 #ifdef LSB_FIRST
-	struct { UINT8 l,h,h2,h3,h4,h5,h6,h7; } b;
-	struct { UINT16 l,h,h2,h3; } w;
-	struct { UINT32 l,h; } d;
-	struct { INT8 l,h,h2,h3,h4,h5,h6,h7; } sb;
-	struct { INT16 l,h,h2,h3; } sw;
-	struct { INT32 l,h; } sd;
+	struct { u8 l,h,h2,h3,h4,h5,h6,h7; } b;
+	struct { u16 l,h,h2,h3; } w;
+	struct { u32 l,h; } d;
+	struct { s8 l,h,h2,h3,h4,h5,h6,h7; } sb;
+	struct { s16 l,h,h2,h3; } sw;
+	struct { s32 l,h; } sd;
 #else
-	struct { UINT8 h7,h6,h5,h4,h3,h2,h,l; } b;
-	struct { UINT16 h3,h2,h,l; } w;
-	struct { UINT32 h,l; } d;
-	struct { INT8 h7,h6,h5,h4,h3,h2,h,l; } sb;
-	struct { INT16 h3,h2,h,l; } sw;
-	struct { INT32 h,l; } sd;
+	struct { u8 h7,h6,h5,h4,h3,h2,h,l; } b;
+	struct { u16 h3,h2,h,l; } w;
+	struct { u32 h,l; } d;
+	struct { s8 h7,h6,h5,h4,h3,h2,h,l; } sb;
+	struct { s16 h3,h2,h,l; } sw;
+	struct { s32 h,l; } sd;
 #endif
-	UINT64 q;
-	INT64 sq;
+	u64 q;
+	s64 sq;
 };
 
 
@@ -254,15 +248,22 @@ template <typename T, typename U, typename... V> constexpr T bitswap(T val, U b,
 	return (BIT(val, b) << sizeof...(c)) | bitswap(val, c...);
 }
 
+template <unsigned B, typename T, typename... U> T bitswap(T val, U... b)
+{
+	static_assert(sizeof...(b) == B, "wrong number of bits");
+	static_assert((sizeof(std::remove_reference_t<T>) * 8) >= B, "return type too small for result");
+	return bitswap(val, b...);
+}
+
 // explicit versions that check number of bit position arguments
-template <typename T, typename... U> constexpr T BITSWAP8(T val, U... b) { static_assert(sizeof...(b) == 8U, "wrong number of bits"); return bitswap(val, b...); }
-template <typename T, typename... U> constexpr T BITSWAP16(T val, U... b) { static_assert(sizeof...(b) == 16U, "wrong number of bits"); return bitswap(val, b...); }
-template <typename T, typename... U> constexpr T BITSWAP24(T val, U... b) { static_assert(sizeof...(b) == 24U, "wrong number of bits"); return bitswap(val, b...); }
-template <typename T, typename... U> constexpr T BITSWAP32(T val, U... b) { static_assert(sizeof...(b) == 32U, "wrong number of bits"); return bitswap(val, b...); }
-template <typename T, typename... U> constexpr T BITSWAP40(T val, U... b) { static_assert(sizeof...(b) == 40U, "wrong number of bits"); return bitswap(val, b...); }
-template <typename T, typename... U> constexpr T BITSWAP48(T val, U... b) { static_assert(sizeof...(b) == 48U, "wrong number of bits"); return bitswap(val, b...); }
-template <typename T, typename... U> constexpr T BITSWAP56(T val, U... b) { static_assert(sizeof...(b) == 56U, "wrong number of bits"); return bitswap(val, b...); }
-template <typename T, typename... U> constexpr T BITSWAP64(T val, U... b) { static_assert(sizeof...(b) == 64U, "wrong number of bits"); return bitswap(val, b...); }
+template <typename T, typename... U> constexpr T BITSWAP8(T val, U... b) {  return bitswap<8U>(val, b...); }
+template <typename T, typename... U> constexpr T BITSWAP16(T val, U... b) {  return bitswap<16U>(val, b...); }
+template <typename T, typename... U> constexpr T BITSWAP24(T val, U... b) {  return bitswap<24U>(val, b...); }
+template <typename T, typename... U> constexpr T BITSWAP32(T val, U... b) {  return bitswap<32U>(val, b...); }
+template <typename T, typename... U> constexpr T BITSWAP40(T val, U... b) {  return bitswap<40U>(val, b...); }
+template <typename T, typename... U> constexpr T BITSWAP48(T val, U... b) {  return bitswap<48U>(val, b...); }
+template <typename T, typename... U> constexpr T BITSWAP56(T val, U... b) {  return bitswap<56U>(val, b...); }
+template <typename T, typename... U> constexpr T BITSWAP64(T val, U... b) {  return bitswap<64U>(val, b...); }
 
 
 
@@ -371,8 +372,8 @@ enum_value(T value) noexcept
 //  FUNCTION PROTOTYPES
 //**************************************************************************
 
-ATTR_NORETURN void fatalerror(const char *format, ...) ATTR_PRINTF(1,2);
-ATTR_NORETURN void fatalerror_exitcode(running_machine &machine, int exitcode, const char *format, ...) ATTR_PRINTF(3,4);
+[[noreturn]] void fatalerror(const char *format, ...) ATTR_PRINTF(1,2);
+[[noreturn]] void fatalerror_exitcode(running_machine &machine, int exitcode, const char *format, ...) ATTR_PRINTF(3,4);
 
 //**************************************************************************
 //  INLINE FUNCTIONS
@@ -380,7 +381,7 @@ ATTR_NORETURN void fatalerror_exitcode(running_machine &machine, int exitcode, c
 
 // population count
 #if !defined(__NetBSD__)
-inline int popcount(UINT32 val)
+inline int popcount(u32 val)
 {
 	int count;
 
@@ -392,11 +393,11 @@ inline int popcount(UINT32 val)
 
 
 // convert a series of 32 bits into a float
-inline float u2f(UINT32 v)
+inline float u2f(u32 v)
 {
 	union {
 		float ff;
-		UINT32 vv;
+		u32 vv;
 	} u;
 	u.vv = v;
 	return u.ff;
@@ -404,11 +405,11 @@ inline float u2f(UINT32 v)
 
 
 // convert a float into a series of 32 bits
-inline UINT32 f2u(float f)
+inline u32 f2u(float f)
 {
 	union {
 		float ff;
-		UINT32 vv;
+		u32 vv;
 	} u;
 	u.ff = f;
 	return u.vv;
@@ -416,11 +417,11 @@ inline UINT32 f2u(float f)
 
 
 // convert a series of 64 bits into a double
-inline double u2d(UINT64 v)
+inline double u2d(u64 v)
 {
 	union {
 		double dd;
-		UINT64 vv;
+		u64 vv;
 	} u;
 	u.vv = v;
 	return u.dd;
@@ -428,11 +429,11 @@ inline double u2d(UINT64 v)
 
 
 // convert a double into a series of 64 bits
-inline UINT64 d2u(double d)
+inline u64 d2u(double d)
 {
 	union {
 		double dd;
-		UINT64 vv;
+		u64 vv;
 	} u;
 	u.dd = d;
 	return u.vv;

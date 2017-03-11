@@ -189,7 +189,7 @@
     the keyboard pulses the clock line low 9 times, and the Geneve samples all
     8 bits of data (plus one start bit) on each falling edge of the clock.
     When the key code buffer is full, the Geneve gate array asserts the kbdint*
-    line (connected to 9901 INT8*).  The Geneve gate array will hold the
+    line (connected to 9901 int8_t*).  The Geneve gate array will hold the
     CTS/clock line low as long as the keyboard buffer is full or CRU bit @>F78
     is 0.  Writing a 0 to >F79 will clear the Geneve keyboard buffer, and
     writing a 1 will resume normal operation: you need to write a 0 to >F78
@@ -275,13 +275,14 @@ public:
 
 	DECLARE_WRITE_LINE_MEMBER(set_tms9901_INT2_from_v9938);
 
-	line_state  m_inta;
-	line_state  m_intb;
-	line_state  m_int2;
-	line_state  m_keyint;
-	line_state  m_video_wait; // reflects the line to the mapper for CRU query
+	int  m_inta;
+	int  m_intb;
+	int  m_int2;
+	int  m_keyint;
+	int  m_video_wait; // reflects the line to the mapper for CRU query
 
-	int m_ready_line, m_ready_line1;
+	int m_ready_line;
+	int m_ready_line1;
 };
 
 /*
@@ -418,7 +419,7 @@ WRITE8_MEMBER ( geneve_state::cruwrite )
 
 READ8_MEMBER( geneve_state::cruread )
 {
-	UINT8 value = 0;
+	uint8_t value = 0;
 	int addroff = offset << 4;
 
 	// Single step
@@ -463,7 +464,7 @@ READ8_MEMBER( geneve_state::read_by_9901 )
 		break;
 
 	case TMS9901_INT8_INT15:
-		// Read pins INT8*-INT15* of Geneve 9901.
+		// Read pins int8_t*-INT15* of Geneve 9901.
 		//
 		// bit 0: keyboard interrupt
 		// bit 1: unused
@@ -658,6 +659,13 @@ DRIVER_INIT_MEMBER(geneve_state,geneve)
 
 void geneve_state::machine_start()
 {
+	save_item(NAME(m_inta));
+	save_item(NAME(m_intb));
+	save_item(NAME(m_int2));
+	save_item(NAME(m_keyint));
+	save_item(NAME(m_video_wait)); // reflects the line to the mapper for CRU query
+	save_item(NAME(m_ready_line));
+	save_item(NAME(m_ready_line1));
 }
 
 /*
@@ -765,4 +773,4 @@ ROM_START(geneve)
 ROM_END
 
 /*    YEAR  NAME      PARENT    COMPAT  MACHINE      INPUT    INIT       COMPANY     FULLNAME */
-COMP( 1987,geneve,   0,     0,      geneve_60hz,  geneve, geneve_state,  geneve,        "Myarc",    "Geneve 9640" , 0)
+COMP( 1987,geneve,   0,     0,      geneve_60hz,  geneve, geneve_state,  geneve,        "Myarc",    "Geneve 9640" , MACHINE_SUPPORTS_SAVE)

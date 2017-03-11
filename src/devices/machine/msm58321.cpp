@@ -16,6 +16,7 @@
 
 */
 
+#include "emu.h"
 #include "msm58321.h"
 
 
@@ -51,7 +52,7 @@ enum
 	REGISTER_REF1
 };
 
-static const char *reg_name(UINT8 address)
+static const char *reg_name(uint8_t address)
 {
 	switch(address)
 	{
@@ -171,7 +172,7 @@ inline void msm58321_device::write_counter(int address, int data)
 //  msm58321_device - constructor
 //-------------------------------------------------
 
-msm58321_device::msm58321_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+msm58321_device::msm58321_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, MSM58321, "MSM58321", tag, owner, clock, "msm58321", __FILE__),
 	device_rtc_interface(mconfig, *this),
 	device_nvram_interface(mconfig, *this),
@@ -243,10 +244,6 @@ void msm58321_device::device_start()
 	save_item(NAME(m_cs1));
 	save_item(NAME(m_address));
 	save_item(NAME(m_reg));
-
-	set_current_time(machine());
-
-	update_output();
 }
 
 
@@ -337,7 +334,7 @@ void msm58321_device::nvram_write(emu_file &file)
 
 void msm58321_device::update_output()
 {
-	UINT8 data = 0xf;
+	uint8_t data = 0xf;
 
 	if (m_cs1 && m_cs2 && m_read)
 	{
@@ -399,7 +396,7 @@ void msm58321_device::update_input()
 {
 	if (m_cs1 && m_cs2)
 	{
-		UINT8 data = m_d0_in | (m_d1_in << 1) | (m_d2_in << 2) | (m_d3_in << 3);
+		uint8_t data = m_d0_in | (m_d1_in << 1) | (m_d2_in << 2) | (m_d3_in << 3);
 
 		if (m_address_write)
 		{

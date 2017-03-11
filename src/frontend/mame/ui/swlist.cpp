@@ -36,7 +36,7 @@ namespace ui {
 //  part
 //-------------------------------------------------
 
-static bool is_valid_softlist_part_char(unicode_char ch)
+static bool is_valid_softlist_part_char(char32_t ch)
 {
 	return (ch == (char)ch) && isalnum(ch);
 }
@@ -70,7 +70,7 @@ menu_software_parts::~menu_software_parts()
 //  populate
 //-------------------------------------------------
 
-void menu_software_parts::populate()
+void menu_software_parts::populate(float &customtop, float &custombottom)
 {
 	if (m_other_opt)
 	{
@@ -212,7 +212,7 @@ void menu_software_list::append_software_entry(const software_info &swinfo)
 //  populate
 //-------------------------------------------------
 
-void menu_software_list::populate()
+void menu_software_list::populate(float &customtop, float &custombottom)
 {
 	// build up the list of entries for the menu
 	for (const software_info &swinfo : m_swlist->get_info())
@@ -241,7 +241,7 @@ void menu_software_list::handle()
 
 	if (event && event->itemref)
 	{
-		if ((FPTR)event->itemref == 1 && event->iptkey == IPT_UI_SELECT)
+		if ((uintptr_t)event->itemref == 1 && event->iptkey == IPT_UI_SELECT)
 		{
 			m_ordered_by_shortname = !m_ordered_by_shortname;
 
@@ -267,7 +267,7 @@ void menu_software_list::handle()
 				ui().popup_time(ERROR_MESSAGE_TIME, "%s", m_filename_buffer);
 
 				// identify the selected entry
-				entry_info const *const cur_selected = (FPTR(event->itemref) != 1)
+				entry_info const *const cur_selected = (uintptr_t(event->itemref) != 1)
 						? reinterpret_cast<entry_info const *>(get_selection_ref())
 						: nullptr;
 
@@ -280,7 +280,7 @@ void menu_software_list::handle()
 						auto &compare_name = m_ordered_by_shortname ? entry.short_name : entry.long_name;
 
 						int match = 0;
-						for (int i = 0; i < m_filename_buffer.length(); i++)
+						for (int i = 0; i < m_filename_buffer.size() + 1; i++)
 						{
 							if (core_strnicmp(compare_name.c_str(), m_filename_buffer.c_str(), i) == 0)
 								match = i;
@@ -342,7 +342,7 @@ menu_software::~menu_software()
 //  populate
 //-------------------------------------------------
 
-void menu_software::populate()
+void menu_software::populate(float &customtop, float &custombottom)
 {
 	bool have_compatible = false;
 
@@ -354,8 +354,12 @@ void menu_software::populate()
 			{
 				bool found = false;
 				for (const software_info &swinfo : swlistdev.get_info())
-					if (swinfo.parts().front().matches_interface(m_interface))
-						found = true;
+					for (const software_part &swpart : swinfo.parts())
+						if (swpart.matches_interface(m_interface))
+						{
+							found = true;
+							break;
+						}
 				if (found)
 					item_append(swlistdev.description(), "", 0, (void *)&swlistdev);
 			}
@@ -367,8 +371,12 @@ void menu_software::populate()
 			{
 				bool found = false;
 				for (const software_info &swinfo : swlistdev.get_info())
-					if (swinfo.parts().front().matches_interface(m_interface))
-						found = true;
+					for (const software_part &swpart : swinfo.parts())
+						if (swpart.matches_interface(m_interface))
+						{
+							found = true;
+							break;
+						}
 				if (found)
 				{
 					if (!have_compatible)

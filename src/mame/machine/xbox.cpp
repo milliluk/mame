@@ -14,93 +14,154 @@
 #include "debugger.h"
 #include "debug/debugcon.h"
 #include "debug/debugcmd.h"
-#include "includes/chihiro.h"
+#include "includes/xbox_nv2a.h"
 #include "includes/xbox.h"
 #include "includes/xbox_usb.h"
 
 #define LOG_PCI
 //#define LOG_AUDIO
 
+const xbox_base_state::debugger_constants xbox_base_state::debugp[] = {
+	{ 0x66232714, {0x8003aae0, 0x5c, 0x1c, 0x28, 0x210, 8, 0x28, 0x1c} },
+	{ 0x49d8055a, {0x8003aae0, 0x5c, 0x1c, 0x28, 0x210, 8, 0x28, 0x1c} }
+};
+
+int xbox_base_state::find_bios_index(running_machine &mach)
+{
+	u8 sb = mach.driver_data()->system_bios();
+	return sb;
+}
+
+bool xbox_base_state::find_bios_hash(running_machine &mach, int bios, uint32_t &crc32)
+{
+	uint32_t crc = 0;
+	const std::vector<rom_entry> &rev = mach.root_device().rom_region_vector();
+
+	for (rom_entry re : rev)
+	{
+		if ((re.flags() & ROMENTRY_TYPEMASK) == ROMENTRYTYPE_ROM)
+		{
+			if ((re.flags() & ROM_BIOSFLAGSMASK) == ROM_BIOS(bios + 1))
+			{
+				const std::string &h = re.hashdata();
+				util::hash_collection hc(h.c_str());
+				if (hc.crc(crc) == true)
+				{
+					crc32 = crc;
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
+
+void xbox_base_state::find_debug_params(running_machine &mach)
+{
+	uint32_t crc;
+	int sb;
+
+	sb = (int)find_bios_index(machine());
+	debugc_bios = debugp;
+	if (find_bios_hash(machine(), sb - 1, crc) == true)
+	{
+		for (int n = 0; n < 2; n++)
+			if (debugp[n].id == crc)
+			{
+				debugc_bios = &debugp[n];
+				break;
+			}
+	}
+}
+
 void xbox_base_state::dump_string_command(int ref, int params, const char **param)
 {
+	debugger_cpu &cpu = machine().debugger().cpu();
+	debugger_console &con = machine().debugger().console();
 	address_space &space = m_maincpu->space();
+	uint64_t addr;
+	offs_t address;
 
 	if (params < 1)
 		return;
 
-	UINT64 addr;
 	if (!machine().debugger().commands().validate_number_parameter(param[0], &addr))
 		return;
 
-	offs_t address = (offs_t)addr;
+	address = (offs_t)addr;
 	if (!m_maincpu->translate(AS_PROGRAM, TRANSLATE_READ_DEBUG, address))
 	{
-		machine().debugger().console().printf("Address is unmapped.\n");
+		con.printf("Address is unmapped.\n");
 		return;
 	}
+	address = (offs_t)addr;
 
-	UINT32 length = space.read_word_unaligned(address);
-	UINT32 maximumlength = space.read_word_unaligned(address + 2);
-	offs_t buffer = space.read_dword_unaligned(address + 4);
-	machine().debugger().console().printf("Length %d word\n", length);
-	machine().debugger().console().printf("MaximumLength %d word\n", maximumlength);
-	machine().debugger().console().printf("Buffer %08X byte* ", buffer);
-	if (!m_maincpu->translate(AS_PROGRAM, TRANSLATE_READ_DEBUG, buffer))
-	{
-		machine().debugger().console().printf("\nBuffer is unmapped.\n");
-		return;
-	}
+	uint32_t length = cpu.read_word(space, address, true);
+	uint32_t maximumlength = cpu.read_word(space, address + 2, true);
+	offs_t buffer = cpu.read_dword(space, address + 4, true);
+	con.printf("Length %d word\n", length);
+	con.printf("MaximumLength %d word\n", maximumlength);
+	con.printf("Buffer %08X byte* ", buffer);
 
+	// limit the number of characters to avoid flooding
 	if (length > 256)
 		length = 256;
 
 	for (int a = 0; a < length; a++)
 	{
-		UINT8 c = space.read_byte(buffer + a);
-		machine().debugger().console().printf("%c", c);
+		uint8_t c = cpu.read_byte(space, buffer + a, true);
+		con.printf("%c", c);
 	}
-	machine().debugger().console().printf("\n");
+	con.printf("\n");
 }
 
 void xbox_base_state::dump_process_command(int ref, int params, const char **param)
 {
+	debugger_cpu &cpu = machine().debugger().cpu();
+	debugger_console &con = machine().debugger().console();
 	address_space &space = m_maincpu->space();
+	uint64_t addr;
+	offs_t address;
 
 	if (params < 1)
 		return;
 
-	UINT64 addr;
 	if (!machine().debugger().commands().validate_number_parameter(param[0], &addr))
 		return;
 
-	offs_t address = (offs_t)addr;
+	address = (offs_t)addr;
 	if (!m_maincpu->translate(AS_PROGRAM, TRANSLATE_READ_DEBUG, address))
 	{
-		machine().debugger().console().printf("Address is unmapped.\n");
+		con.printf("Address is unmapped.\n");
 		return;
 	}
-	machine().debugger().console().printf("ReadyListHead {%08X,%08X} _LIST_ENTRY\n", space.read_dword_unaligned(address), space.read_dword_unaligned(address + 4));
-	machine().debugger().console().printf("ThreadListHead {%08X,%08X} _LIST_ENTRY\n", space.read_dword_unaligned(address + 8), space.read_dword_unaligned(address + 12));
-	machine().debugger().console().printf("StackCount %d dword\n", space.read_dword_unaligned(address + 16));
-	machine().debugger().console().printf("ThreadQuantum %d dword\n", space.read_dword_unaligned(address + 20));
-	machine().debugger().console().printf("BasePriority %d byte\n", space.read_byte(address + 24));
-	machine().debugger().console().printf("DisableBoost %d byte\n", space.read_byte(address + 25));
-	machine().debugger().console().printf("DisableQuantum %d byte\n", space.read_byte(address + 26));
-	machine().debugger().console().printf("_padding %d byte\n", space.read_byte(address + 27));
+	address = (offs_t)addr;
+
+	con.printf("ReadyListHead {%08X,%08X} _LIST_ENTRY\n", cpu.read_dword(space, address, true), cpu.read_dword(space, address + 4, true));
+	con.printf("ThreadListHead {%08X,%08X} _LIST_ENTRY\n", cpu.read_dword(space, address + 8, true), cpu.read_dword(space, address + 12, true));
+	con.printf("StackCount %d dword\n", cpu.read_dword(space, address + 16, true));
+	con.printf("ThreadQuantum %d dword\n", cpu.read_dword(space, address + 20, true));
+	con.printf("BasePriority %d byte\n", cpu.read_byte(space, address + 24, true));
+	con.printf("DisableBoost %d byte\n", cpu.read_byte(space, address + 25, true));
+	con.printf("DisableQuantum %d byte\n", cpu.read_byte(space, address + 26, true));
+	con.printf("_padding %d byte\n", cpu.read_byte(space, address + 27, true));
 }
 
 void xbox_base_state::dump_list_command(int ref, int params, const char **param)
 {
+	debugger_cpu &cpu = machine().debugger().cpu();
+	debugger_console &con = machine().debugger().console();
 	address_space &space = m_maincpu->space();
+	uint64_t addr;
+	offs_t address;
 
 	if (params < 1)
 		return;
 
-	UINT64 addr;
 	if (!machine().debugger().commands().validate_number_parameter(param[0], &addr))
 		return;
 
-	UINT64 offs = 0;
+	uint64_t offs = 0;
 	offs_t offset = 0;
 	if (params >= 2)
 	{
@@ -109,27 +170,28 @@ void xbox_base_state::dump_list_command(int ref, int params, const char **param)
 		offset = (offs_t)offs;
 	}
 
-	UINT64 start = addr;
-	offs_t address = (offs_t)addr;
+	uint64_t start = addr;
+	address = (offs_t)addr;
 	if (!m_maincpu->translate(AS_PROGRAM, TRANSLATE_READ_DEBUG, address))
 	{
-		machine().debugger().console().printf("Address is unmapped.\n");
+		con.printf("Address is unmapped.\n");
 		return;
 	}
+	address = (offs_t)addr;
 	if (params >= 2)
-		machine().debugger().console().printf("Entry    Object\n");
+		con.printf("Entry    Object\n");
 	else
-		machine().debugger().console().printf("Entry\n");
+		con.printf("Entry\n");
 
-	UINT64 old;
+	uint64_t old;
 	for (int num = 0; num < 32; num++)
 	{
 		if (params >= 2)
-			machine().debugger().console().printf("%08X %08X\n", (UINT32)addr, (offs_t)addr - offset);
+			con.printf("%08X %08X\n", (uint32_t)addr, (offs_t)addr - offset);
 		else
-			machine().debugger().console().printf("%08X\n", (UINT32)addr);
+			con.printf("%08X\n", (uint32_t)addr);
 		old = addr;
-		addr = space.read_dword_unaligned(address);
+		addr = cpu.read_dword(space, address, true);
 		if (addr == start)
 			break;
 		if (addr == old)
@@ -137,104 +199,136 @@ void xbox_base_state::dump_list_command(int ref, int params, const char **param)
 		address = (offs_t)addr;
 		if (!m_maincpu->translate(AS_PROGRAM, TRANSLATE_READ_DEBUG, address))
 			break;
+		address = (offs_t)addr;
 	}
 }
 
 void xbox_base_state::dump_dpc_command(int ref, int params, const char **param)
 {
+	debugger_cpu &cpu = machine().debugger().cpu();
+	debugger_console &con = machine().debugger().console();
 	address_space &space = m_maincpu->space();
+	uint64_t addr;
+	offs_t address;
 
 	if (params < 1)
 		return;
 
-	UINT64 addr;
 	if (!machine().debugger().commands().validate_number_parameter(param[0], &addr))
 		return;
 
-	offs_t address = (offs_t)addr;
+	address = (offs_t)addr;
 	if (!m_maincpu->translate(AS_PROGRAM, TRANSLATE_READ_DEBUG, address))
 	{
-		machine().debugger().console().printf("Address is unmapped.\n");
+		con.printf("Address is unmapped.\n");
 		return;
 	}
-	machine().debugger().console().printf("Type %d word\n", space.read_word_unaligned(address));
-	machine().debugger().console().printf("Inserted %d byte\n", space.read_byte(address + 2));
-	machine().debugger().console().printf("Padding %d byte\n", space.read_byte(address + 3));
-	machine().debugger().console().printf("DpcListEntry {%08X,%08X} _LIST_ENTRY\n", space.read_dword_unaligned(address + 4), space.read_dword_unaligned(address + 8));
-	machine().debugger().console().printf("DeferredRoutine %08X dword\n", space.read_dword_unaligned(address + 12));
-	machine().debugger().console().printf("DeferredContext %08X dword\n", space.read_dword_unaligned(address + 16));
-	machine().debugger().console().printf("SystemArgument1 %08X dword\n", space.read_dword_unaligned(address + 20));
-	machine().debugger().console().printf("SystemArgument2 %08X dword\n", space.read_dword_unaligned(address + 24));
+	address = (offs_t)addr;
+	con.printf("Type %d word\n", cpu.read_word(space, address, true));
+	con.printf("Inserted %d byte\n", cpu.read_byte(space, address + 2, true));
+	con.printf("Padding %d byte\n", cpu.read_byte(space, address + 3, true));
+	con.printf("DpcListEntry {%08X,%08X} _LIST_ENTRY\n", cpu.read_dword(space, address + 4, true), cpu.read_dword(space, address + 8, true));
+	con.printf("DeferredRoutine %08X dword\n", cpu.read_dword(space, address + 12, true));
+	con.printf("DeferredContext %08X dword\n", cpu.read_dword(space, address + 16, true));
+	con.printf("SystemArgument1 %08X dword\n", cpu.read_dword(space, address + 20, true));
+	con.printf("SystemArgument2 %08X dword\n", cpu.read_dword(space, address + 24, true));
 }
 
 void xbox_base_state::dump_timer_command(int ref, int params, const char **param)
 {
+	debugger_cpu &cpu = machine().debugger().cpu();
+	debugger_console &con = machine().debugger().console();
 	address_space &space = m_maincpu->space();
+	uint64_t addr;
+	offs_t address;
 
 	if (params < 1)
 		return;
 
-	UINT64 addr;
 	if (!machine().debugger().commands().validate_number_parameter(param[0], &addr))
 		return;
 
-	offs_t address = (offs_t)addr;
+	address = (offs_t)addr;
 	if (!m_maincpu->translate(AS_PROGRAM, TRANSLATE_READ_DEBUG, address))
 	{
-		machine().debugger().console().printf("Address is unmapped.\n");
+		con.printf("Address is unmapped.\n");
 		return;
 	}
-	machine().debugger().console().printf("Header.Type %d byte\n", space.read_byte(address));
-	machine().debugger().console().printf("Header.Absolute %d byte\n", space.read_byte(address + 1));
-	machine().debugger().console().printf("Header.Size %d byte\n", space.read_byte(address + 2));
-	machine().debugger().console().printf("Header.Inserted %d byte\n", space.read_byte(address + 3));
-	machine().debugger().console().printf("Header.SignalState %08X dword\n", space.read_dword_unaligned(address + 4));
-	machine().debugger().console().printf("Header.WaitListEntry {%08X,%08X} _LIST_ENTRY\n", space.read_dword_unaligned(address + 8), space.read_dword_unaligned(address + 12));
-	machine().debugger().console().printf("%s", string_format("DueTime %I64x qword\n", (INT64)space.read_qword_unaligned(address + 16)).c_str());
-	machine().debugger().console().printf("TimerListEntry {%08X,%08X} _LIST_ENTRY\n", space.read_dword_unaligned(address + 24), space.read_dword_unaligned(address + 28));
-	machine().debugger().console().printf("Dpc %08X dword\n", space.read_dword_unaligned(address + 32));
-	machine().debugger().console().printf("Period %d dword\n", space.read_dword_unaligned(address + 36));
+	address = (offs_t)addr;
+	con.printf("Header.Type %d byte\n", cpu.read_byte(space, address, true));
+	con.printf("Header.Absolute %d byte\n", cpu.read_byte(space, address + 1, true));
+	con.printf("Header.Size %d byte\n", cpu.read_byte(space, address + 2, true));
+	con.printf("Header.Inserted %d byte\n", cpu.read_byte(space, address + 3, true));
+	con.printf("Header.SignalState %08X dword\n", cpu.read_dword(space, address + 4, true));
+	con.printf("Header.WaitListEntry {%08X,%08X} _LIST_ENTRY\n", cpu.read_dword(space, address + 8, true), cpu.read_dword(space, address + 12, true));
+	con.printf("%s", string_format("DueTime %I64x qword\n", (int64_t)cpu.read_qword(space, address + 16, true)).c_str());
+	con.printf("TimerListEntry {%08X,%08X} _LIST_ENTRY\n", cpu.read_dword(space, address + 24, true), cpu.read_dword(space, address + 28, true));
+	con.printf("Dpc %08X dword\n", cpu.read_dword(space, address + 32, true));
+	con.printf("Period %d dword\n", cpu.read_dword(space, address + 36, true));
 }
 
 void xbox_base_state::curthread_command(int ref, int params, const char **param)
 {
+	debugger_cpu &cpu = machine().debugger().cpu();
+	debugger_console &con = machine().debugger().console();
 	address_space &space = m_maincpu->space();
+	offs_t address;
 
-	UINT64 fsbase = m_maincpu->state_int(44);
-	offs_t address = (offs_t)fsbase + 0x28;
+	uint64_t fsbase = m_maincpu->state_int(44); // base of FS register
+	address = (offs_t)fsbase + (offs_t)debugc_bios->parameter[7-1];
 	if (!m_maincpu->translate(AS_PROGRAM, TRANSLATE_READ_DEBUG, address))
 	{
-		machine().debugger().console().printf("Address is unmapped.\n");
+		con.printf("Address is unmapped.\n");
 		return;
 	}
+	address = (offs_t)fsbase + (offs_t)debugc_bios->parameter[7-1];
 
-	UINT32 kthrd = space.read_dword_unaligned(address);
-	machine().debugger().console().printf("Current thread is %08X\n", kthrd);
-
-	address = (offs_t)kthrd + 0x1c;
-	if (!m_maincpu->translate(AS_PROGRAM, TRANSLATE_READ_DEBUG, address))
-		return;
-
-	UINT32 topstack = space.read_dword_unaligned(address);
-	machine().debugger().console().printf("Current thread stack top is %08X\n", topstack);
-
-	address = (offs_t)kthrd + 0x28;
-	if (!m_maincpu->translate(AS_PROGRAM, TRANSLATE_READ_DEBUG, address))
-		return;
-
-	UINT32 tlsdata = space.read_dword_unaligned(address);
+	uint32_t kthrd = cpu.read_dword(space, address, true);
+	con.printf("Current thread is %08X\n", kthrd);
+	address = (offs_t)(kthrd + debugc_bios->parameter[8-1]);
+	uint32_t topstack = cpu.read_dword(space, address, true);
+	con.printf("Current thread stack top is %08X\n", topstack);
+	address = (offs_t)(kthrd + debugc_bios->parameter[4-1]);
+	uint32_t tlsdata = cpu.read_dword(space, address, true);
 	if (tlsdata == 0)
-		address = (offs_t)topstack - 0x210 - 8;
+		address = (offs_t)(topstack - debugc_bios->parameter[5-1] - debugc_bios->parameter[6-1]);
 	else
-		address = (offs_t)tlsdata - 8;
-	if (!m_maincpu->translate(AS_PROGRAM, TRANSLATE_READ_DEBUG, address))
-		return;
-	machine().debugger().console().printf("Current thread function is %08X\n", space.read_dword_unaligned(address));
+		address = (offs_t)(tlsdata - debugc_bios->parameter[6-1]);
+	con.printf("Current thread function is %08X\n", cpu.read_dword(space, address, true));
+}
+
+void xbox_base_state::threadlist_command(int ref, int params, const char **param)
+{
+	address_space &space = m_maincpu->space();
+	debugger_cpu &cpu = machine().debugger().cpu();
+	debugger_console &con = machine().debugger().console();
+
+	con.printf("Pri. _KTHREAD   Stack  Function\n");
+	con.printf("-------------------------------\n");
+	for (int pri = 0; pri < 16; pri++)
+	{
+		uint32_t curr = debugc_bios->parameter[1 - 1] + pri * 8;
+		uint32_t next = cpu.read_dword(space, curr, true);
+
+		while ((next != curr) && (next != 0))
+		{
+			uint32_t kthrd = next - debugc_bios->parameter[2 - 1];
+			uint32_t topstack = cpu.read_dword(space, kthrd + debugc_bios->parameter[3 - 1], true);
+			uint32_t tlsdata = cpu.read_dword(space, kthrd + debugc_bios->parameter[4 - 1], true);
+			uint32_t function;
+			if (tlsdata == 0)
+				function = cpu.read_dword(space, topstack - debugc_bios->parameter[5 - 1] - debugc_bios->parameter[6 - 1], true);
+			else
+				function = cpu.read_dword(space, tlsdata - debugc_bios->parameter[6 - 1], true);
+			con.printf(" %02d  %08x %08x %08x\n", pri, kthrd, topstack, function);
+			next = cpu.read_dword(space, next, true);
+		}
+	}
 }
 
 void xbox_base_state::generate_irq_command(int ref, int params, const char **param)
 {
-	UINT64 irq;
+	uint64_t irq;
 
 	if (params < 1)
 		return;
@@ -249,25 +343,37 @@ void xbox_base_state::generate_irq_command(int ref, int params, const char **par
 
 void xbox_base_state::nv2a_combiners_command(int ref, int params, const char **param)
 {
-	int en = nvidia_nv2a->toggle_register_combiners_usage();
-	if (en != 0)
-		machine().debugger().console().printf("Register combiners enabled\n");
+	debugger_console &con = machine().debugger().console();
+	bool en = nvidia_nv2a->toggle_register_combiners_usage();
+	if (en == true)
+		con.printf("Register combiners enabled\n");
 	else
-		machine().debugger().console().printf("Register combiners disabled\n");
+		con.printf("Register combiners disabled\n");
+}
+
+void xbox_base_state::nv2a_wclipping_command(int ref, int params, const char **param)
+{
+	debugger_console &con = machine().debugger().console();
+	bool en = nvidia_nv2a->toggle_clipping_w_support();
+	if (en == true)
+		con.printf("W clipping enabled\n");
+	else
+		con.printf("W clipping disabled\n");
 }
 
 void xbox_base_state::waitvblank_command(int ref, int params, const char **param)
 {
-	int en = nvidia_nv2a->toggle_wait_vblank_support();
-	if (en != 0)
-		machine().debugger().console().printf("Vblank method enabled\n");
+	debugger_console &con = machine().debugger().console();
+	bool en = nvidia_nv2a->toggle_wait_vblank_support();
+	if (en == true)
+		con.printf("Vblank method enabled\n");
 	else
-		machine().debugger().console().printf("Vblank method disabled\n");
+		con.printf("Vblank method disabled\n");
 }
 
 void xbox_base_state::grab_texture_command(int ref, int params, const char **param)
 {
-	UINT64 type;
+	uint64_t type;
 
 	if (params < 2)
 		return;
@@ -280,7 +386,7 @@ void xbox_base_state::grab_texture_command(int ref, int params, const char **par
 
 void xbox_base_state::grab_vprog_command(int ref, int params, const char **param)
 {
-	UINT32 instruction[4];
+	uint32_t instruction[4];
 	FILE *fil;
 
 	if (params < 1)
@@ -291,7 +397,7 @@ void xbox_base_state::grab_vprog_command(int ref, int params, const char **param
 		return;
 	for (int n = 0; n < 136; n++) {
 		nvidia_nv2a->debug_grab_vertex_program_slot(n, instruction);
-		fwrite(instruction, sizeof(UINT32), 4, fil);
+		fwrite(instruction, sizeof(uint32_t), 4, fil);
 	}
 	fclose(fil);
 }
@@ -303,15 +409,15 @@ void xbox_base_state::vprogdis_command(int ref, int params, const char **param)
 	if (params < 2)
 		return;
 
-	UINT64 address;
+	uint64_t address;
 	if (!machine().debugger().commands().validate_number_parameter(param[0], &address))
 		return;
 
-	UINT64 length;
+	uint64_t length;
 	if (!machine().debugger().commands().validate_number_parameter(param[1], &length))
 		return;
 
-	UINT64 type = 0;
+	uint64_t type = 0;
 	if (params > 2)
 		if (!machine().debugger().commands().validate_number_parameter(param[2], &type))
 			return;
@@ -319,7 +425,7 @@ void xbox_base_state::vprogdis_command(int ref, int params, const char **param)
 	vertex_program_disassembler vd;
 	while (length > 0)
 	{
-		UINT32 instruction[4];
+		uint32_t instruction[4];
 		if (type == 1)
 		{
 			offs_t addr = (offs_t)address;
@@ -350,20 +456,24 @@ void xbox_base_state::vprogdis_command(int ref, int params, const char **param)
 
 void xbox_base_state::help_command(int ref, int params, const char **param)
 {
-	machine().debugger().console().printf("Available Xbox commands:\n");
-	machine().debugger().console().printf("  xbox dump_string,<address> -- Dump _STRING object at <address>\n");
-	machine().debugger().console().printf("  xbox dump_process,<address> -- Dump _PROCESS object at <address>\n");
-	machine().debugger().console().printf("  xbox dump_list,<address>[,<offset>] -- Dump _LIST_ENTRY chain starting at <address>\n");
-	machine().debugger().console().printf("  xbox dump_dpc,<address> -- Dump _KDPC object at <address>\n");
-	machine().debugger().console().printf("  xbox dump_timer,<address> -- Dump _KTIMER object at <address>\n");
-	machine().debugger().console().printf("  xbox curthread -- Print information about current thread\n");
-	machine().debugger().console().printf("  xbox irq,<number> -- Generate interrupt with irq number 0-15\n");
-	machine().debugger().console().printf("  xbox nv2a_combiners -- Toggle use of register combiners\n");
-	machine().debugger().console().printf("  xbox waitvblank -- Toggle support for wait vblank method\n");
-	machine().debugger().console().printf("  xbox grab_texture,<type>,<filename> -- Save to <filename> the next used texture of type <type>\n");
-	machine().debugger().console().printf("  xbox grab_vprog,<filename> -- save current vertex program instruction slots to <filename>\n");
-	machine().debugger().console().printf("  xbox vprogdis,<address>,<length>[,<type>] -- disassemble <lenght> vertex program instructions at <address> of <type>\n");
-	machine().debugger().console().printf("  xbox help -- this list\n");
+	debugger_console &con = machine().debugger().console();
+
+	con.printf("Available Xbox commands:\n");
+	con.printf("  xbox dump_string,<address> -- Dump _STRING object at <address>\n");
+	con.printf("  xbox dump_process,<address> -- Dump _PROCESS object at <address>\n");
+	con.printf("  xbox dump_list,<address>[,<offset>] -- Dump _LIST_ENTRY chain starting at <address>\n");
+	con.printf("  xbox dump_dpc,<address> -- Dump _KDPC object at <address>\n");
+	con.printf("  xbox dump_timer,<address> -- Dump _KTIMER object at <address>\n");
+	con.printf("  xbox curthread -- Print information about current thread\n");
+	con.printf("  xbox threadlist -- list of currently active threads\n");
+	con.printf("  xbox irq,<number> -- Generate interrupt with irq number 0-15\n");
+	con.printf("  xbox nv2a_combiners -- Toggle use of register combiners\n");
+	con.printf("  xbox nv2a_wclipping -- Toggle use of negative w vertex clipping\n");
+	con.printf("  xbox waitvblank -- Toggle support for wait vblank method\n");
+	con.printf("  xbox grab_texture,<type>,<filename> -- Save to <filename> the next used texture of type <type>\n");
+	con.printf("  xbox grab_vprog,<filename> -- save current vertex program instruction slots to <filename>\n");
+	con.printf("  xbox vprogdis,<address>,<length>[,<type>] -- disassemble <lenght> vertex program instructions at <address> of <type>\n");
+	con.printf("  xbox help -- this list\n");
 }
 
 void xbox_base_state::xbox_debug_commands(int ref, int params, const char **param)
@@ -382,10 +492,14 @@ void xbox_base_state::xbox_debug_commands(int ref, int params, const char **para
 		dump_timer_command(ref, params - 1, param + 1);
 	else if (strcmp("curthread", param[0]) == 0)
 		curthread_command(ref, params - 1, param + 1);
+	else if (strcmp("threadlist", param[0]) == 0)
+		threadlist_command(ref, params - 1, param + 1);
 	else if (strcmp("irq", param[0]) == 0)
 		generate_irq_command(ref, params - 1, param + 1);
 	else if (strcmp("nv2a_combiners", param[0]) == 0)
 		nv2a_combiners_command(ref, params - 1, param + 1);
+	else if (strcmp("nv2a_wclipping", param[0]) == 0)
+		nv2a_wclipping_command(ref, params - 1, param + 1);
 	else if (strcmp("waitvblank", param[0]) == 0)
 		waitvblank_command(ref, params - 1, param + 1);
 	else if (strcmp("grab_texture", param[0]) == 0)
@@ -468,7 +582,7 @@ void xbox_base_state::vblank_callback(screen_device &screen, bool state)
 	nvidia_nv2a->vblank_callback(screen, state);
 }
 
-UINT32 xbox_base_state::screen_update_callback(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
+uint32_t xbox_base_state::screen_update_callback(screen_device &screen, bitmap_rgb32 &bitmap, const rectangle &cliprect)
 {
 	return nvidia_nv2a->screen_update_callback(screen, bitmap, cliprect);
 }
@@ -483,7 +597,7 @@ WRITE32_MEMBER(xbox_base_state::geforce_w)
 	nvidia_nv2a->geforce_w(space, offset, data, mem_mask);
 }
 
-static UINT32 geforce_pci_r(device_t *busdevice, device_t *device, int function, int reg, UINT32 mem_mask)
+static uint32_t geforce_pci_r(device_t *busdevice, device_t *device, int function, int reg, uint32_t mem_mask)
 {
 #ifdef LOG_PCI
 	busdevice->logerror("  bus:1 device:NV_2A function:%d register:%d mask:%08X\n",function,reg,mem_mask);
@@ -491,7 +605,7 @@ static UINT32 geforce_pci_r(device_t *busdevice, device_t *device, int function,
 	return 0;
 }
 
-static void geforce_pci_w(device_t *busdevice, device_t *device, int function, int reg, UINT32 data, UINT32 mem_mask)
+static void geforce_pci_w(device_t *busdevice, device_t *device, int function, int reg, uint32_t data, uint32_t mem_mask)
 {
 #ifdef LOG_PCI
 	busdevice->logerror("  bus:1 device:NV_2A function:%d register:%d data:%08X mask:%08X\n",function,reg,data,mem_mask);
@@ -514,8 +628,8 @@ READ32_MEMBER(xbox_base_state::audio_apu_r)
 
 WRITE32_MEMBER(xbox_base_state::audio_apu_w)
 {
-	//UINT32 old;
-	UINT32 v;
+	//uint32_t old;
+	uint32_t v;
 
 #ifdef LOG_AUDIO
 	logerror("Audio_APU: write at %08X mask %08X value %08X\n", 0xfe800000 + offset * 4, mem_mask, data);
@@ -582,7 +696,7 @@ WRITE32_MEMBER(xbox_base_state::audio_apu_w)
 		return;
 	}
 	if (offset == 0x2037c / 4) { // value related to sample rate
-		INT16 v0 = (INT16)(data >> 16); // upper 16 bits as a signed 16 bit value
+		int16_t v0 = (int16_t)(data >> 16); // upper 16 bits as a signed 16 bit value
 		float vv = ((float)v0) / 4096.0f; // divide by 4096
 		float vvv = powf(2, vv); // two to the vv
 		int f = vvv*48000.0f; // sample rate
@@ -603,7 +717,7 @@ WRITE32_MEMBER(xbox_base_state::audio_apu_w)
 		return;
 	if (offset == 0x20124 / 4) { // voice number to activate ?
 		v = apust.voice_number;
-		apust.voices_active[v >> 6] |= ((UINT64)1 << (v & 63));
+		apust.voices_active[v >> 6] |= ((uint64_t)1 << (v & 63));
 		apust.voices_position[v] = apust.voices_position_start[apust.voice_number];
 		apust.voices_position_increment[apust.voice_number] = apust.voices_frequency[apust.voice_number];
 		return;
@@ -623,7 +737,7 @@ WRITE32_MEMBER(xbox_base_state::audio_apu_w)
 
 READ32_MEMBER(xbox_base_state::audio_ac93_r)
 {
-	UINT32 ret = 0;
+	uint32_t ret = 0;
 
 #ifdef LOG_AUDIO
 	logerror("Audio_AC3: read from %08X mask %08X\n", 0xfec00000 + offset * 4, mem_mask);
@@ -672,8 +786,8 @@ TIMER_CALLBACK_MEMBER(xbox_base_state::audio_apu_timer)
 {
 	int cmd;
 	int bb, b, v;
-	UINT64 bv;
-	UINT32 phys;
+	uint64_t bv;
+	uint32_t phys;
 
 	cmd = apust.space->read_dword(apust.gpdsp_address + 0x800 + 0x10);
 	if (cmd == 3)
@@ -696,7 +810,7 @@ TIMER_CALLBACK_MEMBER(xbox_base_state::audio_apu_timer)
 	}
 }
 
-static UINT32 pcibridghostbridg_pci_r(device_t *busdevice, device_t *device, int function, int reg, UINT32 mem_mask)
+static uint32_t pcibridghostbridg_pci_r(device_t *busdevice, device_t *device, int function, int reg, uint32_t mem_mask)
 {
 #ifdef LOG_PCI
 	busdevice->logerror("  bus:0 function:%d register:%d mask:%08X\n",function,reg,mem_mask);
@@ -706,14 +820,14 @@ static UINT32 pcibridghostbridg_pci_r(device_t *busdevice, device_t *device, int
 	return 0;
 }
 
-static void pcibridghostbridg_pci_w(device_t *busdevice, device_t *device, int function, int reg, UINT32 data, UINT32 mem_mask)
+static void pcibridghostbridg_pci_w(device_t *busdevice, device_t *device, int function, int reg, uint32_t data, uint32_t mem_mask)
 {
 #ifdef LOG_PCI
 	busdevice->logerror("  bus:0 function:%d register:%d data:%08X mask:%08X\n", function, reg, data, mem_mask);
 #endif
 }
 
-static UINT32 hubintisabridg_pci_r(device_t *busdevice, device_t *device, int function, int reg, UINT32 mem_mask)
+static uint32_t hubintisabridg_pci_r(device_t *busdevice, device_t *device, int function, int reg, uint32_t mem_mask)
 {
 #ifdef LOG_PCI
 	busdevice->logerror("  bus:0 function:%d register:%d mask:%08X\n",function,reg,mem_mask);
@@ -723,7 +837,7 @@ static UINT32 hubintisabridg_pci_r(device_t *busdevice, device_t *device, int fu
 	return 0;
 }
 
-static void hubintisabridg_pci_w(device_t *busdevice, device_t *device, int function, int reg, UINT32 data, UINT32 mem_mask)
+static void hubintisabridg_pci_w(device_t *busdevice, device_t *device, int function, int reg, uint32_t data, uint32_t mem_mask)
 {
 #ifdef LOG_PCI
 	busdevice->logerror("  bus:0 function:%d register:%d data:%08X mask:%08X\n", function, reg, data, mem_mask);
@@ -734,7 +848,7 @@ static void hubintisabridg_pci_w(device_t *busdevice, device_t *device, int func
  * dummy for non connected devices
  */
 
-static UINT32 dummy_pci_r(device_t *busdevice, device_t *device, int function, int reg, UINT32 mem_mask)
+static uint32_t dummy_pci_r(device_t *busdevice, device_t *device, int function, int reg, uint32_t mem_mask)
 {
 #ifdef LOG_PCI
 	busdevice->logerror("  bus:0 function:%d register:%d mask:%08X\n",function,reg,mem_mask);
@@ -742,7 +856,7 @@ static UINT32 dummy_pci_r(device_t *busdevice, device_t *device, int function, i
 	return 0;
 }
 
-static void dummy_pci_w(device_t *busdevice, device_t *device, int function, int reg, UINT32 data, UINT32 mem_mask)
+static void dummy_pci_w(device_t *busdevice, device_t *device, int function, int reg, uint32_t data, uint32_t mem_mask)
 {
 #ifdef LOG_PCI
 	busdevice->logerror("  bus:0 function:%d register:%d data:%08X mask:%08X\n", function, reg, data, mem_mask);
@@ -824,7 +938,7 @@ int xbox_base_state::smbus_pic16lc(int command, int rw, int data)
 		if (command == 0)
 			pic16lc_buffer[0] = 'B';
 		else
-			pic16lc_buffer[command] = (UINT8)data;
+			pic16lc_buffer[command] = (uint8_t)data;
 	logerror("pic16lc: %d %d %d\n", command, rw, data);
 	return 0;
 }
@@ -1099,6 +1213,7 @@ ADDRESS_MAP_END
 
 void xbox_base_state::machine_start()
 {
+	find_debug_params(machine());
 	nvidia_nv2a = std::make_unique<nv2a_renderer>(machine());
 	memset(pic16lc_buffer, 0, sizeof(pic16lc_buffer));
 	pic16lc_buffer[0] = 'B';

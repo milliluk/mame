@@ -61,6 +61,8 @@ public:
 	proteus3_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag)
 		, m_maincpu(*this, "maincpu")
+		, m_p_videoram(*this, "vram")
+		, m_p_chargen(*this, "chargen")
 		, m_pia(*this, "pia")
 		, m_acia1(*this, "acia1")
 		, m_acia2(*this, "acia2")
@@ -75,20 +77,20 @@ public:
 	DECLARE_WRITE_LINE_MEMBER(acia2_clock_w);
 	TIMER_DEVICE_CALLBACK_MEMBER(timer_c);
 	TIMER_DEVICE_CALLBACK_MEMBER(timer_p);
-	UINT32 screen_update_proteus3(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	uint32_t screen_update_proteus3(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 private:
-	UINT8 m_video_data;
-	UINT8 m_flashcnt;
-	UINT16 m_curs_pos;
-	UINT8 *m_p_chargen;
-	UINT8 *m_p_videoram;
-	UINT8 m_cass_data[4];
+	uint8_t m_video_data;
+	uint8_t m_flashcnt;
+	uint16_t m_curs_pos;
+	uint8_t m_cass_data[4];
 	bool m_cass_state;
 	bool m_cassold;
-	UINT8 m_clockcnt;
+	uint8_t m_clockcnt;
 	virtual void machine_reset() override;
 	required_device<cpu_device> m_maincpu;
+	required_region_ptr<u8> m_p_videoram;
+	required_region_ptr<u8> m_p_chargen;
 	required_device<pia6821_device> m_pia;
 	required_device<acia6850_device> m_acia1; // cassette uart
 	required_device<acia6850_device> m_acia2; // tty keyboard uart
@@ -159,7 +161,7 @@ TIMER_DEVICE_CALLBACK_MEMBER( proteus3_state::timer_p )
 {
 	/* cassette - turn 1200/2400Hz to a bit */
 	m_cass_data[1]++;
-	UINT8 cass_ws = (m_cass->input() > +0.01) ? 1 : 0;
+	uint8_t cass_ws = (m_cass->input() > +0.01) ? 1 : 0;
 
 	if (cass_ws != m_cass_data[0])
 	{
@@ -236,17 +238,17 @@ WRITE_LINE_MEMBER( proteus3_state::ca2_w )
 	}
 }
 
-UINT32 proteus3_state::screen_update_proteus3(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t proteus3_state::screen_update_proteus3(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
-	UINT8 y,ra,chr,gfx;
-	UINT16 sy=0,ma=0,x;
+	uint8_t y,ra,chr,gfx;
+	uint16_t sy=0,ma=0,x;
 	m_flashcnt++;
 
 	for(y = 0; y < 16; y++ )
 	{
 		for (ra = 0; ra < 12; ra++)
 		{
-			UINT16 *p = &bitmap.pix16(sy++);
+			uint16_t *p = &bitmap.pix16(sy++);
 
 			for (x = ma; x < ma + 64; x++)
 			{
@@ -298,8 +300,6 @@ GFXDECODE_END
 
 void proteus3_state::machine_reset()
 {
-	m_p_chargen = memregion("chargen")->base();
-	m_p_videoram = memregion("vram")->base();
 	m_curs_pos = 0;
 	m_cass_data[0] = m_cass_data[1] = m_cass_data[2] = m_cass_data[3] = 0;
 	m_cass_state = 1;

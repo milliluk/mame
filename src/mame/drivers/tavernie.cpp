@@ -48,6 +48,7 @@ Z - more scan lines per row (cursor is bigger)
 
 ****************************************************************************/
 
+#include "emu.h"
 #include "bus/rs232/rs232.h"
 #include "cpu/m6809/m6809.h"
 #include "machine/6821pia.h"
@@ -62,22 +63,21 @@ Z - more scan lines per row (cursor is bigger)
 #include "sound/beep.h"
 #include "tavernie.lh"
 
-#define KEYBOARD_TAG "keyboard"
-
 class tavernie_state : public driver_device
 {
 public:
-	tavernie_state(const machine_config &mconfig, device_type type, const char *tag) :
-		driver_device(mconfig, type, tag),
-		m_p_videoram(*this, "videoram"),
-		m_cass(*this, "cassette"),
-		m_pia_ivg(*this, "pia_ivg"),
-		m_fdc(*this, "fdc"),
-		m_floppy0(*this, "fdc:0"),
-		m_beep(*this, "beeper"),
-		m_maincpu(*this, "maincpu"),
-		m_acia(*this, "acia"),
-		m_palette(*this, "palette")
+	tavernie_state(const machine_config &mconfig, device_type type, const char *tag)
+		: driver_device(mconfig, type, tag)
+		, m_p_videoram(*this, "videoram")
+		, m_cass(*this, "cassette")
+		, m_pia_ivg(*this, "pia_ivg")
+		, m_fdc(*this, "fdc")
+		, m_floppy0(*this, "fdc:0")
+		, m_beep(*this, "beeper")
+		, m_maincpu(*this, "maincpu")
+		, m_acia(*this, "acia")
+		, m_palette(*this, "palette")
+		, m_p_chargen(*this, "chargen")
 	{
 	}
 
@@ -94,12 +94,10 @@ public:
 	DECLARE_WRITE_LINE_MEMBER(write_acia_clock);
 	MC6845_UPDATE_ROW(crtc_update_row);
 
-	const UINT8 *m_p_chargen;
-	optional_shared_ptr<UINT8> m_p_videoram;
-
 private:
-	UINT8 m_term_data;
-	UINT8 m_pa;
+	uint8_t m_term_data;
+	uint8_t m_pa;
+	optional_shared_ptr<uint8_t> m_p_videoram;
 	required_device<cassette_image_device> m_cass;
 	optional_device<pia6821_device> m_pia_ivg;
 	optional_device<fd1795_t> m_fdc;
@@ -107,8 +105,8 @@ private:
 	optional_device<beep_device> m_beep;
 	required_device<cpu_device> m_maincpu;
 	required_device<acia6850_device> m_acia;
-public:
 	optional_device<palette_device> m_palette;
+	optional_region_ptr<u8> m_p_chargen;
 };
 
 
@@ -178,7 +176,6 @@ MACHINE_RESET_MEMBER( tavernie_state, cpu09)
 
 MACHINE_RESET_MEMBER( tavernie_state, ivg09)
 {
-	m_p_chargen = memregion("chargen")->base();
 	m_beep->set_state(1);
 	m_term_data = 0;
 	m_pia_ivg->cb1_w(1);
@@ -209,13 +206,13 @@ WRITE8_MEMBER( tavernie_state::ds_w )
 MC6845_UPDATE_ROW( tavernie_state::crtc_update_row )
 {
 	const rgb_t *palette = m_palette->palette()->entry_list_raw();
-	UINT8 chr,gfx=0;
-	UINT16 mem,x;
-	UINT32 *p = &bitmap.pix32(y);
+	uint8_t chr,gfx=0;
+	uint16_t mem,x;
+	uint32_t *p = &bitmap.pix32(y);
 
 	for (x = 0; x < x_count; x++)
 	{
-		UINT8 inv=0;
+		uint8_t inv=0;
 		if (x == cursor_x) inv=0xff;
 		mem = (ma + x) & 0xfff;
 		if (ra > 7)
@@ -272,7 +269,7 @@ READ_LINE_MEMBER( tavernie_state::ca1_r )
 
 READ8_MEMBER( tavernie_state::pb_ivg_r )
 {
-	UINT8 ret = m_term_data;
+	uint8_t ret = m_term_data;
 	m_term_data = 0;
 	return ret;
 }
@@ -317,9 +314,8 @@ static MACHINE_CONFIG_START( cpu09, tavernie_state )
 	MCFG_PIA_IRQA_HANDLER(INPUTLINE("maincpu", M6809_IRQ_LINE))
 	MCFG_PIA_IRQB_HANDLER(INPUTLINE("maincpu", M6809_IRQ_LINE))
 
-	MCFG_DEVICE_ADD("ptm", PTM6840, 0)
+	MCFG_DEVICE_ADD("ptm", PTM6840, XTAL_4MHz / 4)
 	// all i/o lines connect to the 40-pin expansion connector
-	MCFG_PTM6840_INTERNAL_CLOCK(XTAL_4MHz / 4)
 	MCFG_PTM6840_EXTERNAL_CLOCKS(0, 0, 0)
 	MCFG_PTM6840_OUT1_CB(INPUTLINE("maincpu", INPUT_LINE_NMI))
 	MCFG_PTM6840_IRQ_CB(INPUTLINE("maincpu", M6809_IRQ_LINE))
@@ -357,7 +353,7 @@ static MACHINE_CONFIG_DERIVED( ivg09, cpu09 )
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.50)
 
 	/* Devices */
-	MCFG_DEVICE_ADD(KEYBOARD_TAG, GENERIC_KEYBOARD, 0)
+	MCFG_DEVICE_ADD("keyboard", GENERIC_KEYBOARD, 0)
 	MCFG_GENERIC_KEYBOARD_CB(WRITE8(tavernie_state, kbd_put))
 
 	MCFG_MC6845_ADD("crtc", MC6845, "screen", 1008000) // unknown clock

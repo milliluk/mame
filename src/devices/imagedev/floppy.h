@@ -12,6 +12,7 @@
 #include "formats/flopimg.h"
 #include "formats/d88_dsk.h"
 #include "formats/dfi_dsk.h"
+#include "formats/hxchfe_dsk.h"
 #include "formats/hxcmfm_dsk.h"
 #include "formats/imd_dsk.h"
 #include "formats/ipf_dsk.h"
@@ -42,6 +43,7 @@
 		, \
 		FLOPPY_D88_FORMAT, \
 		FLOPPY_DFI_FORMAT, \
+		FLOPPY_HFE_FORMAT, \
 		FLOPPY_IMD_FORMAT, \
 		FLOPPY_IPF_FORMAT, \
 		FLOPPY_MFI_FORMAT, \
@@ -69,10 +71,10 @@ public:
 	typedef delegate<void (floppy_image_device *, int)> wpt_cb;
 
 	// construction/destruction
-	floppy_image_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
+	floppy_image_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint32_t clock, const char *shortname, const char *source);
 	virtual ~floppy_image_device();
 
-	virtual void handled_variants(UINT32 *variants, int &var_count) const = 0;
+	virtual void handled_variants(uint32_t *variants, int &var_count) const = 0;
 
 	void set_formats(const floppy_format_type *formats);
 	floppy_image_format_t *get_formats() const;
@@ -102,7 +104,7 @@ public:
 	void setup_ready_cb(ready_cb cb);
 	void setup_wpt_cb(wpt_cb cb);
 
-	std::vector<UINT32> &get_buffer() { return image->get_buffer(cyl, ss, subcyl); }
+	std::vector<uint32_t> &get_buffer() { return image->get_buffer(cyl, ss, subcyl); }
 	int get_cyl() { return cyl; }
 
 	void mon_w(int state);
@@ -111,7 +113,7 @@ public:
 
 	bool wpt_r() { return wpt; }
 	int dskchg_r() { return dskchg; }
-	bool trk00_r() { return cyl != 0; }
+	bool trk00_r() { return (has_trk00_sensor ? (cyl != 0) : 1); }
 	int idx_r() { return idx; }
 	int mon_r() { return mon; }
 	bool ss_r() { return ss; }
@@ -122,6 +124,7 @@ public:
 	void dir_w(int state) { dir = state; }
 	void ss_w(int state) { ss = state; }
 	void inuse_w(int state) { }
+	void dskchg_w(int state) { if (dskchg_writable) dskchg = state; }
 
 	void index_resync();
 	attotime time_next_index();
@@ -129,8 +132,8 @@ public:
 	void write_flux(const attotime &start, const attotime &end, int transition_count, const attotime *transitions);
 	void set_write_splice(const attotime &when);
 	int get_sides() { return sides; }
-	UINT32 get_form_factor() const;
-	UINT32 get_variant() const;
+	uint32_t get_form_factor() const;
+	uint32_t get_variant() const;
 
 	static const floppy_format_type default_floppy_formats[];
 
@@ -158,8 +161,10 @@ protected:
 	/* Physical characteristics, filled by setup_characteristics */
 	int tracks; /* addressable tracks */
 	int sides;  /* number of heads */
-	UINT32 form_factor; /* 3"5, 5"25, etc */
+	uint32_t form_factor; /* 3"5, 5"25, etc */
 	bool motor_always_on;
+	bool dskchg_writable;
+	bool has_trk00_sensor;
 
 	/* state of input lines */
 	int dir;  /* direction */
@@ -180,7 +185,7 @@ protected:
 	int floppy_ratio_1; // rpm/300*1000
 
 	attotime revolution_start_time, rev_time;
-	UINT32 revolution_count;
+	uint32_t revolution_count;
 	int cyl, subcyl;
 
 	bool image_dirty;
@@ -192,11 +197,11 @@ protected:
 	ready_cb cur_ready_cb;
 	wpt_cb cur_wpt_cb;
 
-	UINT32 find_position(attotime &base, const attotime &when);
-	int find_index(UINT32 position, const std::vector<UINT32> &buf);
-	void write_zone(UINT32 *buf, int &cells, int &index, UINT32 spos, UINT32 epos, UINT32 mg);
+	uint32_t find_position(attotime &base, const attotime &when);
+	int find_index(uint32_t position, const std::vector<uint32_t> &buf);
+	void write_zone(uint32_t *buf, int &cells, int &index, uint32_t spos, uint32_t epos, uint32_t mg);
 	void commit_image();
-	attotime get_next_index_time(std::vector<UINT32> &buf, int index, int delta, attotime base);
+	attotime get_next_index_time(std::vector<uint32_t> &buf, int index, int delta, attotime base);
 
 	// Sound
 	bool    m_make_sound;
@@ -206,9 +211,9 @@ protected:
 #define DECLARE_FLOPPY_IMAGE_DEVICE(_name, _interface) \
 	class _name : public floppy_image_device { \
 	public: \
-		_name(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock); \
+		_name(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock); \
 		virtual ~_name(); \
-		virtual void handled_variants(UINT32 *variants, int &var_count) const override; \
+		virtual void handled_variants(uint32_t *variants, int &var_count) const override; \
 		virtual const char *image_interface() const override { return _interface; } \
 	protected: \
 		virtual void setup_characteristics() override; \
@@ -243,6 +248,7 @@ DECLARE_FLOPPY_IMAGE_DEVICE(teac_fd_55e, "floppy_5_25")
 DECLARE_FLOPPY_IMAGE_DEVICE(teac_fd_55f, "floppy_5_25")
 DECLARE_FLOPPY_IMAGE_DEVICE(teac_fd_55g, "floppy_5_25")
 DECLARE_FLOPPY_IMAGE_DEVICE(alps_3255190x, "floppy_5_25")
+DECLARE_FLOPPY_IMAGE_DEVICE(ibm_6360, "floppy_8")
 
 extern const device_type FLOPPYSOUND;
 
@@ -254,7 +260,7 @@ extern const device_type FLOPPYSOUND;
 class floppy_sound_device : public samples_device
 {
 public:
-	floppy_sound_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	floppy_sound_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	void motor(bool on, bool withdisk);
 	void step(int track);
 	bool samples_loaded() { return m_loaded; }
@@ -290,7 +296,7 @@ class floppy_connector: public device_t,
 						public device_slot_interface
 {
 public:
-	floppy_connector(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	floppy_connector(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	virtual ~floppy_connector();
 
 	void set_formats(const floppy_format_type *formats);
@@ -338,5 +344,9 @@ extern const device_type TEAC_FD_55E;
 extern const device_type TEAC_FD_55F;
 extern const device_type TEAC_FD_55G;
 extern const device_type ALPS_3255190x;
+extern const device_type IBM_6360;
+
+extern template class device_finder<floppy_connector, false>;
+extern template class device_finder<floppy_connector, true>;
 
 #endif /* FLOPPY_H */

@@ -1,10 +1,9 @@
 // license:BSD-3-Clause
 // copyright-holders:Miodrag Milanovic
+#include "emu.h"
 #include "teleprinter.h"
 
-#define KEYBOARD_TAG "keyboard"
-
-static const UINT8 teleprinter_font[128*8] =
+static const uint8_t teleprinter_font[128*8] =
 {
 	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
 	0x07,0x07,0x07,0x07,0x00,0x00,0x00,0x00,
@@ -136,7 +135,7 @@ static const UINT8 teleprinter_font[128*8] =
 	0x2a,0x15,0x2a,0x15,0x2a,0x15,0x2a,0x15
 };
 
-teleprinter_device::teleprinter_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+teleprinter_device::teleprinter_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: generic_terminal_device(mconfig, TELEPRINTER, "Teleprinter", tag, owner, clock, "teleprinter", __FILE__)
 {
 }
@@ -147,7 +146,7 @@ void teleprinter_device::scroll_line()
 	memset(m_buffer + TELEPRINTER_WIDTH*(TELEPRINTER_HEIGHT-1),0x20,TELEPRINTER_WIDTH);
 }
 
-void teleprinter_device::write_char(UINT8 data) {
+void teleprinter_device::write_char(uint8_t data) {
 	m_buffer[(TELEPRINTER_HEIGHT-1)*TELEPRINTER_WIDTH+m_x_pos] = data;
 	m_x_pos++;
 	if (m_x_pos >= TELEPRINTER_WIDTH)
@@ -162,7 +161,7 @@ void teleprinter_device::clear() {
 	m_x_pos = 0;
 }
 
-void teleprinter_device::term_write(UINT8 data)
+void teleprinter_device::term_write(uint8_t data)
 {
 	switch(data) {
 		case 10: m_x_pos = 0;
@@ -182,9 +181,9 @@ void teleprinter_device::term_write(UINT8 data)
 /***************************************************************************
     VIDEO HARDWARE
 ***************************************************************************/
-UINT32 teleprinter_device::tp_update(screen_device &device, bitmap_rgb32 &bitmap, const rectangle &cliprect)
+uint32_t teleprinter_device::tp_update(screen_device &device, bitmap_rgb32 &bitmap, const rectangle &cliprect)
 {
-	UINT8 code;
+	uint8_t code;
 	int y, c, x, b;
 
 	for (y = 0; y < TELEPRINTER_HEIGHT; y++)
@@ -215,7 +214,7 @@ MACHINE_CONFIG_FRAGMENT( generic_teleprinter )
 	MCFG_SCREEN_SIZE(TELEPRINTER_WIDTH*8, TELEPRINTER_HEIGHT*8)
 	MCFG_SCREEN_VISIBLE_AREA(0, TELEPRINTER_WIDTH*8-1, 0, TELEPRINTER_HEIGHT*8-1)
 	MCFG_SCREEN_UPDATE_DEVICE(DEVICE_SELF, teleprinter_device, tp_update)
-	MCFG_DEVICE_ADD(KEYBOARD_TAG, GENERIC_KEYBOARD, 0)
+	MCFG_DEVICE_ADD("keyboard", GENERIC_KEYBOARD, 0)
 	MCFG_GENERIC_KEYBOARD_CB(WRITE8(generic_terminal_device, kbd_put))
 
 	MCFG_SPEAKER_STANDARD_MONO("bell")

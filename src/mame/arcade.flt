@@ -196,6 +196,7 @@ cchance.cpp
 cchasm.cpp
 cclimber.cpp
 cdi.cpp
+cedar_magnet.cpp
 centiped.cpp
 cesclass.cpp
 chaknpop.cpp
@@ -394,6 +395,7 @@ fungames.cpp
 funkball.cpp
 funkybee.cpp
 funkyjet.cpp
+funtech.cpp
 funworld.cpp
 funybubl.cpp
 fuukifg2.cpp
@@ -411,6 +413,7 @@ galaxia.cpp
 galaxian.cpp
 galaxold.cpp
 galgame.cpp
+galgames.cpp
 galivan.cpp
 galpani2.cpp
 galpani3.cpp
@@ -477,6 +480,7 @@ gyruss.cpp
 halleys.cpp
 hanaawas.cpp
 hankin.cpp
+hapyfish.cpp
 harddriv.cpp
 hazelgr.cpp
 hcastle.cpp
@@ -527,6 +531,7 @@ iqblock.cpp
 irobot.cpp
 ironhors.cpp
 istellar.cpp
+istrebiteli.cpp
 iteagle.cpp
 itech32.cpp
 itech8.cpp
@@ -587,6 +592,7 @@ konamigv.cpp
 konamigx.cpp
 konamim2.cpp
 konendev.cpp
+konmedal.cpp
 kontest.cpp
 kopunch.cpp
 ksayakyu.cpp
@@ -663,6 +669,7 @@ marineb.cpp
 marinedt.cpp
 mario.cpp
 markham.cpp
+marywu.cpp
 mastboy.cpp
 matmania.cpp
 maxaflex.cpp
@@ -721,6 +728,7 @@ missb2.cpp
 missile.cpp
 mitchell.cpp
 mjkjidai.cpp
+mjsenpu.cpp
 mjsister.cpp
 mlanding.cpp
 mmagic.cpp
@@ -845,6 +853,7 @@ peplus.cpp
 peyper.cpp
 pgm.cpp
 pgm2.cpp
+pgm3.cpp
 phoenix.cpp
 photon.cpp
 photon2.cpp
@@ -1324,6 +1333,7 @@ zerozone.cpp
 zn.cpp
 zodiack.cpp
 zr107.cpp
+zwackery.cpp
 //exceptions + to add - to remove from imported list
 //3do.cpp
 -3do

@@ -59,7 +59,7 @@ public:
 
 protected:
 	// amiga_state overrides
-	virtual void potgo_w(UINT16 data) override;
+	virtual void potgo_w(uint16_t data) override;
 	int get_lightgun_pos(int player, int *x, int *y);
 
 private:
@@ -70,7 +70,7 @@ private:
 	optional_ioport m_gun2y;
 	optional_ioport m_triggers;
 
-	UINT16 m_input_select;
+	uint16_t m_input_select;
 };
 
 
@@ -91,11 +91,11 @@ int alg_state::get_lightgun_pos(int player, int *x, int *y)
 	int ypos = (player == 0) ? m_gun1y->read() : m_gun2y.read_safe(0xffffffff);
 
 	if (xpos == -1 || ypos == -1)
-		return FALSE;
+		return false;
 
 	*x = visarea.min_x + xpos * visarea.width() / 255;
 	*y = visarea.min_y + ypos * visarea.height() / 255;
-	return TRUE;
+	return true;
 }
 
 
@@ -126,7 +126,7 @@ VIDEO_START_MEMBER(alg_state,alg)
  *
  *************************************/
 
-void alg_state::potgo_w(UINT16 data)
+void alg_state::potgo_w(uint16_t data)
 {
 	/* bit 15 controls whether pin 9 is input/output */
 	/* bit 14 controls the value, which selects which player's controls to read */
@@ -320,11 +320,13 @@ static MACHINE_CONFIG_START( alg_r1, alg_state )
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
 
-	MCFG_SOUND_ADD("amiga", AMIGA, amiga_state::CLK_C1_NTSC)
+	MCFG_SOUND_ADD("amiga", PAULA_8364, amiga_state::CLK_C1_NTSC)
 	MCFG_SOUND_ROUTE(0, "lspeaker", 0.25)
 	MCFG_SOUND_ROUTE(1, "rspeaker", 0.25)
 	MCFG_SOUND_ROUTE(2, "rspeaker", 0.25)
 	MCFG_SOUND_ROUTE(3, "lspeaker", 0.25)
+	MCFG_PAULA_MEM_READ_CB(READ16(amiga_state, chip_ram_r))
+	MCFG_PAULA_INT_CB(WRITELINE(amiga_state, paula_int_w))
 
 	MCFG_SOUND_MODIFY("laserdisc")
 	MCFG_SOUND_ROUTE(0, "lspeaker", 1.0)
@@ -696,15 +698,15 @@ DRIVER_INIT_MEMBER(alg_state,palr1)
 {
 	DRIVER_INIT_CALL(ntsc);
 
-	UINT32 length = memregion("user2")->bytes();
-	UINT8 *rom = memregion("user2")->base();
-	dynamic_buffer original(length);
-	UINT32 srcaddr;
+	uint32_t length = memregion("user2")->bytes();
+	uint8_t *rom = memregion("user2")->base();
+	std::vector<uint8_t> original(length);
+	uint32_t srcaddr;
 
 	memcpy(&original[0], rom, length);
 	for (srcaddr = 0; srcaddr < length; srcaddr++)
 	{
-		UINT32 dstaddr = srcaddr;
+		uint32_t dstaddr = srcaddr;
 		if (srcaddr & 0x2000) dstaddr ^= 0x1000;
 		if (srcaddr & 0x8000) dstaddr ^= 0x4000;
 		rom[dstaddr] = original[srcaddr];
@@ -715,15 +717,15 @@ DRIVER_INIT_MEMBER(alg_state,palr3)
 {
 	DRIVER_INIT_CALL(ntsc);
 
-	UINT32 length = memregion("user2")->bytes();
-	UINT8 *rom = memregion("user2")->base();
-	dynamic_buffer original(length);
-	UINT32 srcaddr;
+	uint32_t length = memregion("user2")->bytes();
+	uint8_t *rom = memregion("user2")->base();
+	std::vector<uint8_t> original(length);
+	uint32_t srcaddr;
 
 	memcpy(&original[0], rom, length);
 	for (srcaddr = 0; srcaddr < length; srcaddr++)
 	{
-		UINT32 dstaddr = srcaddr;
+		uint32_t dstaddr = srcaddr;
 		if (srcaddr & 0x2000) dstaddr ^= 0x1000;
 		rom[dstaddr] = original[srcaddr];
 	}
@@ -733,15 +735,15 @@ DRIVER_INIT_MEMBER(alg_state,palr6)
 {
 	DRIVER_INIT_CALL(ntsc);
 
-	UINT32 length = memregion("user2")->bytes();
-	UINT8 *rom = memregion("user2")->base();
-	dynamic_buffer original(length);
-	UINT32 srcaddr;
+	uint32_t length = memregion("user2")->bytes();
+	uint8_t *rom = memregion("user2")->base();
+	std::vector<uint8_t> original(length);
+	uint32_t srcaddr;
 
 	memcpy(&original[0], rom, length);
 	for (srcaddr = 0; srcaddr < length; srcaddr++)
 	{
-		UINT32 dstaddr = srcaddr;
+		uint32_t dstaddr = srcaddr;
 		if (~srcaddr & 0x2000) dstaddr ^= 0x1000;
 		if ( srcaddr & 0x8000) dstaddr ^= 0x4000;
 		dstaddr ^= 0x20000;
@@ -754,8 +756,8 @@ DRIVER_INIT_MEMBER(alg_state,aplatoon)
 	DRIVER_INIT_CALL(ntsc);
 
 	/* NOT DONE TODO FIGURE OUT THE RIGHT ORDER!!!! */
-	UINT8 *rom = memregion("user2")->base();
-	std::unique_ptr<UINT8[]> decrypted = std::make_unique<UINT8[]>(0x40000);
+	uint8_t *rom = memregion("user2")->base();
+	std::unique_ptr<uint8_t[]> decrypted = std::make_unique<uint8_t[]>(0x40000);
 	int i;
 
 	static const int shuffle[] =

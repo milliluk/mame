@@ -14,8 +14,8 @@
 #error Dont include this file directly; include emu.h instead.
 #endif
 
-#ifndef __DIIMAGE_H__
-#define __DIIMAGE_H__
+#ifndef MAME_EMU_DIIMAGE_H
+#define MAME_EMU_DIIMAGE_H
 
 #include <memory>
 #include <string>
@@ -116,13 +116,13 @@ typedef void (*device_image_partialhash_func)(util::hash_collection &, const uns
 #define DEVICE_IMAGE_LOAD_NAME(_class,_name)           _class::DEVICE_IMAGE_LOAD_MEMBER_NAME(_name)
 #define DECLARE_DEVICE_IMAGE_LOAD_MEMBER(_name)        image_init_result DEVICE_IMAGE_LOAD_MEMBER_NAME(_name)(device_image_interface &image)
 #define DEVICE_IMAGE_LOAD_MEMBER(_class,_name)         image_init_result DEVICE_IMAGE_LOAD_NAME(_class,_name)(device_image_interface &image)
-#define DEVICE_IMAGE_LOAD_DELEGATE(_class,_name)       device_image_load_delegate(&DEVICE_IMAGE_LOAD_NAME(_class,_name),#_class "::device_image_load_" #_name, downcast<_class *>(device->owner()))
+#define DEVICE_IMAGE_LOAD_DELEGATE(_class,_name)       device_image_load_delegate(&DEVICE_IMAGE_LOAD_NAME(_class,_name), downcast<_class *>(device->owner()))
 
 #define DEVICE_IMAGE_UNLOAD_MEMBER_NAME(_name)          device_image_unload_##_name
 #define DEVICE_IMAGE_UNLOAD_NAME(_class,_name)          _class::DEVICE_IMAGE_UNLOAD_MEMBER_NAME(_name)
 #define DECLARE_DEVICE_IMAGE_UNLOAD_MEMBER(_name)       void DEVICE_IMAGE_UNLOAD_MEMBER_NAME(_name)(device_image_interface &image)
 #define DEVICE_IMAGE_UNLOAD_MEMBER(_class,_name)        void DEVICE_IMAGE_UNLOAD_NAME(_class,_name)(device_image_interface &image)
-#define DEVICE_IMAGE_UNLOAD_DELEGATE(_class,_name)      device_image_func_delegate(&DEVICE_IMAGE_UNLOAD_NAME(_class,_name),#_class "::device_image_unload_" #_name, downcast<_class *>(device->owner()))
+#define DEVICE_IMAGE_UNLOAD_DELEGATE(_class,_name)      device_image_func_delegate(&DEVICE_IMAGE_UNLOAD_NAME(_class,_name), downcast<_class *>(device->owner()))
 
 #define MCFG_SET_IMAGE_LOADABLE(_usrload) \
 	device_image_interface::static_set_user_loadable(*device, _usrload);
@@ -158,13 +158,14 @@ public:
 	virtual bool is_creatable() const = 0;
 	virtual bool must_be_loaded() const = 0;
 	virtual bool is_reset_on_load() const = 0;
+	virtual bool support_command_line_image_creation() const;
 	virtual const char *image_interface() const { return nullptr; }
 	virtual const char *file_extensions() const = 0;
-	virtual const option_guide *create_option_guide() const { return nullptr; }
+	virtual const util::option_guide &create_option_guide() const;
 
 	const image_device_format *device_get_indexed_creatable_format(int index) const { if (index < m_formatlist.size()) return m_formatlist.at(index).get(); else return nullptr;  }
 	const image_device_format *device_get_named_creatable_format(const std::string &format_name);
-	const option_guide *device_get_creation_option_guide() const { return create_option_guide(); }
+	const util::option_guide &device_get_creation_option_guide() const { return create_option_guide(); }
 
 	const char *error();
 	void seterror(image_error_t err, const char *message);
@@ -178,16 +179,16 @@ public:
 	bool is_filetype(const std::string &candidate_filetype) { return !core_stricmp(filetype().c_str(), candidate_filetype.c_str()); }
 	bool is_open() const { return bool(m_file); }
 	util::core_file &image_core_file() const { return *m_file; }
-	UINT64 length() { check_for_file(); return m_file->size(); }
+	u64 length() { check_for_file(); return m_file->size(); }
 	bool is_readonly() const { return m_readonly; }
-	UINT32 fread(void *buffer, UINT32 length) { check_for_file(); return m_file->read(buffer, length); }
-	UINT32 fread(optional_shared_ptr<UINT8> &ptr, UINT32 length) { ptr.allocate(length); return fread(ptr.target(), length); }
-	UINT32 fread(optional_shared_ptr<UINT8> &ptr, UINT32 length, offs_t offset) { ptr.allocate(length); return fread(ptr + offset, length - offset); }
-	UINT32 fwrite(const void *buffer, UINT32 length) { check_for_file(); return m_file->write(buffer, length); }
-	int fseek(INT64 offset, int whence) { check_for_file(); return m_file->seek(offset, whence); }
-	UINT64 ftell() { check_for_file(); return m_file->tell(); }
+	u32 fread(void *buffer, u32 length) { check_for_file(); return m_file->read(buffer, length); }
+	u32 fread(optional_shared_ptr<u8> &ptr, u32 length) { ptr.allocate(length); return fread(ptr.target(), length); }
+	u32 fread(optional_shared_ptr<u8> &ptr, u32 length, offs_t offset) { ptr.allocate(length); return fread(ptr + offset, length - offset); }
+	u32 fwrite(const void *buffer, u32 length) { check_for_file(); return m_file->write(buffer, length); }
+	int fseek(s64 offset, int whence) { check_for_file(); return m_file->seek(offset, whence); }
+	u64 ftell() { check_for_file(); return m_file->tell(); }
 	int fgetc() { char ch; if (fread(&ch, 1) != 1) ch = '\0'; return ch; }
-	char *fgets(char *buffer, UINT32 length) { check_for_file(); return m_file->gets(buffer, length); }
+	char *fgets(char *buffer, u32 length) { check_for_file(); return m_file->gets(buffer, length); }
 	int image_feof() { check_for_file(); return m_file->eof(); }
 	void *ptr() {check_for_file(); return const_cast<void *>(m_file->buffer()); }
 	// configuration access
@@ -196,7 +197,7 @@ public:
 	const std::string &longname() const { return m_longname; }
 	const std::string &manufacturer() const { return m_manufacturer; }
 	const std::string &year() const { return m_year; }
-	UINT32 supported() const { return m_supported; }
+	u32 supported() const { return m_supported; }
 
 	const software_info *software_entry() const { return m_software_info_ptr; }
 	const software_part *part_entry() const { return m_software_part_ptr; }
@@ -206,12 +207,12 @@ public:
 	void set_working_directory(const char *working_directory) { m_working_directory = working_directory; }
 	const std::string &working_directory();
 
-	UINT8 *get_software_region(const char *tag);
-	UINT32 get_software_region_length(const char *tag);
+	u8 *get_software_region(const char *tag);
+	u32 get_software_region_length(const char *tag);
 	const char *get_feature(const char *feature_name);
-	bool load_software_region(const char *tag, optional_shared_ptr<UINT8> &ptr);
+	bool load_software_region(const char *tag, optional_shared_ptr<u8> &ptr);
 
-	UINT32 crc();
+	u32 crc();
 	util::hash_collection& hash() { return m_hash; }
 
 	void battery_load(void *buffer, int length, int fill);
@@ -235,6 +236,7 @@ public:
 	image_init_result finish_load();
 	void unload();
 	image_init_result create(const std::string &path, const image_device_format *create_format, util::option_resolution *create_args);
+	image_init_result create(const std::string &path);
 	bool load_software(software_list_device &swlist, const char *swname, const rom_entry *entry);
 	int reopen_for_write(const std::string &path);
 
@@ -250,9 +252,10 @@ public:
 
 protected:
 	virtual const software_list_loader &get_software_list_loader() const;
+	virtual const bool use_software_list_file_extension_for_filetype() const { return false; }
 
 	image_init_result load_internal(const std::string &path, bool is_create, int create_format, util::option_resolution *create_args, bool just_load);
-	image_error_t load_image_by_path(UINT32 open_flags, const std::string &path);
+	image_error_t load_image_by_path(u32 open_flags, const std::string &path);
 	void clear();
 	bool is_loaded();
 
@@ -305,7 +308,7 @@ protected:
 private:
 	static image_error_t image_error_from_file_error(osd_file::error filerr);
 	bool schedule_postload_hard_reset_if_needed();
-	std::vector<UINT32> determine_open_plan(bool is_create);
+	std::vector<u32> determine_open_plan(bool is_create);
 
 	// creation info
 	formatlist_type m_formatlist;
@@ -317,7 +320,7 @@ private:
 	std::string m_longname;
 	std::string m_manufacturer;
 	std::string m_year;
-	UINT32  m_supported;
+	u32 m_supported;
 
 	// flags
 	bool m_readonly;
@@ -343,4 +346,4 @@ private:
 // iterator
 typedef device_interface_iterator<device_image_interface> image_interface_iterator;
 
-#endif  /* __DIIMAGE_H__ */
+#endif  /* MAME_EMU_DIIMAGE_H */

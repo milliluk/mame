@@ -11,7 +11,6 @@
 #ifndef __SVI3X8_EXPANDER_SV601_H__
 #define __SVI3X8_EXPANDER_SV601_H__
 
-#include "emu.h"
 #include "expander.h"
 #include "bus/svi3x8/slot/slot.h"
 
@@ -26,7 +25,7 @@ class sv601_device : public device_t, public device_svi_expander_interface
 {
 public:
 	// construction/destruction
-	sv601_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	sv601_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// from slots
 	WRITE_LINE_MEMBER( int_w );

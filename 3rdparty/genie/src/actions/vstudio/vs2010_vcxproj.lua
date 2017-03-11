@@ -38,7 +38,8 @@
 		--if prj.flags is required as it is not set at project level for tests???
 		--vs200x generator seems to swap a config for the prj in test setup
 		if prj.flags and prj.flags.Managed then
-			_p(2, '<TargetFrameworkVersion>v4.0</TargetFrameworkVersion>')
+            local frameworkVersion = prj.framework or "4.0"
+			_p(2, '<TargetFrameworkVersion>v%s</TargetFrameworkVersion>', frameworkVersion)
 			_p(2, '<Keyword>ManagedCProj</Keyword>')
 		elseif vstudio.iswinrt() then
 			_p(2, '<DefaultLanguage>en-US</DefaultLanguage>')
@@ -175,7 +176,11 @@
 				_p(2, '<LibraryWPath>$(Console_SdkLibPath);$(Console_SdkWindowsMetadataPath)</LibraryWPath>')
 				_p(2, '<IncludePath>$(Console_SdkIncludeRoot)</IncludePath>')
 				_p(2, '<ExecutablePath>$(Console_SdkRoot)bin;$(VCInstallDir)bin\\x86_amd64;$(VCInstallDir)bin;$(WindowsSDK_ExecutablePath_x86);$(VSInstallDir)Common7\\Tools\\bin;$(VSInstallDir)Common7\\tools;$(VSInstallDir)Common7\\ide;$(ProgramFiles)\\HTML Help Workshop;$(MSBuildToolsPath32);$(FxCopDir);$(PATH);</ExecutablePath>')
-				_p(2, '<LayoutDir>%s</LayoutDir>', prj.name)
+                if cfg.imagepath then
+                    _p(2, '<LayoutDir>%s</LayoutDir>', cfg.imagepath)
+                else
+                    _p(2, '<LayoutDir>%s</LayoutDir>', prj.name)
+                end
 				_p(2, '<LayoutExtensionFilter>*.pdb;*.ilk;*.exp;*.lib;*.winmd;*.appxrecipe;*.pri;*.idb</LayoutExtensionFilter>')
 				_p(2, '<IsolateConfigurationsOnDeploy>true</IsolateConfigurationsOnDeploy>')
 			end
@@ -342,9 +347,23 @@
 	local function vs10_clcompile(cfg)
 		_p(2,'<ClCompile>')
 
+		local unsignedChar = "/J "
+		local buildoptions = cfg.buildoptions
+
+		if cfg.platform == "Orbis" then
+			unsignedChar = "-funsigned-char ";
+			_p(3,'<GenerateDebugInformation>%s</GenerateDebugInformation>', tostring(cfg.flags.Symbols ~= nil))
+		end
+
+		if cfg.language == "C" and not cfg.options.ForceCPP then
+			buildoptions = table.join(buildoptions, cfg.buildoptions_c)
+		else
+			buildoptions = table.join(buildoptions, cfg.buildoptions_cpp)
+		end
+
 		_p(3,'<AdditionalOptions>%s %s%%(AdditionalOptions)</AdditionalOptions>'
-			, table.concat(premake.esc(cfg.buildoptions), " ")
-			, iif(cfg.flags.UnsignedChar, "/J ", " ")
+			, table.concat(premake.esc(buildoptions), " ")
+			, iif(cfg.flags.UnsignedChar, unsignedChar, " ")
 			)
 
 		_p(3,'<Optimization>%s</Optimization>',optimisation(cfg))
@@ -369,9 +388,7 @@
 			_p(3, '<CompileAsWinRT>false</CompileAsWinRT>')
 		end
 
-		if cfg.platform ~= "Durango" then
-			_p(3,'<RuntimeLibrary>%s</RuntimeLibrary>', runtime(cfg))
-		end
+		_p(3,'<RuntimeLibrary>%s</RuntimeLibrary>', runtime(cfg))
 
 		if cfg.flags.NoBufferSecurityCheck then
 			_p(3,'<BufferSecurityCheck>false</BufferSecurityCheck>')
@@ -491,6 +508,10 @@
 		if hasmasmfiles(prj) then
 			_p(2, '<MASM>')
 
+			_p(3,'<AdditionalOptions>%s %%(AdditionalOptions)</AdditionalOptions>'
+				, table.concat(premake.esc(table.join(cfg.buildoptions, cfg.buildoptions_asm)), " ")
+				)
+
 			local includedirs = table.join(cfg.userincludedirs, cfg.includedirs)
 
 			if #includedirs > 0 then
@@ -572,9 +593,9 @@
 			link_target_machine(3,cfg)
 			additional_options(3,cfg)
 
-            if cfg.flags.NoWinMD and vstudio.iswinrt() and prj.kind == "WindowedApp" then
+			if cfg.flags.NoWinMD and vstudio.iswinrt() and prj.kind == "WindowedApp" then
 				_p(3,'<GenerateWindowsMetadata>false</GenerateWindowsMetadata>' )
-            end
+			end
 		end
 
 		_p(2,'</Link>')
@@ -590,8 +611,17 @@
 	function vc2010.additionalDependencies(tab,cfg)
 		local links = premake.getlinks(cfg, "system", "fullpath")
 		if #links > 0 then
-			_p(tab,'<AdditionalDependencies>%s;%s</AdditionalDependencies>'
-				, table.concat(links, ";")
+			local deps = ""
+			if cfg.platform == "Orbis" then
+				for _, v in ipairs(links) do
+					deps = deps .. "-l" .. v .. ";"
+				end
+			else
+				deps = table.concat(links, ";")
+			end
+
+			_p(tab, '<AdditionalDependencies>%s;%s</AdditionalDependencies>'
+				, deps
 				, iif(cfg.platform == "Durango"
 					, '$(XboxExtensionsDependencies)'
 					, '%(AdditionalDependencies)'
@@ -632,12 +662,13 @@
 				None = {},
 				ResourceCompile = {},
 				AppxManifest = {},
+				Natvis = {},
 				Image = {},
 				DeploymentContent = {}
 			}
 
 			local foundAppxManifest = false
-			for file in premake.project.eachfile(prj) do
+			for file in premake.project.eachfile(prj, true) do
 				if path.isSourceFileVS(file.name) then
 					table.insert(sortedfiles.ClCompile, file)
 				elseif path.iscppheader(file.name) then
@@ -649,6 +680,8 @@
 				elseif path.isappxmanifest(file.name) then
 					foundAppxManifest = true
 					table.insert(sortedfiles.AppxManifest, file)
+				elseif path.isnatvis(file.name) then
+					table.insert(sortedfiles.Natvis, file)
 				elseif path.isasmfile(file.name) then
 					table.insert(sortedfiles.MASM, file)
 				elseif file.flags and table.icontains(file.flags, "DeploymentContent") then
@@ -708,6 +741,7 @@
 		vc2010.customtaskgroup(prj)
 		vc2010.simplefilesgroup(prj, "ResourceCompile")
 		vc2010.simplefilesgroup(prj, "AppxManifest")
+		vc2010.simplefilesgroup(prj, "Natvis")
 		vc2010.deploymentcontentgroup(prj, "Image")
 		vc2010.deploymentcontentgroup(prj, "DeploymentContent", "None")
 	end
@@ -848,12 +882,25 @@
 				local excluded = table.icontains(prj.excludes, file.name)
 				for _, vsconfig in ipairs(configs) do
 					local cfg = premake.getconfig(prj, vsconfig.src_buildcfg, vsconfig.src_platform)
-					if excluded or table.icontains(cfg.excludes, file.name) then
+					local fileincfg = table.icontains(cfg.files, file.name)
+					local cfgexcluded = table.icontains(cfg.excludes, file.name)
+
+					if excluded or not fileincfg or cfgexcluded then
 						_p(3, '<ExcludedFromBuild '
 							.. if_config_and_platform()
 							.. '>true</ExcludedFromBuild>'
 							, premake.esc(vsconfig.name)
 							)
+					end
+				end
+
+				if prj.flags and prj.flags.Managed then
+					local prjforcenative = table.icontains(prj.forcenative, file.name)
+					for _,vsconfig in ipairs(configs) do
+						local cfg = premake.getconfig(prj, vsconfig.src_buildcfg, vsconfig.src_platform)
+						if prjforcenative or table.icontains(cfg.forcenative, file.name) then
+							_p(3, '<CompileAsManaged ' .. if_config_and_platform() .. '>false</CompileAsManaged>', premake.esc(vsconfig.name))
+						end
 					end
 				end
 
@@ -875,8 +922,13 @@
 				local excluded = table.icontains(prj.excludes, file.name)
 				for _, vsconfig in ipairs(configs) do
 					local cfg = premake.getconfig(prj, vsconfig.src_buildcfg, vsconfig.src_platform)
-					if excluded or table.icontains(cfg.excludes, file.name) then
-						_p(3, '<ExcludedFromBuild ' .. if_config_and_platform() .. '>true</ExcludedFromBuild>'
+					local fileincfg = table.icontains(cfg.files, file.name)
+					local cfgexcluded = table.icontains(cfg.excludes, file.name)
+
+					if excluded or not fileincfg or cfgexcluded then
+						_p(3, '<ExcludedFromBuild '
+							.. if_config_and_platform()
+							.. '>true</ExcludedFromBuild>'
 							, premake.esc(vsconfig.name)
 							)
 					end
@@ -943,6 +995,10 @@
 
 			item_definitions(prj)
 
+			if prj.flags.Managed then
+				vc2010.clrReferences(prj)
+			end
+
 			vc2010.files(prj)
 			vc2010.projectReferences(prj)
 			vc2010.masmfiles(prj)
@@ -957,6 +1013,29 @@
 		_p('</Project>')
 	end
 
+--
+-- Generate the list of CLR references
+--
+	function vc2010.clrReferences(prj)
+		if #prj.clrreferences == 0 then
+			return
+		end
+
+		_p(1,'<ItemGroup>')
+
+		for _, ref in ipairs(prj.clrreferences) do
+			if os.isfile(ref) then
+				local assembly = path.getbasename(ref)
+				_p(2,'<Reference Include="%s">', assembly)
+				_p(3,'<HintPath>%s</HintPath>', path.getrelative(prj.location, ref))
+				_p(2,'</Reference>')
+			else
+				_p(2,'<Reference Include="%s" />', ref)
+			end
+		end
+
+		_p(1,'</ItemGroup>')
+	end
 
 --
 -- Generate the list of project dependencies.
@@ -964,19 +1043,31 @@
 
 	function vc2010.projectReferences(prj)
 		local deps = premake.getdependencies(prj)
-		if #deps > 0 then
-			_p(1,'<ItemGroup>')
-			for _, dep in ipairs(deps) do
-				local deppath = path.getrelative(prj.location, vstudio.projectfile(dep))
-				_p(2,'<ProjectReference Include=\"%s\">', path.translate(deppath, "\\"))
-				_p(3,'<Project>{%s}</Project>', dep.uuid)
-				if vstudio.iswinrt() then
-					_p(3,'<ReferenceOutputAssembly>false</ReferenceOutputAssembly>')
-				end
-				_p(2,'</ProjectReference>')
-			end
-			_p(1,'</ItemGroup>')
+
+		if #deps == 0 and #prj.vsimportreferences == 0 then
+			return
 		end
+
+		_p(1,'<ItemGroup>')
+
+		for _, dep in ipairs(deps) do
+			local deppath = path.getrelative(prj.location, vstudio.projectfile(dep))
+			_p(2,'<ProjectReference Include=\"%s\">', path.translate(deppath, "\\"))
+			_p(3,'<Project>{%s}</Project>', dep.uuid)
+			if vstudio.iswinrt() then
+				_p(3,'<ReferenceOutputAssembly>false</ReferenceOutputAssembly>')
+			end
+			_p(2,'</ProjectReference>')
+		end
+
+		for _, ref in ipairs(prj.vsimportreferences) do
+			local iprj = premake.vstudio.getimportprj(ref, prj.solution)
+			_p(2,'<ProjectReference Include=\"%s\">', iprj.relpath)
+			_p(3,'<Project>{%s}</Project>', iprj.uuid)
+			_p(2,'</ProjectReference>')
+		end
+
+		_p(1,'</ItemGroup>')
 	end
 
 
@@ -985,22 +1076,29 @@
 --
 
 	function vc2010.debugdir(cfg)
-		if cfg.debugdir and not vstudio.iswinrt() then
-			_p('    <LocalDebuggerWorkingDirectory>%s</LocalDebuggerWorkingDirectory>', path.translate(cfg.debugdir, '\\'))
-			_p('    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>')
-		end
-		if cfg.debugargs then
-			_p('    <LocalDebuggerCommandArguments>%s</LocalDebuggerCommandArguments>', table.concat(cfg.debugargs, " "))
-		end
-	end
+		_p(2, '<DebuggerFlavor>%s</DebuggerFlavor>'
+			, iif(cfg.platform == "Orbis", 'ORBISDebugger', 'WindowsLocalDebugger')
+			)
 
-	function vc2010.debugenvs(cfg)
+		if cfg.debugdir and not vstudio.iswinrt() then
+			_p(2, '<LocalDebuggerWorkingDirectory>%s</LocalDebuggerWorkingDirectory>'
+				, path.translate(cfg.debugdir, '\\')
+				)
+		end
+
+		if cfg.debugargs then
+			_p(2, '<LocalDebuggerCommandArguments>%s</LocalDebuggerCommandArguments>'
+				, table.concat(cfg.debugargs, " ")
+				)
+		end
+
 		if cfg.debugenvs and #cfg.debugenvs > 0 then
-			_p(2,'<LocalDebuggerEnvironment>%s%s</LocalDebuggerEnvironment>',table.concat(cfg.debugenvs, "\n")
-					,iif(cfg.flags.DebugEnvsInherit,'\n$(LocalDebuggerEnvironment)','')
+			_p(2, '<LocalDebuggerEnvironment>%s%s</LocalDebuggerEnvironment>'
+				, table.concat(cfg.debugenvs, "\n")
+				, iif(cfg.flags.DebugEnvsInherit,'\n$(LocalDebuggerEnvironment)', '')
 				)
 			if cfg.flags.DebugEnvsDontMerge then
-				_p(2,'<LocalDebuggerMergeEnvironment>false</LocalDebuggerMergeEnvironment>')
+				_p(2, '<LocalDebuggerMergeEnvironment>false</LocalDebuggerMergeEnvironment>')
 			end
 		end
 	end
@@ -1012,7 +1110,6 @@
 			local cfg = premake.getconfig(prj, cfginfo.src_buildcfg, cfginfo.src_platform)
 			_p('  <PropertyGroup '.. if_config_and_platform() ..'>', premake.esc(cfginfo.name))
 			vc2010.debugdir(cfg)
-			vc2010.debugenvs(cfg)
 			_p('  </PropertyGroup>')
 		end
 		_p('</Project>')
@@ -1127,7 +1224,7 @@
 			_p(4, 'Description="' .. prj.name .. '"')
 			_p(4, 'ForegroundText="light"')
 			_p(4, 'BackgroundColor="transparent">')
-			_p(4, '<m3:SplashScreen Image="' .. prj.name .. '\\SplashScreen.png"')
+			_p(4, '<m3:SplashScreen Image="' .. prj.name .. '\\SplashScreen.png" />')
 			png1x1(prj, "%%/SplashScreen.png")
 			_p(3, '</m3:VisualElements>')
 		end

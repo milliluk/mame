@@ -14,9 +14,8 @@ They can be divided in three "families":
    The hardware consists of two 6809, and several Namco custom ICs that provide
    a static tilemap and 2bpp sprites.
    Grobda is the only Namco game of this era that has speech (just a short
-   sample). At this time, it is still unknown whether the DAC used to play
-   the speech is part of the standard Namco sound hardware, or a quick addition
-   to the base board.
+   sample). At this time, it is still unknown how speech samples are transmitted
+   to the DAC (almost certainly the same resistor network used by the 15XX).
 2) Phozon. This game runs on an unique board: the large number of sprites on
    screen at the same time required a 3rd 6809 to help with the calculations.
    The sprite hardware is also different from Super Pacman, featuring 8x8 sprites.
@@ -44,7 +43,8 @@ CPU board:
 15XX     sound control
 16XX     I/O control
 5xXX(x2) I/O
-99XX     sound volume (only Mappy, Super Pacman uses a standard LS273)
+99XX     DAC with volume control (only Mappy, Super Pacman uses LS273, CD4066
+         and binary-weighted resistors R34-37 and R22-25)
 
 Video board:
 00XX     tilemap address generator with scrolling capability (only Super Pacman)
@@ -549,10 +549,10 @@ TODO:
 ***************************************************************************/
 
 #include "emu.h"
+#include "includes/mappy.h"
 #include "cpu/m6809/m6809.h"
 #include "machine/watchdog.h"
-#include "sound/dac.h"
-#include "includes/mappy.h"
+#include "sound/volt_reg.h"
 
 /*************************************
  *
@@ -577,7 +577,7 @@ TODO:
 
 /***************************************************************************/
 
-void mappy_state::common_latch_w(UINT32 offset)
+void mappy_state::common_latch_w(uint32_t offset)
 {
 	int bit = offset & 1;
 
@@ -762,7 +762,7 @@ void mappy_state::device_timer(emu_timer &timer, device_timer_id id, int param, 
 			motos_io_run(ptr, param);
 			break;
 		default:
-			assert_always(FALSE, "Unknown id in mappy_state::device_timer");
+			assert_always(false, "Unknown id in mappy_state::device_timer");
 	}
 }
 
@@ -1696,11 +1696,11 @@ static MACHINE_CONFIG_FRAGMENT( superpac_common )
 	MCFG_VIDEO_START_OVERRIDE(mappy_state,superpac)
 
 	/* sound hardware */
-	MCFG_SPEAKER_STANDARD_MONO("mono")
+	MCFG_SPEAKER_STANDARD_MONO("speaker")
 
 	MCFG_SOUND_ADD("namco", NAMCO_15XX, 18432000/768)
 	MCFG_NAMCO_AUDIO_VOICES(8)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
+	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "speaker", 1.0)
 MACHINE_CONFIG_END
 
 
@@ -1766,8 +1766,9 @@ static MACHINE_CONFIG_START( grobda, mappy_state )
 	MCFG_NAMCO56XX_OUT_0_CB(WRITE8(mappy_state, out_mux))
 
 	/* sound hardware */
-	MCFG_DAC_ADD("dac")
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.55)
+	MCFG_SOUND_ADD("dac", DAC_4BIT_BINARY_WEIGHTED, 0) MCFG_SOUND_ROUTE(ALL_OUTPUTS, "speaker", 0.275) // alternate route to 15XX-related DAC?
+	MCFG_DEVICE_ADD("vref", VOLTAGE_REGULATOR, 0) MCFG_VOLTAGE_REGULATOR_OUTPUT(5.0)
+	MCFG_SOUND_ROUTE_EX(0, "dac", 1.0, DAC_VREF_POS_INPUT) MCFG_SOUND_ROUTE_EX(0, "dac", -1.0, DAC_VREF_NEG_INPUT)
 MACHINE_CONFIG_END
 
 
@@ -1820,11 +1821,11 @@ static MACHINE_CONFIG_START( phozon, mappy_state )
 	MCFG_VIDEO_START_OVERRIDE(mappy_state,phozon)
 
 	/* sound hardware */
-	MCFG_SPEAKER_STANDARD_MONO("mono")
+	MCFG_SPEAKER_STANDARD_MONO("speaker")
 
 	MCFG_SOUND_ADD("namco", NAMCO_15XX, 18432000/768)
 	MCFG_NAMCO_AUDIO_VOICES(8)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
+	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "speaker", 1.0)
 MACHINE_CONFIG_END
 
 
@@ -1860,11 +1861,11 @@ static MACHINE_CONFIG_FRAGMENT( mappy_common )
 	MCFG_VIDEO_START_OVERRIDE(mappy_state,mappy)
 
 	/* sound hardware */
-	MCFG_SPEAKER_STANDARD_MONO("mono")
+	MCFG_SPEAKER_STANDARD_MONO("speaker")
 
 	MCFG_SOUND_ADD("namco", NAMCO_15XX, 18432000/768)
 	MCFG_NAMCO_AUDIO_VOICES(8)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
+	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "speaker", 1.0)
 MACHINE_CONFIG_END
 
 static MACHINE_CONFIG_START( mappy, mappy_state )
@@ -2397,11 +2398,6 @@ ROM_END
 
 
 
-WRITE8_MEMBER(mappy_state::grobda_DAC_w)
-{
-	m_dac->write_unsigned8((data << 4) | data);
-}
-
 DRIVER_INIT_MEMBER(mappy_state,superpac)
 {
 	m_type = GAME_SUPERPAC;
@@ -2416,15 +2412,15 @@ DRIVER_INIT_MEMBER(mappy_state,grobda)
 {
 	m_type = GAME_GROBDA;
 
-	/* I think the speech in Grobda is not a standard Namco sound feature, but rather a hack.
+	/* The speech in Grobda might not be a standard Namco sound feature, but rather a hack.
 	   The hardware automatically cycles the bottom 6 address lines of sound RAM, so they
 	   probably added a latch loaded when the bottom 4 lines are 0010 (which corresponds
 	   to locations not used by the sound hardware).
 	   The program writes the same value to 0x02, 0x12, 0x22 and 0x32.
 	   However, removing the 15XX from the board causes sound to disappear completely, so
-	   the DAC might be built-in after all.
+	   the 15XX may still play some part in conveying speech to the DAC.
 	  */
-	m_subcpu->space(AS_PROGRAM).install_write_handler(0x0002, 0x0002, write8_delegate(FUNC(mappy_state::grobda_DAC_w),this));
+	m_subcpu->space(AS_PROGRAM).install_write_handler(0x0002, 0x0002, write8_delegate(FUNC(dac_byte_interface::write), (dac_byte_interface *)m_dac));
 }
 
 DRIVER_INIT_MEMBER(mappy_state,phozon)

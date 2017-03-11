@@ -98,21 +98,19 @@ ksm|DVK KSM,
 class ksm_state : public driver_device
 {
 public:
-	ksm_state(const machine_config &mconfig, device_type type, const char *tag) :
-		driver_device(mconfig, type, tag),
-		m_p_videoram(*this, "videoram"),
-		m_maincpu(*this, "maincpu"),
-		m_pic8259(*this, "pic8259"),
-		m_i8251line(*this, "i8251line"),
-		m_rs232(*this, "rs232"),
-		m_i8251kbd(*this, "i8251kbd"),
-		m_ms7004(*this, "ms7004"),
-		m_screen(*this, "screen")
-	{ }
+	ksm_state(const machine_config &mconfig, device_type type, const char *tag)
+		: driver_device(mconfig, type, tag)
+		, m_p_videoram(*this, "videoram")
+		, m_maincpu(*this, "maincpu")
+		, m_pic8259(*this, "pic8259")
+		, m_i8251line(*this, "i8251line")
+		, m_rs232(*this, "rs232")
+		, m_i8251kbd(*this, "i8251kbd")
+		, m_ms7004(*this, "ms7004")
+		, m_screen(*this, "screen")
+		, m_p_chargen(*this, "chargen")
+		{ }
 
-	virtual void machine_reset() override;
-	virtual void video_start() override;
-	UINT32 screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	TIMER_DEVICE_CALLBACK_MEMBER( scanline_callback );
 
 	DECLARE_WRITE_LINE_MEMBER(write_keyboard_clock);
@@ -120,20 +118,21 @@ public:
 
 	DECLARE_WRITE8_MEMBER(ksm_ppi_porta_w);
 	DECLARE_WRITE8_MEMBER(ksm_ppi_portc_w);
+	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 private:
-	UINT32 draw_scanline(UINT16 *p, UINT16 offset, UINT8 scanline);
+	uint32_t draw_scanline(uint16_t *p, uint16_t offset, uint8_t scanline);
 	rectangle m_tmpclip;
 	bitmap_ind16 m_tmpbmp;
 
-	const UINT8 *m_p_chargen;
 	struct {
-		UINT8 line;
-		UINT16 ptr;
+		uint8_t line;
+		uint16_t ptr;
 	} m_video;
 
-protected:
-	required_shared_ptr<UINT8> m_p_videoram;
+	virtual void machine_reset() override;
+	virtual void video_start() override;
+	required_shared_ptr<uint8_t> m_p_videoram;
 	required_device<cpu_device> m_maincpu;
 	required_device<pic8259_device>  m_pic8259;
 	required_device<i8251_device> m_i8251line;
@@ -141,6 +140,7 @@ protected:
 	required_device<i8251_device> m_i8251kbd;
 	required_device<ms7004_device> m_ms7004;
 	required_device<screen_device> m_screen;
+	required_region_ptr<u8> m_p_chargen;
 };
 
 static ADDRESS_MAP_START( ksm_mem, AS_PROGRAM, 8, ksm_state )
@@ -209,8 +209,6 @@ void ksm_state::machine_reset()
 
 void ksm_state::video_start()
 {
-	m_p_chargen = memregion("chargen")->base();
-
 	m_tmpclip = rectangle(0, KSM_DISP_HORZ-1, 0, KSM_DISP_VERT-1);
 	m_tmpbmp.allocate(KSM_DISP_HORZ, KSM_DISP_VERT);
 }
@@ -254,10 +252,10 @@ WRITE_LINE_MEMBER(ksm_state::write_line_clock)
     displayed on 3 extra scan lines.
 */
 
-UINT32 ksm_state::draw_scanline(UINT16 *p, UINT16 offset, UINT8 scanline)
+uint32_t ksm_state::draw_scanline(uint16_t *p, uint16_t offset, uint8_t scanline)
 {
-	UINT8 gfx, fg, bg, ra, blink;
-	UINT16 x, chr;
+	uint8_t gfx, fg, bg, ra, blink;
+	uint16_t x, chr;
 
 	bg = 0; fg = 1; ra = scanline % 8;
 	blink = (m_screen->frame_number() % 10) > 4;
@@ -289,8 +287,8 @@ UINT32 ksm_state::draw_scanline(UINT16 *p, UINT16 offset, UINT8 scanline)
 
 TIMER_DEVICE_CALLBACK_MEMBER(ksm_state::scanline_callback)
 {
-	UINT16 y = m_screen->vpos();
-	UINT16 offset;
+	uint16_t y = m_screen->vpos();
+	uint16_t offset;
 
 	DBG_LOG(2,"scanline_cb",
 		("addr %02x frame %d x %.4d y %.3d row %.2d\n",
@@ -309,7 +307,7 @@ TIMER_DEVICE_CALLBACK_MEMBER(ksm_state::scanline_callback)
 	draw_scanline(&m_tmpbmp.pix16(y), offset, y%11);
 }
 
-UINT32 ksm_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t ksm_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	copybitmap(bitmap, m_tmpbmp, 0, 0, KSM_HORZ_START, KSM_VERT_START, cliprect);
 	return 0;
@@ -342,7 +340,7 @@ static MACHINE_CONFIG_START( ksm, ksm_state )
 
 	MCFG_TIMER_DRIVER_ADD_SCANLINE("scantimer", ksm_state, scanline_callback, "screen", 0, 1)
 
-	MCFG_SCREEN_ADD_MONOCHROME("screen", RASTER, rgb_t::green)
+	MCFG_SCREEN_ADD_MONOCHROME("screen", RASTER, rgb_t::green())
 	MCFG_SCREEN_UPDATE_DRIVER(ksm_state, screen_update)
 	MCFG_SCREEN_RAW_PARAMS(XTAL_15_4MHz, KSM_TOTAL_HORZ, KSM_HORZ_START,
 		KSM_HORZ_START+KSM_DISP_HORZ, KSM_TOTAL_VERT, KSM_VERT_START,

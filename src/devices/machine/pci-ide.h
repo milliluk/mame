@@ -29,7 +29,7 @@ TODO:
 
 class ide_pci_device : public pci_device {
 public:
-	ide_pci_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	ide_pci_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	required_device<bus_master_ide_controller_device> m_ide;
 	required_device<bus_master_ide_controller_device> m_ide2;
 	virtual DECLARE_ADDRESS_MAP(config_map, 32) override;
@@ -53,13 +53,15 @@ private:
 	cpu_device *m_cpu;
 	int m_irq_num;
 	devcb_write_line m_irq_handler;
+	uint32_t pci_bar[6];
 
-	UINT32 m_config_data[0x10];
+	uint32_t m_config_data[0x10];
 	DECLARE_ADDRESS_MAP(chan1_data_command_map, 32);
 	DECLARE_ADDRESS_MAP(chan1_control_map, 32);
 	DECLARE_ADDRESS_MAP(chan2_data_command_map, 32);
 	DECLARE_ADDRESS_MAP(chan2_control_map, 32);
 	DECLARE_ADDRESS_MAP(bus_master_map, 32);
+	DECLARE_WRITE8_MEMBER(prog_if_w);
 	DECLARE_READ32_MEMBER(pcictrl_r);
 	DECLARE_WRITE32_MEMBER(pcictrl_w);
 	DECLARE_WRITE32_MEMBER(address_base_w);

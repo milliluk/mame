@@ -149,14 +149,14 @@ WRITE8_MEMBER(drgnmst_state::drgnmst_snd_control_w)
 		m_oki0_bank = oki_new_bank;
 		if (m_oki0_bank)
 			oki_new_bank--;
-		m_oki_1->set_bank_base(oki_new_bank * 0x40000);
+		m_oki_1->set_rom_bank(oki_new_bank);
 	}
 
 	oki_new_bank = ((m_pic16c5x_port0 & 0x3) >> 0) | ((m_oki_control & 0x20) >> 3);
 	if (oki_new_bank != m_oki1_bank)
 	{
 		m_oki1_bank = oki_new_bank;
-		m_oki_2->set_bank_base(oki_new_bank * 0x40000);
+		m_oki_2->set_rom_bank(oki_new_bank);
 	}
 
 	switch (m_oki_control & 0x1f)
@@ -173,12 +173,6 @@ WRITE8_MEMBER(drgnmst_state::drgnmst_snd_control_w)
 					break;
 		default:    break;
 	}
-}
-
-
-READ_LINE_MEMBER(drgnmst_state::PIC16C5X_T0_clk_r)
-{
-	return 0;
 }
 
 
@@ -389,7 +383,6 @@ static MACHINE_CONFIG_START( drgnmst, drgnmst_state )
 	MCFG_PIC16C5x_WRITE_B_CB(WRITE8(drgnmst_state, drgnmst_oki_w))
 	MCFG_PIC16C5x_READ_C_CB(READ8(drgnmst_state, drgnmst_snd_flag_r))
 	MCFG_PIC16C5x_WRITE_C_CB(WRITE8(drgnmst_state, drgnmst_snd_control_w))
-	MCFG_PIC16C5x_T0_CB(READLINE(drgnmst_state, PIC16C5X_T0_clk_r))
 
 	MCFG_GFXDECODE_ADD("gfxdecode", "palette", drgnmst)
 
@@ -455,7 +448,7 @@ ROM_START( drgnmst )
 ROM_END
 
 
-UINT8 drgnmst_state::drgnmst_asciitohex( UINT8 data )
+uint8_t drgnmst_state::drgnmst_asciitohex( uint8_t data )
 {
 	/* Convert ASCII data to HEX */
 
@@ -469,13 +462,13 @@ UINT8 drgnmst_state::drgnmst_asciitohex( UINT8 data )
 
 DRIVER_INIT_MEMBER(drgnmst_state,drgnmst)
 {
-	UINT8 *drgnmst_PICROM_HEX = memregion("user1")->base();
-	UINT16 *drgnmst_PICROM = (UINT16 *)memregion("audiocpu")->base();
-	UINT8 *drgnmst_PCM = memregion("oki1")->base();
-	INT32   offs, data;
-	UINT16  src_pos = 0;
-	UINT16  dst_pos = 0;
-	UINT8   data_hi, data_lo;
+	uint8_t *drgnmst_PICROM_HEX = memregion("user1")->base();
+	uint16_t *drgnmst_PICROM = (uint16_t *)memregion("audiocpu")->base();
+	uint8_t *drgnmst_PCM = memregion("oki1")->base();
+	int32_t   offs, data;
+	uint16_t  src_pos = 0;
+	uint16_t  dst_pos = 0;
+	uint8_t   data_hi, data_lo;
 
 	/* Configure the OKI-0 PCM data into a MAME friendly bank format */
 	/* $00000-1ffff is the same through all banks */

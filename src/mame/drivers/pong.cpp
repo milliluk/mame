@@ -47,14 +47,22 @@ TODO: Superpong is believed to use the Pong (Rev E) PCB with some minor modifica
 #include "emu.h"
 
 #include "machine/netlist.h"
-#include "netlist/devices/net_lib.h"
+
 #include "sound/dac.h"
+#include "sound/volt_reg.h"
+
 #include "video/fixfreq.h"
+
+#include "netlist/devices/net_lib.h"
+
 #include "machine/nl_breakout.h"
 #include "machine/nl_pong.h"
 #include "machine/nl_pongd.h"
 
 #include "breakout.lh"
+
+#include <cmath>
+
 
 /*
  * H count width to 512
@@ -81,8 +89,8 @@ TODO: Superpong is believed to use the Pong (Rev E) PCB with some minor modifica
  */
 
 #define MASTER_CLOCK    7159000
-#define V_TOTAL_PONG         (0x105+1)       // 262
-#define H_TOTAL_PONG         (0x1C6+1)       // 454
+#define V_TOTAL_PONG    (0x105+1)       // 262
+#define H_TOTAL_PONG    (0x1C6+1)       // 454
 
 /*
  * Breakout's H1 signal:
@@ -135,11 +143,11 @@ public:
 	// devices
 	required_device<netlist_mame_device_t> m_maincpu;
 	required_device<fixedfreq_device> m_video;
-	required_device<dac_device> m_dac; /* just to have a sound device */
+	required_device<dac_word_interface> m_dac; /* just to have a sound device */
 
 	NETDEV_ANALOG_CALLBACK_MEMBER(sound_cb)
 	{
-		m_dac->write_unsigned8(64*data);
+		m_dac->write(std::round(16384 * data));
 	}
 
 protected:
@@ -255,7 +263,7 @@ NETLIST_END()
 
 INPUT_CHANGED_MEMBER(pong_state::input_changed)
 {
-	int numpad = (FPTR) (param);
+	int numpad = (uintptr_t) (param);
 
 	switch (numpad)
 	{
@@ -389,10 +397,10 @@ static MACHINE_CONFIG_START( pong, pong_state )
 	MCFG_FIXFREQ_SYNC_THRESHOLD(0.11)
 
 	/* sound hardware */
-	MCFG_SPEAKER_STANDARD_MONO("mono")
-	MCFG_SOUND_ADD("dac", DAC, 48000)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
-
+	MCFG_SPEAKER_STANDARD_MONO("speaker")
+	MCFG_SOUND_ADD("dac", DAC_16BIT_R2R_TWOS_COMPLEMENT, 0) MCFG_SOUND_ROUTE(ALL_OUTPUTS, "speaker", 0.5) // unknown DAC
+	MCFG_DEVICE_ADD("vref", VOLTAGE_REGULATOR, 0) MCFG_VOLTAGE_REGULATOR_OUTPUT(5.0)
+	MCFG_SOUND_ROUTE_EX(0, "dac", 1.0, DAC_VREF_POS_INPUT) MCFG_SOUND_ROUTE_EX(0, "dac", -1.0, DAC_VREF_NEG_INPUT)
 MACHINE_CONFIG_END
 
 static MACHINE_CONFIG_START( breakout, breakout_state )
@@ -442,10 +450,10 @@ static MACHINE_CONFIG_START( breakout, breakout_state )
 	MCFG_FIXFREQ_GAIN(1.5)
 
 	/* sound hardware */
-	MCFG_SPEAKER_STANDARD_MONO("mono")
-	MCFG_SOUND_ADD("dac", DAC, 48000)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
-
+	MCFG_SPEAKER_STANDARD_MONO("speaker")
+	MCFG_SOUND_ADD("dac", DAC_16BIT_R2R_TWOS_COMPLEMENT, 0) MCFG_SOUND_ROUTE(ALL_OUTPUTS, "speaker", 0.5) // unknown DAC
+	MCFG_DEVICE_ADD("vref", VOLTAGE_REGULATOR, 0) MCFG_VOLTAGE_REGULATOR_OUTPUT(5.0)
+	MCFG_SOUND_ROUTE_EX(0, "dac", 1.0, DAC_VREF_POS_INPUT) MCFG_SOUND_ROUTE_EX(0, "dac", -1.0, DAC_VREF_NEG_INPUT)
 MACHINE_CONFIG_END
 
 static MACHINE_CONFIG_DERIVED( pongf, pong )
@@ -486,10 +494,10 @@ static MACHINE_CONFIG_START( pongd, pong_state )
 	MCFG_FIXFREQ_SYNC_THRESHOLD(0.11)
 
 	/* sound hardware */
-	MCFG_SPEAKER_STANDARD_MONO("mono")
-	MCFG_SOUND_ADD("dac", DAC, 48000)
-	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
-
+	MCFG_SPEAKER_STANDARD_MONO("speaker")
+	MCFG_SOUND_ADD("dac", DAC_16BIT_R2R_TWOS_COMPLEMENT, 0) MCFG_SOUND_ROUTE(ALL_OUTPUTS, "speaker", 0.5) // unknown DAC
+	MCFG_DEVICE_ADD("vref", VOLTAGE_REGULATOR, 0) MCFG_VOLTAGE_REGULATOR_OUTPUT(5.0)
+	MCFG_SOUND_ROUTE_EX(0, "dac", 1.0, DAC_VREF_POS_INPUT) MCFG_SOUND_ROUTE_EX(0, "dac", -1.0, DAC_VREF_NEG_INPUT)
 MACHINE_CONFIG_END
 
 /***************************************************************************

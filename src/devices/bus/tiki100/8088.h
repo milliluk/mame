@@ -11,7 +11,6 @@
 #ifndef __TIKI100_8088__
 #define __TIKI100_8088__
 
-#include "emu.h"
 #include "bus/tiki100/exp.h"
 #include "cpu/i86/i86.h"
 
@@ -28,7 +27,7 @@ class tiki100_8088_t : public device_t,
 {
 public:
 	// construction/destruction
-	tiki100_8088_t(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	tiki100_8088_t(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual const tiny_rom_entry *device_rom_region() const override;
@@ -43,13 +42,13 @@ protected:
 	virtual void device_reset() override;
 
 	// device_tiki100bus_card_interface overrides
-	virtual UINT8 iorq_r(address_space &space, offs_t offset, UINT8 data) override;
-	virtual void iorq_w(address_space &space, offs_t offset, UINT8 data) override;
+	virtual uint8_t iorq_r(address_space &space, offs_t offset, uint8_t data) override;
+	virtual void iorq_w(address_space &space, offs_t offset, uint8_t data) override;
 
 private:
 	required_device<i8088_cpu_device> m_maincpu;
 
-	UINT8 m_data;
+	uint8_t m_data;
 };
 
 

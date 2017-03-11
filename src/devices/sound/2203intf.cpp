@@ -1,5 +1,6 @@
 // license:BSD-3-Clause
 // copyright-holders:Ernesto Corvi
+#include "emu.h"
 #include "2203intf.h"
 #include "fm.h"
 
@@ -149,7 +150,7 @@ void ym2203_device::calculate_rates()
 	if (m_stream != nullptr)
 		m_stream->set_sample_rate(rate);
 	else
-		m_stream = machine().sound().stream_alloc(*this,0,1,rate, stream_update_delegate(FUNC(ym2203_device::stream_generate),this));
+		m_stream = machine().sound().stream_alloc(*this,0,1,rate, stream_update_delegate(&ym2203_device::stream_generate,this));
 }
 
 //-------------------------------------------------
@@ -203,7 +204,7 @@ WRITE8_MEMBER( ym2203_device::write_port_w )
 
 const device_type YM2203 = &device_creator<ym2203_device>;
 
-ym2203_device::ym2203_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+ym2203_device::ym2203_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: ay8910_device(mconfig, YM2203, "YM2203", tag, owner, clock, PSG_TYPE_YM, 3, 2, "ym2203", __FILE__),
 		m_irq_handler(*this)
 {

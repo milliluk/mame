@@ -6,6 +6,7 @@
 
 **********************************************************************/
 
+#include "emu.h"
 #include "keypad.h"
 
 
@@ -53,7 +54,7 @@ ioport_constructor vcs_keypad_device::device_input_ports() const
 //  vcs_keypad_device - constructor
 //-------------------------------------------------
 
-vcs_keypad_device::vcs_keypad_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock) :
+vcs_keypad_device::vcs_keypad_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
 	device_t(mconfig, VCS_KEYPAD, "Atari / CBM Keypad", tag, owner, clock, "vcs_keypad", __FILE__),
 	device_vcs_control_port_interface(mconfig, *this),
 	m_keypad(*this, "KEYPAD"), m_column(0)
@@ -76,7 +77,7 @@ void vcs_keypad_device::device_start()
 //  vcs_joy_w - joystick write
 //-------------------------------------------------
 
-UINT8 vcs_keypad_device::vcs_joy_r()
+uint8_t vcs_keypad_device::vcs_joy_r()
 {
 	for ( int i = 0; i < 4; i++ )
 	{
@@ -95,12 +96,12 @@ UINT8 vcs_keypad_device::vcs_joy_r()
 	return 0xff;
 }
 
-void vcs_keypad_device::vcs_joy_w( UINT8 data )
+void vcs_keypad_device::vcs_joy_w( uint8_t data )
 {
 	m_column = data & 0x0F;
 }
 
-UINT8 vcs_keypad_device::vcs_pot_x_r()
+uint8_t vcs_keypad_device::vcs_pot_x_r()
 {
 	for ( int i = 0; i < 4; i++ )
 	{
@@ -119,7 +120,7 @@ UINT8 vcs_keypad_device::vcs_pot_x_r()
 	return 0;
 }
 
-UINT8 vcs_keypad_device::vcs_pot_y_r()
+uint8_t vcs_keypad_device::vcs_pot_y_r()
 {
 	for ( int i = 0; i < 4; i++ )
 	{

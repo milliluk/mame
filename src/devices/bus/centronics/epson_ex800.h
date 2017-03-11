@@ -11,7 +11,6 @@
 #ifndef __EPSON_EX800__
 #define __EPSON_EX800__
 
-#include "emu.h"
 #include "ctronics.h"
 #include "cpu/upd7810/upd7810.h"
 #include "sound/beep.h"
@@ -29,7 +28,7 @@ class epson_ex800_t :  public device_t,
 {
 public:
 	// construction/destruction
-	epson_ex800_t(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	epson_ex800_t(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual const tiny_rom_entry *device_rom_region() const override;

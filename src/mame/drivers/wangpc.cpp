@@ -189,7 +189,7 @@ public:
 	image_init_result on_disk1_load(floppy_image_device *image);
 	void on_disk1_unload(floppy_image_device *image);
 
-	UINT8 m_dma_page[4];
+	uint8_t m_dma_page[4];
 	int m_dack;
 
 	int m_timer2_irq;
@@ -450,7 +450,7 @@ READ8_MEMBER( wangpc_state::status_r )
 
 	*/
 
-	UINT8 data = 0x03;
+	uint8_t data = 0x03;
 
 	// floppy interrupts
 	data |= m_fdc->get_irq() << 3;
@@ -564,7 +564,7 @@ READ8_MEMBER( wangpc_state::uart_r )
 
 	check_level2_interrupts();
 
-	UINT8 data = m_uart->read(space, 0);
+	uint8_t data = m_uart->read(space, 0);
 
 	if (LOG) logerror("%s: UART read %02x\n", machine().describe_context(), data);
 
@@ -709,7 +709,7 @@ READ8_MEMBER( wangpc_state::option_id_r )
 
 	*/
 
-	UINT8 data = 0;
+	uint8_t data = 0;
 
 	// FDC interrupt
 	data |= (m_fdc_dd0 || m_fdc_dd1 || (int) m_fdc->get_irq()) << 7;
@@ -941,7 +941,7 @@ READ8_MEMBER( wangpc_state::ppi_pa_r )
 
 	*/
 
-	UINT8 data = 0x08 | 0x02 | 0x01;
+	uint8_t data = 0x08 | 0x02 | 0x01;
 
 	data |= m_dav << 2;
 	data |= m_centronics_busy << 4;
@@ -969,7 +969,7 @@ READ8_MEMBER( wangpc_state::ppi_pb_r )
 
 	*/
 
-	UINT8 data = 0;
+	uint8_t data = 0;
 
 	// timer 2 interrupt
 	data |= m_timer2_irq;
@@ -1178,10 +1178,10 @@ WRITE_LINE_MEMBER( wangpc_state::bus_irq2_w )
 void wangpc_state::machine_start()
 {
 	// connect floppy callbacks
-	m_floppy0->setup_load_cb(floppy_image_device::load_cb(FUNC(wangpc_state::on_disk0_load), this));
-	m_floppy0->setup_unload_cb(floppy_image_device::unload_cb(FUNC(wangpc_state::on_disk0_unload), this));
-	m_floppy1->setup_load_cb(floppy_image_device::load_cb(FUNC(wangpc_state::on_disk1_load), this));
-	m_floppy1->setup_unload_cb(floppy_image_device::unload_cb(FUNC(wangpc_state::on_disk1_unload), this));
+	m_floppy0->setup_load_cb(floppy_image_device::load_cb(&wangpc_state::on_disk0_load, this));
+	m_floppy0->setup_unload_cb(floppy_image_device::unload_cb(&wangpc_state::on_disk0_unload, this));
+	m_floppy1->setup_load_cb(floppy_image_device::load_cb(&wangpc_state::on_disk1_load, this));
+	m_floppy1->setup_unload_cb(floppy_image_device::unload_cb(&wangpc_state::on_disk1_unload, this));
 
 	// state saving
 	save_item(NAME(m_dma_page));

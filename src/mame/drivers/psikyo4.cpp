@@ -129,6 +129,7 @@ ROMs -
 
 ----------------------------------------------------------------*/
 
+#include "emu.h"
 #include "includes/psikyo4.h"
 #include "rendlay.h"
 
@@ -171,7 +172,7 @@ INTERRUPT_GEN_MEMBER(psikyo4_state::psikyosh_interrupt)
 
 CUSTOM_INPUT_MEMBER(psikyo4_state::mahjong_ctrl_r)/* used by hotgmck/hgkairak */
 {
-	int player = (FPTR)param;
+	int player = (uintptr_t)param;
 	int ret = 0xff;
 
 	if (m_io_select & 1) ret &= m_keys[player+0]->read();
@@ -294,8 +295,8 @@ WRITE32_MEMBER(psikyo4_state::io_select_w)
 	// YMF banking
 	if (ACCESSING_BITS_16_31)
 	{
-		UINT32 bankdata = data >> 16;
-		UINT32 bankmask = mem_mask >> 16;
+		uint32_t bankdata = data >> 16;
+		uint32_t bankmask = mem_mask >> 16;
 		for (auto & elem : m_ymf_bank)
 		{
 			if (bankmask & 0x0f)

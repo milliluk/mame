@@ -5,7 +5,6 @@
 #ifndef __MPU401_H__
 #define __MPU401_H__
 
-#include "emu.h"
 #include "cpu/m6800/m6800.h"
 
 #define MCFG_MPU401_ADD(_tag, _irqf ) \
@@ -13,7 +12,7 @@
 	MCFG_IRQ_FUNC(_irqf)
 
 #define MCFG_IRQ_FUNC(_irqf) \
-	downcast<mpu401_device *>(device)->set_irqf(DEVCB_##_irqf);
+	devcb = &downcast<mpu401_device *>(device)->set_irqf(DEVCB_##_irqf);
 
 //**************************************************************************
 //  TYPE DEFINITIONS
@@ -23,16 +22,16 @@ class mpu401_device : public device_t
 {
 public:
 	// construction/destruction
-	mpu401_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	mpu401_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual machine_config_constructor device_mconfig_additions() const override;
 
 	required_device<m6801_cpu_device> m_ourcpu;
 
-	template<class _write> void set_irqf(_write wr)
+	template<class _write> devcb_base &set_irqf(_write wr)
 	{
-		write_irq.set_callback(wr);
+		return write_irq.set_callback(wr);
 	}
 
 	devcb_write_line write_irq;
@@ -59,10 +58,10 @@ protected:
 	virtual void device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr) override;
 
 private:
-	UINT8 m_port2;
-	UINT8 m_command;
-	UINT8 m_mpudata;
-	UINT8 m_gatearrstat;
+	uint8_t m_port2;
+	uint8_t m_command;
+	uint8_t m_mpudata;
+	uint8_t m_gatearrstat;
 	emu_timer *m_timer;
 };
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2016 Branimir Karadzic. All rights reserved.
+ * Copyright 2011-2017 Branimir Karadzic. All rights reserved.
  * License: https://github.com/bkaradzic/bgfx#license-bsd-2-clause
  */
 
@@ -1000,7 +1000,7 @@ namespace bgfx
 			break;
 		}
 
-		for (uint32_t ii = 0; ii < _operand.numAddrModes; ++ii)
+		for (uint32_t ii = 0, num = bx::uint32_min(_operand.numAddrModes, BX_COUNTOF(_operand.addrMode) ); ii < num; ++ii)
 		{
 			switch (_operand.addrMode[ii])
 			{
@@ -1526,7 +1526,7 @@ namespace bgfx
 									);
 			}
 
-			for (uint32_t jj = first; jj < operand.numAddrModes; ++jj)
+			for (uint32_t jj = first, num = bx::uint32_min(operand.numAddrModes, BX_COUNTOF(operand.addrMode) ); jj < num; ++jj)
 			{
 				switch (operand.addrMode[jj])
 				{

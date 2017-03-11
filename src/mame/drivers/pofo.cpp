@@ -57,7 +57,7 @@
 #define TIMER_TICK_TAG  "tick"
 #define SCREEN_TAG      "screen"
 
-static const UINT8 INTERRUPT_VECTOR[] = { 0x08, 0x09, 0x00 };
+static const uint8_t INTERRUPT_VECTOR[] = { 0x08, 0x09, 0x00 };
 
 
 
@@ -80,14 +80,7 @@ public:
 		m_ram(*this, "ram"),
 		m_rom(*this, M80C88A_TAG),
 		m_char_rom(*this, HD61830_TAG),
-		m_y0(*this, "Y0"),
-		m_y1(*this, "Y1"),
-		m_y2(*this, "Y2"),
-		m_y3(*this, "Y3"),
-		m_y4(*this, "Y4"),
-		m_y5(*this, "Y5"),
-		m_y6(*this, "Y6"),
-		m_y7(*this, "Y7"),
+		m_y(*this, "Y%01u", 0),
 		m_battery(*this, "BATTERY"),
 		m_keylatch(0xff)
 	{ }
@@ -100,16 +93,9 @@ public:
 	required_device<timer_device> m_timer_tick;
 	required_device<nvram_device> m_nvram;
 	required_device<ram_device> m_ram;
-	required_region_ptr<UINT8> m_rom;
-	required_region_ptr<UINT8> m_char_rom;
-	required_ioport m_y0;
-	required_ioport m_y1;
-	required_ioport m_y2;
-	required_ioport m_y3;
-	required_ioport m_y4;
-	required_ioport m_y5;
-	required_ioport m_y6;
-	required_ioport m_y7;
+	required_region_ptr<uint8_t> m_rom;
+	required_region_ptr<uint8_t> m_char_rom;
+	required_ioport_array<8> m_y;
 	required_ioport m_battery;
 
 	virtual void machine_start() override;
@@ -153,13 +139,13 @@ public:
 	DECLARE_WRITE8_MEMBER( counter_w );
 	DECLARE_WRITE8_MEMBER( contrast_w );
 
-	DECLARE_WRITE_LINE_MEMBER( iint_w );
 	DECLARE_WRITE_LINE_MEMBER( eint_w );
+	DECLARE_WRITE_LINE_MEMBER( wake_w );
 
-	UINT8 m_ip;
-	UINT8 m_ie;
-	UINT16 m_counter;
-	UINT8 m_keylatch;
+	uint8_t m_ip;
+	uint8_t m_ie;
+	uint16_t m_counter;
+	uint8_t m_keylatch;
 	int m_rom_b;
 
 	DECLARE_PALETTE_INIT(portfolio);
@@ -185,6 +171,7 @@ void portfolio_state::check_interrupt()
 	int level = (m_ip & m_ie) ? ASSERT_LINE : CLEAR_LINE;
 
 	m_maincpu->set_input_line(INPUT_LINE_INT0, level);
+	m_exp->iint_w(level);
 }
 
 
@@ -202,16 +189,6 @@ void portfolio_state::trigger_interrupt(int level)
 
 
 //-------------------------------------------------
-//  iint_w - internal interrupt
-//-------------------------------------------------
-
-WRITE_LINE_MEMBER( portfolio_state::iint_w )
-{
-	// TODO
-}
-
-
-//-------------------------------------------------
 //  eint_w - external interrupt
 //-------------------------------------------------
 
@@ -221,6 +198,16 @@ WRITE_LINE_MEMBER( portfolio_state::eint_w )
 	{
 		trigger_interrupt(INT_EXTERNAL);
 	}
+}
+
+
+//-------------------------------------------------
+//  wake_w - wake
+//-------------------------------------------------
+
+WRITE_LINE_MEMBER( portfolio_state::wake_w )
+{
+	// TODO
 }
 
 
@@ -254,7 +241,7 @@ WRITE8_MEMBER( portfolio_state::irq_mask_w )
 
 IRQ_CALLBACK_MEMBER(portfolio_state::portfolio_int_ack)
 {
-	UINT8 vector = 0;
+	uint8_t vector = 0;
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -291,14 +278,11 @@ IRQ_CALLBACK_MEMBER(portfolio_state::portfolio_int_ack)
 
 void portfolio_state::scan_keyboard()
 {
-	UINT8 keycode = 0xff;
-
-	UINT32 keydata[8] = { m_y0->read(), m_y1->read(), m_y2->read(), m_y3->read(),
-							m_y4->read(), m_y5->read(), m_y6->read(), m_y7->read() };
+	uint8_t keycode = 0xff;
 
 	for (int row = 0; row < 8; row++)
 	{
-		UINT8 data = static_cast<int>(keydata[row]);
+		uint8_t data = static_cast<int>(m_y[row]->read());
 
 		if (data != 0xff)
 		{
@@ -441,12 +425,12 @@ READ8_MEMBER( portfolio_state::battery_r )
 	    3       ?           1=boots from ???
 	    4       ?
 	    5       PDET        1=peripheral connected
-	    6       BATD?       0=battery low
-	    7       ?           1=cold boot
+	    6       LOWB        0=battery low
+	    7       BDET?       1=cold boot
 
 	*/
 
-	UINT8 data = 0;
+	uint8_t data = 0;
 
 	// peripheral detect
 	data |= m_exp->pdet_r() << 5;
@@ -522,7 +506,7 @@ TIMER_DEVICE_CALLBACK_MEMBER(portfolio_state::counter_tick)
 
 READ8_MEMBER( portfolio_state::counter_r )
 {
-	UINT8 data = 0;
+	uint8_t data = 0;
 
 	switch (offset)
 	{
@@ -569,7 +553,7 @@ WRITE8_MEMBER( portfolio_state::counter_w )
 
 READ8_MEMBER( portfolio_state::mem_r )
 {
-	UINT8 data = 0;
+	uint8_t data = 0;
 
 	int iom = 0;
 	int bcom = 1;
@@ -661,7 +645,7 @@ WRITE8_MEMBER( portfolio_state::mem_w )
 
 READ8_MEMBER( portfolio_state::io_r )
 {
-	UINT8 data = 0;
+	uint8_t data = 0;
 
 	int iom = 1;
 	int bcom = 1;
@@ -941,8 +925,8 @@ PALETTE_INIT_MEMBER(portfolio_state, portfolio)
 READ8_MEMBER( portfolio_state::hd61830_rd_r )
 {
 	// TODO with real ROM: offs_t address = ((offset & 0xff) << 4) | ((offset >> 12) & 0x0f);
-	UINT16 address = ((offset & 0xff) << 3) | ((offset >> 12) & 0x07);
-	UINT8 data = m_char_rom[address];
+	uint16_t address = ((offset & 0xff) << 3) | ((offset >> 12) & 0x07);
+	uint8_t data = m_char_rom[address];
 
 	return data;
 }
@@ -1052,10 +1036,9 @@ static MACHINE_CONFIG_START( portfolio, portfolio_state )
 	MCFG_PORTFOLIO_MEMORY_CARD_SLOT_ADD(PORTFOLIO_MEMORY_CARD_SLOT_A_TAG, portfolio_memory_cards, nullptr)
 
 	MCFG_PORTFOLIO_EXPANSION_SLOT_ADD(PORTFOLIO_EXPANSION_SLOT_TAG, XTAL_4_9152MHz, portfolio_expansion_cards, nullptr)
-	MCFG_PORTFOLIO_EXPANSION_SLOT_IINT_CALLBACK(WRITELINE(portfolio_state, iint_w))
 	MCFG_PORTFOLIO_EXPANSION_SLOT_EINT_CALLBACK(WRITELINE(portfolio_state, eint_w))
 	MCFG_PORTFOLIO_EXPANSION_SLOT_NMIO_CALLBACK(INPUTLINE(M80C88A_TAG, INPUT_LINE_NMI))
-	//MCFG_PORTFOLIO_EXPANSION_SLOT_WAKE_CALLBACK()
+	MCFG_PORTFOLIO_EXPANSION_SLOT_WAKE_CALLBACK(WRITELINE(portfolio_state, wake_w))
 
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("counter", portfolio_state, counter_tick, attotime::from_hz(XTAL_32_768kHz/16384))
 	MCFG_TIMER_DRIVER_ADD_PERIODIC(TIMER_TICK_TAG, portfolio_state, system_tick, attotime::from_hz(XTAL_32_768kHz/32768))

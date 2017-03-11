@@ -9,45 +9,44 @@
 #ifndef _SM510_H_
 #define _SM510_H_
 
-#include "emu.h"
 
 
 // I/O ports setup
 
 // 4-bit K input port (pull-down)
 #define MCFG_SM510_READ_K_CB(_devcb) \
-	sm510_base_device::set_read_k_callback(*device, DEVCB_##_devcb);
+	devcb = &sm510_base_device::set_read_k_callback(*device, DEVCB_##_devcb);
 // when in halt state, any K input going High can wake up the CPU,
 // driver is required to use execute_set_input(SM510_INPUT_LINE_K, state)
 #define SM510_INPUT_LINE_K 0
 
 // 1-bit BA(aka alpha) input pin (pull-up)
 #define MCFG_SM510_READ_BA_CB(_devcb) \
-	sm510_base_device::set_read_ba_callback(*device, DEVCB_##_devcb);
+	devcb = &sm510_base_device::set_read_ba_callback(*device, DEVCB_##_devcb);
 
 // 1-bit B(beta) input pin (pull-up)
 #define MCFG_SM510_READ_B_CB(_devcb) \
-	sm510_base_device::set_read_b_callback(*device, DEVCB_##_devcb);
+	devcb = &sm510_base_device::set_read_b_callback(*device, DEVCB_##_devcb);
 
 // 8-bit S strobe output port
 #define MCFG_SM510_WRITE_S_CB(_devcb) \
-	sm510_base_device::set_write_s_callback(*device, DEVCB_##_devcb);
+	devcb = &sm510_base_device::set_write_s_callback(*device, DEVCB_##_devcb);
 
 // 2-bit R melody output port
 #define MCFG_SM510_WRITE_R_CB(_devcb) \
-	sm510_base_device::set_write_r_callback(*device, DEVCB_##_devcb);
+	devcb = &sm510_base_device::set_write_r_callback(*device, DEVCB_##_devcb);
 
 // LCD segment outputs: H1-4 as offset(low), a/b/c 1-16 as data d0-d15
 #define MCFG_SM510_WRITE_SEGA_CB(_devcb) \
-	sm510_base_device::set_write_sega_callback(*device, DEVCB_##_devcb);
+	devcb = &sm510_base_device::set_write_sega_callback(*device, DEVCB_##_devcb);
 #define MCFG_SM510_WRITE_SEGB_CB(_devcb) \
-	sm510_base_device::set_write_segb_callback(*device, DEVCB_##_devcb);
+	devcb = &sm510_base_device::set_write_segb_callback(*device, DEVCB_##_devcb);
 #define MCFG_SM510_WRITE_SEGC_CB(_devcb) \
-	sm510_base_device::set_write_segc_callback(*device, DEVCB_##_devcb);
+	devcb = &sm510_base_device::set_write_segc_callback(*device, DEVCB_##_devcb);
 
 // LCD bs output: same as above, but only up to 2 bits used
 #define MCFG_SM510_WRITE_SEGBS_CB(_devcb) \
-	sm510_base_device::set_write_segbs_callback(*device, DEVCB_##_devcb);
+	devcb = &sm510_base_device::set_write_segbs_callback(*device, DEVCB_##_devcb);
 
 enum
 {
@@ -92,7 +91,7 @@ class sm510_base_device : public cpu_device
 {
 public:
 	// construction/destruction
-	sm510_base_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, int stack_levels, int prgwidth, address_map_constructor program, int datawidth, address_map_constructor data, const char *shortname, const char *source)
+	sm510_base_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, u32 clock, int stack_levels, int prgwidth, address_map_constructor program, int datawidth, address_map_constructor data, const char *shortname, const char *source)
 		: cpu_device(mconfig, type, name, tag, owner, clock, shortname, source)
 		, m_program_config("program", ENDIANNESS_LITTLE, 8, prgwidth, 0, program)
 		, m_data_config("data", ENDIANNESS_LITTLE, 8, datawidth, 0, data)
@@ -126,11 +125,11 @@ protected:
 	virtual void device_reset() override;
 
 	// device_execute_interface overrides
-	virtual UINT64 execute_clocks_to_cycles(UINT64 clocks) const override { return (clocks + 2 - 1) / 2; } // default 2 cycles per machine cycle
-	virtual UINT64 execute_cycles_to_clocks(UINT64 cycles) const override { return (cycles * 2); } // "
-	virtual UINT32 execute_min_cycles() const override { return 1; }
-	virtual UINT32 execute_max_cycles() const override { return 2; }
-	virtual UINT32 execute_input_lines() const override { return 1; }
+	virtual u64 execute_clocks_to_cycles(u64 clocks) const override { return (clocks + 2 - 1) / 2; } // default 2 cycles per machine cycle
+	virtual u64 execute_cycles_to_clocks(u64 cycles) const override { return (cycles * 2); } // "
+	virtual u32 execute_min_cycles() const override { return 1; }
+	virtual u32 execute_max_cycles() const override { return 2; }
+	virtual u32 execute_input_lines() const override { return 1; }
 	virtual void execute_set_input(int line, int state) override;
 	virtual void execute_run() override;
 	virtual void execute_one() { } // -> child class
@@ -139,8 +138,8 @@ protected:
 	virtual const address_space_config *memory_space_config(address_spacenum spacenum = AS_0) const override { return(spacenum == AS_PROGRAM) ? &m_program_config : ((spacenum == AS_DATA) ? &m_data_config : nullptr); }
 
 	// device_disasm_interface overrides
-	virtual UINT32 disasm_min_opcode_bytes() const override { return 1; }
-	virtual UINT32 disasm_max_opcode_bytes() const override { return 0x40; } // actually 2, but debugger doesn't like non-linear pc
+	virtual u32 disasm_min_opcode_bytes() const override { return 1; }
+	virtual u32 disasm_max_opcode_bytes() const override { return 0x40; } // actually 2, but debugger doesn't like non-linear pc
 
 	address_space_config m_program_config;
 	address_space_config m_data_config;
@@ -152,51 +151,51 @@ protected:
 	int m_prgmask;
 	int m_datamask;
 
-	UINT16 m_pc, m_prev_pc;
-	UINT16 m_op, m_prev_op;
-	UINT8 m_param;
+	u16 m_pc, m_prev_pc;
+	u16 m_op, m_prev_op;
+	u8 m_param;
 	int m_stack_levels;
-	UINT16 m_stack[2];
+	u16 m_stack[2];
 	int m_icount;
 
-	UINT8 m_acc;
-	UINT8 m_bl;
-	UINT8 m_bm;
+	u8 m_acc;
+	u8 m_bl;
+	u8 m_bm;
 	bool m_sbm;
-	UINT8 m_c;
+	u8 m_c;
 	bool m_skip;
-	UINT8 m_w;
-	UINT8 m_r;
+	u8 m_w;
+	u8 m_r;
 	bool m_k_active;
 	bool m_halt;
 
 	// lcd driver
-	optional_shared_ptr<UINT8> m_lcd_ram_a, m_lcd_ram_b, m_lcd_ram_c;
+	optional_shared_ptr<u8> m_lcd_ram_a, m_lcd_ram_b, m_lcd_ram_c;
 	devcb_write16 m_write_sega, m_write_segb, m_write_segc, m_write_segbs;
 	emu_timer *m_lcd_timer;
-	UINT8 m_l, m_x;
-	UINT8 m_y;
+	u8 m_l, m_x;
+	u8 m_y;
 	bool m_bp;
 	bool m_bc;
 
-	UINT16 get_lcd_row(int column, UINT8* ram);
+	u16 get_lcd_row(int column, u8* ram);
 	TIMER_CALLBACK_MEMBER(lcd_timer_cb);
 	virtual void init_lcd_driver();
 
 	// melody controller
-	optional_region_ptr<UINT8> m_melody_rom;
-	UINT8 m_melody_rd;
-	UINT8 m_melody_step_count;
-	UINT8 m_melody_duty_count;
-	UINT8 m_melody_duty_index;
-	UINT8 m_melody_address;
+	optional_region_ptr<u8> m_melody_rom;
+	u8 m_melody_rd;
+	u8 m_melody_step_count;
+	u8 m_melody_duty_count;
+	u8 m_melody_duty_index;
+	u8 m_melody_address;
 
 	void clock_melody();
 	void init_melody();
 
 	// interrupt/divider
 	emu_timer *m_div_timer;
-	UINT16 m_div;
+	u16 m_div;
 	bool m_1s;
 
 	bool wake_me_up();
@@ -215,12 +214,12 @@ protected:
 	virtual void get_opcode_param() { }
 	virtual void update_w_latch() { }
 
-	UINT8 ram_r();
-	void ram_w(UINT8 data);
+	u8 ram_r();
+	void ram_w(u8 data);
 	void pop_stack();
 	void push_stack();
-	void do_branch(UINT8 pu, UINT8 pm, UINT8 pl);
-	UINT8 bitmask(UINT16 param);
+	void do_branch(u8 pu, u8 pm, u8 pl);
+	u8 bitmask(u16 param);
 
 	// opcode handlers
 	virtual void op_lb();
@@ -295,10 +294,10 @@ protected:
 class sm510_device : public sm510_base_device
 {
 public:
-	sm510_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	sm510_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock);
 
 protected:
-	virtual offs_t disasm_disassemble(char *buffer, offs_t pc, const UINT8 *oprom, const UINT8 *opram, UINT32 options) override;
+	virtual offs_t disasm_disassemble(std::ostream &stream, offs_t pc, const u8 *oprom, const u8 *opram, u32 options) override;
 	virtual void execute_one() override;
 	virtual void get_opcode_param() override;
 
@@ -309,11 +308,11 @@ protected:
 class sm511_device : public sm510_base_device
 {
 public:
-	sm511_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
-	sm511_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, int stack_levels, int prgwidth, address_map_constructor program, int datawidth, address_map_constructor data, const char *shortname, const char *source);
+	sm511_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock);
+	sm511_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, u32 clock, int stack_levels, int prgwidth, address_map_constructor program, int datawidth, address_map_constructor data, const char *shortname, const char *source);
 
 protected:
-	virtual offs_t disasm_disassemble(char *buffer, offs_t pc, const UINT8 *oprom, const UINT8 *opram, UINT32 options) override;
+	virtual offs_t disasm_disassemble(std::ostream &stream, offs_t pc, const u8 *oprom, const u8 *opram, u32 options) override;
 	virtual void execute_one() override;
 	virtual void get_opcode_param() override;
 };
@@ -321,7 +320,7 @@ protected:
 class sm512_device : public sm511_device
 {
 public:
-	sm512_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	sm512_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock);
 };
 
 

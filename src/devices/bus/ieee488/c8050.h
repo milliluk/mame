@@ -11,7 +11,6 @@
 #ifndef __C8050__
 #define __C8050__
 
-#include "emu.h"
 #include "ieee488.h"
 #include "c8050fdc.h"
 #include "cpu/m6502/m6502.h"
@@ -32,8 +31,8 @@ class c8050_t :  public device_t,
 {
 public:
 	// construction/destruction
-	c8050_t(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
-	c8050_t(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	c8050_t(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint32_t clock, const char *shortname, const char *source);
+	c8050_t(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual const tiny_rom_entry *device_rom_region() const override;
@@ -86,7 +85,7 @@ class c8250_t :  public c8050_t
 {
 public:
 	// construction/destruction
-	c8250_t(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	c8250_t(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual machine_config_constructor device_mconfig_additions() const override;
@@ -101,7 +100,7 @@ class c8250lp_t :  public c8050_t
 {
 public:
 	// construction/destruction
-	c8250lp_t(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	c8250lp_t(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual const tiny_rom_entry *device_rom_region() const override;
@@ -117,7 +116,7 @@ class sfd1001_t :  public c8050_t
 {
 public:
 	// construction/destruction
-	sfd1001_t(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	sfd1001_t(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual const tiny_rom_entry *device_rom_region() const override;

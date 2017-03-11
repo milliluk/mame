@@ -5,7 +5,6 @@
 #ifndef __ISA_SVGA_S3_H__
 #define __ISA_SVGA_S3_H__
 
-#include "emu.h"
 #include "isa.h"
 #include "video/pc_vga.h"
 #include "s3virge.h"
@@ -22,7 +21,7 @@ class isa16_svga_s3_device :
 {
 public:
 		// construction/destruction
-		isa16_svga_s3_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+		isa16_svga_s3_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 		// optional information overrides
 		virtual machine_config_constructor device_mconfig_additions() const override;
@@ -44,7 +43,7 @@ class isa16_s3virge_device :
 {
 public:
 		// construction/destruction
-		isa16_s3virge_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+		isa16_s3virge_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 		// optional information overrides
 		virtual machine_config_constructor device_mconfig_additions() const override;
@@ -65,7 +64,7 @@ class isa16_s3virgedx_device :
 {
 public:
 		// construction/destruction
-		isa16_s3virgedx_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+		isa16_s3virgedx_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 		// optional information overrides
 		virtual machine_config_constructor device_mconfig_additions() const override;
@@ -86,7 +85,7 @@ class isa16_stealth3d2kpro_device :
 {
 public:
 		// construction/destruction
-		isa16_stealth3d2kpro_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+		isa16_stealth3d2kpro_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 		// optional information overrides
 		virtual machine_config_constructor device_mconfig_additions() const override;

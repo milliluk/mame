@@ -17,6 +17,7 @@ ToDo:
 
 *********************************************************************************/
 
+#include "emu.h"
 #include "machine/genpin.h"
 
 #include "cpu/tms9900/tms9995.h"
@@ -43,8 +44,8 @@ protected:
 	// driver_device overrides
 	virtual void machine_reset() override;
 private:
-	UINT8 m_cru_data[9];
-	UINT8 m_cru_count;
+	uint8_t m_cru_data[9];
+	uint8_t m_cru_count;
 };
 
 static ADDRESS_MAP_START( nsm_map, AS_PROGRAM, 8, nsm_state )
@@ -90,7 +91,7 @@ WRITE8_MEMBER( nsm_state::cru_w )
 	}
 	m_cru_data[m_cru_count] |= (data << offset);
 
-	UINT8 i,j;
+	uint8_t i,j;
 	int segments;
 	if (!m_cru_count && (offset == 7))
 	{

@@ -3,12 +3,17 @@
 /**********************************************************************************
 
 PINBALL
-Playmatic MPU 2
+Playmatic MPU-C
 
-4 different sound boards were used.
-- Those without sound roms use a CDP1863
-- Zira uses a COP402 and a AY-3-8910
-- Cerberus uses a 90435 (appears to be a CDP1802) and a 90503 (unknown)
+The IOS board common to all games provides sound effects through the CDP1863.
+4 different add-on sound boards were also used:
+- Black Fever has the Speaking System board, which produces analog signals for
+  controlling an 8-track tape player.
+- Zira uses the Sound-2 board with a COP402 and AY-3-8910. The latter device is
+  also supposedly used to control lights through a separate connector.
+- Cerberus uses the Sound-3 board with a 90435 processor, which is most likely a
+  CDP1802 by another name. The 90503 "synthesizer" is the only sound IC on this
+  board; it has a TI logo and seems at least pin-compatible with TMS52xx.
 - Mad Race uses a Sound Board IV (same as MPU-3 and later), but I/O ports
   that talk to it are unknown.
 
@@ -26,6 +31,7 @@ Notes:
 ***********************************************************************************/
 
 
+#include "emu.h"
 #include "machine/genpin.h"
 #include "cpu/cosmac/cosmac.h"
 #include "cpu/cop400/cop400.h"
@@ -70,14 +76,14 @@ public:
 	DECLARE_DRIVER_INIT(zira);
 
 private:
-	UINT16 m_clockcnt;
-	UINT16 m_resetcnt;
-	UINT8 m_kbdrow;
-	UINT8 m_segment[5];
+	uint16_t m_clockcnt;
+	uint16_t m_resetcnt;
+	uint8_t m_kbdrow;
+	uint8_t m_segment[5];
 	bool m_disp_sw;
-	UINT8 m_soundlatch;
-	UINT8 m_psg_latch;
-	UINT8 m_port06;
+	uint8_t m_soundlatch;
+	uint8_t m_psg_latch;
+	uint8_t m_port06;
 	virtual void machine_reset() override;
 	required_device<cosmac_device> m_maincpu;
 	required_device<ttl7474_device> m_4013a;
@@ -191,7 +197,7 @@ void play_2_state::machine_reset()
 	m_kbdrow = 0;
 	m_disp_sw = 0;
 	m_port06 = 0;
-	for (UINT8 i = 0; i < 5; i++)
+	for (uint8_t i = 0; i < 5; i++)
 		m_segment[i] = 0;
 	m_1863->oe_w(1);
 }
@@ -202,9 +208,9 @@ WRITE8_MEMBER( play_2_state::port01_w )
 	if (m_kbdrow && m_disp_sw)
 	{
 		m_disp_sw = 0;
-		for (UINT8 j = 0; j < 6; j++)
+		for (uint8_t j = 0; j < 6; j++)
 			if (BIT(m_kbdrow, j))
-				for (UINT8 i = 0; i < 5; i++)
+				for (uint8_t i = 0; i < 5; i++)
 					output().set_digit_value(j*10 + i, m_segment[i] & 0x7f);
 	}
 	m_1863->set_output_gain(0, BIT(data, 7) ? 1.00 : 0.00);
@@ -227,7 +233,7 @@ WRITE8_MEMBER( play_2_state::port03_w )
 READ8_MEMBER( play_2_state::port04_r )
 {
 	if (m_kbdrow & 0x3f)
-		for (UINT8 i = 0; i < 6; i++)
+		for (uint8_t i = 0; i < 6; i++)
 			if (BIT(m_kbdrow, i))
 				return m_keyboard[i]->read();
 
@@ -496,11 +502,11 @@ ROM_START(madrace)
 ROM_END
 
 
-GAME(1979,  antar,     0,     play_2, play_2, driver_device, 0,    ROT0, "Playmatic", "Antar (set 1)",      MACHINE_MECHANICAL )
-GAME(1979,  antar2,    antar, play_2, play_2, driver_device, 0,    ROT0, "Playmatic", "Antar (set 2)",      MACHINE_MECHANICAL )
-GAME(1980,  evlfight,  0,     play_2, play_2, driver_device, 0,    ROT0, "Playmatic", "Evil Fight",         MACHINE_MECHANICAL )
-GAME(1980,  attack,    0,     play_2, play_2, driver_device, 0,    ROT0, "Playmatic", "Attack",             MACHINE_MECHANICAL )
-GAME(1980,  blkfever,  0,     play_2, play_2, driver_device, 0,    ROT0, "Playmatic", "Black Fever",        MACHINE_MECHANICAL )
+GAME(1979,  antar,     0,     play_2, play_2, driver_device, 0,    ROT0, "Playmatic", "Antar (set 1)",      MACHINE_MECHANICAL | MACHINE_NOT_WORKING )
+GAME(1979,  antar2,    antar, play_2, play_2, driver_device, 0,    ROT0, "Playmatic", "Antar (set 2)",      MACHINE_MECHANICAL | MACHINE_NOT_WORKING )
+GAME(1980,  evlfight,  0,     play_2, play_2, driver_device, 0,    ROT0, "Playmatic", "Evil Fight",         MACHINE_MECHANICAL | MACHINE_NOT_WORKING )
+GAME(1980,  attack,    0,     play_2, play_2, driver_device, 0,    ROT0, "Playmatic", "Attack",             MACHINE_MECHANICAL | MACHINE_NOT_WORKING )
+GAME(1980,  blkfever,  0,     play_2, play_2, driver_device, 0,    ROT0, "Playmatic", "Black Fever",        MACHINE_MECHANICAL | MACHINE_NOT_WORKING )
 GAME(1982,  cerberup,  0,     play_2, play_2, driver_device, 0,    ROT0, "Playmatic", "Cerberus (Pinball)", MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_NO_SOUND)
-GAME(1985,  madrace,   0,     play_2, play_2, driver_device, 0,    ROT0, "Playmatic", "Mad Race",           MACHINE_MECHANICAL | MACHINE_NO_SOUND)
+GAME(1985,  madrace,   0,     play_2, play_2, driver_device, 0,    ROT0, "Playmatic", "Mad Race",           MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_NO_SOUND)
 GAME(1980,  zira,      0,     zira,   play_2, play_2_state,  zira, ROT0, "Playmatic", "Zira",               MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_NO_SOUND)

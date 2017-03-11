@@ -23,8 +23,6 @@
 #include "machine/keyboard.h"
 #include "sound/beep.h"
 
-#define KEYBOARD_TAG "keyboard"
-
 class zrt80_state : public driver_device
 {
 public:
@@ -34,13 +32,14 @@ public:
 	};
 
 	zrt80_state(const machine_config &mconfig, device_type type, const char *tag)
-		: driver_device(mconfig, type, tag),
-		m_p_videoram(*this, "videoram"),
-		m_maincpu(*this, "maincpu"),
-		m_crtc(*this, "crtc"),
-		m_8250(*this, "ins8250"),
-		m_beep(*this, "beeper"),
-		m_palette(*this, "palette")
+		: driver_device(mconfig, type, tag)
+		, m_p_videoram(*this, "videoram")
+		, m_maincpu(*this, "maincpu")
+		, m_crtc(*this, "crtc")
+		, m_8250(*this, "ins8250")
+		, m_beep(*this, "beeper")
+		, m_palette(*this, "palette")
+		, m_p_chargen(*this, "chargen")
 	{
 	}
 
@@ -49,26 +48,24 @@ public:
 	DECLARE_WRITE8_MEMBER(zrt80_38_w);
 	DECLARE_WRITE8_MEMBER(kbd_put);
 	MC6845_UPDATE_ROW(crtc_update_row);
-	const UINT8 *m_p_chargen;
-	required_shared_ptr<UINT8> m_p_videoram;
-protected:
-	virtual void device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr) override;
+
 private:
-	UINT8 m_term_data;
+	virtual void device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr) override;
+	uint8_t m_term_data;
 	virtual void machine_reset() override;
-	virtual void video_start() override;
+	required_shared_ptr<uint8_t> m_p_videoram;
 	required_device<cpu_device> m_maincpu;
 	required_device<mc6845_device> m_crtc;
 	required_device<ins8250_device> m_8250;
 	required_device<beep_device> m_beep;
-public:
 	required_device<palette_device> m_palette;
+	required_region_ptr<u8> m_p_chargen;
 };
 
 
 READ8_MEMBER( zrt80_state::zrt80_10_r )
 {
-	UINT8 ret = m_term_data;
+	uint8_t ret = m_term_data;
 	m_maincpu->set_input_line(INPUT_LINE_NMI, CLEAR_LINE);
 	return ret;
 }
@@ -81,7 +78,7 @@ void zrt80_state::device_timer(emu_timer &timer, device_timer_id id, int param, 
 		m_beep->set_state(0);
 		break;
 	default:
-		assert_always(FALSE, "Unknown id in zrt80_state::device_timer");
+		assert_always(false, "Unknown id in zrt80_state::device_timer");
 	}
 }
 
@@ -209,18 +206,13 @@ void zrt80_state::machine_reset()
 	m_term_data = 0;
 }
 
-void zrt80_state::video_start()
-{
-	m_p_chargen = memregion("chargen")->base();
-}
-
 MC6845_UPDATE_ROW( zrt80_state::crtc_update_row )
 {
 	const rgb_t *palette = m_palette->palette()->entry_list_raw();
-	UINT8 chr,gfx,inv;
-	UINT16 mem,x;
-	UINT32 *p = &bitmap.pix32(y);
-	UINT8 polarity = ioport("DIPSW1")->read() & 4 ? 0xff : 0;
+	uint8_t chr,gfx,inv;
+	uint16_t mem,x;
+	uint32_t *p = &bitmap.pix32(y);
+	uint8_t polarity = ioport("DIPSW1")->read() & 4 ? 0xff : 0;
 
 	for (x = 0; x < x_count; x++)
 	{
@@ -280,7 +272,7 @@ static MACHINE_CONFIG_START( zrt80, zrt80_state )
 	MCFG_CPU_IO_MAP(zrt80_io)
 
 	/* video hardware */
-	MCFG_SCREEN_ADD_MONOCHROME("screen", RASTER, rgb_t::green)
+	MCFG_SCREEN_ADD_MONOCHROME("screen", RASTER, rgb_t::green())
 	MCFG_SCREEN_REFRESH_RATE(60)
 	MCFG_SCREEN_VBLANK_TIME(ATTOSECONDS_IN_USEC(2500)) /* not accurate */
 	MCFG_SCREEN_UPDATE_DEVICE("crtc", mc6845_device, screen_update)
@@ -302,7 +294,7 @@ static MACHINE_CONFIG_START( zrt80, zrt80_state )
 
 	MCFG_DEVICE_ADD( "ins8250", INS8250, 2457600 )
 	MCFG_INS8250_OUT_INT_CB(INPUTLINE("maincpu", INPUT_LINE_IRQ0))
-	MCFG_DEVICE_ADD(KEYBOARD_TAG, GENERIC_KEYBOARD, 0)
+	MCFG_DEVICE_ADD("keyboard", GENERIC_KEYBOARD, 0)
 	MCFG_GENERIC_KEYBOARD_CB(WRITE8(zrt80_state, kbd_put))
 MACHINE_CONFIG_END
 

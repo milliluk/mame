@@ -3,14 +3,13 @@
 #ifndef M20_8086_H_
 #define M20_8086_H_
 
-#include "emu.h"
 #include "cpu/i86/i86.h"
 #include "machine/pic8259.h"
 
 class m20_8086_device :  public device_t
 {
 public:
-	m20_8086_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	m20_8086_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	virtual const tiny_rom_entry *device_rom_region() const override;
 	virtual machine_config_constructor device_mconfig_additions() const override;

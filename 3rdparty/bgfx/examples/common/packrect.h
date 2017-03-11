@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2016 Branimir Karadzic. All rights reserved.
+ * Copyright 2011-2017 Branimir Karadzic. All rights reserved.
  * License: https://github.com/bkaradzic/bgfx#license-bsd-2-clause
  */
 
@@ -127,7 +127,7 @@ public:
 
 	void reset(uint16_t _side)
 	{
-		for (uint32_t ii = 0; ii < 6; ++ii)
+		for (uint8_t ii = 0; ii < 6; ++ii)
 		{
 			m_mru[ii] = ii;
 			m_ra[ii].reset(_side, _side);

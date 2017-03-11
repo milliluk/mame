@@ -3,8 +3,10 @@
 /*
     Hitachi HD63450 DMA Controller
 */
+#ifndef HD63450_H
+#define HD63450_H
+#pragma once
 
-#include "emu.h"
 
 
 #define MCFG_HD63450_DMA_END_CB(_devcb) \
@@ -71,7 +73,7 @@ struct hd63450_regs
 class hd63450_device : public device_t
 {
 public:
-	hd63450_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	hd63450_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	~hd63450_device() {}
 
 	template<class _Object> static devcb_base &set_dma_end_callback(device_t &device, _Object object) { return downcast<hd63450_device &>(device).m_dma_end.set_callback(object); }
@@ -153,3 +155,4 @@ private:
 };
 
 extern const device_type HD63450;
+#endif // HD63450_H

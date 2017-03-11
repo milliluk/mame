@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2016 Branimir Karadzic. All rights reserved.
+ * Copyright 2010-2017 Branimir Karadzic. All rights reserved.
  * License: https://github.com/bkaradzic/bx#license-bsd-2-clause
  */
 
@@ -12,9 +12,5 @@
 #define CHECK_EQUAL(_x, _y) REQUIRE(_x == _y)
 
 #include "dbg.h"
-
-#if !BX_COMPILER_MSVC
-#	define _strdup strdup
-#endif // !BX_COMPILER_MSVC
 
 #endif // __TEST_H__

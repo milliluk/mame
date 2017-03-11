@@ -6,6 +6,7 @@
 
 **********************************************************************/
 
+#include "emu.h"
 #include "exp.h"
 
 
@@ -42,7 +43,7 @@ device_newbrain_expansion_slot_interface::device_newbrain_expansion_slot_interfa
 //  newbrain_expansion_slot_t - constructor
 //-------------------------------------------------
 
-newbrain_expansion_slot_t::newbrain_expansion_slot_t(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock) :
+newbrain_expansion_slot_t::newbrain_expansion_slot_t(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
 	device_t(mconfig, NEWBRAIN_EXPANSION_SLOT, "NewBrain expansion port", tag, owner, clock, "newbrain_expansion_slot", __FILE__),
 	device_slot_interface(mconfig, *this), m_card(nullptr)
 {
@@ -76,7 +77,7 @@ void newbrain_expansion_slot_t::device_reset()
 //  mreq_r - memory request read
 //-------------------------------------------------
 
-UINT8 newbrain_expansion_slot_t::mreq_r(address_space &space, offs_t offset, UINT8 data, bool &romov, int &exrm, bool &raminh)
+uint8_t newbrain_expansion_slot_t::mreq_r(address_space &space, offs_t offset, uint8_t data, bool &romov, int &exrm, bool &raminh)
 {
 	if (m_card != nullptr)
 	{
@@ -91,7 +92,7 @@ UINT8 newbrain_expansion_slot_t::mreq_r(address_space &space, offs_t offset, UIN
 //  mreq_w - memory request write
 //-------------------------------------------------
 
-void newbrain_expansion_slot_t::mreq_w(address_space &space, offs_t offset, UINT8 data, bool &romov, int &exrm, bool &raminh)
+void newbrain_expansion_slot_t::mreq_w(address_space &space, offs_t offset, uint8_t data, bool &romov, int &exrm, bool &raminh)
 {
 	if (m_card != nullptr)
 	{
@@ -104,7 +105,7 @@ void newbrain_expansion_slot_t::mreq_w(address_space &space, offs_t offset, UINT
 //  iorq_r - I/O request read
 //-------------------------------------------------
 
-UINT8 newbrain_expansion_slot_t::iorq_r(address_space &space, offs_t offset, UINT8 data, bool &prtov)
+uint8_t newbrain_expansion_slot_t::iorq_r(address_space &space, offs_t offset, uint8_t data, bool &prtov)
 {
 	if (m_card != nullptr)
 	{
@@ -119,7 +120,7 @@ UINT8 newbrain_expansion_slot_t::iorq_r(address_space &space, offs_t offset, UIN
 //  iorq_w - I/O request write
 //-------------------------------------------------
 
-void newbrain_expansion_slot_t::iorq_w(address_space &space, offs_t offset, UINT8 data, bool &prtov)
+void newbrain_expansion_slot_t::iorq_w(address_space &space, offs_t offset, uint8_t data, bool &prtov)
 {
 	if (m_card != nullptr)
 	{

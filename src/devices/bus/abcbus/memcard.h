@@ -11,7 +11,6 @@
 #ifndef __ABC_MEMORY_CARD__
 #define __ABC_MEMORY_CARD__
 
-#include "emu.h"
 #include "abcbus.h"
 
 
@@ -27,7 +26,7 @@ class abc_memory_card_t :  public device_t,
 {
 public:
 	// construction/destruction
-	abc_memory_card_t(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	abc_memory_card_t(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual const tiny_rom_entry *device_rom_region() const override;
@@ -37,8 +36,8 @@ protected:
 	virtual void device_start() override;
 
 	// device_abcbus_interface overrides
-	virtual void abcbus_cs(UINT8 data) override { };
-	virtual UINT8 abcbus_xmemfl(offs_t offset) override;
+	virtual void abcbus_cs(uint8_t data) override { };
+	virtual uint8_t abcbus_xmemfl(offs_t offset) override;
 
 private:
 	required_memory_region m_dos_rom;

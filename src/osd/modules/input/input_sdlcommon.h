@@ -20,16 +20,16 @@
 // state information for a keyboard
 struct keyboard_state
 {
-	INT32   state[0x3ff];                                   // must be INT32!
-	INT8    oldkey[MAX_KEYS];
-	INT8    currkey[MAX_KEYS];
+	int32_t   state[0x3ff];                                   // must be int32_t!
+	int8_t    oldkey[MAX_KEYS];
+	int8_t    currkey[MAX_KEYS];
 };
 
 // state information for a mouse
 struct mouse_state
 {
-	INT32 lX, lY;
-	INT32 buttons[MAX_BUTTONS];
+	int32_t lX, lY;
+	int32_t buttons[MAX_BUTTONS];
 };
 
 
@@ -37,10 +37,10 @@ struct mouse_state
 struct joystick_state
 {
 	SDL_Joystick *device;
-	INT32 axes[MAX_AXES];
-	INT32 buttons[MAX_BUTTONS];
-	INT32 hatsU[MAX_HATS], hatsD[MAX_HATS], hatsL[MAX_HATS], hatsR[MAX_HATS];
-	INT32 balls[MAX_AXES];
+	int32_t axes[MAX_AXES];
+	int32_t buttons[MAX_BUTTONS];
+	int32_t hatsU[MAX_HATS], hatsD[MAX_HATS], hatsL[MAX_HATS], hatsR[MAX_HATS];
+	int32_t balls[MAX_AXES];
 };
 
 struct device_map_t
@@ -148,17 +148,6 @@ private:
 //  INLINE FUNCTIONS
 //============================================================
 
-static inline int devmap_leastfree(device_map_t *devmap)
-{
-	for (int i = 0; i < MAX_DEVMAP_ENTRIES; i++)
-	{
-		if (devmap->map[i].name.length() == 0)
-			return i;
-	}
-
-	return -1;
-}
-
 static inline std::string remove_spaces(const char *s)
 {
 	// Remove the spaces
@@ -184,6 +173,7 @@ static inline void devmap_init(running_machine &machine, device_map_t *devmap, c
 	// Initialize the map to default uninitialized values
 	for (dev = 0; dev < MAX_DEVMAP_ENTRIES; dev++)
 	{
+		devmap->map[dev].name.clear();
 		devmap->map[dev].physical = -1;
 		devmap->logical[dev] = -1;
 	}

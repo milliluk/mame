@@ -85,7 +85,7 @@ struct gamepad_state
 // state information for a gamepad; state must be first element
 struct xinput_api_state
 {
-	UINT32                  player_index;
+	uint32_t                  player_index;
 	XINPUT_STATE            xstate;
 	XINPUT_CAPABILITIES     caps;
 };
@@ -135,7 +135,7 @@ private:
 	bool                               m_configured;
 
 public:
-	xinput_joystick_device(running_machine &machine, const char *name, input_module &module, std::shared_ptr<xinput_api_helper> helper);
+	xinput_joystick_device(running_machine &machine, const char *name, const char *id, input_module &module, std::shared_ptr<xinput_api_helper> helper);
 
 	void poll() override;
 	void reset() override;

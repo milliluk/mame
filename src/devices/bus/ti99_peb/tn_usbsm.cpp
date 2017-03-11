@@ -29,7 +29,7 @@
     * Implement USB controller and assorted USB devices
     * Save DSR FEEPROM to disk
 
-    Raphael Nabet, 2004.
+    Original code by Raphael Nabet, 2004.
 
     Michael Zapf
     September 2010: Rewritten as device
@@ -39,9 +39,13 @@
 
 *****************************************************************************/
 
+#include "emu.h"
 #include "tn_usbsm.h"
 
 #define STRATA_TAG "strata"
+
+#define RAM1_TAG "ram512k_lb"
+#define RAM2_TAG "ram512k_hb"
 
 enum
 {
@@ -51,12 +55,22 @@ enum
 	FEEPROM_WRITE_ENABLE = 0x10
 };
 
-nouspikel_usb_smartmedia_device::nouspikel_usb_smartmedia_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
-: ti_expansion_card_device(mconfig, TI99_USBSM, "Nouspikel USB/Smartmedia card", tag, owner, clock, "ti99_usbsm", __FILE__),
-m_feeprom_page(0), m_sram_page(0), m_cru_register(0), m_tms9995_mode(false), m_enable_io(false), m_enable_int(false), m_enable_sm(false),
-m_write_flash(false), m_input_latch(0), m_output_latch(0),
-	m_smartmedia(*this, "smartmedia"),
-	m_flash(*this, STRATA_TAG)
+nouspikel_usb_smartmedia_device::nouspikel_usb_smartmedia_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
+	: ti_expansion_card_device(mconfig, TI99_USBSM, "Nouspikel USB/Smartmedia card", tag, owner, clock, "ti99_usbsm", __FILE__),
+	  m_feeprom_page(0),
+	  m_sram_page(0),
+	  m_cru_register(0),
+	  m_tms9995_mode(false),
+	  m_enable_io(false),
+	  m_enable_int(false),
+	  m_enable_sm(false),
+	  m_write_flash(false),
+	  m_input_latch(0),
+	  m_output_latch(0),
+	  m_ram_lb(*this, RAM1_TAG),
+	  m_ram_hb(*this, RAM2_TAG),
+	  m_smartmedia(*this, "smartmedia"),
+	  m_flash(*this, STRATA_TAG)
 {
 }
 
@@ -67,7 +81,7 @@ READ8Z_MEMBER(nouspikel_usb_smartmedia_device::crureadz)
 {
 	if ((offset & 0xff00)==m_cru_base)
 	{
-		UINT8 reply = 0;
+		uint8_t reply = 0;
 		offset &= 3;
 
 		if (offset == 0)
@@ -201,7 +215,8 @@ READ8Z_MEMBER(nouspikel_usb_smartmedia_device::readz)
 				else
 				{
 					// SRAM
-					m_input_latch = m_ram[m_sram_page*0x800+((offset>>1)&0x07ff)];
+					int ramaddr = m_sram_page*0x800+((offset>>1)&0x07ff);
+					m_input_latch = ((m_ram_hb->pointer()[ramaddr] & 0xff) << 8) | (m_ram_lb->pointer()[ramaddr] & 0xff);
 				}
 			}
 		}
@@ -266,7 +281,9 @@ WRITE8_MEMBER(nouspikel_usb_smartmedia_device::write)
 				}
 				else
 				{   // SRAM
-					m_ram[m_sram_page*0x800+((offset>>1) & 0x07ff)] = m_output_latch;
+					int ramaddr = m_sram_page*0x800+((offset>>1)&0x07ff);
+					m_ram_lb->pointer()[ramaddr] = (m_output_latch & 0xff);
+					m_ram_hb->pointer()[ramaddr] = (m_output_latch >> 8) & 0xff;
 				}
 			}
 		}
@@ -275,7 +292,16 @@ WRITE8_MEMBER(nouspikel_usb_smartmedia_device::write)
 
 void nouspikel_usb_smartmedia_device::device_start()
 {
-	m_ram.resize(0x80000/2);
+	save_item(NAME(m_feeprom_page));
+	save_item(NAME(m_sram_page));
+	save_item(NAME(m_cru_register));
+	save_item(NAME(m_tms9995_mode));
+	save_item(NAME(m_enable_io));
+	save_item(NAME(m_enable_int));
+	save_item(NAME(m_enable_sm));
+	save_item(NAME(m_write_flash));
+	save_item(NAME(m_input_latch));
+	save_item(NAME(m_output_latch));
 }
 
 void nouspikel_usb_smartmedia_device::device_reset()
@@ -332,6 +358,12 @@ INPUT_PORTS_END
 MACHINE_CONFIG_FRAGMENT( tn_usbsm )
 	MCFG_DEVICE_ADD("smartmedia", SMARTMEDIA, 0)
 	MCFG_STRATAFLASH_ADD(STRATA_TAG)
+	MCFG_RAM_ADD(RAM1_TAG)
+	MCFG_RAM_DEFAULT_SIZE("512k")
+	MCFG_RAM_DEFAULT_VALUE(0)
+	MCFG_RAM_ADD(RAM2_TAG)
+	MCFG_RAM_DEFAULT_SIZE("512k")
+	MCFG_RAM_DEFAULT_VALUE(0)
 MACHINE_CONFIG_END
 
 machine_config_constructor nouspikel_usb_smartmedia_device::device_mconfig_additions() const

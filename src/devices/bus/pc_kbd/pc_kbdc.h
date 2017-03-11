@@ -15,7 +15,6 @@ set the data line and then set the clock line.
 #ifndef __PC_KBDC_H__
 #define __PC_KBDC_H__
 
-#include "emu.h"
 
 //**************************************************************************
 //  INTERFACE CONFIGURATION MACROS
@@ -42,7 +41,7 @@ class pc_kbdc_slot_device : public device_t,
 {
 public:
 	// construction/destruction
-	pc_kbdc_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	pc_kbdc_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// device-level overrides
 	virtual void device_start() override;
@@ -65,7 +64,7 @@ class pc_kbdc_device :  public device_t
 {
 public:
 	// construction/destruction
-	pc_kbdc_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	pc_kbdc_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	template<class _Object> static devcb_base &set_out_clock_callback(device_t &device, _Object object) { return downcast<pc_kbdc_device &>(device).m_out_clock_cb.set_callback(object); }
 	template<class _Object> static devcb_base &set_out_data_callback(device_t &device, _Object object) { return downcast<pc_kbdc_device &>(device).m_out_data_cb.set_callback(object); }

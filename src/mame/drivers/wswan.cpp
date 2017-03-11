@@ -33,6 +33,7 @@
 
 ***************************************************************************/
 
+#include "emu.h"
 #include "includes/wswan.h"
 #include "softlist.h"
 #include "wswan.lh"
@@ -81,7 +82,7 @@ PALETTE_INIT_MEMBER(wswan_state, wswan)
 {
 	for (int i = 0; i < 16; i++)
 	{
-		UINT8 shade = i * (256 / 16);
+		uint8_t shade = i * (256 / 16);
 		palette.set_pen_color(15 - i, shade, shade, shade);
 	}
 }

@@ -5,7 +5,6 @@
 #ifndef __COCO_232_H__
 #define __COCO_232_H__
 
-#include "emu.h"
 #include "cococart.h"
 #include "machine/mos6551.h"
 
@@ -21,7 +20,7 @@ class coco_232_device :
 {
 public:
 		// construction/destruction
-		coco_232_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+		coco_232_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 		// optional information overrides
 		virtual machine_config_constructor device_mconfig_additions() const override;

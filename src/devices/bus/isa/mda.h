@@ -5,7 +5,6 @@
 #ifndef __ISA_MDA_H__
 #define __ISA_MDA_H__
 
-#include "emu.h"
 #include "isa.h"
 #include "video/mc6845.h"
 
@@ -22,8 +21,8 @@ public:
 	friend class isa8_hercules_device;
 
 	// construction/destruction
-	isa8_mda_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
-	isa8_mda_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
+	isa8_mda_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	isa8_mda_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint32_t clock, const char *shortname, const char *source);
 
 	// optional information overrides
 	virtual machine_config_constructor device_mconfig_additions() const override;
@@ -49,14 +48,14 @@ protected:
 public:
 	int m_framecnt;
 
-	UINT8   m_mode_control;
+	uint8_t   m_mode_control;
 
 	int     m_update_row_type;
-	UINT8   *m_chr_gen;
-	UINT8   m_vsync;
-	UINT8   m_hsync;
-	dynamic_buffer m_videoram;
-	UINT8   m_pixel;
+	uint8_t   *m_chr_gen;
+	uint8_t   m_vsync;
+	uint8_t   m_hsync;
+	std::vector<uint8_t> m_videoram;
+	uint8_t   m_pixel;
 	required_device<palette_device> m_palette;
 };
 
@@ -71,7 +70,7 @@ class isa8_hercules_device :
 {
 public:
 	// construction/destruction
-	isa8_hercules_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	isa8_hercules_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	// optional information overrides
 	virtual machine_config_constructor device_mconfig_additions() const override;
 	virtual const tiny_rom_entry *device_rom_region() const override;
@@ -90,7 +89,7 @@ protected:
 	virtual void device_reset() override;
 
 public:
-	UINT8 m_configuration_switch; //hercules
+	uint8_t m_configuration_switch; //hercules
 };
 
 
@@ -104,7 +103,7 @@ class isa8_ec1840_0002_device :
 {
 public:
 	// construction/destruction
-	isa8_ec1840_0002_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	isa8_ec1840_0002_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	// optional information overrides
 	virtual machine_config_constructor device_mconfig_additions() const override;
 
@@ -120,7 +119,7 @@ protected:
 	virtual void device_reset() override;
 
 public:
-	std::unique_ptr<UINT8[]>   m_soft_chr_gen;
+	std::unique_ptr<uint8_t[]>   m_soft_chr_gen;
 
 };
 

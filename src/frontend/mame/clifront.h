@@ -12,7 +12,6 @@
 
 #pragma once
 
-#include "emu.h"
 #include "emuopts.h"
 
 // don't include osd_interface in header files
@@ -43,7 +42,6 @@ public:
 	void listcrc(const char *gamename = "*");
 	void listroms(const char *gamename = "*");
 	void listsamples(const char *gamename = "*");
-	static int compare_devices(const void *i1, const void *i2);
 	void listdevices(const char *gamename = "*");
 	void listslots(const char *gamename = "*");
 	void listmedia(const char *gamename = "*");
@@ -61,6 +59,7 @@ private:
 	void display_help(const char *exename);
 	void display_suggestions(const char *gamename);
 	void output_single_softlist(FILE *out, software_list_device &swlist);
+	void start_execution(mame_machine_manager *manager, int argc, char **argv, std::string &option_errors);
 
 	// internal state
 	emu_options &       m_options;

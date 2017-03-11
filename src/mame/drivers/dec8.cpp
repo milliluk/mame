@@ -59,7 +59,7 @@ To do:
 
 WRITE8_MEMBER(dec8_state::dec8_mxc06_karn_buffer_spriteram_w)
 {
-	UINT8* spriteram = m_spriteram->live();
+	uint8_t* spriteram = m_spriteram->live();
 	// copy to a 16-bit region for the sprite chip
 	for (int i=0;i<0x800/2;i++)
 	{
@@ -141,7 +141,7 @@ void dec8_state::device_timer(emu_timer &timer, device_timer_id id, int param, v
 		m_mcu->set_input_line(MCS51_INT1_LINE, CLEAR_LINE);
 		break;
 	default:
-		assert_always(FALSE, "Unknown id in dec8_state::device_timer");
+		assert_always(false, "Unknown id in dec8_state::device_timer");
 	}
 }
 
@@ -3210,7 +3210,8 @@ ROM_START( csilver )
 	ROM_CONTINUE(   0x08000, 0x08000 )
 
 	ROM_REGION( 0x1000, "mcu", 0 )    /* ID8751H MCU */
-	ROM_LOAD( "id8751h.mcu", 0x0000, 0x1000, NO_DUMP ) // dx-8.19a ?
+	// 017F: B4 4C 0D : cjne  a,#$4C,$018F   (ID code 0x4c = World version)
+	ROM_LOAD( "id8751h.mcu", 0x0000, 0x1000, CRC(ca663965) SHA1(a5fb7afdfd324761bde4bb90ba12efc9954627af) ) // dx-8.19a ?
 
 	ROM_REGION( 0x08000, "gfx1", 0 )    /* characters */
 	ROM_LOAD( "dx00.3d",  0x00000, 0x08000, CRC(f01ef985) SHA1(d5b823bd7c0efcf3137f8643c5d99a260bed5675) )
@@ -3410,7 +3411,8 @@ ROM_START( srdarwin )
 	ROM_LOAD( "dy04.d7", 0x8000, 0x8000, CRC(2ae3591c) SHA1(f21b06d84e2c3d3895be0812024641fd006e45cf) )
 
 	ROM_REGION( 0x1000, "mcu", 0 )    /* ID8751H MCU */
-	ROM_LOAD( "id8751h.mcu", 0x0000, 0x1000, NO_DUMP )
+	// 0160: B4 6B 0D : cjne  a,#$6B,$0170   (ID code 0x6b = World version)
+	ROM_LOAD( "id8751h.mcu", 0x0000, 0x1000, CRC(11cd6ca4) SHA1(ec70f84228e37f9fc1bda85fa52a009f61c500b2) )
 
 	ROM_REGION( 0x08000, "gfx1", 0 )    /* characters */
 	ROM_LOAD( "dy05.b6", 0x00000, 0x4000, CRC(8780e8a3) SHA1(03ea91fdc5aba8e139201604fb3bf9b69f71f056) )
@@ -3546,35 +3548,35 @@ DRIVER_INIT_MEMBER(dec8_state,dec8)
 /* Below, I set up the correct number of banks depending on the "maincpu" region size */
 DRIVER_INIT_MEMBER(dec8_state,lastmisn)
 {
-	UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *ROM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 4, &ROM[0x10000], 0x4000);
 	DRIVER_INIT_CALL(dec8);
 }
 
 DRIVER_INIT_MEMBER(dec8_state,shackled)
 {
-	UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *ROM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 16, &ROM[0x10000], 0x4000);
 	DRIVER_INIT_CALL(dec8);
 }
 
 DRIVER_INIT_MEMBER(dec8_state,gondo)
 {
-	UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *ROM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 12, &ROM[0x10000], 0x4000);
 	DRIVER_INIT_CALL(dec8);
 }
 
 DRIVER_INIT_MEMBER(dec8_state,garyoret)
 {
-	UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *ROM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 16, &ROM[0x10000], 0x4000);
 	DRIVER_INIT_CALL(dec8);
 }
 
 DRIVER_INIT_MEMBER(dec8_state,ghostb)
 {
-	UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *ROM = memregion("maincpu")->base();
 
 	membank("bank1")->configure_entries(0, 16, &ROM[0x10000], 0x4000);
 	DRIVER_INIT_CALL(dec8);
@@ -3582,7 +3584,7 @@ DRIVER_INIT_MEMBER(dec8_state,ghostb)
 
 DRIVER_INIT_MEMBER(dec8_state,meikyuh)
 {
-	UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *ROM = memregion("maincpu")->base();
 
 	membank("bank1")->configure_entries(0, 12, &ROM[0x10000], 0x4000);
 	DRIVER_INIT_CALL(dec8);
@@ -3590,8 +3592,8 @@ DRIVER_INIT_MEMBER(dec8_state,meikyuh)
 
 DRIVER_INIT_MEMBER(dec8_state,csilver)
 {
-	UINT8 *ROM = memregion("maincpu")->base();
-	UINT8 *RAM = memregion("audiocpu")->base();
+	uint8_t *ROM = memregion("maincpu")->base();
+	uint8_t *RAM = memregion("audiocpu")->base();
 
 	membank("bank1")->configure_entries(0, 14, &ROM[0x10000], 0x4000);
 	membank("bank3")->configure_entries(0, 2, &RAM[0x10000], 0x4000);
@@ -3600,21 +3602,21 @@ DRIVER_INIT_MEMBER(dec8_state,csilver)
 
 DRIVER_INIT_MEMBER(dec8_state,oscar)
 {
-	UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *ROM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 4, &ROM[0x10000], 0x4000);
 	DRIVER_INIT_CALL(dec8);
 }
 
 DRIVER_INIT_MEMBER(dec8_state,srdarwin)
 {
-	UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *ROM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 6, &ROM[0x10000], 0x4000);
 	DRIVER_INIT_CALL(dec8);
 }
 
 DRIVER_INIT_MEMBER(dec8_state,cobracom)
 {
-	UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *ROM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 8, &ROM[0x10000], 0x4000);
 	DRIVER_INIT_CALL(dec8);
 }

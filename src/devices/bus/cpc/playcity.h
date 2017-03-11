@@ -18,7 +18,6 @@
 #define CPC_PLAYCITY_H_
 
 
-#include "emu.h"
 #include "cpcexp.h"
 #include "sound/ay8910.h"
 #include "machine/z80ctc.h"
@@ -28,7 +27,7 @@ class cpc_playcity_device : public device_t,
 {
 public:
 	// construction/destruction
-	cpc_playcity_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	cpc_playcity_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual machine_config_constructor device_mconfig_additions() const override;

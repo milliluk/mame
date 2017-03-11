@@ -6,12 +6,13 @@
 //
 //============================================================
 
+#include "emu.h"
 #import "deviceinfoviewer.h"
 
 
 @interface MAMEDeviceInfoView : NSView
 {
-	CGFloat	minWidth;
+	CGFloat minWidth;
 }
 
 - (id)initWithFrame:(NSRect)frame;
@@ -135,8 +136,8 @@
 
 
 - (id)initWithDevice:(device_t &)d machine:(running_machine &)m console:(MAMEDebugConsole *)c {
-	MAMEDeviceInfoView	*contentView;
-	NSScrollView		*contentScroll;
+	MAMEDeviceInfoView  *contentView;
+	NSScrollView        *contentScroll;
 
 	if (!(self = [super initWithMachine:m
 								  title:[NSString stringWithFormat:@"Device %s", d.tag()]
@@ -218,6 +219,7 @@
 	[contentScroll setHasVerticalScroller:YES];
 	[contentScroll setAutohidesScrollers:YES];
 	[contentScroll setBorderType:NSNoBorder];
+	[contentScroll setDrawsBackground:NO];
 	[contentScroll setDocumentView:contentView];
 	[contentView release];
 	[[window contentView] addSubview:contentScroll];

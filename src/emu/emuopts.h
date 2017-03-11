@@ -25,6 +25,7 @@
 #define OPTION_WRITECONFIG          "writeconfig"
 
 // core search path options
+#define OPTION_HOMEPATH             "homepath"
 #define OPTION_MEDIAPATH            "rompath"
 #define OPTION_HASHPATH             "hashpath"
 #define OPTION_SAMPLEPATH           "samplepath"
@@ -36,6 +37,7 @@
 #define OPTION_CROSSHAIRPATH        "crosshairpath"
 #define OPTION_PLUGINSPATH          "pluginspath"
 #define OPTION_LANGUAGEPATH         "languagepath"
+#define OPTION_SWPATH               "swpath"
 
 // core directory options
 #define OPTION_CFG_DIRECTORY        "cfg_directory"
@@ -188,6 +190,10 @@
 
 #define OPTION_LANGUAGE             "language"
 
+#define OPTION_HTTP                 "http"
+#define OPTION_HTTP_PORT            "http_port"
+#define OPTION_HTTP_ROOT            "http_root"
+
 //**************************************************************************
 //  TYPE DEFINITIONS
 //**************************************************************************
@@ -213,6 +219,7 @@ public:
 	bool write_config() const { return bool_value(OPTION_WRITECONFIG); }
 
 	// core search path options
+	const char *home_path() const { return value(OPTION_HOMEPATH); }
 	const char *media_path() const { return value(OPTION_MEDIAPATH); }
 	const char *hash_path() const { return value(OPTION_HASHPATH); }
 	const char *sample_path() const { return value(OPTION_SAMPLEPATH); }
@@ -224,6 +231,7 @@ public:
 	const char *crosshair_path() const { return value(OPTION_CROSSHAIRPATH); }
 	const char *plugins_path() const { return value(OPTION_PLUGINSPATH); }
 	const char *language_path() const { return value(OPTION_LANGUAGEPATH); }
+	const char *sw_path() const { return value(OPTION_SWPATH); }
 
 	// core directory options
 	const char *cfg_directory() const { return value(OPTION_CFG_DIRECTORY); }
@@ -376,6 +384,11 @@ public:
 	const char *no_plugin() const { return value(OPTION_NO_PLUGIN); }
 
 	const char *language() const { return value(OPTION_LANGUAGE); }
+
+	// Web server specific optopns
+	bool  http() const { return bool_value(OPTION_HTTP); }
+	short http_port() const { return int_value(OPTION_HTTP_PORT); }
+	const char *http_root() const { return value(OPTION_HTTP_ROOT); }
 
 	// cache frequently used options in members
 	void update_cached_options();

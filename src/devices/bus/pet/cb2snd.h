@@ -11,7 +11,6 @@
 #ifndef __PETUSER_CB2__
 #define __PETUSER_CB2__
 
-#include "emu.h"
 #include "user.h"
 #include "sound/dac.h"
 
@@ -24,13 +23,13 @@ class pet_userport_cb2_sound_device : public device_t,
 {
 public:
 	// construction/destruction
-	pet_userport_cb2_sound_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	pet_userport_cb2_sound_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	virtual machine_config_constructor device_mconfig_additions() const override;
 
 	virtual DECLARE_WRITE_LINE_MEMBER( input_m ) override;
 
-	required_device<dac_device> m_dac;
+	required_device<dac_bit_interface> m_dac;
 
 protected:
 	// device-level overrides

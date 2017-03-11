@@ -48,6 +48,8 @@ project "formats"
 		MAME_DIR .. "src/lib/formats/dsk_dsk.h",
 		MAME_DIR .. "src/lib/formats/td0_dsk.cpp",
 		MAME_DIR .. "src/lib/formats/td0_dsk.h",
+		MAME_DIR .. "src/lib/formats/hxchfe_dsk.cpp",
+		MAME_DIR .. "src/lib/formats/hxchfe_dsk.h",
 		MAME_DIR .. "src/lib/formats/hxcmfm_dsk.cpp",
 		MAME_DIR .. "src/lib/formats/hxcmfm_dsk.h",
 		MAME_DIR .. "src/lib/formats/mfi_dsk.cpp",
@@ -204,6 +206,18 @@ if (FORMATS["AP2_DSK"]~=null  or _OPTIONS["with-tools"]) then
 	files {
 		MAME_DIR.. "src/lib/formats/ap2_dsk.cpp",
 		MAME_DIR.. "src/lib/formats/ap2_dsk.h",
+	}
+end
+
+--------------------------------------------------
+--
+--@src/lib/formats/apd_dsk.h,FORMATS["APD_DSK"] = true
+--------------------------------------------------
+
+if (FORMATS["APD_DSK"]~=null  or _OPTIONS["with-tools"]) then
+	files {
+		MAME_DIR.. "src/lib/formats/apd_dsk.cpp",
+		MAME_DIR.. "src/lib/formats/apd_dsk.h",
 	}
 end
 
@@ -1032,6 +1046,18 @@ if (FORMATS["MM_DSK"]~=null  or _OPTIONS["with-tools"]) then
 	files {
 		MAME_DIR.. "src/lib/formats/mm_dsk.cpp",
 		MAME_DIR.. "src/lib/formats/mm_dsk.h",
+	}
+end
+
+--------------------------------------------------
+--
+--@src/lib/formats/ms0515_dsk.h,FORMATS["MS0515_DSK"] = true
+--------------------------------------------------
+
+if (FORMATS["MS0515_DSK"]~=null  or _OPTIONS["with-tools"]) then
+	files {
+		MAME_DIR.. "src/lib/formats/ms0515_dsk.cpp",
+		MAME_DIR.. "src/lib/formats/ms0515_dsk.h",
 	}
 end
 

@@ -1,5 +1,6 @@
 // license:BSD-3-Clause
 // copyright-holders:smf
+#include "emu.h"
 #include "vt83c461.h"
 
 /***************************************************************************
@@ -18,7 +19,7 @@
 
 const device_type VT83C461 = &device_creator<vt83c461_device>;
 
-vt83c461_device::vt83c461_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock) :
+vt83c461_device::vt83c461_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
 	ide_controller_32_device(mconfig, VT83C461, "VIA VT83C461", tag, owner, clock, "vt83c461", __FILE__),
 	m_config_unknown(0),
 	m_config_register_num(0)
@@ -41,7 +42,7 @@ void vt83c461_device::device_start()
 
 READ32_MEMBER( vt83c461_device::read_config )
 {
-	UINT32 result = 0;
+	uint32_t result = 0;
 
 	/* logit */
 	LOG(("%s:IDE via config read at %X, mem_mask=%d\n", machine().describe_context(), offset, mem_mask));

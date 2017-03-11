@@ -24,7 +24,6 @@
 #ifndef __CGENIE_PARALLEL_H__
 #define __CGENIE_PARALLEL_H__
 
-#include "emu.h"
 
 
 //**************************************************************************
@@ -46,7 +45,7 @@ class parallel_slot_device : public device_t, public device_slot_interface
 {
 public:
 	// construction/destruction
-	parallel_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	parallel_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	virtual ~parallel_slot_device();
 
 	// IOA
@@ -73,11 +72,11 @@ public:
 	device_parallel_interface(const machine_config &mconfig, device_t &device);
 	virtual ~device_parallel_interface();
 
-	virtual UINT8 pa_r() { return 0xff; };
-	virtual void pa_w(UINT8 data) {};
+	virtual uint8_t pa_r() { return 0xff; };
+	virtual void pa_w(uint8_t data) {};
 
-	virtual UINT8 pb_r() { return 0xff; };
-	virtual void pb_w(UINT8 data) {};
+	virtual uint8_t pb_r() { return 0xff; };
+	virtual void pb_w(uint8_t data) {};
 
 protected:
 	parallel_slot_device *m_slot;

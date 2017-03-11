@@ -5,7 +5,6 @@
 #ifndef __ISA_MPU401_H__
 #define __ISA_MPU401_H__
 
-#include "emu.h"
 #include "isa.h"
 #include "machine/mpu401.h"
 
@@ -21,7 +20,7 @@ class isa8_mpu401_device :
 {
 public:
 		// construction/destruction
-		isa8_mpu401_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+		isa8_mpu401_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 		required_device<mpu401_device> m_mpu401;
 

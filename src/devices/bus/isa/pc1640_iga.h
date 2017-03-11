@@ -11,7 +11,6 @@
 #ifndef __ISA8_PC1640_IGA__
 #define __ISA8_PC1640_IGA__
 
-#include "emu.h"
 #include "isa.h"
 #include "ega.h"
 
@@ -27,7 +26,7 @@ class isa8_pc1640_iga_device : public isa8_ega_device
 {
 public:
 	// construction/destruction
-	isa8_pc1640_iga_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	isa8_pc1640_iga_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual const tiny_rom_entry *device_rom_region() const override;

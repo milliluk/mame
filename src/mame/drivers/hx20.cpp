@@ -26,6 +26,7 @@
 
 */
 
+#include "emu.h"
 #include "includes/hx20.h"
 #include "softlist.h"
 
@@ -64,7 +65,7 @@ WRITE8_MEMBER( hx20_state::ksc_w )
 
 READ8_MEMBER( hx20_state::krtn07_r )
 {
-	UINT8 data = 0xff;
+	uint8_t data = 0xff;
 
 	if (!BIT(m_ksc, 0)) data &= m_ksc0->read();
 	if (!BIT(m_ksc, 1)) data &= m_ksc1->read();
@@ -100,7 +101,7 @@ READ8_MEMBER( hx20_state::krtn89_r )
 
 	*/
 
-	UINT8 data = 0xff;
+	uint8_t data = 0xff;
 
 	if (!BIT(m_ksc, 0)) data &= m_ksc0->read() >> 8;
 	if (!BIT(m_ksc, 1)) data &= m_ksc1->read() >> 8;
@@ -203,7 +204,7 @@ READ8_MEMBER( hx20_state::main_p1_r )
 
 	*/
 
-	UINT8 data = 0x98;
+	uint8_t data = 0x98;
 
 	// RS-232
 	data |= m_rs232->dsr_r();
@@ -263,7 +264,7 @@ READ8_MEMBER( hx20_state::main_p2_r )
 
 	*/
 
-	UINT8 data = M6801_MODE_4;
+	uint8_t data = M6801_MODE_4;
 
 	// serial
 	data &= ~(!m_slave_flag << 2);
@@ -332,7 +333,7 @@ READ8_MEMBER( hx20_state::slave_p1_r )
 
 	*/
 
-	UINT8 data = 0;
+	uint8_t data = 0;
 
 	return data;
 }
@@ -385,7 +386,7 @@ READ8_MEMBER( hx20_state::slave_p2_r )
 
 	*/
 
-	UINT8 data = M6801_MODE_7;
+	uint8_t data = M6801_MODE_7;
 
 	// serial
 	data |= m_slave_tx << 3;
@@ -441,7 +442,7 @@ READ8_MEMBER( hx20_state::slave_p3_r )
 
 	*/
 
-	UINT8 data = 0;
+	uint8_t data = 0;
 
 	return data;
 }
@@ -497,7 +498,7 @@ READ8_MEMBER( hx20_state::slave_p4_r )
 
 	*/
 
-	UINT8 data = 0;
+	uint8_t data = 0;
 
 	// RS-232
 	data |= m_rs232->dcd_r() << 7;
@@ -771,7 +772,7 @@ PALETTE_INIT_MEMBER(hx20_state, hx20)
 //  SCREEN_UPDATE( hx20 )
 //-------------------------------------------------
 
-UINT32 hx20_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t hx20_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	m_lcdc0->screen_update(screen, bitmap, cliprect);
 	m_lcdc1->screen_update(screen, bitmap, cliprect);

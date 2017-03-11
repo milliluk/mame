@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2016 Branimir Karadzic. All rights reserved.
+ * Copyright 2011-2017 Branimir Karadzic. All rights reserved.
  * License: https://github.com/bkaradzic/bgfx#license-bsd-2-clause
  */
 
@@ -9,9 +9,19 @@
 #include <bx/uint32_t.h>
 #include "imgui/imgui.h"
 
+#include <bgfx/embedded_shader.h>
+
 // embedded shaders
 #include "vs_drawstress.bin.h"
 #include "fs_drawstress.bin.h"
+
+static const bgfx::EmbeddedShader s_embeddedShaders[] =
+{
+	BGFX_EMBEDDED_SHADER(vs_drawstress),
+	BGFX_EMBEDDED_SHADER(fs_drawstress),
+
+	BGFX_EMBEDDED_SHADER_END()
+};
 
 struct PosColorVertex
 {
@@ -97,7 +107,7 @@ class ExampleDrawStress : public entry::AppI
 		bgfx::reset(m_width, m_height, m_reset);
 
 		const bgfx::Caps* caps = bgfx::getCaps();
-		m_maxDim = (int32_t)powf(float(caps->maxDrawCalls), 1.0f/3.0f);
+		m_maxDim = (int32_t)bx::fpow(float(caps->limits.maxDrawCalls), 1.0f/3.0f);
 
 		// Enable debug text.
 		bgfx::setDebug(m_debug);
@@ -113,37 +123,12 @@ class ExampleDrawStress : public entry::AppI
 		// Create vertex stream declaration.
 		PosColorVertex::init();
 
-		const bgfx::Memory* vs_drawstress;
-		const bgfx::Memory* fs_drawstress;
-
-		switch (bgfx::getRendererType() )
-		{
-			case bgfx::RendererType::Direct3D9:
-				vs_drawstress = bgfx::makeRef(vs_drawstress_dx9, sizeof(vs_drawstress_dx9) );
-				fs_drawstress = bgfx::makeRef(fs_drawstress_dx9, sizeof(fs_drawstress_dx9) );
-				break;
-
-			case bgfx::RendererType::Direct3D11:
-			case bgfx::RendererType::Direct3D12:
-				vs_drawstress = bgfx::makeRef(vs_drawstress_dx11, sizeof(vs_drawstress_dx11) );
-				fs_drawstress = bgfx::makeRef(fs_drawstress_dx11, sizeof(fs_drawstress_dx11) );
-				break;
-
-			case bgfx::RendererType::Metal:
-				vs_drawstress = bgfx::makeRef(vs_drawstress_mtl, sizeof(vs_drawstress_mtl) );
-				fs_drawstress = bgfx::makeRef(fs_drawstress_mtl, sizeof(fs_drawstress_mtl) );
-				break;
-
-			default:
-				vs_drawstress = bgfx::makeRef(vs_drawstress_glsl, sizeof(vs_drawstress_glsl) );
-				fs_drawstress = bgfx::makeRef(fs_drawstress_glsl, sizeof(fs_drawstress_glsl) );
-				break;
-		}
+		bgfx::RendererType::Enum type = bgfx::getRendererType();
 
 		// Create program from shaders.
 		m_program = bgfx::createProgram(
-				  bgfx::createShader(vs_drawstress)
-				, bgfx::createShader(fs_drawstress)
+				  bgfx::createEmbeddedShader(s_embeddedShaders, type, "vs_drawstress")
+				, bgfx::createEmbeddedShader(s_embeddedShaders, type, "fs_drawstress")
 				, true /* destroy shaders when program is destroyed */
 				);
 

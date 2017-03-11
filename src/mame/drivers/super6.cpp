@@ -11,6 +11,7 @@
 
 */
 
+#include "emu.h"
 #include "bus/rs232/rs232.h"
 #include "includes/super6.h"
 #include "softlist.h"
@@ -26,7 +27,7 @@
 void super6_state::bankswitch()
 {
 	address_space &program = m_maincpu->space(AS_PROGRAM);
-	UINT8 *ram = m_ram->pointer();
+	uint8_t *ram = m_ram->pointer();
 
 	// power on jump
 	if (!BIT(m_bank0, 6)) { program.install_rom(0x0000, 0x07ff, 0xf800, m_rom); return; }
@@ -469,7 +470,7 @@ void super6_state::machine_reset()
 
 	bankswitch();
 
-	UINT8 baud = m_j7->read();
+	uint8_t baud = m_j7->read();
 
 	m_brg->str_w(baud & 0x0f);
 	m_brg->stt_w((baud >> 4) & 0x07);

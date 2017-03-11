@@ -5,13 +5,14 @@
  *
  */
 
+#include "emu.h"
 #include "k573mcr.h"
 
 /*
   GE885-PWB(A)A ( contains Toshiba tmpr3904af, ram, rom, tranceiver and glue ).
 */
 
-k573mcr_device::k573mcr_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock) :
+k573mcr_device::k573mcr_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
 	device_t(mconfig, KONAMI_573_MEMORY_CARD_READER, "Konami 573 Memory Card Reader", tag, owner, clock, "k573mcr", __FILE__)
 {
 }

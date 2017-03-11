@@ -103,6 +103,8 @@ public:
 		: driver_device(mconfig, type, tag)
 		, m_palette(*this, "palette")
 		, m_maincpu(*this, "maincpu")
+		, m_p_videoram(*this, "videoram")
+		, m_p_chargen(*this, "chargen")
 		, m_beep(*this, "beeper")
 		, m_fdc (*this, "fdc")
 		, m_floppy0(*this, "fdc:0")
@@ -127,17 +129,18 @@ public:
 	DECLARE_WRITE8_MEMBER(kbd_put);
 	INTERRUPT_GEN_MEMBER(irq_vs);
 	MC6845_UPDATE_ROW(crtc_update_row);
-	UINT8 *m_p_videoram;
-	const UINT8 *m_p_chargen;
-	required_device<palette_device> m_palette;
+
 private:
-	UINT8 m_port04;
-	UINT8 m_port06;
-	UINT8 m_port08;
-	UINT8 m_port0a;
-	UINT8 m_term_data;
+	u8 m_port04;
+	u8 m_port06;
+	u8 m_port08;
+	u8 m_port0a;
+	u8 m_term_data;
 	virtual void device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr) override;
+	required_device<palette_device> m_palette;
 	required_device<cpu_device> m_maincpu;
+	required_region_ptr<u8> m_p_videoram;
+	required_region_ptr<u8> m_p_chargen;
 	required_device<beep_device> m_beep;
 	required_device<upd765a_device> m_fdc;
 	required_device<floppy_connector> m_floppy0;
@@ -152,7 +155,7 @@ void amust_state::device_timer(emu_timer &timer, device_timer_id id, int param, 
 		m_beep->set_state(0);
 		break;
 	default:
-		assert_always(FALSE, "Unknown id in amust_state::device_timer");
+		assert_always(false, "Unknown id in amust_state::device_timer");
 	}
 }
 
@@ -213,7 +216,7 @@ INPUT_PORTS_END
 
 READ8_MEMBER( amust_state::port00_r )
 {
-	UINT8 ret = m_term_data;
+	u8 ret = m_term_data;
 	m_term_data = 0;
 	return ret;
 }
@@ -307,7 +310,7 @@ WRITE8_MEMBER( amust_state::port0a_w )
 
 WRITE8_MEMBER( amust_state::port0d_w )
 {
-	UINT16 video_address = m_port08 | ((m_port0a & 7) << 8);
+	uint16_t video_address = m_port08 | ((m_port0a & 7) << 8);
 	m_p_videoram[video_address] = data;
 }
 
@@ -337,9 +340,9 @@ GFXDECODE_END
 MC6845_UPDATE_ROW( amust_state::crtc_update_row )
 {
 	const rgb_t *palette = m_palette->palette()->entry_list_raw();
-	UINT8 chr,gfx,inv;
-	UINT16 mem,x;
-	UINT32 *p = &bitmap.pix32(y);
+	u8 chr,gfx,inv;
+	u16 mem,x;
+	u32 *p = &bitmap.pix32(y);
 
 	for (x = 0; x < x_count; x++)
 	{
@@ -365,8 +368,6 @@ MC6845_UPDATE_ROW( amust_state::crtc_update_row )
 
 MACHINE_RESET_MEMBER( amust_state, amust )
 {
-	m_p_chargen = memregion("chargen")->base();
-	m_p_videoram = memregion("videoram")->base();
 	membank("bankr0")->set_entry(0); // point at rom
 	membank("bankw0")->set_entry(0); // always write to ram
 	address_space &space = m_maincpu->space(AS_PROGRAM);
@@ -381,7 +382,7 @@ MACHINE_RESET_MEMBER( amust_state, amust )
 
 DRIVER_INIT_MEMBER( amust_state, amust )
 {
-	UINT8 *main = memregion("maincpu")->base();
+	u8 *main = memregion("maincpu")->base();
 
 	membank("bankr0")->configure_entry(1, &main[0xf800]);
 	membank("bankr0")->configure_entry(0, &main[0x10800]);
@@ -397,7 +398,7 @@ static MACHINE_CONFIG_START( amust, amust_state )
 	MCFG_MACHINE_RESET_OVERRIDE(amust_state, amust)
 
 	/* video hardware */
-	MCFG_SCREEN_ADD_MONOCHROME("screen", RASTER, rgb_t::green)
+	MCFG_SCREEN_ADD_MONOCHROME("screen", RASTER, rgb_t::green())
 	MCFG_SCREEN_REFRESH_RATE(50)
 	MCFG_SCREEN_VBLANK_TIME(ATTOSECONDS_IN_USEC(2500)) /* not accurate */
 	MCFG_SCREEN_SIZE(640, 480)

@@ -582,7 +582,7 @@ void taitof2_state::device_timer(emu_timer &timer, device_timer_id id, int param
 		m_maincpu->set_input_line(6, HOLD_LINE);
 		break;
 	default:
-		assert_always(FALSE, "Unknown id in taitof2_state::device_timer");
+		assert_always(false, "Unknown id in taitof2_state::device_timer");
 	}
 }
 
@@ -618,7 +618,7 @@ READ8_MEMBER(taitof2_state::driveout_sound_command_r)
 
 void taitof2_state::reset_driveout_sound_region()
 {
-	m_oki->set_bank_base(m_oki_bank * 0x40000);
+	m_oki->set_rom_bank(m_oki_bank);
 }
 
 WRITE8_MEMBER(taitof2_state::oki_bank_w)
@@ -5504,9 +5504,9 @@ ROM_END
 DRIVER_INIT_MEMBER(taitof2_state,finalb)
 {
 	int i;
-	UINT8 data;
-	UINT32 offset;
-	UINT8 *gfx = memregion("gfx2")->base();
+	uint8_t data;
+	uint32_t offset;
+	uint8_t *gfx = memregion("gfx2")->base();
 
 	offset = 0x100000;
 	for (i = 0x180000; i < 0x200000; i++)
@@ -5540,7 +5540,7 @@ DRIVER_INIT_MEMBER(taitof2_state,cameltry)
 DRIVER_INIT_MEMBER(taitof2_state,mjnquest)
 {
 	int i, len = memregion("gfx2")->bytes();
-	UINT8 *gfx = memregion("gfx2")->base();
+	uint8_t *gfx = memregion("gfx2")->base();
 
 	/* the bytes in each longword are in reversed order, put them in the
 	   order used by the other games. */

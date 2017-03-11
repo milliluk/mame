@@ -14,7 +14,6 @@
 #ifndef __TI32K__
 #define __TI32K__
 
-#include "emu.h"
 #include "peribox.h"
 #include "machine/ram.h"
 
@@ -23,7 +22,7 @@ extern const device_type TI_32KMEM;
 class ti_32k_expcard_device : public ti_expansion_card_device
 {
 public:
-	ti_32k_expcard_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	ti_32k_expcard_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	DECLARE_READ8Z_MEMBER(readz) override;
 	DECLARE_WRITE8_MEMBER(write) override;
 

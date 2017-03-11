@@ -3,7 +3,6 @@
 #ifndef __SSI2001__
 #define __SSI2001__
 
-#include "emu.h"
 #include "isa.h"
 #include "sound/mos6581.h"
 #include "bus/pc_joy/pc_joy.h"
@@ -19,7 +18,7 @@ class ssi2001_device : public device_t,
 {
 public:
 	// construction/destruction
-	ssi2001_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	ssi2001_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual machine_config_constructor device_mconfig_additions() const override;

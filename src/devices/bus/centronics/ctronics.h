@@ -11,7 +11,6 @@
 #ifndef __CTRONICS_H__
 #define __CTRONICS_H__
 
-#include "emu.h"
 #include "machine/buffer.h"
 #include "machine/latch.h"
 
@@ -102,7 +101,7 @@ class centronics_device : public device_t,
 	friend class device_centronics_peripheral_interface;
 
 public:
-	centronics_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	centronics_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	template<class _Object> static devcb_base &set_strobe_handler(device_t &device, _Object object) { return downcast<centronics_device &>(device).m_strobe_handler.set_callback(object); }
 	template<class _Object> static devcb_base &set_data0_handler(device_t &device, _Object object) { return downcast<centronics_device &>(device).m_data0_handler.set_callback(object); }

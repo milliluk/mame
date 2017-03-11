@@ -8,8 +8,7 @@
 
 #include "emu.h"
 #include "hd20.h"
-#include "includes/amstrad.h"
-
+SLOT_INTERFACE_EXTERN(cpc_exp_cards);
 
 //**************************************************************************
 //  DEVICE DEFINITIONS
@@ -48,7 +47,7 @@ const tiny_rom_entry *cpc_hd20_device::device_rom_region() const
 //  LIVE DEVICE
 //**************************************************************************
 
-cpc_hd20_device::cpc_hd20_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock) :
+cpc_hd20_device::cpc_hd20_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
 	device_t(mconfig, CPC_HD20, "Dobbertin HD20", tag, owner, clock, "cpc_hd20", __FILE__),
 	device_cpc_expansion_card_interface(mconfig, *this), m_slot(nullptr),
 	m_hdc(*this,"hdc")
@@ -80,7 +79,7 @@ void cpc_hd20_device::device_reset()
 
 READ8_MEMBER(cpc_hd20_device::hdc_r)
 {
-	UINT8 ret = 0x00;
+	uint8_t ret = 0x00;
 
 	switch(offset)
 	{

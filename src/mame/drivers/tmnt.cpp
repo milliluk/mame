@@ -43,8 +43,7 @@ Updates:
   correctly. TMNT2 stays dimmed most of the time.(fixed)
 - sprite lag, quite evident in lgtnfght and mia but also in the others.
   Also see the left corner of the wall in punkshot DownTown level(should be better)
-- ssriders: Billy no longer goes berserk at stage 4's boss. Players
-  don't jitter as much walking on slanted surfaces.
+- ssriders: Billy no longer goes berserk at stage 4's boss.
 
 * uncertain bugs:
 - Detana!! Twin Bee's remaining sprite lag does not appear to be
@@ -220,7 +219,7 @@ READ8_MEMBER(tmnt_state::tmnt_upd_busy_r)
 SAMPLES_START_CB_MEMBER(tmnt_state::tmnt_decode_sample)
 {
 	int i;
-	UINT8 *source = memregion("title")->base();
+	uint8_t *source = memregion("title")->base();
 
 	save_item(NAME(m_sampledata));
 
@@ -265,7 +264,7 @@ void tmnt_state::device_timer(emu_timer &timer, device_timer_id id, int param, v
 		m_audiocpu->set_input_line(INPUT_LINE_NMI, ASSERT_LINE);
 		break;
 	default:
-		assert_always(FALSE, "Unknown id in tmnt_state::device_timer");
+		assert_always(false, "Unknown id in tmnt_state::device_timer");
 	}
 }
 
@@ -320,13 +319,13 @@ READ16_MEMBER(tmnt_state::ssriders_protection_r)
 			/* collision table */
 			data = -space.read_word(0x105818);
 			data = ((data / 8 - 4) & 0x1f) * 0x40;
-			data += ((space.read_word(0x105cb0) +
-						256 * m_k052109->read(space, 0x1a01) + m_k052109->read(space, 0x1a00) - 6) / 8 + 12) & 0x3f;
+			// 0x1040c8 is the x scroll buffer, avoids stutter on slopes + scrolling (and it's actually more logical as HW pov)
+			data += ((space.read_word(0x105cb0) + space.read_word(0x1040c8) - 6) / 8 + 12) & 0x3f;
 			return data;
 
 		default:
 			popmessage("%06x: unknown protection read",space.device().safe_pc());
-			logerror("%06x: read 1c0800 (D7=%02x 1058fc=%02x 105a0a=%02x)\n",space.device().safe_pc(),(UINT32)space.device().state().state_int(M68K_D7),cmd,data);
+			logerror("%06x: read 1c0800 (D7=%02x 1058fc=%02x 105a0a=%02x)\n",space.device().safe_pc(),(uint32_t)space.device().state().state_int(M68K_D7),cmd,data);
 			return 0xffff;
 	}
 }
@@ -662,7 +661,7 @@ ADDRESS_MAP_END
 
 
 #if 1
-inline UINT32 tmnt_state::tmnt2_get_word( UINT32 addr )
+inline uint32_t tmnt_state::tmnt2_get_word( uint32_t addr )
 {
 	if (addr <= 0x07ffff / 2)
 		return(m_tmnt2_rom[addr]);
@@ -673,9 +672,9 @@ inline UINT32 tmnt_state::tmnt2_get_word( UINT32 addr )
 	return 0;
 }
 
-void tmnt_state::tmnt2_put_word( address_space &space, UINT32 addr, UINT16 data )
+void tmnt_state::tmnt2_put_word( address_space &space, uint32_t addr, uint16_t data )
 {
-	UINT32 offs;
+	uint32_t offs;
 	if (addr >= 0x180000 / 2 && addr <= 0x183fff / 2)
 	{
 		m_spriteram[addr - 0x180000 / 2] = data;
@@ -692,11 +691,11 @@ void tmnt_state::tmnt2_put_word( address_space &space, UINT32 addr, UINT16 data 
 
 WRITE16_MEMBER(tmnt_state::tmnt2_1c0800_w)
 {
-	UINT32 src_addr, dst_addr, mod_addr, attr1, code, attr2, cbase, cmod, color;
+	uint32_t src_addr, dst_addr, mod_addr, attr1, code, attr2, cbase, cmod, color;
 	int xoffs, yoffs, xmod, ymod, zmod, xzoom, yzoom, i;
-	UINT16 *mcu;
-	UINT16 src[4], mod[24];
-	UINT8 keepaspect, xlock, ylock, zlock;
+	uint16_t *mcu;
+	uint16_t src[4], mod[24];
+	uint8_t keepaspect, xlock, ylock, zlock;
 
 	COMBINE_DATA(m_tmnt2_1c0800 + offset);
 
@@ -726,8 +725,8 @@ WRITE16_MEMBER(tmnt_state::tmnt2_1c0800_w)
 	cmod  = mod[0x2a / 2] >> 8;
 	color = (cbase != 0x0f && cmod <= 0x1f && !zlock) ? cmod : cbase;
 
-	xoffs = (INT16)src[2];  // local x
-	yoffs = (INT16)src[3];  // local y
+	xoffs = (int16_t)src[2];  // local x
+	yoffs = (int16_t)src[3];  // local y
 
 	i = mod[0];
 	attr2 |= i & 0x0060;    // priority
@@ -737,9 +736,9 @@ WRITE16_MEMBER(tmnt_state::tmnt2_1c0800_w)
 //  if (i & 0x????) { attr1 ^= 0x2000; yoffs = -yoffs; }    // flip y (not used?)
 	if (i & 0x4000) { attr1 ^= 0x1000; xoffs = -xoffs; }    // flip x
 
-	xmod = (INT16)mod[6];   // global x
-	ymod = (INT16)mod[7];   // global y
-	zmod = (INT16)mod[8];   // global z
+	xmod = (int16_t)mod[6];   // global x
+	ymod = (int16_t)mod[7];   // global y
+	zmod = (int16_t)mod[8];   // global z
 	xzoom = mod[0x1c / 2];
 	yzoom = (keepaspect) ? xzoom : mod[0x1e / 2];
 
@@ -805,8 +804,8 @@ WRITE16_MEMBER(tmnt_state::tmnt2_1c0800_w)
 
 	tmnt2_put_word(space, dst_addr +  0, attr1);
 	tmnt2_put_word(space, dst_addr +  2, code);
-	tmnt2_put_word(space, dst_addr +  4, (UINT32)yoffs);
-	tmnt2_put_word(space, dst_addr +  6, (UINT32)xoffs);
+	tmnt2_put_word(space, dst_addr +  4, (uint32_t)yoffs);
+	tmnt2_put_word(space, dst_addr +  6, (uint32_t)xoffs);
 	tmnt2_put_word(space, dst_addr + 12, attr2 | color);
 }
 #else // for reference; do not remove
@@ -815,9 +814,9 @@ WRITE16_MEMBER(tmnt_state::tmnt2_1c0800_w)
 	COMBINE_DATA(m_tmnt2_1c0800 + offset);
 	if (offset == 0x0008 && (m_tmnt2_1c0800[0x8] & 0xff00) == 0x8200)
 	{
-		UINT32 CellSrc;
-		UINT32 CellVar;
-		UINT16 *src;
+		uint32_t CellSrc;
+		uint32_t CellVar;
+		uint16_t *src;
 		int dst;
 		int x,y;
 
@@ -826,7 +825,7 @@ WRITE16_MEMBER(tmnt_state::tmnt2_1c0800_w)
 		CellSrc = m_tmnt2_1c0800[0x00] | (m_tmnt2_1c0800[0x01] << 16 );
 //        if (CellDest >= 0x180000 && CellDest < 0x183fe0) {
 		CellVar -= 0x104000;
-		src = (UINT16 *)(memregion("maincpu")->base() + CellSrc);
+		src = (uint16_t *)(memregion("maincpu")->base() + CellSrc);
 
 		CellVar >>= 1;
 
@@ -1697,118 +1696,57 @@ static INPUT_PORTS_START( ssriders )
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( ssridr4p )
-	PORT_START("COINS")
-	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_COIN1 )
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_COIN2 )
+		PORT_INCLUDE( ssriders )
+
+	PORT_MODIFY("COINS")
 	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_COIN3 )
 	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_COIN4 )
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_SERVICE1 )
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_SERVICE2 )
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_SERVICE3 )
 	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_SERVICE4 )
 
-	PORT_START("P1")
+	PORT_MODIFY("P1")
 	KONAMI16_LSB( 1, IPT_UNKNOWN, IPT_UNKNOWN )
 
-	PORT_START("P2")
+	PORT_MODIFY("P2")
 	KONAMI16_LSB( 2, IPT_UNKNOWN, IPT_UNKNOWN )
 
-	PORT_START("P3")
+	PORT_MODIFY("P3")
 	KONAMI16_LSB( 3, IPT_UNKNOWN, IPT_UNKNOWN )
 
-	PORT_START("P4")
+	PORT_MODIFY("P4")
 	KONAMI16_LSB( 4, IPT_UNKNOWN, IPT_UNKNOWN )
 
-	PORT_START("EEPROM")
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_SPECIAL ) PORT_READ_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_er5911_device, do_read)
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_SPECIAL ) PORT_READ_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_er5911_device, ready_read)
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNKNOWN )    /* ?? TMNT2: OBJMPX */
-	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_VBLANK("screen")  /* ?? TMNT2: NVBLK */
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_UNKNOWN )    /* ?? TMNT2: IPL0 */
-	PORT_BIT( 0x60, IP_ACTIVE_LOW, IPT_UNKNOWN )    /* unused? */
-	PORT_SERVICE_NO_TOGGLE( 0x80, IP_ACTIVE_LOW )
-
-	PORT_START( "EEPROMOUT" )
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_OUTPUT ) PORT_WRITE_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_er5911_device, di_write)
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_OUTPUT ) PORT_WRITE_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_er5911_device, cs_write)
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_OUTPUT ) PORT_WRITE_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_er5911_device, clk_write)
 INPUT_PORTS_END
 
-/* Same as 'ssridr4p', but additional Start button for each player.
+/* Same as 'ssridr4p', but additional Start button for each player.  Seemingly only needed in sets with *U* region/version codes (EG: ADD, UDA).
    COIN3, COIN4, SERVICE3 and SERVICE4 only have an effect in the "test mode". */
 static INPUT_PORTS_START( ssrid4ps )
-	PORT_START("COINS")
-	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_COIN1 )
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_COIN2 )
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_COIN3 )
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_COIN4 )
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_SERVICE1 )
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_SERVICE2 )
-	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_SERVICE3 )
-	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_SERVICE4 )
 
-	PORT_START("P1")
+	PORT_INCLUDE( ssridr4p )
+
+	PORT_MODIFY("P1")
 	KONAMI16_LSB( 1, IPT_UNKNOWN, IPT_START1 )
 
-	PORT_START("P2")
+	PORT_MODIFY("P2")
 	KONAMI16_LSB( 2, IPT_UNKNOWN, IPT_START2 )
 
-	PORT_START("P3")
+	PORT_MODIFY("P3")
 	KONAMI16_LSB( 3, IPT_UNKNOWN, IPT_START3 )
 
-	PORT_START("P4")
+	PORT_MODIFY("P4")
 	KONAMI16_LSB( 4, IPT_UNKNOWN, IPT_START4 )
 
-	PORT_START("EEPROM")
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_SPECIAL ) PORT_READ_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_er5911_device, do_read)
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_SPECIAL ) PORT_READ_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_er5911_device, ready_read)
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNKNOWN )    /* ?? TMNT2: OBJMPX */
-	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_CUSTOM ) PORT_VBLANK("screen")  /* ?? TMNT2: NVBLK */
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_UNKNOWN )    /* ?? TMNT2: IPL0 */
-	PORT_BIT( 0x60, IP_ACTIVE_LOW, IPT_UNKNOWN )    /* unused? */
-	PORT_SERVICE_NO_TOGGLE( 0x80, IP_ACTIVE_LOW )
-
-	PORT_START( "EEPROMOUT" )
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_OUTPUT ) PORT_WRITE_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_er5911_device, di_write)
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_OUTPUT ) PORT_WRITE_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_er5911_device, cs_write)
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_OUTPUT ) PORT_WRITE_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_er5911_device, clk_write)
 INPUT_PORTS_END
 
 /* Version for the bootleg, which has the service switch a little different */
 static INPUT_PORTS_START( sunsetbl )
-	PORT_START("COINS")
-	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_COIN1 )
-	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_COIN2 )
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_COIN3 )
-	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_COIN4 )
-	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_SERVICE1 )
-	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_SERVICE2 )
-	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_SERVICE3 )
-	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_SERVICE4 )
 
-	PORT_START("P1")
-	KONAMI16_LSB( 1, IPT_UNKNOWN, IPT_START1 )
+	PORT_INCLUDE( ssrid4ps )
 
-	PORT_START("P2")
-	KONAMI16_LSB( 2, IPT_UNKNOWN, IPT_START2 )
-
-	PORT_START("P3")
-	KONAMI16_LSB( 3, IPT_UNKNOWN, IPT_START3 )
-
-	PORT_START("P4")
-	KONAMI16_LSB( 4, IPT_UNKNOWN, IPT_START4 )
-
-	PORT_START("EEPROM")
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_SPECIAL ) PORT_READ_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_er5911_device, do_read)
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_SPECIAL ) PORT_READ_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_er5911_device, ready_read)
-	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNKNOWN )
+	PORT_MODIFY("EEPROM")
 	PORT_SERVICE_NO_TOGGLE( 0x08, IP_ACTIVE_LOW )
 	PORT_BIT( 0xf0, IP_ACTIVE_LOW, IPT_UNKNOWN )    /* unused? */
 
-	PORT_START( "EEPROMOUT" )
-	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_OUTPUT ) PORT_WRITE_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_er5911_device, di_write)
-	PORT_BIT( 0x02, IP_ACTIVE_HIGH, IPT_OUTPUT ) PORT_WRITE_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_er5911_device, cs_write)
-	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_OUTPUT ) PORT_WRITE_LINE_DEVICE_MEMBER("eeprom", eeprom_serial_er5911_device, clk_write)
 INPUT_PORTS_END
 
 static INPUT_PORTS_START( qgakumon )
@@ -2088,7 +2026,7 @@ static MACHINE_CONFIG_START( tmnt, tmnt_state )
 	MCFG_SCREEN_REFRESH_RATE(60)
 	MCFG_SCREEN_VBLANK_TIME(ATTOSECONDS_IN_USEC(2500) /* not accurate */)
 	MCFG_SCREEN_SIZE(64*8, 32*8)
-	MCFG_SCREEN_VISIBLE_AREA(12*8+8, (64-12)*8-1, 2*8, 30*8-1 )
+	MCFG_SCREEN_VISIBLE_AREA(12*8, (64-12)*8-1, 2*8, 30*8-1 )
 	// verified against real hardware
 	MCFG_SCREEN_UPDATE_DRIVER(tmnt_state, screen_update_tmnt)
 	MCFG_SCREEN_PALETTE("palette")
@@ -2385,7 +2323,7 @@ MACHINE_CONFIG_END
 MACHINE_START_MEMBER(tmnt_state,prmrsocr)
 {
 	MACHINE_START_CALL_MEMBER(common);
-	UINT8 *ROM = memregion("audiocpu")->base();
+	uint8_t *ROM = memregion("audiocpu")->base();
 	membank("bank1")->configure_entries(0, 8, &ROM[0x10000], 0x4000);
 }
 
@@ -3006,6 +2944,40 @@ ROM_START( tmntj )
 	ROM_LOAD32_WORD( "963a29.k27",      0x000002, 0x80000, CRC(8069cd2e) SHA1(54095d3546119ccd1e8814d692aceb1327c9369f) )
 
 	ROM_REGION( 0x200000, "k051960", 0 )    /* sprites */
+	ROM_LOAD32_WORD( "963a17.h4",      0x000000, 0x80000, CRC(b5239a44) SHA1(84e94807e7c51aa652b4e4b827b36be59a53d0d6) )
+	ROM_LOAD32_WORD( "963a15.k4",      0x000002, 0x80000, CRC(1f324eed) SHA1(971a675578518fffa341a943d0cc4fdea005fde0) )
+	ROM_LOAD32_WORD( "963a18.h6",      0x100000, 0x80000, CRC(dd51adef) SHA1(5010c0911b0b9e4f23a785e8a751a0bde5be5be0) )
+	ROM_LOAD32_WORD( "963a16.k6",      0x100002, 0x80000, CRC(d4bd9984) SHA1(d780ae7f72e16767c3a492544f02f0f1a332ab22) )
+
+	ROM_REGION( 0x0200, "proms", 0 )
+	ROM_LOAD( "963a30.g7",      0x0000, 0x0100, CRC(abd82680) SHA1(945a71e6ec65202f13209b45d45b616372d6c0f5) )  /* sprite address decoder */
+	ROM_LOAD( "963a31.g19",      0x0100, 0x0100, CRC(f8004a1c) SHA1(ed6694b8eebfe0238b50ebd05007d519f6e57b1b) ) /* priority encoder (not used) */
+
+	ROM_REGION( 0x20000, "k007232", 0 ) /* 128k for the samples */
+	ROM_LOAD( "963a26.c13",      0x00000, 0x20000, CRC(e2ac3063) SHA1(5bb294c46fb5eaba9935a18c0aa5d3931168f474) ) /* samples for 007232 */
+
+	ROM_REGION( 0x20000, "upd", 0 ) /* 128k for the samples */
+	ROM_LOAD( "963a27.d18",      0x00000, 0x20000, CRC(2dfd674b) SHA1(bbec5896c70056964fbc972a84bd5b0dfc6af257) ) /* samples for UPD7759C */
+
+	ROM_REGION( 0x80000, "title", 0 )   /* 512k for the title music sample */
+	ROM_LOAD( "963a25.d5",      0x00000, 0x80000, CRC(fca078c7) SHA1(3e1124d72c9db4cb11d8de6c44b7aeca967f44e1) )
+ROM_END
+
+ROM_START( tmnta )
+	ROM_REGION( 0x60000, "maincpu", 0 ) /* 2*128k and 2*64k for 68000 code */
+	ROM_LOAD16_BYTE( "tmnt j17.bin",      0x00000, 0x20000, CRC(00819687) SHA1(65624465b8af21000ca42b759c6fe123b4570e08) )
+	ROM_LOAD16_BYTE( "tmnt k17.bin",      0x00001, 0x20000, CRC(6930e085) SHA1(3c35c663346a81d06cd0169fbae08c19d1bde2eb) )
+	ROM_LOAD16_BYTE( "tmnt j15.bin",      0x40000, 0x10000, CRC(fd1e2e01) SHA1(63c3e8adcb5025a0a11f28e623cf2692f5f030a3) )
+	ROM_LOAD16_BYTE( "tmnt k15.bin",      0x40001, 0x10000, CRC(b01eea79) SHA1(3f0201ed471380fcafaf2e570454c3d742c0e03d) )
+
+	ROM_REGION( 0x10000, "audiocpu", 0 )
+	ROM_LOAD( "963e20.g13",      0x00000, 0x08000, CRC(1692a6d6) SHA1(68c3419012b2863e91a7d7e479fce5ceabb10b88) )
+
+	ROM_REGION( 0x100000, "k052109", 0 )    /* tiles */
+	ROM_LOAD32_WORD( "963a28.h27",      0x000000, 0x80000, CRC(db4769a8) SHA1(810811914f9c1fbf2320d5a9030cbf124f6d78cf) )
+	ROM_LOAD32_WORD( "963a29.k27",      0x000002, 0x80000, CRC(8069cd2e) SHA1(54095d3546119ccd1e8814d692aceb1327c9369f) )
+
+	ROM_REGION( 0x200000, "k051960", 0 )
 	ROM_LOAD32_WORD( "963a17.h4",      0x000000, 0x80000, CRC(b5239a44) SHA1(84e94807e7c51aa652b4e4b827b36be59a53d0d6) )
 	ROM_LOAD32_WORD( "963a15.k4",      0x000002, 0x80000, CRC(1f324eed) SHA1(971a675578518fffa341a943d0cc4fdea005fde0) )
 	ROM_LOAD32_WORD( "963a18.h6",      0x100000, 0x80000, CRC(dd51adef) SHA1(5010c0911b0b9e4f23a785e8a751a0bde5be5be0) )
@@ -4117,12 +4089,12 @@ ROM_END
 
 static void chunky_to_planar(memory_region *rgn)
 {
-	UINT32 *ROM = reinterpret_cast<UINT32 *>(rgn->base());
+	uint32_t *ROM = reinterpret_cast<uint32_t *>(rgn->base());
 	int len = rgn->bytes() / 4;
 
 	for (int i = 0; i < len; i++)
 	{
-		UINT32 data = little_endianize_int32(ROM[i]);
+		uint32_t data = little_endianize_int32(ROM[i]);
 		data = BITSWAP32(data,31,27,23,19,15,11,7,3,30,26,22,18,14,10,6,2,29,25,21,17,13,9,5,1,28,24,20,16,12,8,4,0);
 		ROM[i] = little_endianize_int32(data);
 	}
@@ -4135,9 +4107,9 @@ DRIVER_INIT_MEMBER(tmnt_state, mia)
 	chunky_to_planar(memregion("k051960"));
 
 	// unscramble the sprite ROM address lines
-	UINT32 *gfxdata = reinterpret_cast<UINT32 *>(memregion("k051960")->base());
+	uint32_t *gfxdata = reinterpret_cast<uint32_t *>(memregion("k051960")->base());
 	int len = memregion("k051960")->bytes() / 4;
-	std::vector<UINT32> temp(len);
+	std::vector<uint32_t> temp(len);
 	memcpy(&temp[0], gfxdata, len * 4);
 	for (int A = 0; A < len; A++)
 	{
@@ -4160,10 +4132,10 @@ DRIVER_INIT_MEMBER(tmnt_state, tmnt)
 	chunky_to_planar(memregion("k051960"));
 
 	// unscramble the sprite ROM address lines
-	const UINT8 *code_conv_table = memregion("proms")->base();
-	UINT32 *gfxdata = reinterpret_cast<UINT32 *>(memregion("k051960")->base());
+	const uint8_t *code_conv_table = memregion("proms")->base();
+	uint32_t *gfxdata = reinterpret_cast<uint32_t *>(memregion("k051960")->base());
 	int len = memregion("k051960")->bytes() / 4;
-	std::vector<UINT32> temp(len);
+	std::vector<uint32_t> temp(len);
 	memcpy(&temp[0], gfxdata, len * 4);
 
 	for (int A = 0; A < len; A++)
@@ -4183,7 +4155,7 @@ DRIVER_INIT_MEMBER(tmnt_state, tmnt)
 		/* 9 low bits of the sprite line address, which bit to pick it from. */
 		/* For example, when the PROM contains 4, which applies to 4x2 sprites, */
 		/* bit OA1 comes from CA5, OA2 from CA0, and so on. */
-		static const UINT8 bit_pick_table[10][8] =
+		static const uint8_t bit_pick_table[10][8] =
 		{
 			/*0(1x1) 1(2x1) 2(1x2) 3(2x2) 4(4x2) 5(2x4) 6(4x4) 7(8x8) */
 			{ CA3,   CA3,   CA3,   CA3,   CA3,   CA3,   CA3,   CA3 },   /* CA3 */
@@ -4239,6 +4211,7 @@ GAME( 1989, tmht,        tmnt,     tmnt,     tmnt,      tmnt_state,    tmnt,    
 GAME( 1989, tmhta,       tmnt,     tmnt,     tmnt,      tmnt_state,    tmnt,     ROT0,   "Konami", "Teenage Mutant Hero Turtles (UK 4 Players, version S)", MACHINE_SUPPORTS_SAVE )
 GAME( 1989, tmhtb,       tmnt,     tmnt,     tmnt,      tmnt_state,    tmnt,     ROT0,   "Konami", "Teenage Mutant Hero Turtles (UK 4 Players, version ?)", MACHINE_SUPPORTS_SAVE )
 GAME( 1990, tmntj,       tmnt,     tmnt,     tmnt,      tmnt_state,    tmnt,     ROT0,   "Konami", "Teenage Mutant Ninja Turtles (Japan 4 Players, version 2)", MACHINE_SUPPORTS_SAVE )
+GAME( 1989, tmnta,       tmnt,     tmnt,     tmnt,      tmnt_state,    tmnt,     ROT0,   "Konami", "Teenage Mutant Ninja Turtles (Asia 4 Players, version ?)", MACHINE_SUPPORTS_SAVE )
 GAME( 1989, tmht2p,      tmnt,     tmnt,     tmnt2p,    tmnt_state,    tmnt,     ROT0,   "Konami", "Teenage Mutant Hero Turtles (UK 2 Players, version U)", MACHINE_SUPPORTS_SAVE )
 GAME( 1989, tmht2pa,     tmnt,     tmnt,     tmnt2p,    tmnt_state,    tmnt,     ROT0,   "Konami", "Teenage Mutant Hero Turtles (UK 2 Players, version ?)", MACHINE_SUPPORTS_SAVE )
 GAME( 1990, tmnt2pj,     tmnt,     tmnt,     tmnt2p,    tmnt_state,    tmnt,     ROT0,   "Konami", "Teenage Mutant Ninja Turtles (Japan 2 Players, version 1)", MACHINE_SUPPORTS_SAVE )
@@ -4269,7 +4242,7 @@ GAME( 1991, tmnt22pu,    tmnt2,    tmnt2,    ssriders,  driver_device, 0,       
 GAME( 1993, qgakumon,    0,        tmnt2,    qgakumon,  driver_device, 0,        ROT0,   "Konami", "Quiz Gakumon no Susume (Japan ver. JA2 Type L)", MACHINE_SUPPORTS_SAVE )
 
 GAME( 1991, ssriders,    0,        ssriders, ssridr4p,  driver_device, 0,        ROT0,   "Konami", "Sunset Riders (4 Players ver EAC)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 1991, ssriderseaa, ssriders, ssriders, ssrid4ps,  driver_device, 0,        ROT0,   "Konami", "Sunset Riders (4 Players ver EAA)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 1991, ssriderseaa, ssriders, ssriders, ssridr4p,  driver_device, 0,        ROT0,   "Konami", "Sunset Riders (4 Players ver EAA)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 1991, ssridersebd, ssriders, ssriders, ssriders,  driver_device, 0,        ROT0,   "Konami", "Sunset Riders (2 Players ver EBD)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 1991, ssridersebc, ssriders, ssriders, ssriders,  driver_device, 0,        ROT0,   "Konami", "Sunset Riders (2 Players ver EBC)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 1991, ssridersuda, ssriders, ssriders, ssrid4ps,  driver_device, 0,        ROT0,   "Konami", "Sunset Riders (4 Players ver UDA)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
@@ -4278,8 +4251,8 @@ GAME( 1991, ssridersuab, ssriders, ssriders, ssridr4p,  driver_device, 0,       
 GAME( 1991, ssridersubc, ssriders, ssriders, ssriders,  driver_device, 0,        ROT0,   "Konami", "Sunset Riders (2 Players ver UBC)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 1991, ssridersadd, ssriders, ssriders, ssrid4ps,  driver_device, 0,        ROT0,   "Konami", "Sunset Riders (4 Players ver ADD)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 1991, ssridersabd, ssriders, ssriders, ssriders,  driver_device, 0,        ROT0,   "Konami", "Sunset Riders (2 Players ver ABD)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 1991, ssridersjad, ssriders, ssriders, ssrid4ps,  driver_device, 0,        ROT0,   "Konami", "Sunset Riders (4 Players ver JAD)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
-GAME( 1991, ssridersjac, ssriders, ssriders, ssrid4ps,  driver_device, 0,        ROT0,   "Konami", "Sunset Riders (4 Players ver JAC)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 1991, ssridersjad, ssriders, ssriders, ssridr4p,  driver_device, 0,        ROT0,   "Konami", "Sunset Riders (4 Players ver JAD)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
+GAME( 1991, ssridersjac, ssriders, ssriders, ssridr4p,  driver_device, 0,        ROT0,   "Konami", "Sunset Riders (4 Players ver JAC)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 1991, ssridersjbd, ssriders, ssriders, ssriders,  driver_device, 0,        ROT0,   "Konami", "Sunset Riders (2 Players ver JBD)", MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 1991, ssridersb,   ssriders, sunsetbl, sunsetbl,  driver_device, 0,        ROT0,   "bootleg","Sunset Riders (bootleg 4 Players ver ADD)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )
 GAME( 1991, ssriders2,   ssriders, sunsetbl, sunsetbl,  driver_device, 0,        ROT0,   "bootleg","Sunset Riders 2 (bootleg 4 Players ver ADD)", MACHINE_NOT_WORKING | MACHINE_IMPERFECT_GRAPHICS | MACHINE_SUPPORTS_SAVE )

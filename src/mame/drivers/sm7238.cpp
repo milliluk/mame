@@ -55,29 +55,26 @@
 class sm7238_state : public driver_device
 {
 public:
-	sm7238_state(const machine_config &mconfig, device_type type, const char *tag) :
-		driver_device(mconfig, type, tag),
-		m_p_videoram(*this, "videoram"),
-		m_maincpu(*this, "maincpu"),
-		m_nvram(*this, "nvram"),
-		m_pic8259(*this, "pic8259"),
-		m_i8251line(*this, "i8251line"),
-		m_rs232(*this, "rs232"),
-		m_i8251kbd(*this, "i8251kbd"),
-		m_keyboard(*this, "keyboard"),
-		m_i8251prn(*this, "i8251prn"),
-		m_printer(*this, "prtr"),
-		m_t_hblank(*this, "t_hblank"),
-		m_t_vblank(*this, "t_vblank"),
-		m_t_color(*this, "t_color"),
-		m_t_iface(*this, "t_iface"),
-		m_screen(*this, "screen")
+	sm7238_state(const machine_config &mconfig, device_type type, const char *tag)
+		: driver_device(mconfig, type, tag)
+		, m_maincpu(*this, "maincpu")
+		, m_nvram(*this, "nvram")
+		, m_p_videoram(*this, "videoram")
+		, m_p_chargen(*this, "chargen")
+		, m_pic8259(*this, "pic8259")
+		, m_i8251line(*this, "i8251line")
+		, m_rs232(*this, "rs232")
+		, m_i8251kbd(*this, "i8251kbd")
+		, m_keyboard(*this, "keyboard")
+		, m_i8251prn(*this, "i8251prn")
+		, m_printer(*this, "prtr")
+		, m_t_hblank(*this, "t_hblank")
+		, m_t_vblank(*this, "t_vblank")
+		, m_t_color(*this, "t_color")
+		, m_t_iface(*this, "t_iface")
+		, m_screen(*this, "screen")
 	{ }
 
-	virtual void machine_reset() override;
-	virtual void video_start() override;
-	UINT32 screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
-	void screen_eof(screen_device &screen, bool state);
 	TIMER_DEVICE_CALLBACK_MEMBER( scanline_callback );
 	DECLARE_PALETTE_INIT(sm7238);
 
@@ -86,26 +83,29 @@ public:
 
 	DECLARE_WRITE8_MEMBER(control_w);
 	DECLARE_WRITE8_MEMBER(text_control_w);
+	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	void screen_eof(screen_device &screen, bool state);
 
 private:
-	UINT32 draw_scanline(UINT16 *p, UINT16 offset, UINT8 scanline);
+	uint32_t draw_scanline(uint16_t *p, uint16_t offset, uint8_t scanline);
 	rectangle m_tmpclip;
 	bitmap_ind16 m_tmpbmp;
 
 	void text_memory_clear();
 	void recompute_parameters();
 
-	const UINT8 *m_p_chargen;
 	struct {
-		UINT8 control;
-		UINT8 stride;
-		UINT16 ptr;
+		uint8_t control;
+		uint8_t stride;
+		uint16_t ptr;
 	} m_video;
 
-protected:
-	required_shared_ptr<UINT8> m_p_videoram;
+	virtual void machine_reset() override;
+	virtual void video_start() override;
 	required_device<cpu_device> m_maincpu;
 	required_device<nvram_device> m_nvram;
+	required_shared_ptr<uint8_t> m_p_videoram;
+	required_region_ptr<u8> m_p_chargen;
 	required_device<pic8259_device> m_pic8259;
 	required_device<i8251_device> m_i8251line;
 	required_device<rs232_port_device> m_rs232;
@@ -154,8 +154,6 @@ void sm7238_state::machine_reset()
 
 void sm7238_state::video_start()
 {
-	m_p_chargen = memregion("chargen")->base();
-
 	m_tmpclip = rectangle(0, KSM_DISP_HORZ-1, 0, KSM_DISP_VERT-1);
 	m_tmpbmp.allocate(KSM_DISP_HORZ, KSM_DISP_VERT);
 }
@@ -195,10 +193,10 @@ WRITE_LINE_MEMBER(sm7238_state::write_printer_clock)
 	m_i8251prn->write_rxc(state);
 }
 
-UINT32 sm7238_state::draw_scanline(UINT16 *p, UINT16 offset, UINT8 scanline)
+uint32_t sm7238_state::draw_scanline(uint16_t *p, uint16_t offset, uint8_t scanline)
 {
-	UINT8 attr, fg, bg, ra, gfx;
-	UINT16 x, chr;
+	uint8_t attr, fg, bg, ra, gfx;
+	uint16_t x, chr;
 	int dw;
 
 	ra = scanline % 10;
@@ -257,8 +255,8 @@ UINT32 sm7238_state::draw_scanline(UINT16 *p, UINT16 offset, UINT8 scanline)
 
 TIMER_DEVICE_CALLBACK_MEMBER(sm7238_state::scanline_callback)
 {
-	UINT16 y = m_screen->vpos();
-	UINT16 o = m_video.ptr;
+	uint16_t y = m_screen->vpos();
+	uint16_t o = m_video.ptr;
 
 	if (y < KSM_VERT_START) return;
 	y -= KSM_VERT_START;
@@ -299,7 +297,7 @@ void sm7238_state::recompute_parameters()
 		HZ_TO_ATTOSECONDS((m_video.stride == 80) ? 60 : 57.1 ));
 }
 
-UINT32 sm7238_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t sm7238_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	if (BIT(m_video.control, 3))
 	copybitmap(bitmap, m_tmpbmp, 0, 0, KSM_HORZ_START, KSM_VERT_START, cliprect);
@@ -332,7 +330,7 @@ GFXDECODE_END
 
 PALETTE_INIT_MEMBER(sm7238_state, sm7238)
 {
-	palette.set_pen_color(0, rgb_t::black); // black
+	palette.set_pen_color(0, rgb_t::black());
 	palette.set_pen_color(1, 0x00, 0xc0, 0x00); // green
 	palette.set_pen_color(2, 0x00, 0xff, 0x00); // highlight
 }

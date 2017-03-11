@@ -13,7 +13,6 @@
 #ifndef __MYARCMEM__
 #define __MYARCMEM__
 
-#include "emu.h"
 #include "peribox.h"
 #include "machine/ram.h"
 
@@ -22,7 +21,7 @@ extern const device_type TI99_MYARCMEM;
 class myarc_memory_expansion_device : public ti_expansion_card_device
 {
 public:
-	myarc_memory_expansion_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	myarc_memory_expansion_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	DECLARE_READ8Z_MEMBER(readz) override;
 	DECLARE_WRITE8_MEMBER(write) override;
 
@@ -39,7 +38,7 @@ protected:
 private:
 	int     get_base(int offset);
 	required_device<ram_device> m_ram;
-	UINT8*  m_dsrrom;
+	uint8_t*  m_dsrrom;
 	int     m_bank;
 	int     m_size;
 };

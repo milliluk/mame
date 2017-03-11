@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2016 Branimir Karadzic. All rights reserved.
+ * Copyright 2010-2017 Branimir Karadzic. All rights reserved.
  * License: https://github.com/bkaradzic/bx#license-bsd-2-clause
  */
 
@@ -7,6 +7,7 @@
 #define BX_MACROS_H_HEADER_GUARD
 
 #include "bx.h"
+#include <type_traits>
 
 ///
 #if BX_COMPILER_MSVC
@@ -136,56 +137,54 @@
 
 ///
 #if BX_COMPILER_CLANG
-#	define BX_PRAGMA_DIAGNOSTIC_PUSH_CLANG()      _Pragma("clang diagnostic push")
-#	define BX_PRAGMA_DIAGNOSTIC_POP_CLANG()       _Pragma("clang diagnostic pop")
+#	define BX_PRAGMA_DIAGNOSTIC_PUSH_CLANG_()     _Pragma("clang diagnostic push")
+#	define BX_PRAGMA_DIAGNOSTIC_POP_CLANG_()      _Pragma("clang diagnostic pop")
 #	define BX_PRAGMA_DIAGNOSTIC_IGNORED_CLANG(_x) _Pragma(BX_STRINGIZE(clang diagnostic ignored _x) )
 #else
-#	define BX_PRAGMA_DIAGNOSTIC_PUSH_CLANG()
-#	define BX_PRAGMA_DIAGNOSTIC_POP_CLANG()
+#	define BX_PRAGMA_DIAGNOSTIC_PUSH_CLANG_()
+#	define BX_PRAGMA_DIAGNOSTIC_POP_CLANG_()
 #	define BX_PRAGMA_DIAGNOSTIC_IGNORED_CLANG(_x)
 #endif // BX_COMPILER_CLANG
 
 #if BX_COMPILER_GCC && BX_COMPILER_GCC >= 40600
-#	define BX_PRAGMA_DIAGNOSTIC_PUSH_GCC()        _Pragma("GCC diagnostic push")
-#	define BX_PRAGMA_DIAGNOSTIC_POP_GCC()         _Pragma("GCC diagnostic pop")
+#	define BX_PRAGMA_DIAGNOSTIC_PUSH_GCC_()       _Pragma("GCC diagnostic push")
+#	define BX_PRAGMA_DIAGNOSTIC_POP_GCC_()        _Pragma("GCC diagnostic pop")
 #	define BX_PRAGMA_DIAGNOSTIC_IGNORED_GCC(_x)   _Pragma(BX_STRINGIZE(GCC diagnostic ignored _x) )
 #else
-#	define BX_PRAGMA_DIAGNOSTIC_PUSH_GCC()
-#	define BX_PRAGMA_DIAGNOSTIC_POP_GCC()
+#	define BX_PRAGMA_DIAGNOSTIC_PUSH_GCC_()
+#	define BX_PRAGMA_DIAGNOSTIC_POP_GCC_()
 #	define BX_PRAGMA_DIAGNOSTIC_IGNORED_GCC(_x)
 #endif // BX_COMPILER_GCC
 
 #if BX_COMPILER_MSVC
-#	define BX_PRAGMA_DIAGNOSTIC_PUSH_MSVC()      __pragma(warning(push) )
-#	define BX_PRAGMA_DIAGNOSTIC_POP_MSVC()       __pragma(warning(pop) )
+#	define BX_PRAGMA_DIAGNOSTIC_PUSH_MSVC_()     __pragma(warning(push) )
+#	define BX_PRAGMA_DIAGNOSTIC_POP_MSVC_()      __pragma(warning(pop) )
 #	define BX_PRAGMA_DIAGNOSTIC_IGNORED_MSVC(_x) __pragma(warning(disable:_x) )
 #else
-#	define BX_PRAGMA_DIAGNOSTIC_PUSH_MSVC()
-#	define BX_PRAGMA_DIAGNOSTIC_POP_MSVC()
+#	define BX_PRAGMA_DIAGNOSTIC_PUSH_MSVC_()
+#	define BX_PRAGMA_DIAGNOSTIC_POP_MSVC_()
 #	define BX_PRAGMA_DIAGNOSTIC_IGNORED_MSVC(_x)
 #endif // BX_COMPILER_CLANG
 
 #if BX_COMPILER_CLANG
-#	define BX_PRAGMA_DIAGNOSTIC_PUSH              BX_PRAGMA_DIAGNOSTIC_PUSH_CLANG
-#	define BX_PRAGMA_DIAGNOSTIC_POP               BX_PRAGMA_DIAGNOSTIC_POP_CLANG
+#	define BX_PRAGMA_DIAGNOSTIC_PUSH              BX_PRAGMA_DIAGNOSTIC_PUSH_CLANG_
+#	define BX_PRAGMA_DIAGNOSTIC_POP               BX_PRAGMA_DIAGNOSTIC_POP_CLANG_
 #	define BX_PRAGMA_DIAGNOSTIC_IGNORED_CLANG_GCC BX_PRAGMA_DIAGNOSTIC_IGNORED_CLANG
 #elif BX_COMPILER_GCC
-#	define BX_PRAGMA_DIAGNOSTIC_PUSH              BX_PRAGMA_DIAGNOSTIC_PUSH_GCC
-#	define BX_PRAGMA_DIAGNOSTIC_POP               BX_PRAGMA_DIAGNOSTIC_POP_GCC
+#	define BX_PRAGMA_DIAGNOSTIC_PUSH              BX_PRAGMA_DIAGNOSTIC_PUSH_GCC_
+#	define BX_PRAGMA_DIAGNOSTIC_POP               BX_PRAGMA_DIAGNOSTIC_POP_GCC_
 #	define BX_PRAGMA_DIAGNOSTIC_IGNORED_CLANG_GCC BX_PRAGMA_DIAGNOSTIC_IGNORED_GCC
 #elif BX_COMPILER_MSVC
-#	define BX_PRAGMA_DIAGNOSTIC_PUSH              BX_PRAGMA_DIAGNOSTIC_PUSH_MSVC
-#	define BX_PRAGMA_DIAGNOSTIC_POP	              BX_PRAGMA_DIAGNOSTIC_POP_MSVC
+#	define BX_PRAGMA_DIAGNOSTIC_PUSH              BX_PRAGMA_DIAGNOSTIC_PUSH_MSVC_
+#	define BX_PRAGMA_DIAGNOSTIC_POP               BX_PRAGMA_DIAGNOSTIC_POP_MSVC_
 #	define BX_PRAGMA_DIAGNOSTIC_IGNORED_CLANG_GCC(_x)
 #endif // BX_COMPILER_
 
 ///
-#if BX_COMPILER_GCC && defined(__is_pod)
-#	define BX_TYPE_IS_POD(t) __is_pod(t)
-#elif BX_COMPILER_MSVC
+#if BX_COMPILER_MSVC
 #	define BX_TYPE_IS_POD(t) (!__is_class(t) || __is_pod(t))
 #else
-#	define BX_TYPE_IS_POD(t) false
+#	define BX_TYPE_IS_POD(t) std::is_pod<t>::value
 #endif
 ///
 #define BX_CLASS_NO_DEFAULT_CTOR(_class) \

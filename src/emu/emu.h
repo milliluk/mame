@@ -78,7 +78,6 @@ typedef device_t * (*machine_config_constructor)(machine_config &config, device_
 #include "disound.h"
 #include "divideo.h"
 #include "dinvram.h"
-#include "dirtc.h"
 #include "didisasm.h"
 #include "schedule.h"
 #include "timer.h"
@@ -100,8 +99,8 @@ typedef device_t * (*machine_config_constructor)(machine_config &config, device_
 
 // video-related
 #include "drawgfx.h"
-#include "tilemap.h"
 #include "emupal.h"
+#include "tilemap.h"
 #include "screen.h"
 #include "video.h"
 
@@ -111,7 +110,6 @@ typedef device_t * (*machine_config_constructor)(machine_config &config, device_
 
 // generic helpers
 #include "devcb.h"
-#include "dispatch.h"
 #include "drivers/xtal.h"
 #include "bookkeeping.h"
 #include "video/generic.h"

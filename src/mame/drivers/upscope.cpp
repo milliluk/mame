@@ -41,11 +41,11 @@ public:
 	m_parallel_data(0xff)
 	{ }
 
-	UINT8 m_nvram[0x100];
-	UINT8 m_prev_cia1_porta;
-	UINT8 m_parallel_data;
-	UINT8 m_nvram_address_latch;
-	UINT8 m_nvram_data_latch;
+	uint8_t m_nvram[0x100];
+	uint8_t m_prev_cia1_porta;
+	uint8_t m_parallel_data;
+	uint8_t m_nvram_address_latch;
+	uint8_t m_nvram_data_latch;
 
 	DECLARE_READ8_MEMBER(upscope_cia_0_portb_r);
 	DECLARE_WRITE8_MEMBER(upscope_cia_0_portb_w);
@@ -284,11 +284,13 @@ static MACHINE_CONFIG_START( upscope, upscope_state )
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
 
-	MCFG_SOUND_ADD("amiga", AMIGA, amiga_state::CLK_C1_NTSC)
+	MCFG_SOUND_ADD("amiga", PAULA_8364, amiga_state::CLK_C1_NTSC)
 	MCFG_SOUND_ROUTE(0, "rspeaker", 0.50)
 	MCFG_SOUND_ROUTE(1, "lspeaker", 0.50)
 	MCFG_SOUND_ROUTE(2, "lspeaker", 0.50)
 	MCFG_SOUND_ROUTE(3, "rspeaker", 0.50)
+	MCFG_PAULA_MEM_READ_CB(READ16(amiga_state, chip_ram_r))
+	MCFG_PAULA_INT_CB(WRITELINE(amiga_state, paula_int_w))
 
 	/* cia */
 	MCFG_DEVICE_ADD("cia_0", MOS8520, amiga_state::CLK_E_NTSC)

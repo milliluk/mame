@@ -5,7 +5,6 @@
 #ifndef __2203INTF_H__
 #define __2203INTF_H__
 
-#include "emu.h"
 #include "ay8910.h"
 
 void ym2203_update_request(void *param);
@@ -16,7 +15,7 @@ void ym2203_update_request(void *param);
 class ym2203_device : public ay8910_device
 {
 public:
-	ym2203_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	ym2203_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// static configuration helpers
 	template<class _Object> static devcb_base &set_irq_handler(device_t &device, _Object object) { return downcast<ym2203_device &>(device).m_irq_handler.set_callback(object); }

@@ -1079,11 +1079,11 @@ static ADDRESS_MAP_START( funworld_map, AS_PROGRAM, 8, funworld_state )
 	AM_RANGE(0xc000, 0xffff) AM_ROM
 ADDRESS_MAP_END
 
-static UINT8 funquiz_question_bank = 0x80;
+static uint8_t funquiz_question_bank = 0x80;
 
 READ8_MEMBER(funworld_state::questions_r)
 {
-	UINT8* quiz = memregion("questions")->base();
+	uint8_t* quiz = memregion("questions")->base();
 	int extraoffset = ((funquiz_question_bank & 0x1f) * 0x8000);
 
 	// if 0x80 is set, read the 2nd half of the question rom (contains header info)
@@ -2950,13 +2950,13 @@ READ8_MEMBER(funworld_state::funquiz_ay8910_b_r)
 
 MACHINE_START_MEMBER(funworld_state, lunapark)
 {
-	UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *ROM = memregion("maincpu")->base();
 	membank("bank1")->configure_entries(0, 2, &ROM[0], 0x8000);
 }
 
 MACHINE_RESET_MEMBER(funworld_state, lunapark)
 {
-	UINT8 seldsw = (ioport("SELDSW")->read() );
+	uint8_t seldsw = (ioport("SELDSW")->read() );
 	popmessage("ROM Bank: %02X", seldsw);
 
 	membank("bank1")->set_entry(seldsw);
@@ -5289,12 +5289,15 @@ ROM_END
   Power Card (Fun World)
   Version 0263 / 1993-10-22
 
-  Amatic encrypted CPU
-  based on 65SC02 (bitwise) family
+  Amatic encrypted CPU based on 65SC02 (bitwise) family,
+  with the following components inside:
 
-  Looks like a Bonus Card / Big Deal clone.
-  Inside the program ROM there is a reference to "Mega Card",
-  but the graphics are from Power Card.
+  1x CY7C291A (prom replacement).
+  1x 65SC02 (CPU).
+  1x TI74F245A (3-state octal latch from Texas Instruments).
+  1x 7400 (quad 2-input NAND gate).
+
+  (Same as Mega Card CPU)
 
 
   PCB Layout...
@@ -5368,11 +5371,19 @@ ROM_END
   '---------------'
    1 2 3 4 5 6 7 8
 
+
+  Looks like a Bonus Card / Big Deal clone.
+  Inside the program ROM there is a reference to "Mega Card",
+  but the graphics are from Power Card.
+
 */
 ROM_START( powercrd )
 	ROM_REGION( 0x10000, "maincpu", 0 )  /* need proper decryption */
 	ROM_LOAD( "263a1.bin",  0x8000, 0x8000, CRC(9e5e477d) SHA1(428464a64bea8cb478bc8033859baa47d7de0297) )  /* just the 2nd half */
 	ROM_LOAD( "263a2.bin",  0x4000, 0x8000, CRC(11b1a13f) SHA1(766c1a45c238467d6a292795f5a159187966ceec) )  /* just the 2nd half */
+
+	ROM_REGION( 0x0800, "decode", 0 )  /* from the CY7C291A inside of the custom CPU */
+	ROM_LOAD( "powercrd_cy7c291a.bin",  0x0000, 0x0800, CRC(f1d8f35d) SHA1(2b5f9222a81a627d43fd8448385f85c71c24b914) )  /* new dump */
 
 	ROM_REGION( 0x10000, "gfx1", 0 )
 	ROM_LOAD( "power_c_zg2.ic11",   0x0000, 0x8000, CRC(108380bb) SHA1(922beffe3c06f391239125e6f4ccc86ec6980c45) )
@@ -5383,6 +5394,143 @@ ROM_START( powercrd )
 
 	ROM_REGION( 0x0200, "plds", 0 )
 	ROM_LOAD( "powercrd_tibpal16l8.bin",  0x0000, 0x0104, CRC(b5c0a96d) SHA1(3547700e276326a27009202b2e82bc649abb33db) )
+ROM_END
+
+
+/*
+
+  Mega Card (MC3).
+  Ver. 0210.
+  Fun World, 1993.
+
+  Encrypted poker game.
+
+  1x Custom encrypted Fun World CPU based on 65SC02 (Same as Power Card).
+  1x GM68B45S CRTC.
+  2x EF6821P PIAs.
+  1x AY38910A.
+  2x ULN2003AN (out).
+  1x PAL16L8ACN (PLD).
+  1x Maxim MAX690CPA (Microprocessor Supervisory Circuits).
+
+  RAM:
+  1x GoldStar GM76C28-10.
+  1x KM6264BL-10.
+
+  ROM:
+  4x 27C256 (two for program, two for GFX).
+  1x N82S147AN bipolar PROM.
+
+  Other:
+
+  1x 16MHz Xtal.
+  1x 8 DIP switches bank.
+  1x 3V. CR2025 lithium battery.
+
+  1X 17x2 Pin male connector.
+  1X 22x2 Pin edge connector.
+  1X 8x2 Pin edge connector.
+
+
+
+  PCB layout:
+
+  .----------------------------------------------------------------------------------------------------------------------.
+  |                                                                                                                      |
+  |   .--------.                    .--------.                                                  .-------.                |
+  |   |        |   .------------.   |        |                                                  |       |                |
+  |   |        |   |  GD74LS157 |   |        |                                                  |       |   .---.        '---.
+  |   |        |   '------------'   |Goldstar|                                                  |       |   |   | .---. 8 ---|
+  |   |GOLDSTAR|                    |        |                                                  |       |   |ULN| |   |   ---|
+  |   |        |   .------------.   |GM76C28 |                                                  |       |   |200| |74L| P ---|
+  |   |        |   |  GD74LS157 |   |  -10   |                                                  |       |   |3AN| |S04| I ---|
+  |   |GM68B45S|   '------------'   |        |                                                  |AY38910|   |   | |P  | N ---|
+  |   |        |                    |        |                                                  |A/P    |   |   | |   |   ---|
+  |   |        |   .------------.   |        |         .-------------------------------------.  |       |   '---' |   | C ---|
+  |   |        |   |  GD74LS157 |   |        |         |## ooooooooooooooooooooooooooooooo ##|  |       |         '---' O ---|
+  |   |        |   '------------'   |        |         |## ooooooooooooooooooooooooooooooo ##|  |       |               N ---|
+  |   |        |                    '--------'         '-------------------------------------'  |       |    .---.      N ---|
+  |   |        |   .------------.                                                               |       |    |   |        ---|
+  |   |        |   |  GD74LS157 |                           .--------------.  .--------------.  |       |    |ULN|       .---'
+  |   |        |   '------------'                           |  PAL16L8ACN  |  | EMPTY SOCKET |  |       |    |200|       |
+  |   |        |                                            '--------------'  '--------------'  |       |    |3AN|       |
+  |   |        |     .------------------.   .-----.         .--------------------------------.  |       |    |   |       |
+  |   '--------'     |                  |   |XTAL |         |Lfnd. Nr: 0057                  |  '-------'    '---'       |
+  |                  |    KM6264BL-10   |   |16.00|         |Type: 'F'                       |  .-------.                |
+  | .-------------.  |                  |   |0MHz |         |Datum: 17.3.93                  |  |       |                |
+  | |  GD74LS245  |  |                  |   |     |         |                                |  |       |                |
+  | '-------------'  '------------------'   '-----'         |                     FUN WORLD  |  |       |                '---.
+  |                                                         |                                |  |       |                 ---|
+  | .-------------.        .------------.                   '--------------------------------'  |       |                 ---|
+  | | HD74LS374P  |        | HD74LS374P |                                                       |EF6821P|                 ---|
+  | '-------------'        '------------'   .---.        .---.          .--------------------.  |       |                 ---|
+  |                                         |GD7|        |GD7|          |                    |  |       |                 ---|
+  |.--------------------.    .----------.   |4LS|        |4LS|          |    EMPTY SOCKET    |  |       |    .---.        ---|
+  ||MEGA                |    |74LS194AN |   |368|        |245|          |                    |  |       |    |  8|        ---|
+  ||ZG 1                |    '----------'   |A  |        |   |          |                    |  |       |    |   |        ---|
+  ||              27C256|                   |   |        |   |          '--------------------'  |       |    |   |     22 ---|
+  ||                IC10|    .----------.   '---'        |   |                                  |       |    |DIP|        ---|
+  |'--------------------'    |74LS194AN |                |   |          .--------------------.  |       |    |   |      P ---|
+  |                          '----------'                |   |          |MEGA MC 3           |  |       |    |   |      I ---|
+  |                                                      '---'          | 210/F/1            |  |       |    |   |      N ---|
+  |.--------------------.    .----------.                               |              27C256|  |       |    |  1|        ---|
+  ||MEGA                |    |74LS194AN |   .---.   .---.   .---.       |                IC37|  |       |    '---'      C ---|
+  ||ZG 2                |    '----------'   |GD7|   |MN7|   |GD7|       '--------------------'  '-------'               O ---|
+  ||              27C256|                   |4LS|   |4HC|   |4LS|                               .-------.               N ---|
+  ||                IC11|    .----------.   |393|   |241|   |139|       .--------------------.  |       |               N ---|
+  |'--------------------'    |74LS194AN |   |   |   |   |   |   |       |MEGA MC 3           |  |       |               E ---|
+  |                          '----------'   |   |   |   |   |   |       | 210/F/2            |  |       |               C ---|
+  |                                         '---'   |   |   '---'       |              27C256|  |       |               T ---|
+  |.----------.  .----------.                       |   |               |                IC41|  |       |               O ---|
+  ||GD74LS174 |  |HD74LS02P |                       |   |               '--------------------'  |EF6821P|               R ---|
+  |'----------'  '----------'                       '---'                                       |       |                 ---|
+  |                                           -------                                    .---.  |       |                 ---|
+  |.---.  .---.  .---.              .---.   / CR-2025 \                                  |HD7|  |       |                 ---|
+  ||GD7|  |   |  |HD7|              |MAX|  |  LITHIUM  |                                 |4LS|  |       |                 ---|
+  ||4LS|  |N82|  |4LS|              |690|  |  BATTERY  |                                 |02P|  |       |                 ---|
+  ||174|  |S14|  |374|              '---'   \  +3V.   /                                  |   |  |       |                 ---|
+  ||   |  |7AN|  |P  |              Maxim     -------                                    |   |  |       |                 ---|
+  ||   |  |   |  |   |            MAX690CPA                                              '---'  |       |                 ---|
+  |'---'  |   |  |   |                                                                          |       |                .---'
+  |       |   |  |   |                                                                          |       |                |
+  |       '---'  '---'                                                                          '-------'                |
+  |                                                                                                                      |
+  '----------------------------------------------------------------------------------------------------------------------'
+
+
+  The encrypted CPU:
+
+  It's a DIP40 custom IC. It has inside a PLCC28 IC and 3 dies:
+
+  The PLCC28 chip is a CY7C291A (prom replacement)
+  DIE#1 is a TI74F245A, a 3-state octal latch from Texas Instruments.
+  DIE#2 is the CPU, a 65SC02.
+  DIE#3 is a 7400, a quad 2-input NAND gate.
+
+  Is unknown how they are connected.
+
+*/
+
+ROM_START( megacard )
+	ROM_REGION( 0x10000, "maincpu", 0 )  /* need proper decryption */
+	ROM_LOAD( "mega_mc3_210-f-1.ic37",  0x8000, 0x8000, CRC(747f5ed1) SHA1(06757bb6a792dca93978b17b54c28e413e3720b1) )  /* just the 2nd half */
+	ROM_LOAD( "mega_mc3_210-f-2.ic41",  0x4000, 0x8000, CRC(373094d2) SHA1(8aed2502e89b0e7522e88f351ac256f1afad7ee8) )  /* just the 2nd half */
+
+	ROM_REGION( 0x0300, "die_65sc02", 0 )  /* from the 65SC02 die inside of the custom CPU */
+	ROM_LOAD( "gteu65decoderom.bin",   0x0000, 0x02f1, CRC(089af0c6) SHA1(0f46a73a7859a694a07ebe74d476fae80e57e329) )
+
+	ROM_REGION( 0x0800, "decode", 0 )  /* from the CY7C291A inside of the custom CPU */
+	ROM_LOAD( "megacard_cy7291a.bin",  0x0000, 0x0800, CRC(596f01ac) SHA1(a8606a1dd385fbb46b1a96f11a759fa6580803d8) )  /* new dump */
+
+	ROM_REGION( 0x10000, "gfx1", 0 )
+	ROM_LOAD( "mega_zg2.ic11",   0x0000, 0x8000, CRC(0993d380) SHA1(e5e2386948fba2fb6b79339af27bd1d0f1e198ca) )
+	ROM_LOAD( "mega_zg1.ic10",   0x8000, 0x8000, CRC(de2e2dd0) SHA1(17962d84838f39de41bc7a41d399fd18cd0bd5b7) )
+
+	ROM_REGION( 0x0200, "proms", 0 )
+	ROM_LOAD( "n82s147an.bin",  0x0000, 0x0200, CRC(136245f3) SHA1(715309982fcafbce88b08237ca46acec31273938) )
+
+	ROM_REGION( 0x0200, "plds", 0 )
+	ROM_LOAD( "megacard_pal16l8.bin",  0x0000, 0x0117, CRC(3159a548) SHA1(ad904fa35b78570e44323469967803e34ef4bc0c) )
 ROM_END
 
 
@@ -6042,7 +6190,7 @@ DRIVER_INIT_MEMBER(funworld_state, tabblue)
 *****************************************************************************************************/
 
 	int x, na, nb, nad, nbd;
-	UINT8 *src = memregion( "gfx1" )->base();
+	uint8_t *src = memregion( "gfx1" )->base();
 
 
 	for (x=0x0000; x < 0x10000; x++)
@@ -6073,7 +6221,7 @@ DRIVER_INIT_MEMBER(funworld_state, magicd2b)
 
 ******************************************************************/
 {
-	UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *ROM = memregion("maincpu")->base();
 
 	ROM[0xc1c6] = 0x92;
 }
@@ -6083,8 +6231,8 @@ DRIVER_INIT_MEMBER(funworld_state, magicd2c)
 /*** same as blue TAB PCB, with the magicd2a patch ***/
 {
 	int x, na, nb, nad, nbd;
-	UINT8 *src = memregion( "gfx1" )->base();
-	UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *src = memregion( "gfx1" )->base();
+	uint8_t *ROM = memregion("maincpu")->base();
 
 	for (x=0x0000; x < 0x10000; x++)
 	{
@@ -6104,7 +6252,7 @@ DRIVER_INIT_MEMBER(funworld_state, magicd2c)
 DRIVER_INIT_MEMBER(funworld_state, mongolnw)
 {
 /* temporary patch to avoid hardware errors for debug purposes */
-	UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *ROM = memregion("maincpu")->base();
 
 	ROM[0x9115] = 0xa5;
 
@@ -6116,7 +6264,7 @@ DRIVER_INIT_MEMBER(funworld_state, mongolnw)
 DRIVER_INIT_MEMBER(funworld_state, soccernw)
 {
 /* temporary patch to avoid hardware errors for debug purposes */
-	UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *ROM = memregion("maincpu")->base();
 
 	ROM[0x80b2] = 0xa9;
 	ROM[0x80b3] = 0x00;
@@ -6149,15 +6297,15 @@ DRIVER_INIT_MEMBER(funworld_state, saloon)
 
 *************************************************/
 {
-	UINT8 *rom = memregion("maincpu")->base();
+	uint8_t *rom = memregion("maincpu")->base();
 	int size = memregion("maincpu")->bytes();
 	int start = 0x8000;
 
-	UINT8 *gfxrom = memregion("gfx1")->base();
+	uint8_t *gfxrom = memregion("gfx1")->base();
 	int sizeg = memregion("gfx1")->bytes();
 	int startg = 0;
 
-	UINT8 *prom = memregion("proms")->base();
+	uint8_t *prom = memregion("proms")->base();
 	int sizep = memregion("proms")->bytes();
 	int startp = 0;
 
@@ -6175,7 +6323,7 @@ DRIVER_INIT_MEMBER(funworld_state, saloon)
 	}
 
 	{
-		dynamic_buffer buffer(size);
+		std::vector<uint8_t> buffer(size);
 		memcpy(&buffer[0], rom, size);
 
 
@@ -6194,7 +6342,7 @@ DRIVER_INIT_MEMBER(funworld_state, saloon)
 	******************************/
 
 	{
-		dynamic_buffer buffer(sizeg);
+		std::vector<uint8_t> buffer(sizeg);
 		memcpy(&buffer[0], gfxrom, sizeg);
 
 		/* address lines swap: fedcba9876543210 -> fedcb67584a39012 */
@@ -6219,7 +6367,7 @@ DRIVER_INIT_MEMBER(funworld_state, saloon)
 	}
 
 	{
-		dynamic_buffer buffer(sizep);
+		std::vector<uint8_t> buffer(sizep);
 		memcpy(&buffer[0], prom, sizep);
 
 
@@ -6244,14 +6392,14 @@ DRIVER_INIT_MEMBER(funworld_state, multiwin)
 
 ******************************************************/
 {
-	UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *ROM = memregion("maincpu")->base();
 
 	int x;
 
 	for (x=0x8000; x < 0x10000; x++)
 	{
 		ROM[x] = ROM[x] ^ 0x91;
-		UINT8 code;
+		uint8_t code;
 
 		ROM[x] = BITSWAP8(ROM[x],5,6,7,2,3,0,1,4);
 
@@ -6275,14 +6423,14 @@ DRIVER_INIT_MEMBER(funworld_state, royalcdc)
 
 ******************************************************/
 
-	UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *ROM = memregion("maincpu")->base();
 
 	int x;
 
 	for (x=0x8000; x < 0x10000; x++)
 	{
 		ROM[x] = ROM[x] ^ 0x22;
-		UINT8 code;
+		uint8_t code;
 
 		// this seems correct for the data, plaintext decrypts fine
 		ROM[x] = BITSWAP8(ROM[x],2,6,7,4,3,1,5,0);
@@ -6332,11 +6480,11 @@ DRIVER_INIT_MEMBER(funworld_state, dino4)
 
 ******************************************************/
 {
-	UINT8 *rom = memregion("maincpu")->base();
+	uint8_t *rom = memregion("maincpu")->base();
 	int size = memregion("maincpu")->bytes();
 	int start = 0x8000;
 
-	UINT8 *gfxrom = memregion("gfx1")->base();
+	uint8_t *gfxrom = memregion("gfx1")->base();
 	int sizeg = memregion("gfx1")->bytes();
 	int startg = 0;
 
@@ -6354,7 +6502,7 @@ DRIVER_INIT_MEMBER(funworld_state, dino4)
 	}
 
 	{
-		dynamic_buffer buffer(size);
+		std::vector<uint8_t> buffer(size);
 		memcpy(&buffer[0], rom, size);
 
 
@@ -6373,7 +6521,7 @@ DRIVER_INIT_MEMBER(funworld_state, dino4)
 	******************************/
 
 	{
-		dynamic_buffer buffer(sizeg);
+		std::vector<uint8_t> buffer(sizeg);
 		memcpy(&buffer[0], gfxrom, sizeg);
 
 		/* address lines swap: fedcba9876543210 -> fedcb67584a39012 */
@@ -6395,11 +6543,11 @@ DRIVER_INIT_MEMBER(funworld_state, ctunk)
 
 *********************************************************/
 {
-	UINT8 *rom = memregion("maincpu")->base();
+	uint8_t *rom = memregion("maincpu")->base();
 	int size = memregion("maincpu")->bytes();
 	int start = 0x8000;
 
-	//UINT8 *buffer;
+	//uint8_t *buffer;
 	int i;// a;
 
 	/*****************************
@@ -6413,7 +6561,7 @@ DRIVER_INIT_MEMBER(funworld_state, ctunk)
 		rom[i] = BITSWAP8(rom[i], 5, 6, 7, 3, 4, 0, 1, 2);
 	}
 
-	//buffer = std::make_unique<UINT8[]>(size);
+	//buffer = std::make_unique<uint8_t[]>(size);
 	//memcpy(buffer, rom, size);
 
 
@@ -6422,8 +6570,8 @@ DRIVER_INIT_MEMBER(funworld_state, ctunk)
 	*****************************/
 
 	int x, na, nb, nad, nbd;
-	UINT8 *src = memregion( "gfx1" )->base();
-	//UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *src = memregion( "gfx1" )->base();
+	//uint8_t *ROM = memregion("maincpu")->base();
 
 	for (x=0x0000; x < 0x10000; x++)
 	{
@@ -6438,7 +6586,7 @@ DRIVER_INIT_MEMBER(funworld_state, ctunk)
 }
 
 
-static void decrypt_rcdino4(UINT8 *rom, int size, UINT8 *gfxrom, int sizeg, UINT8 *src)
+static void decrypt_rcdino4(uint8_t *rom, int size, uint8_t *gfxrom, int sizeg, uint8_t *src)
 {
 	int start = 0x0000;
 
@@ -6458,7 +6606,7 @@ static void decrypt_rcdino4(UINT8 *rom, int size, UINT8 *gfxrom, int sizeg, UINT
 	}
 
 	{
-		dynamic_buffer buffer(size);
+		std::vector<uint8_t> buffer(size);
 		memcpy(&buffer[0], rom, size);
 
 
@@ -6477,7 +6625,7 @@ static void decrypt_rcdino4(UINT8 *rom, int size, UINT8 *gfxrom, int sizeg, UINT
 	******************************/
 
 	{
-		dynamic_buffer buffer(sizeg);
+		std::vector<uint8_t> buffer(sizeg);
 		memcpy(&buffer[0], gfxrom, sizeg);
 
 		/* address lines swap: fedcba9876543210 -> fedcb67584a39012 */
@@ -6503,7 +6651,7 @@ static void decrypt_rcdino4(UINT8 *rom, int size, UINT8 *gfxrom, int sizeg, UINT
 
 
 
-static UINT8 rcdino4_add[] =
+static uint8_t rcdino4_add[] =
 {
 /*      0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f*/
 /*0*/   1, 9, 9, 9, 9, 2, 9, 9, 1, 2, 1, 9, 9, 3, 9, 9,
@@ -6524,7 +6672,7 @@ static UINT8 rcdino4_add[] =
 /*f*/   2, 9, 9, 9, 9, 2, 9, 9, 1, 3, 1, 9, 9, 3, 9, 9
 };
 
-static UINT8 rcdino4_keys40[] =
+static uint8_t rcdino4_keys40[] =
 {
 /*  40    41    42    43    44    45    46    47    48    49    4a    4b    4c    4d*/
 	0x36, 0x54, 0x47, 0x6b, 0xce, 0x95, 0xa2, 0x66, 0x3a, 0x46, 0x53, 0xd7, 0xc4, 0xa4,
@@ -6534,7 +6682,7 @@ static UINT8 rcdino4_keys40[] =
 	0x56
 };
 
-static UINT8 rcdino4_keys80[] =
+static uint8_t rcdino4_keys80[] =
 {
 /*  81    82    83    84    85 */
 	0xb8, 0x32, 0x1c, 0x23, 0xe2,
@@ -6601,7 +6749,7 @@ DRIVER_INIT_MEMBER(funworld_state, rcdino4)
 ******************************************************/
 {
 	int i, j;
-	UINT8 *rom = memregion("maincpu")->base();
+	uint8_t *rom = memregion("maincpu")->base();
 
 	decrypt_rcdino4(rom, memregion("maincpu")->bytes(), memregion("gfx1")->base(), memregion("gfx1")->bytes(), memregion( "gfx1" )->base());
 
@@ -6609,13 +6757,13 @@ DRIVER_INIT_MEMBER(funworld_state, rcdino4)
 
 	for (i = 0x40; i < (0x40 + ARRAY_LENGTH(rcdino4_keys40));)
 	{
-		UINT8 key;
+		uint8_t key;
 
 		key = rcdino4_keys40[i - 0x40];
 
 		do
 		{
-			UINT8 c;
+			uint8_t c;
 			int add;
 
 			c = rom[(i << 8) + j] ^ key;
@@ -6643,13 +6791,13 @@ DRIVER_INIT_MEMBER(funworld_state, rcdino4)
 
 	do
 	{
-		UINT8 key;
+		uint8_t key;
 
 		key = rcdino4_keys80[i - 0x81];
 
 		do
 		{
-			UINT8 c;
+			uint8_t c;
 			int add;
 
 			c = rom[(i << 8) + j] ^ key;
@@ -6764,7 +6912,6 @@ GAMEL( 1986, bonuscrd,  0,        fw2ndpal, bonuscrd,  driver_device,  0,       
 GAMEL( 1986, bonuscrda, bonuscrd, fw2ndpal, bonuscrd,  driver_device,  0,        ROT0, "Fun World",       "Bonus Card (Austrian, ATG Electronic hack)",      MACHINE_IMPERFECT_COLORS,   layout_bonuscrd ) // use fw1stpal machine for green background
 GAMEL( 1986, bigdeal,   bonuscrd, fw2ndpal, bigdeal,   driver_device,  0,        ROT0, "Fun World",       "Big Deal (Hungarian, set 1)",                     MACHINE_IMPERFECT_COLORS,   layout_bonuscrd )
 GAMEL( 1986, bigdealb,  bonuscrd, fw2ndpal, bigdeal,   driver_device,  0,        ROT0, "Fun World",       "Big Deal (Hungarian, set 2)",                     MACHINE_IMPERFECT_COLORS,   layout_bonuscrd )
-GAME(  1993, powercrd,  0,        fw2ndpal, funworld,  driver_device,  0,        ROT0, "Fun World",       "Power Card (Ver 0263, encrypted)",                MACHINE_NOT_WORKING )                         // clone of Bonus Card.
 
 // CMC Italian jamma PCB's...
 GAMEL( 1996, cuoreuno,  0,        cuoreuno, cuoreuno,  driver_device,  0,        ROT0, "C.M.C.",          "Cuore 1 (Italian)",                               0,                       layout_jollycrd )
@@ -6827,6 +6974,8 @@ GAMEL( 198?, jolyjokrc, jolyjokr, fw1stpal, funworld,  driver_device,  0,       
 
 // Encrypted games...
 GAME(  1992, multiwin,  0,        fw1stpal, funworld,  funworld_state, multiwin, ROT0, "Fun World",       "Multi Win (Ver.0167, encrypted)",                 MACHINE_NOT_WORKING )
+GAME(  1993, powercrd,  0,        fw2ndpal, funworld,  driver_device,  0,        ROT0, "Fun World",       "Power Card (Ver 0263, encrypted)",                MACHINE_NOT_WORKING )                      // clone of Bonus Card.
+GAME(  1993, megacard,  0,        fw2ndpal, funworld,  driver_device,  0,        ROT0, "Fun World",       "Mega Card (Ver.0210, encrypted)",                 MACHINE_NOT_WORKING )
 GAME(  1993, jokercrd,  0,        fw2ndpal, funworld,  driver_device,  0,        ROT0, "Vesely Svet",     "Joker Card (Ver.A267BC, encrypted)",              MACHINE_NOT_WORKING )
 GAME(  198?, saloon,    0,        saloon,   saloon,    funworld_state, saloon,   ROT0, "<unknown>",       "Saloon (French, encrypted)",                      MACHINE_NOT_WORKING )
 

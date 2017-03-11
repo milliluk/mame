@@ -6,6 +6,7 @@
 
 **********************************************************************/
 
+#include "emu.h"
 #include "mp_fdi.h"
 
 
@@ -48,7 +49,7 @@ const tiny_rom_entry *micro_peripherals_floppy_disk_interface_t::device_rom_regi
 //  micro_peripherals_floppy_disk_interface_t - constructor
 //-------------------------------------------------
 
-micro_peripherals_floppy_disk_interface_t::micro_peripherals_floppy_disk_interface_t(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock) :
+micro_peripherals_floppy_disk_interface_t::micro_peripherals_floppy_disk_interface_t(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
 	device_t(mconfig, MICRO_PERIPHERALS_FLOPPY_DISK_INTERFACE, "Micro Peripherals Floppy Disk Interface", tag, owner, clock, "ql_mpfdi", __FILE__),
 	device_ql_expansion_card_interface(mconfig, *this)
 {
@@ -68,7 +69,7 @@ void micro_peripherals_floppy_disk_interface_t::device_start()
 //  read -
 //-------------------------------------------------
 
-UINT8 micro_peripherals_floppy_disk_interface_t::read(address_space &space, offs_t offset, UINT8 data)
+uint8_t micro_peripherals_floppy_disk_interface_t::read(address_space &space, offs_t offset, uint8_t data)
 {
 	return data;
 }
@@ -78,6 +79,6 @@ UINT8 micro_peripherals_floppy_disk_interface_t::read(address_space &space, offs
 //  write -
 //-------------------------------------------------
 
-void micro_peripherals_floppy_disk_interface_t::write(address_space &space, offs_t offset, UINT8 data)
+void micro_peripherals_floppy_disk_interface_t::write(address_space &space, offs_t offset, uint8_t data)
 {
 }

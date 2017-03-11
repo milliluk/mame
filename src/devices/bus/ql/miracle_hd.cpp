@@ -6,6 +6,7 @@
 
 **********************************************************************/
 
+#include "emu.h"
 #include "miracle_hd.h"
 
 
@@ -48,7 +49,7 @@ const tiny_rom_entry *miracle_hard_disk_t::device_rom_region() const
 //  miracle_hard_disk_t - constructor
 //-------------------------------------------------
 
-miracle_hard_disk_t::miracle_hard_disk_t(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock) :
+miracle_hard_disk_t::miracle_hard_disk_t(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
 	device_t(mconfig, MIRACLE_HARD_DISK, "Miracle Hard Disk", tag, owner, clock, "ql_mhd", __FILE__),
 	device_ql_rom_cartridge_card_interface(mconfig, *this)
 {
@@ -68,7 +69,7 @@ void miracle_hard_disk_t::device_start()
 //  read -
 //-------------------------------------------------
 
-UINT8 miracle_hard_disk_t::read(address_space &space, offs_t offset, UINT8 data)
+uint8_t miracle_hard_disk_t::read(address_space &space, offs_t offset, uint8_t data)
 {
 	return data;
 }
@@ -78,6 +79,6 @@ UINT8 miracle_hard_disk_t::read(address_space &space, offs_t offset, UINT8 data)
 //  write -
 //-------------------------------------------------
 
-void miracle_hard_disk_t::write(address_space &space, offs_t offset, UINT8 data)
+void miracle_hard_disk_t::write(address_space &space, offs_t offset, uint8_t data)
 {
 }

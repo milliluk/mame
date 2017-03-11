@@ -5,7 +5,6 @@
 #ifndef __NORTHBRIDGE_H__
 #define __NORTHBRIDGE_H__
 
-#include "emu.h"
 
 #include "machine/ram.h"
 
@@ -20,7 +19,7 @@ class northbridge_device :
 {
 public:
 		// construction/destruction
-		northbridge_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
+		northbridge_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint32_t clock, const char *shortname, const char *source);
 protected:
 		// device-level overrides
 		virtual void device_start() override;

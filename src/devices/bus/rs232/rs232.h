@@ -5,7 +5,6 @@
 
 #pragma once
 
-#include "emu.h"
 
 #define MCFG_RS232_PORT_ADD(_tag, _slot_intf, _def_slot) \
 	MCFG_DEVICE_ADD(_tag, RS232_PORT, 0) \
@@ -117,8 +116,8 @@ class rs232_port_device : public device_t,
 	friend class device_rs232_port_interface;
 
 public:
-	rs232_port_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
-	rs232_port_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
+	rs232_port_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	rs232_port_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint32_t clock, const char *shortname, const char *source);
 	virtual ~rs232_port_device();
 
 	// static configuration helpers
@@ -181,7 +180,7 @@ public:
 protected:
 	rs232_port_device *m_port;
 
-	static int convert_baud(UINT8 baud)
+	static int convert_baud(uint8_t baud)
 	{
 		static const int values[] =
 		{
@@ -204,7 +203,7 @@ protected:
 		return values[baud];
 	}
 
-	static int convert_startbits(UINT8 startbits)
+	static int convert_startbits(uint8_t startbits)
 	{
 		static const int values[] =
 		{
@@ -215,7 +214,7 @@ protected:
 		return values[startbits];
 	}
 
-	static int convert_databits(UINT8 databits)
+	static int convert_databits(uint8_t databits)
 	{
 		static const int values[] =
 		{
@@ -228,7 +227,7 @@ protected:
 		return values[databits];
 	}
 
-	static device_serial_interface::parity_t convert_parity(UINT8 parity)
+	static device_serial_interface::parity_t convert_parity(uint8_t parity)
 	{
 		static const device_serial_interface::parity_t values[] =
 		{
@@ -242,7 +241,7 @@ protected:
 		return values[parity];
 	}
 
-	static device_serial_interface::stop_bits_t convert_stopbits(UINT8 stopbits)
+	static device_serial_interface::stop_bits_t convert_stopbits(uint8_t stopbits)
 	{
 		static const device_serial_interface::stop_bits_t values[] =
 		{
@@ -256,7 +255,7 @@ protected:
 	}
 };
 
-template <UINT32 FIFO_LENGTH>
+template <uint32_t FIFO_LENGTH>
 class buffered_rs232_device : public device_t, public device_buffered_serial_interface<FIFO_LENGTH>, public device_rs232_port_interface
 {
 public:
@@ -266,7 +265,7 @@ public:
 	}
 
 protected:
-	buffered_rs232_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source)
+	buffered_rs232_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint32_t clock, const char *shortname, const char *source)
 		: device_t(mconfig, type, name, tag, owner, clock, shortname, source)
 		, device_buffered_serial_interface<FIFO_LENGTH>(mconfig, *this)
 		, device_rs232_port_interface(mconfig, *this)

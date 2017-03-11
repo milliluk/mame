@@ -6,6 +6,7 @@
 
 **********************************************************************/
 
+#include "emu.h"
 #include "c2n.h"
 
 
@@ -51,7 +52,7 @@ machine_config_constructor c2n_device::device_mconfig_additions() const
 //  c2n_device - constructor
 //-------------------------------------------------
 
-c2n_device::c2n_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source)
+c2n_device::c2n_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint32_t clock, const char *shortname, const char *source)
 	: device_t(mconfig, type, name, tag, owner, clock, shortname, source),
 		device_pet_datassette_port_interface(mconfig, *this),
 		m_cassette(*this, "cassette"),
@@ -60,7 +61,7 @@ c2n_device::c2n_device(const machine_config &mconfig, device_type type, const ch
 {
 }
 
-c2n_device::c2n_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+c2n_device::c2n_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, C2N, "C2N Datassette", tag, owner, clock, "c2n", __FILE__),
 		device_pet_datassette_port_interface(mconfig, *this),
 		m_cassette(*this, "cassette"),
@@ -73,7 +74,7 @@ c2n_device::c2n_device(const machine_config &mconfig, const char *tag, device_t 
 //  c1530_device - constructor
 //-------------------------------------------------
 
-c1530_device::c1530_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+c1530_device::c1530_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: c2n_device(mconfig, C1530, "C1530 Datassette", tag, owner, clock, "c1530", __FILE__) { }
 
 
@@ -81,7 +82,7 @@ c1530_device::c1530_device(const machine_config &mconfig, const char *tag, devic
 //  c1531_device - constructor
 //-------------------------------------------------
 
-c1531_device::c1531_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+c1531_device::c1531_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: c2n_device(mconfig, C1531, "C1531 Datassette", tag, owner, clock, "c1531", __FILE__) { }
 
 

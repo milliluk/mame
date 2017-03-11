@@ -23,6 +23,7 @@
 
 ****************************************************************************/
 
+#include "emu.h"
 #include "bus/rs232/rs232.h"
 #include "cpu/i8085/i8085.h"
 #include "machine/6850acia.h"
@@ -50,7 +51,7 @@ protected:
 private:
 	required_device<cpu_device> m_maincpu;
 	required_device<acia6850_device> m_mc6850;
-	required_shared_ptr<UINT8> m_ram;
+	required_shared_ptr<uint8_t> m_ram;
 };
 
 
@@ -97,7 +98,7 @@ WRITE_LINE_MEMBER(altair_state::write_acia_clock)
 
 void altair_state::machine_reset()
 {
-	// Set startup addess done by turn-key
+	// Set startup address done by turn-key
 	m_maincpu->set_state_int(I8085_PC, 0xFD00);
 }
 

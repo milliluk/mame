@@ -10,7 +10,6 @@
 #ifdef OSD_SDL
 #define _WIN32_WINNT 0x0501
 #endif
-#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <tchar.h>
 #include <stdlib.h>
@@ -36,7 +35,7 @@ extern "C" int _tmain(int argc, TCHAR **argv)
 	// convert arguments to UTF-8
 	for (i = 0; i < argc; i++)
 	{
-		argv_vectors[i] = utf8_from_tstring(argv[i]);
+		argv_vectors[i] = osd::text::from_tstring(argv[i]);
 		utf8_argv[i] = (char *) argv_vectors[i].c_str();
 	}
 

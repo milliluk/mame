@@ -13,7 +13,6 @@
 #ifndef __WOZFDC_H__
 #define __WOZFDC_H__
 
-#include "emu.h"
 #include "imagedev/floppy.h"
 #include "formats/flopimg.h"
 
@@ -30,7 +29,7 @@ class wozfdc_device:
 
 public:
 	// construction/destruction
-	wozfdc_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
+	wozfdc_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint32_t clock, const char *shortname, const char *source);
 
 	// optional information overrides
 	virtual const tiny_rom_entry *device_rom_region() const override;
@@ -51,18 +50,18 @@ private:
 		MODE_IDLE, MODE_ACTIVE, MODE_DELAY
 	};
 
-	UINT64 cycles;
-	UINT8 data_reg, address;
+	uint64_t cycles;
+	uint8_t data_reg, address;
 	attotime write_start_time;
 	attotime write_buffer[32];
 	int write_position;
 	bool write_line_active;
 
-	const UINT8 *m_rom_p6;
-	UINT8 last_6502_write;
+	const uint8_t *m_rom_p6;
+	uint8_t last_6502_write;
 	bool mode_write, mode_load;
 	int active;
-	UINT8 phases;
+	uint8_t phases;
 	emu_timer *timer, *delay_timer;
 	bool external_drive_select;
 	bool external_io_select;
@@ -72,8 +71,8 @@ private:
 
 	void control(int offset);
 	void phase(int ph, bool on);
-	UINT64 time_to_cycles(const attotime &tm);
-	attotime cycles_to_time(UINT64 cycles);
+	uint64_t time_to_cycles(const attotime &tm);
+	attotime cycles_to_time(uint64_t cycles);
 	void a3_update_drive_sel();
 
 	void lss_start();
@@ -83,7 +82,7 @@ private:
 class diskii_fdc : public wozfdc_device
 {
 public:
-	diskii_fdc(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	diskii_fdc(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	virtual void device_reset() override;
 
@@ -93,7 +92,7 @@ public:
 class appleiii_fdc : public wozfdc_device
 {
 public:
-	appleiii_fdc(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	appleiii_fdc(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	virtual void device_reset() override;
 

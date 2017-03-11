@@ -9,7 +9,6 @@
 #ifndef CPC_ROM_H_
 #define CPC_ROM_H_
 
-#include "emu.h"
 #include "cpcexp.h"
 
 /*** ROM image device ***/
@@ -21,7 +20,7 @@ class rom_image_device :    public device_t,
 {
 public:
 	// construction/destruction
-	rom_image_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	rom_image_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	virtual ~rom_image_device();
 
 	// image-level overrides
@@ -38,7 +37,7 @@ public:
 	virtual const char *image_interface() const override { return "cpc_rom"; }
 	virtual const char *file_extensions() const override { return "rom,bin"; }
 
-	UINT8* base() { return m_base.get(); }
+	uint8_t* base() { return m_base.get(); }
 
 protected:
 	// device-level overrides
@@ -46,7 +45,7 @@ protected:
 	virtual void device_start() override;
 
 private:
-	std::unique_ptr<UINT8[]> m_base;
+	std::unique_ptr<uint8_t[]> m_base;
 };
 
 
@@ -64,12 +63,12 @@ class cpc_rom_device  : public device_t,
 {
 public:
 	// construction/destruction
-	cpc_rom_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	cpc_rom_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual machine_config_constructor device_mconfig_additions() const override;
 
-	UINT8* base(UINT8 slot) { if(slot >=1 && slot <= 8) return m_rom[slot]->base(); else return nullptr; }
+	uint8_t* base(uint8_t slot) { if(slot >=1 && slot <= 8) return m_rom[slot]->base(); else return nullptr; }
 
 protected:
 	// device-level overrides

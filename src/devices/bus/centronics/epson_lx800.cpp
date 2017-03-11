@@ -14,6 +14,7 @@
 
 **********************************************************************/
 
+#include "emu.h"
 #include "epson_lx800.h"
 #include "lx800.lh"
 
@@ -61,17 +62,6 @@ ADDRESS_MAP_END
 
 
 //-------------------------------------------------
-//  ADDRESS_MAP( lx800_io )
-//-------------------------------------------------
-
-static ADDRESS_MAP_START( lx800_io, AS_IO, 8, epson_lx800_t )
-	AM_RANGE(UPD7810_PORTA, UPD7810_PORTA) AM_READWRITE(porta_r, porta_w)
-	AM_RANGE(UPD7810_PORTB, UPD7810_PORTB) AM_READ_PORT("DIPSW1")
-	AM_RANGE(UPD7810_PORTC, UPD7810_PORTC) AM_READWRITE(portc_r, portc_w)
-ADDRESS_MAP_END
-
-
-//-------------------------------------------------
 //  MACHINE_DRIVER( epson_lx800 )
 //-------------------------------------------------
 
@@ -79,7 +69,11 @@ static MACHINE_CONFIG_FRAGMENT( epson_lx800 )
 	/* basic machine hardware */
 	MCFG_CPU_ADD("maincpu", UPD7810, XTAL_14_7456MHz)
 	MCFG_CPU_PROGRAM_MAP(lx800_mem)
-	MCFG_CPU_IO_MAP(lx800_io)
+	MCFG_UPD7810_PORTA_READ_CB(READ8(epson_lx800_t, porta_r))
+	MCFG_UPD7810_PORTA_WRITE_CB(WRITE8(epson_lx800_t, porta_w))
+	MCFG_UPD7810_PORTB_READ_CB(IOPORT("DIPSW1"))
+	MCFG_UPD7810_PORTC_READ_CB(READ8(epson_lx800_t, portc_r))
+	MCFG_UPD7810_PORTC_WRITE_CB(WRITE8(epson_lx800_t, portc_w))
 	MCFG_UPD7810_AN0(READLINE(epson_lx800_t, an0_r))
 	MCFG_UPD7810_AN1(READLINE(epson_lx800_t, an1_r))
 	MCFG_UPD7810_AN2(READLINE(epson_lx800_t, an2_r))
@@ -199,7 +193,7 @@ ioport_constructor epson_lx800_t::device_input_ports() const
 //  epson_lx800_t - constructor
 //-------------------------------------------------
 
-epson_lx800_t::epson_lx800_t(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock) :
+epson_lx800_t::epson_lx800_t(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
 	device_t(mconfig, EPSON_LX800, "Epson LX-800", tag, owner, clock, "lx800", __FILE__),
 	device_centronics_peripheral_interface(mconfig, *this),
 	m_maincpu(*this, "maincpu"),
@@ -207,7 +201,7 @@ epson_lx800_t::epson_lx800_t(const machine_config &mconfig, const char *tag, dev
 {
 }
 
-epson_lx800_t::epson_lx800_t(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source) :
+epson_lx800_t::epson_lx800_t(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint32_t clock, const char *shortname, const char *source) :
 	device_t(mconfig, type, name, tag, owner, clock, shortname, __FILE__),
 	device_centronics_peripheral_interface(mconfig, *this),
 	m_maincpu(*this, "maincpu"),
@@ -250,7 +244,7 @@ void epson_lx800_t::device_reset()
  */
 READ8_MEMBER( epson_lx800_t::porta_r )
 {
-	UINT8 result = 0;
+	uint8_t result = 0;
 
 	logerror("%s: lx800_porta_r(%02x)\n", machine().describe_context(), offset);
 
@@ -280,7 +274,7 @@ WRITE8_MEMBER( epson_lx800_t::porta_w )
  */
 READ8_MEMBER( epson_lx800_t::portc_r )
 {
-	UINT8 result = 0;
+	uint8_t result = 0;
 
 	logerror("%s: lx800_portc_r(%02x)\n", machine().describe_context(), offset);
 

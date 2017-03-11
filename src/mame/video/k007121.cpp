@@ -121,20 +121,10 @@ control registers
 
 const device_type K007121 = &device_creator<k007121_device>;
 
-k007121_device::k007121_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+k007121_device::k007121_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, K007121, "K007121 Sprite/Tilemap Controller", tag, owner, clock, "k007121", __FILE__)
 	, m_flipscreen(0)
 	, m_palette(*this, finder_base::DUMMY_TAG)
-{
-}
-
-//-------------------------------------------------
-//  device_config_complete - perform any
-//  operations now that the configuration is
-//  complete
-//-------------------------------------------------
-
-void k007121_device::device_config_complete()
 {
 }
 
@@ -230,7 +220,7 @@ WRITE8_MEMBER( k007121_device::ctrl_w )
  */
 
 void k007121_device::sprites_draw( bitmap_ind16 &bitmap, const rectangle &cliprect, gfx_element *gfx, palette_device &palette,
-							const UINT8 *source, int base_color, int global_x_offset, int bank_base, bitmap_ind8 &priority_bitmap, UINT32 pri_mask, bool is_flakatck )
+							const uint8_t *source, int base_color, int global_x_offset, int bank_base, bitmap_ind8 &priority_bitmap, uint32_t pri_mask, bool is_flakatck )
 {
 	//  gfx_element *gfx = gfxs[chip];
 	int flipscreen = m_flipscreen;

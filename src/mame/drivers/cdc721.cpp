@@ -18,20 +18,19 @@ class cdc721_state : public driver_device
 public:
 	cdc721_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag)
-	, m_p_videoram(*this, "videoram")
-	, m_maincpu(*this, "maincpu")
-	{ }
+		, m_p_videoram(*this, "videoram")
+		, m_maincpu(*this, "maincpu")
+		, m_p_chargen(*this, "chargen")
+		{ }
 
-public:
-	virtual void machine_reset() override;
+	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 	DECLARE_PALETTE_INIT(cdc721);
-	const UINT8 *m_p_chargen;
-	UINT32 screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
-	required_shared_ptr<UINT8> m_p_videoram;
+
 private:
+	virtual void machine_reset() override;
+	required_shared_ptr<uint8_t> m_p_videoram;
 	required_device<cpu_device> m_maincpu;
-
-
+	required_region_ptr<u8> m_p_chargen;
 };
 
 static ADDRESS_MAP_START( cdc721_mem, AS_PROGRAM, 8, cdc721_state )
@@ -49,7 +48,6 @@ INPUT_PORTS_END
 
 void cdc721_state::machine_reset()
 {
-	m_p_chargen = memregion("chargen")->base();
 }
 
 /* F4 Character Displayer */
@@ -78,16 +76,16 @@ PALETTE_INIT_MEMBER( cdc721_state, cdc721 )
 	palette.set_pen_color(2, 0, 128, 0 );   /* Dimmed */
 }
 
-UINT32 cdc721_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t cdc721_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
-	UINT8 y,ra,chr,gfx;
-	UINT16 sy=0,ma=0,x;
+	uint8_t y,ra,chr,gfx;
+	uint16_t sy=0,ma=0,x;
 
 	for (y = 0; y < 24; y++)
 	{
 		for (ra = 3; ra < 13; ra++)
 		{
-			UINT16 *p = &bitmap.pix16(sy++);
+			uint16_t *p = &bitmap.pix16(sy++);
 
 			for (x = 0; x < 160; x+=2)
 			{

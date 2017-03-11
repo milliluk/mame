@@ -5,7 +5,6 @@
 #ifndef __DECOBSMT_H__
 #define __DECOBSMT_H__
 
-#include "emu.h"
 #include "cpu/m6809/m6809.h"
 #include "sound/bsmt2000.h"
 
@@ -22,7 +21,7 @@ class decobsmt_device : public device_t
 {
 public:
 		// construction/destruction
-		decobsmt_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+		decobsmt_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 		DECLARE_WRITE8_MEMBER(bsmt_reset_w);
 		DECLARE_READ8_MEMBER(bsmt_status_r);
@@ -45,9 +44,9 @@ protected:
 		virtual machine_config_constructor device_mconfig_additions() const override;
 
 private:
-		UINT8 m_bsmt_latch;
-		UINT8 m_bsmt_reset;
-		UINT8 m_bsmt_comms;
+		uint8_t m_bsmt_latch;
+		uint8_t m_bsmt_reset;
+		uint8_t m_bsmt_comms;
 };
 
 

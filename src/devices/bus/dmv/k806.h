@@ -5,7 +5,6 @@
 #ifndef __DMV_K806_H__
 #define __DMV_K806_H__
 
-#include "emu.h"
 #include "dmvbus.h"
 #include "cpu/mcs48/mcs48.h"
 
@@ -22,7 +21,7 @@ class dmv_k806_device :
 {
 public:
 	// construction/destruction
-	dmv_k806_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	dmv_k806_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual const tiny_rom_entry *device_rom_region() const override;
@@ -40,8 +39,8 @@ protected:
 	virtual void device_start() override;
 	virtual void device_reset() override;
 
-	virtual void io_read(address_space &space, int ifsel, offs_t offset, UINT8 &data) override;
-	virtual void io_write(address_space &space, int ifsel, offs_t offset, UINT8 data) override;
+	virtual void io_read(address_space &space, int ifsel, offs_t offset, uint8_t &data) override;
+	virtual void io_write(address_space &space, int ifsel, offs_t offset, uint8_t data) override;
 
 private:
 	required_device<upi41_cpu_device> m_mcu;

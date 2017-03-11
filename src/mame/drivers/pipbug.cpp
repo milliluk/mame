@@ -37,6 +37,7 @@
 
 ****************************************************************************/
 
+#include "emu.h"
 #include "bus/rs232/rs232.h"
 #include "cpu/s2650/s2650.h"
 #include "machine/terminal.h"
@@ -96,7 +97,7 @@ QUICKLOAD_LOAD_MEMBER( pipbug_state, pipbug )
 	int quick_addr = 0x440;
 	int exec_addr;
 	int quick_length;
-	dynamic_buffer quick_data;
+	std::vector<uint8_t> quick_data;
 	int read_;
 	image_init_result result = image_init_result::FAIL;
 

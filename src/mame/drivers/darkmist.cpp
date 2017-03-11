@@ -13,12 +13,15 @@ driver by
 Main CPU : z80 (with encryption, external to z80)
 Sound CPU: custom T5182 cpu (like seibu sound system but with internal code)
 
+The SEI8608B sound board, which features the T5182 "CPU CUSTOM" and YM2151, also
+has unpopulated locations for a 76489AN, 2x MSM5205, 2x 27512 EPROM (presumably
+for ADPCM samples), and additional TTL chips to support all these.
+
 $e000 - coins (two bytes)
 $e2b7 - player 1 energy
 
 TODO:
-
- - sprite/bg and sprite/sprite priorities (name entry screen, player on raft)
+ - when player soaks in water, color pen used is wrong (entry 1 at 0xf500 should be 0x0c and instead is 0x14), might be btanb?
  - cocktail mode
  - unknown bit in sprite attr (there's code used for OR-ing sprite attrib with some
    value (taken from ram) when one of coords is greater than 256-16 )
@@ -59,7 +62,7 @@ static ADDRESS_MAP_START( memmap, AS_PROGRAM, 8, darkmist_state )
 	AM_RANGE(0xd681, 0xd681) AM_DEVREAD("t5182", t5182_device, sharedram_semaphore_snd_r)
 	AM_RANGE(0xd682, 0xd682) AM_DEVWRITE("t5182", t5182_device, sharedram_semaphore_main_acquire_w)
 	AM_RANGE(0xd683, 0xd683) AM_DEVWRITE("t5182", t5182_device, sharedram_semaphore_main_release_w)
-	AM_RANGE(0xd800, 0xdfff) AM_RAM AM_SHARE("videoram")
+	AM_RANGE(0xd800, 0xdfff) AM_RAM_WRITE(tx_vram_w) AM_SHARE("videoram")
 	AM_RANGE(0xe000, 0xefff) AM_RAM AM_SHARE("workram")
 	AM_RANGE(0xf000, 0xffff) AM_RAM AM_SHARE("spriteram")
 ADDRESS_MAP_END
@@ -214,10 +217,10 @@ static const gfx_layout tilelayout =
 
 
 static GFXDECODE_START( darkmist )
-	GFXDECODE_ENTRY( "tx_gfx", 0, charlayout,  0, 16*4 )
-	GFXDECODE_ENTRY( "bg_gfx", 0, tilelayout,  0, 16*4 )
-	GFXDECODE_ENTRY( "fg_gfx", 0, tilelayout,  0, 16*4 )
-	GFXDECODE_ENTRY( "spr_gfx", 0, tilelayout,  0, 16*4 )
+	GFXDECODE_ENTRY( "tx_gfx", 0, charlayout,  0x300, 16 )
+	GFXDECODE_ENTRY( "bg_gfx", 0, tilelayout,  0x000, 16 )
+	GFXDECODE_ENTRY( "fg_gfx", 0, tilelayout,  0x100, 16 )
+	GFXDECODE_ENTRY( "spr_gfx", 0, tilelayout, 0x200, 16 )
 GFXDECODE_END
 
 TIMER_DEVICE_CALLBACK_MEMBER(darkmist_state::scanline)
@@ -241,7 +244,6 @@ static MACHINE_CONFIG_START( darkmist, darkmist_state )
 	MCFG_TIMER_DRIVER_ADD_SCANLINE("scantimer", darkmist_state, scanline, "screen", 0, 1)
 
 	MCFG_DEVICE_ADD("t5182", T5182, 0)
-
 
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", RASTER)
@@ -323,9 +325,9 @@ ROM_END
 
 
 
-void darkmist_state::decrypt_fgbgtiles(UINT8* rom, int size)
+void darkmist_state::decrypt_fgbgtiles(uint8_t* rom, int size)
 {
-	dynamic_buffer buf(0x40000);
+	std::vector<uint8_t> buf(0x40000);
 	/* data lines */
 	for (int i = 0;i < size/2;i++)
 	{
@@ -350,8 +352,8 @@ void darkmist_state::decrypt_fgbgtiles(UINT8* rom, int size)
 
 void darkmist_state::decrypt_gfx()
 {
-	dynamic_buffer buf(0x40000);
-	UINT8 *rom;
+	std::vector<uint8_t> buf(0x40000);
+	uint8_t *rom;
 	int size;
 	int i;
 
@@ -406,7 +408,7 @@ void darkmist_state::decrypt_gfx()
 
 void darkmist_state::decrypt_snd()
 {
-	UINT8 *ROM = memregion("t5182_z80")->base();
+	uint8_t *ROM = memregion("t5182_z80")->base();
 
 	for (int i = 0x0000; i < 0x8000; i++)
 		ROM[i] = BITSWAP8(ROM[i], 7, 1, 2, 3, 4, 5, 6, 0);
@@ -415,8 +417,8 @@ void darkmist_state::decrypt_snd()
 DRIVER_INIT_MEMBER(darkmist_state,darkmist)
 {
 	int i, len;
-	UINT8 *ROM = memregion("maincpu")->base();
-	dynamic_buffer buffer(0x10000);
+	uint8_t *ROM = memregion("maincpu")->base();
+	std::vector<uint8_t> buffer(0x10000);
 
 	decrypt_gfx();
 
@@ -424,7 +426,7 @@ DRIVER_INIT_MEMBER(darkmist_state,darkmist)
 
 	for(i=0;i<0x8000;i++)
 	{
-		UINT8 p, d;
+		uint8_t p, d;
 		p = d = ROM[i];
 
 		if(((i & 0x20) == 0x00) && ((i & 0x8) != 0))
@@ -469,4 +471,4 @@ DRIVER_INIT_MEMBER(darkmist_state,darkmist)
 
 }
 
-GAME( 1986, darkmist, 0, darkmist, darkmist, darkmist_state, darkmist, ROT270, "Taito Corporation", "The Lost Castle In Darkmist", MACHINE_IMPERFECT_GRAPHICS | MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )
+GAME( 1986, darkmist, 0, darkmist, darkmist, darkmist_state, darkmist, ROT270, "Seibu Kaihatsu (Taito license)", "The Lost Castle In Darkmist", MACHINE_NO_COCKTAIL | MACHINE_SUPPORTS_SAVE )

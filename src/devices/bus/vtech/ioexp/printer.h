@@ -13,7 +13,6 @@
 #ifndef __VTECH_IOEXP_PRINTER_H__
 #define __VTECH_IOEXP_PRINTER_H__
 
-#include "emu.h"
 #include "ioexp.h"
 #include "bus/centronics/ctronics.h"
 
@@ -28,7 +27,7 @@ class printer_interface_device : public device_t, public device_ioexp_interface
 {
 public:
 	// construction/destruction
-	printer_interface_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	printer_interface_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	DECLARE_WRITE_LINE_MEMBER( busy_w );
 	DECLARE_READ8_MEMBER( busy_r );

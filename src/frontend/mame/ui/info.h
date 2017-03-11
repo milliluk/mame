@@ -8,10 +8,10 @@
 
 ***************************************************************************/
 
-#pragma once
-
 #ifndef MAME_FRONTEND_UI_INFO_H
 #define MAME_FRONTEND_UI_INFO_H
+
+#pragma once
 
 #include "ui/menu.h"
 
@@ -28,6 +28,8 @@ public:
 	bool has_analog() const { return m_has_analog; }
 	bool has_dips() const { return m_has_dips; }
 	bool has_bioses() const { return m_has_bioses; }
+	bool has_keyboard() const { return m_has_keyboard; }
+	bool has_test_switch() const { return m_has_test_switch; }
 
 	// text generators
 	std::string warnings_string();
@@ -44,6 +46,8 @@ private:
 	bool                    m_has_analog;
 	bool                    m_has_dips;
 	bool                    m_has_bioses;
+	bool                    m_has_keyboard;
+	bool                    m_has_test_switch;
 };
 
 class menu_game_info : public menu
@@ -53,7 +57,7 @@ public:
 	virtual ~menu_game_info() override;
 
 private:
-	virtual void populate() override;
+	virtual void populate(float &customtop, float &custombottom) override;
 	virtual void handle() override;
 };
 
@@ -65,7 +69,7 @@ public:
 	virtual ~menu_image_info() override;
 
 private:
-	virtual void populate() override;
+	virtual void populate(float &customtop, float &custombottom) override;
 	virtual void handle() override;
 	void image_info(device_image_interface *image);
 };

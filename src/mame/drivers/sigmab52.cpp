@@ -172,11 +172,11 @@ public:
 	required_device<ptm6840_device> m_6840ptm_2;
 	required_device<palette_device> m_palette;
 	required_memory_bank m_bank1;
-	required_region_ptr<UINT8> m_prom;
+	required_region_ptr<uint8_t> m_prom;
 	required_ioport m_in0;
 
-	UINT64      m_coin_start_cycles;
-	UINT64      m_hopper_start_cycles;
+	uint64_t      m_coin_start_cycles;
+	uint64_t      m_hopper_start_cycles;
 	int         m_audiocpu_cmd_irq;
 };
 
@@ -207,7 +207,7 @@ READ8_MEMBER(sigmab52_state::unk_f760_r)
 
 READ8_MEMBER(sigmab52_state::in0_r)
 {
-	UINT8 data = 0xff;
+	uint8_t data = 0xff;
 
 	// if the hopper is active simulate the coin-out sensor
 	if (m_hopper_start_cycles)
@@ -235,7 +235,7 @@ READ8_MEMBER(sigmab52_state::in0_r)
 			m_coin_start_cycles = 0;
 	}
 
-	UINT16 in0 = m_in0->read();
+	uint16_t in0 = m_in0->read();
 	for(int i=0; i<16; i++)
 		if (!BIT(in0, i))
 		{
@@ -297,7 +297,7 @@ WRITE8_MEMBER(sigmab52_state::palette_bank_w)
 
 	for (int i = 0; i<m_palette->entries(); i++)
 	{
-		UINT8 d = m_prom[(bank << 4) | i];
+		uint8_t d = m_prom[(bank << 4) | i];
 		m_palette->set_pen_color(i, pal3bit(d >> 5), pal3bit(d >> 2), pal2bit(d >> 0));
 	}
 }
@@ -582,12 +582,10 @@ static MACHINE_CONFIG_START( jwildb52, sigmab52_state )
 	MCFG_CPU_ADD("audiocpu", M6809, MAIN_CLOCK/9)   /* 2 MHz */
 	MCFG_CPU_PROGRAM_MAP(sound_prog_map)
 
-	MCFG_DEVICE_ADD("6840ptm_1", PTM6840, 0)
-	MCFG_PTM6840_INTERNAL_CLOCK(MAIN_CLOCK/9)       // FIXME
+	MCFG_DEVICE_ADD("6840ptm_1", PTM6840, MAIN_CLOCK/9) // FIXME
 	MCFG_PTM6840_IRQ_CB(INPUTLINE("maincpu", M6809_IRQ_LINE))
 
-	MCFG_DEVICE_ADD("6840ptm_2", PTM6840, 0)
-	MCFG_PTM6840_INTERNAL_CLOCK(MAIN_CLOCK/18)      // FIXME
+	MCFG_DEVICE_ADD("6840ptm_2", PTM6840, MAIN_CLOCK/18) // FIXME
 	MCFG_PTM6840_IRQ_CB(WRITELINE(sigmab52_state, ptm2_irq))
 
 	MCFG_NVRAM_ADD_NO_FILL("nvram")

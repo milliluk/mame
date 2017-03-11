@@ -8,7 +8,7 @@ class timeplt_audio_device : public device_t,
 									public device_sound_interface
 {
 public:
-	timeplt_audio_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	timeplt_audio_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	~timeplt_audio_device() {}
 
 	DECLARE_WRITE8_MEMBER( sh_irqtrigger_w );
@@ -17,7 +17,6 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_config_complete() override;
 	virtual void device_start() override;
 
 	// sound stream update overrides
@@ -25,7 +24,7 @@ protected:
 
 private:
 	// internal state
-	UINT8    m_last_irq_state;
+	uint8_t    m_last_irq_state;
 	cpu_device *m_soundcpu;
 
 	device_t *m_filter_0_0;

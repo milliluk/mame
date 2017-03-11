@@ -5,7 +5,6 @@
 #ifndef __ISA_SVGA_CIRRUS_H__
 #define __ISA_SVGA_CIRRUS_H__
 
-#include "emu.h"
 #include "isa.h"
 #include "video/clgd542x.h"
 
@@ -19,7 +18,7 @@ class isa16_svga_cirrus_device :
 {
 public:
 		// construction/destruction
-		isa16_svga_cirrus_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+		isa16_svga_cirrus_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 		// optional information overrides
 		virtual machine_config_constructor device_mconfig_additions() const override;
@@ -40,7 +39,7 @@ class isa16_svga_cirrus_gd542x_device :
 {
 public:
 		// construction/destruction
-		isa16_svga_cirrus_gd542x_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+		isa16_svga_cirrus_gd542x_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 		// optional information overrides
 		virtual machine_config_constructor device_mconfig_additions() const override;

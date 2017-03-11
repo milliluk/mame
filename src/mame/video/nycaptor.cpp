@@ -1,4 +1,4 @@
-// license:LGPL-2.1+
+// license:BSD-3-Clause
 // copyright-holders:Tomasz Slanina
 /***************************************************************************
 
@@ -206,7 +206,7 @@ void nycaptor_state::nycaptor_setmask(  )
 }
 #endif
 
-UINT32 nycaptor_state::screen_update_nycaptor(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t nycaptor_state::screen_update_nycaptor(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 #if NYCAPTOR_DEBUG
 	nycaptor_setmask();

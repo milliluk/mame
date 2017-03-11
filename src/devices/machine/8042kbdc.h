@@ -12,7 +12,6 @@
 #ifndef KBDC8042_H
 #define KBDC8042_H
 
-#include "emu.h"
 #include "machine/pckeybrd.h"
 
 enum kbdc8042_type_t
@@ -54,7 +53,7 @@ class kbdc8042_device : public device_t
 {
 public:
 	// construction/destruction
-	kbdc8042_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	kbdc8042_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	virtual machine_config_constructor device_mconfig_additions() const override;
 
@@ -71,9 +70,8 @@ public:
 	DECLARE_WRITE_LINE_MEMBER( write_out2 );
 	DECLARE_WRITE_LINE_MEMBER( keyboard_w );
 
-	void at_8042_set_outport(UINT8 data, int initial);
-	TIMER_CALLBACK_MEMBER( kbdc8042_clr_int );
-	void at_8042_receive(UINT8 data);
+	void at_8042_set_outport(uint8_t data, int initial);
+	void at_8042_receive(uint8_t data);
 	void at_8042_check_keyboard();
 	void at_8042_clear_keyboard_received();
 
@@ -82,7 +80,7 @@ protected:
 	virtual void device_start() override;
 	virtual void device_reset() override;
 
-	UINT8 m_inport, m_outport, m_data, m_command;
+	uint8_t m_inport, m_outport, m_data, m_command;
 
 	struct {
 		int received;

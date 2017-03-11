@@ -97,20 +97,20 @@ READ16_MEMBER( fitfight_state::hotmindff_unk_r )
 
 READ16_MEMBER(fitfight_state::fitfight_700000_r)
 {
-	UINT16 data = m_fof_700000_data;
+	uint16_t data = m_fof_700000_data;
 	return (data << 2);
 }
 
 READ16_MEMBER(fitfight_state::histryma_700000_r)
 {
-	UINT16 data = (m_fof_700000_data & 0x00AA);
+	uint16_t data = (m_fof_700000_data & 0x00AA);
 	data |= ((m_fof_700000_data & 0x0055) >> 2);
 	return (data);
 }
 
 READ16_MEMBER(fitfight_state::bbprot_700000_r)
 {
-	UINT16 data = 0;
+	uint16_t data = 0;
 	data  =  (m_fof_700000_data & 0x000b);
 	data |= ((m_fof_700000_data & 0x01d0) >> 2);
 	data |= ((m_fof_700000_data & 0x0004) << 6);
@@ -252,12 +252,6 @@ WRITE8_MEMBER(fitfight_state::snd_portc_w)
 {
 	//osd_printf_debug("PC W %x @%x\n",data,space.device().safe_pc());
 }
-
-static ADDRESS_MAP_START( snd_io, AS_IO, 8, fitfight_state )
-		AM_RANGE(UPD7810_PORTA, UPD7810_PORTA) AM_READ(snd_porta_r) AM_WRITE(snd_porta_w)
-		AM_RANGE(UPD7810_PORTB, UPD7810_PORTB) AM_READ(snd_portb_r) AM_WRITE(snd_portb_w)
-		AM_RANGE(UPD7810_PORTC, UPD7810_PORTC) AM_READ(snd_portc_r) AM_WRITE(snd_portc_w)
-ADDRESS_MAP_END
 
 INTERRUPT_GEN_MEMBER(fitfight_state::snd_irq)
 {
@@ -733,9 +727,13 @@ static MACHINE_CONFIG_START( fitfight, fitfight_state )
 
 	MCFG_CPU_ADD("audiocpu", UPD7810, 12000000)
 	MCFG_CPU_PROGRAM_MAP(snd_mem)
-	MCFG_CPU_IO_MAP(snd_io)
+	MCFG_UPD7810_PORTA_READ_CB(READ8(fitfight_state, snd_porta_r))
+	MCFG_UPD7810_PORTA_WRITE_CB(WRITE8(fitfight_state, snd_porta_w))
+	MCFG_UPD7810_PORTB_READ_CB(READ8(fitfight_state, snd_portb_r))
+	MCFG_UPD7810_PORTB_WRITE_CB(WRITE8(fitfight_state, snd_portb_w))
+	MCFG_UPD7810_PORTC_READ_CB(READ8(fitfight_state, snd_portc_r))
+	MCFG_UPD7810_PORTC_WRITE_CB(WRITE8(fitfight_state, snd_portc_w))
 	MCFG_CPU_VBLANK_INT_DRIVER("screen", fitfight_state,  snd_irq)
-
 
 	MCFG_GFXDECODE_ADD("gfxdecode", "palette", fitfight)
 
@@ -991,7 +989,7 @@ ROM_END
 
 DRIVER_INIT_MEMBER(fitfight_state,fitfight)
 {
-//  UINT16 *mem16 = (UINT16 *)memregion("maincpu")->base();
+//  uint16_t *mem16 = (uint16_t *)memregion("maincpu")->base();
 //  mem16[0x0165B2/2] = 0x4e71; // for now so it boots
 	m_maincpu->space(AS_PROGRAM).install_read_handler(0x700000, 0x700001, read16_delegate(FUNC(fitfight_state::fitfight_700000_r),this));
 	m_bbprot_kludge = 0;
@@ -999,7 +997,7 @@ DRIVER_INIT_MEMBER(fitfight_state,fitfight)
 
 DRIVER_INIT_MEMBER(fitfight_state,histryma)
 {
-//  UINT16 *mem16 = (UINT16 *)memregion("maincpu")->base();
+//  uint16_t *mem16 = (uint16_t *)memregion("maincpu")->base();
 //  mem16[0x017FDC/2] = 0x4e71; // for now so it boots
 	m_maincpu->space(AS_PROGRAM).install_read_handler(0x700000, 0x700001, read16_delegate(FUNC(fitfight_state::histryma_700000_r),this));
 	m_bbprot_kludge = 0;

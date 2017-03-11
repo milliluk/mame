@@ -11,7 +11,6 @@
 #ifndef __SVI3X8_SLOT_SV801_H__
 #define __SVI3X8_SLOT_SV801_H__
 
-#include "emu.h"
 #include "slot.h"
 #include "machine/wd_fdc.h"
 #include "imagedev/floppy.h"
@@ -27,7 +26,7 @@ class sv801_device : public device_t, public device_svi_slot_interface
 {
 public:
 	// construction/destruction
-	sv801_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	sv801_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	DECLARE_FLOPPY_FORMATS(floppy_formats);
 

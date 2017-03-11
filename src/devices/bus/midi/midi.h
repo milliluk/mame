@@ -3,7 +3,6 @@
 #ifndef __BUS_MIDI_H__
 #define __BUS_MIDI_H__
 
-#include "emu.h"
 
 #define MCFG_MIDI_PORT_ADD(_tag, _slot_intf, _def_slot) \
 	MCFG_DEVICE_ADD(_tag, MIDI_PORT, 0) \
@@ -20,7 +19,7 @@ class midi_port_device : public device_t,
 	friend class device_midi_port_interface;
 
 public:
-	midi_port_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	midi_port_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	virtual ~midi_port_device();
 
 	// static configuration helpers

@@ -9,7 +9,6 @@
 #ifndef DECOPINCPU_H_
 #define DECOPINCPU_H_
 
-#include "emu.h"
 #include "cpu/m6800/m6800.h"
 #include "machine/6821pia.h"
 #include "machine/nvram.h"
@@ -64,8 +63,8 @@
 class decocpu_type1_device : public device_t
 {
 public:
-	decocpu_type1_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
-	decocpu_type1_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
+	decocpu_type1_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	decocpu_type1_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint32_t clock, const char *shortname, const char *source);
 	required_device<cpu_device> m_cpu;
 	required_device<pia6821_device> m_pia21;
 	required_device<pia6821_device> m_pia24;
@@ -134,8 +133,8 @@ private:
 class decocpu_type2_device : public decocpu_type1_device
 {
 public:
-	decocpu_type2_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
-	decocpu_type2_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
+	decocpu_type2_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	decocpu_type2_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint32_t clock, const char *shortname, const char *source);
 protected:
 	// overrides
 	virtual machine_config_constructor device_mconfig_additions() const override;
@@ -145,8 +144,8 @@ protected:
 class decocpu_type3_device : public decocpu_type2_device
 {
 public:
-	decocpu_type3_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
-	decocpu_type3_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
+	decocpu_type3_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	decocpu_type3_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint32_t clock, const char *shortname, const char *source);
 
 protected:
 	// overrides
@@ -156,7 +155,7 @@ protected:
 class decocpu_type3b_device : public decocpu_type3_device
 {
 public:
-	decocpu_type3b_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	decocpu_type3b_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 protected:
 	// overrides

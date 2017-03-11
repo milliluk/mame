@@ -11,7 +11,6 @@
 #ifndef DOUBLER_H_
 #define DOUBLER_H_
 
-#include "emu.h"
 #include "cpcexp.h"
 #include "imagedev/cassette.h"
 #include "formats/tzx_cas.h"
@@ -21,7 +20,7 @@ class cpc_doubler_device  : public device_t,
 {
 public:
 	// construction/destruction
-	cpc_doubler_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	cpc_doubler_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual machine_config_constructor device_mconfig_additions() const override;

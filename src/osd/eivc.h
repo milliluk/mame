@@ -10,7 +10,7 @@
 
 #ifndef __EIVC__
 #define __EIVC__
-
+#include <intrin.h>
 #pragma intrinsic(_BitScanReverse)
 
 
@@ -25,9 +25,9 @@
 
 #ifndef count_leading_zeros
 #define count_leading_zeros _count_leading_zeros
-static inline UINT8 _count_leading_zeros(UINT32 value)
+static inline uint8_t _count_leading_zeros(uint32_t value)
 {
-	UINT32 index;
+	uint32_t index;
 	return _BitScanReverse((unsigned long *)&index, value) ? (index ^ 31) : 32;
 }
 #endif
@@ -40,9 +40,9 @@ static inline UINT8 _count_leading_zeros(UINT32 value)
 
 #ifndef count_leading_ones
 #define count_leading_ones _count_leading_ones
-static inline UINT8 _count_leading_ones(UINT32 value)
+static inline uint8_t _count_leading_ones(uint32_t value)
 {
-	UINT32 index;
+	uint32_t index;
 	return _BitScanReverse((unsigned long *)&index, ~value) ? (index ^ 31) : 32;
 }
 #endif

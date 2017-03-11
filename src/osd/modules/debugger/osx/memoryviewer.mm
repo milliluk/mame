@@ -6,6 +6,7 @@
 //
 //============================================================
 
+#include "emu.h"
 #import "memoryviewer.h"
 
 #import "debugconsole.h"
@@ -20,10 +21,10 @@
 @implementation MAMEMemoryViewer
 
 - (id)initWithMachine:(running_machine &)m console:(MAMEDebugConsole *)c {
-	NSScrollView	*memoryScroll;
-	NSView			*expressionContainer;
-	NSPopUpButton	*actionButton;
-	NSRect			expressionFrame;
+	NSScrollView    *memoryScroll;
+	NSView          *expressionContainer;
+	NSPopUpButton   *actionButton;
+	NSRect          expressionFrame;
 
 	if (!(self = [super initWithMachine:m title:@"Memory" console:c]))
 		return nil;
@@ -87,6 +88,7 @@
 	[memoryScroll setHasVerticalScroller:YES];
 	[memoryScroll setAutohidesScrollers:YES];
 	[memoryScroll setBorderType:NSNoBorder];
+    [memoryScroll setDrawsBackground:NO];
 	[memoryScroll setDocumentView:memoryView];
 	[memoryView release];
 	[[window contentView] addSubview:memoryScroll];

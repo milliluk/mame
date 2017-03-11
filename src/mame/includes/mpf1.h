@@ -6,7 +6,6 @@
 #define __MPF1__
 
 
-#include "emu.h"
 #include "machine/spchrom.h"
 #include "cpu/z80/z80.h"
 #include "cpu/z80/z80daisy.h"
@@ -67,7 +66,7 @@ public:
 	int m_break;
 	int m_m1;
 
-	UINT8 m_lednum;
+	uint8_t m_lednum;
 
 	emu_timer *m_led_refresh_timer;
 	DECLARE_DRIVER_INIT(mpf1);

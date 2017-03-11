@@ -5,7 +5,6 @@
 #ifndef __KM035_H__
 #define __KM035_H__
 
-#include "emu.h"
 #include "cpu/mcs48/mcs48.h"
 #include "sound/beep.h"
 
@@ -35,7 +34,7 @@ class km035_device : public device_t
 {
 public:
 	// construction/destruction
-	km035_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	km035_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	template<class _Object> static devcb_base &set_tx_handler(device_t &device, _Object wr) { return downcast<km035_device &>(device).m_tx_handler.set_callback(wr); }
 	template<class _Object> static devcb_base &set_rts_handler(device_t &device, _Object wr) { return downcast<km035_device &>(device).m_rts_handler.set_callback(wr); }
@@ -65,9 +64,9 @@ private:
 	required_ioport_array<16> m_kbd;
 
 	int m_keylatch;                 // keyboard row latch
-	UINT8 m_p1;
-	UINT8 m_p2;
-	UINT8 m_rx;
+	uint8_t m_p1;
+	uint8_t m_p2;
+	uint8_t m_rx;
 
 	devcb_write_line m_tx_handler;
 	devcb_write_line m_rts_handler;

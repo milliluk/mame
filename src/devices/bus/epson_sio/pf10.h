@@ -13,7 +13,6 @@
 #ifndef __PF10_H__
 #define __PF10_H__
 
-#include "emu.h"
 #include "cpu/m6800/m6800.h"
 #include "machine/upd765.h"
 #include "epson_sio.h"
@@ -28,7 +27,7 @@ class epson_pf10_device : public device_t,
 {
 public:
 	// construction/destruction
-	epson_pf10_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	epson_pf10_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual const tiny_rom_entry *device_rom_region() const override;
@@ -72,8 +71,8 @@ private:
 
 	emu_timer *m_timer;
 
-	UINT8 m_port1;
-	UINT8 m_port2;
+	uint8_t m_port1;
+	uint8_t m_port2;
 
 	int m_rxc;
 	int m_hd6303_tx;

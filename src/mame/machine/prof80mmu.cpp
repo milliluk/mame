@@ -6,6 +6,7 @@
 
 **********************************************************************/
 
+#include "emu.h"
 #include "prof80mmu.h"
 
 
@@ -34,7 +35,7 @@ ADDRESS_MAP_END
 //  prof80_mmu_device - constructor
 //-------------------------------------------------
 
-prof80_mmu_device::prof80_mmu_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+prof80_mmu_device::prof80_mmu_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, PROF80_MMU, "PROF80_MMU", tag, owner, clock, "prof80_mmu", __FILE__),
 		device_memory_interface(mconfig, *this),
 		m_program_space_config("program", ENDIANNESS_LITTLE, 8, 20, 0, *ADDRESS_MAP_NAME(program_map))

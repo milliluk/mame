@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2016 Branimir Karadzic. All rights reserved.
+ * Copyright 2010-2017 Branimir Karadzic. All rights reserved.
  * License: https://github.com/bkaradzic/bx#license-bsd-2-clause
  */
 
@@ -28,6 +28,7 @@
 #	define BX_CONFIG_CRT_PROCESS !(0 \
 			|| BX_PLATFORM_EMSCRIPTEN \
 			|| BX_PLATFORM_NACL \
+			|| BX_PLATFORM_PS4 \
 			|| BX_PLATFORM_WINRT \
 			|| BX_PLATFORM_XBOXONE \
 			)

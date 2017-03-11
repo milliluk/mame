@@ -5,7 +5,6 @@
 #ifndef __ISA_SVGA_ET4K_H__
 #define __ISA_SVGA_ET4K_H__
 
-#include "emu.h"
 #include "isa.h"
 #include "video/pc_vga.h"
 
@@ -21,7 +20,7 @@ class isa8_svga_et4k_device :
 {
 public:
 		// construction/destruction
-		isa8_svga_et4k_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+		isa8_svga_et4k_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 		// optional information overrides
 		virtual machine_config_constructor device_mconfig_additions() const override;

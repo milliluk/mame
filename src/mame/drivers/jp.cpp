@@ -1,5 +1,5 @@
 // license:BSD-3-Clause
-// copyright-holders:Miodrag Milanovic
+// copyright-holders:Miodrag Milanovic, Robbbert
 /******************************************************************************************************
 
   PINBALL
@@ -17,6 +17,7 @@ ToDo:
 
 *******************************************************************************************************/
 
+#include "emu.h"
 #include "machine/genpin.h"
 #include "cpu/z80/z80.h"
 #include "sound/ay8910.h"
@@ -40,8 +41,8 @@ public:
 	DECLARE_DRIVER_INIT(jp);
 private:
 	bool m_clock_bit;
-	UINT8 m_row;
-	UINT32 m_disp_data;
+	uint8_t m_row;
+	uint32_t m_disp_data;
 	virtual void machine_reset() override;
 	required_device<cpu_device> m_maincpu;
 };
@@ -180,7 +181,7 @@ INPUT_PORTS_END
 
 WRITE8_MEMBER( jp_state::disp_w )
 {
-	UINT8 i;
+	uint8_t i;
 	m_row = data >> 3; // d3..d7 = switch strobes
 
 	// d0 = data; d1 = clock; d2 = strobe
@@ -193,7 +194,7 @@ WRITE8_MEMBER( jp_state::disp_w )
 
 	if (BIT(data, 2))
 	{
-		UINT8 segment, t = (m_disp_data >> 24) & 15;
+		uint8_t segment, t = (m_disp_data >> 24) & 15;
 		if (t == 8)
 		{ // ball number
 			segment = m_disp_data >> 6;
@@ -481,14 +482,14 @@ ROM_END
 GAME(1984,  petaco,     0,      jp, jp, jp_state,   jp, ROT0, "Juegos Populares", "Petaco",       MACHINE_IS_SKELETON_MECHANICAL)
 
 // mostly ok
-GAME(1985,  petacon,    0,      jp, jp, jp_state,   jp, ROT0, "Juegos Populares", "Petaco (new hardware)",      MACHINE_MECHANICAL)
-GAME(1985,  petacona,   0,      jp, jp, jp_state,   jp, ROT0, "Juegos Populares", "Petaco (new hardware, alternate set)",       MACHINE_MECHANICAL)
-GAME(1985,  petaco2,    0,      jp, jp, jp_state,   jp, ROT0, "Juegos Populares", "Petaco 2",     MACHINE_MECHANICAL | MACHINE_IMPERFECT_SOUND )
-GAME(1985,  faeton,     0,      jp, jp, jp_state,   jp, ROT0, "Juegos Populares", "Faeton",       MACHINE_MECHANICAL)
-GAME(1986,  halley,     0,      jp, jp, jp_state,   jp, ROT0, "Juegos Populares", "Halley Comet", MACHINE_MECHANICAL | MACHINE_IMPERFECT_SOUND )
-GAME(1986,  halleya,    halley, jp, jp, jp_state,   jp, ROT0, "Juegos Populares", "Halley Comet (alternate version)", MACHINE_MECHANICAL | MACHINE_IMPERFECT_SOUND )
-GAME(1986,  aqualand,   0,      jp, jp, jp_state,   jp, ROT0, "Juegos Populares", "Aqualand",     MACHINE_MECHANICAL | MACHINE_IMPERFECT_SOUND )
-GAME(1986,  america,    0,      jp, jp, jp_state,   jp, ROT0, "Juegos Populares", "America 1492", MACHINE_MECHANICAL | MACHINE_IMPERFECT_SOUND )
-GAME(1986,  olympus,    0,      jp, jp, jp_state,   jp, ROT0, "Juegos Populares", "Olympus",      MACHINE_MECHANICAL | MACHINE_IMPERFECT_SOUND )
+GAME(1985,  petacon,    0,      jp, jp, jp_state,   jp, ROT0, "Juegos Populares", "Petaco (new hardware)",      MACHINE_MECHANICAL | MACHINE_NOT_WORKING )
+GAME(1985,  petacona,   0,      jp, jp, jp_state,   jp, ROT0, "Juegos Populares", "Petaco (new hardware, alternate set)", MACHINE_MECHANICAL  | MACHINE_NOT_WORKING)
+GAME(1985,  petaco2,    0,      jp, jp, jp_state,   jp, ROT0, "Juegos Populares", "Petaco 2",     MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+GAME(1985,  faeton,     0,      jp, jp, jp_state,   jp, ROT0, "Juegos Populares", "Faeton",       MACHINE_MECHANICAL | MACHINE_NOT_WORKING )
+GAME(1986,  halley,     0,      jp, jp, jp_state,   jp, ROT0, "Juegos Populares", "Halley Comet", MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+GAME(1986,  halleya,    halley, jp, jp, jp_state,   jp, ROT0, "Juegos Populares", "Halley Comet (alternate version)", MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+GAME(1986,  aqualand,   0,      jp, jp, jp_state,   jp, ROT0, "Juegos Populares", "Aqualand",     MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+GAME(1986,  america,    0,      jp, jp, jp_state,   jp, ROT0, "Juegos Populares", "America 1492", MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
+GAME(1986,  olympus,    0,      jp, jp, jp_state,   jp, ROT0, "Juegos Populares", "Olympus",      MACHINE_MECHANICAL | MACHINE_NOT_WORKING | MACHINE_IMPERFECT_SOUND )
 GAME(1987,  lortium,    0,      jp, jp, jp_state,   jp, ROT0, "Juegos Populares", "Lortium",      MACHINE_IS_SKELETON_MECHANICAL)
 GAME(19??,  pimbal,     0,      jp, jp, jp_state,   jp, ROT0, "Juegos Populares", "Pimbal (Pinball 3000)", MACHINE_IS_SKELETON_MECHANICAL)

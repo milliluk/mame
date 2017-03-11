@@ -6,7 +6,6 @@
 #define __CIDELSA__
 
 
-#include "emu.h"
 #include "cpu/cosmac/cosmac.h"
 #include "cpu/cop400/cop400.h"
 #include "sound/cdp1869.h"
@@ -79,9 +78,9 @@ public:
 	int m_cdp1802_q;
 	int m_cdp1869_pcb;
 
-	UINT8 *m_pageram;
-	std::unique_ptr<UINT8[]> m_pcbram;
-	std::unique_ptr<UINT8[]> m_charram;
+	uint8_t *m_pageram;
+	std::unique_ptr<uint8_t[]> m_pcbram;
+	std::unique_ptr<uint8_t[]> m_charram;
 
 protected:
 	virtual void device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr) override;

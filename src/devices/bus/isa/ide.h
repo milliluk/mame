@@ -5,7 +5,6 @@
 #ifndef __ISA_IDE_H__
 #define __ISA_IDE_H__
 
-#include "emu.h"
 #include "isa.h"
 #include "machine/idectrl.h"
 
@@ -20,7 +19,7 @@ class isa16_ide_device : public device_t,
 {
 public:
 	// construction/destruction
-	isa16_ide_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	isa16_ide_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual machine_config_constructor device_mconfig_additions() const override;

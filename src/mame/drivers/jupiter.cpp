@@ -27,9 +27,6 @@ ToDo:
 #include "machine/wd_fdc.h"
 #include "includes/jupiter.h"
 
-#define TERMINAL_TAG "terminal"
-#define KEYBOARD_TAG "keyboard"
-
 
 //**************************************************************************
 //  ADDRESS MAPS
@@ -74,8 +71,8 @@ ADDRESS_MAP_END
 //-------------------------------------------------
 
 static ADDRESS_MAP_START( jupiter3_mem, AS_PROGRAM, 8, jupiter3_state )
-	AM_RANGE(0x0000, 0xbfff) AM_RAM AM_SHARE("p_ram")
-	AM_RANGE(0xc000, 0xdfff) AM_RAM AM_SHARE("p_videoram")
+	AM_RANGE(0x0000, 0xbfff) AM_RAM AM_SHARE("ram")
+	AM_RANGE(0xc000, 0xdfff) AM_RAM AM_SHARE("videoram")
 	AM_RANGE(0xe000, 0xefff) AM_ROM AM_REGION(Z80_TAG, 0)
 	AM_RANGE(0xf000, 0xffff) AM_RAM
 ADDRESS_MAP_END
@@ -110,7 +107,7 @@ INPUT_PORTS_END
 
 READ8_MEMBER( jupiter3_state::key_r )
 {
-	UINT8 ret = m_term_data;
+	uint8_t ret = m_term_data;
 	m_term_data = 0;
 	return ret;
 }
@@ -131,21 +128,16 @@ WRITE8_MEMBER( jupiter3_state::kbd_put )
 //  VIDEO
 //**************************************************************************
 
-void jupiter3_state::video_start()
+uint32_t jupiter3_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
-	m_p_chargen = memregion("chargen")->base();
-}
-
-UINT32 jupiter3_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
-{
-	UINT8 y,ra,chr,gfx;
-	UINT16 sy=0,ma=0,x;
+	uint8_t y,ra,chr,gfx;
+	uint16_t sy=0,ma=0,x;
 
 	for (y = 0; y < 32; y++)
 	{
 		for (ra = 0; ra < 10; ra++)
 		{
-			UINT16 *p = &bitmap.pix16(sy++);
+			uint16_t *p = &bitmap.pix16(sy++);
 
 			for (x = ma; x < ma + 64; x++)
 			{
@@ -203,7 +195,7 @@ void jupiter2_state::machine_start()
 
 void jupiter3_state::machine_reset()
 {
-	UINT8* ROM = memregion(Z80_TAG)->base();
+	uint8_t* ROM = memregion(Z80_TAG)->base();
 	memcpy(m_p_ram, ROM, 0x1000);
 	m_maincpu->set_pc(0xe000);
 }
@@ -229,7 +221,7 @@ static MACHINE_CONFIG_START( jupiter, jupiter2_state )
 	MCFG_FLOPPY_DRIVE_ADD(INS1771N1_TAG":0", jupiter_floppies, "525ssdd", floppy_image_device::default_floppy_formats)
 	MCFG_FLOPPY_DRIVE_ADD(INS1771N1_TAG":1", jupiter_floppies, nullptr, floppy_image_device::default_floppy_formats)
 
-	MCFG_DEVICE_ADD(TERMINAL_TAG, GENERIC_TERMINAL, 0)
+	MCFG_DEVICE_ADD("terminal", GENERIC_TERMINAL, 0)
 
 	// internal ram
 	MCFG_RAM_ADD(RAM_TAG)
@@ -263,7 +255,7 @@ static MACHINE_CONFIG_START( jupiter3, jupiter3_state )
 	MCFG_FLOPPY_DRIVE_ADD(INS1771N1_TAG":0", jupiter_floppies, "525ssdd", floppy_image_device::default_floppy_formats)
 	MCFG_FLOPPY_DRIVE_ADD(INS1771N1_TAG":1", jupiter_floppies, nullptr, floppy_image_device::default_floppy_formats)
 
-	MCFG_DEVICE_ADD(KEYBOARD_TAG, GENERIC_KEYBOARD, 0)
+	MCFG_DEVICE_ADD("keyboard", GENERIC_KEYBOARD, 0)
 	MCFG_GENERIC_KEYBOARD_CB(WRITE8(jupiter3_state, kbd_put))
 
 	// internal ram
@@ -319,8 +311,8 @@ ROM_END
 
 DRIVER_INIT_MEMBER(jupiter2_state,jupiter)
 {
-	UINT8 *rom = memregion(MCM6571AP_TAG)->base();
-	UINT8 inverted[0x1000];
+	uint8_t *rom = memregion(MCM6571AP_TAG)->base();
+	uint8_t inverted[0x1000];
 
 	memcpy(inverted, rom, 0x1000);
 
@@ -341,8 +333,8 @@ DRIVER_INIT_MEMBER(jupiter2_state,jupiter)
 
 DRIVER_INIT_MEMBER(jupiter3_state,jupiter3)
 {
-	UINT8 *rom = memregion(Z80_TAG)->base();
-	UINT8 inverted[0x1000];
+	uint8_t *rom = memregion(Z80_TAG)->base();
+	uint8_t inverted[0x1000];
 
 	memcpy(inverted, rom, 0x1000);
 

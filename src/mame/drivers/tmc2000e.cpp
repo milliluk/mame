@@ -31,6 +31,7 @@
 
 */
 
+#include "emu.h"
 #include "includes/tmc2000e.h"
 
 /* Read/Write Handlers */
@@ -226,7 +227,7 @@ READ_LINE_MEMBER( tmc2000e_state::ef2_r )
 
 READ_LINE_MEMBER( tmc2000e_state::ef3_r )
 {
-	UINT8 data = ~(m_key_row[m_keylatch / 8])->read();
+	uint8_t data = ~(m_key_row[m_keylatch / 8])->read();
 
 	return BIT(data, m_keylatch % 8);
 }

@@ -27,8 +27,6 @@ TODO:
 #include "machine/i8255.h"
 #include "machine/keyboard.h"
 
-#define KEYBOARD_TAG "keyboard"
-
 class tk80bs_state : public driver_device
 {
 public:
@@ -47,10 +45,10 @@ public:
 	DECLARE_WRITE8_MEMBER(kbd_put);
 	DECLARE_READ8_MEMBER(port_a_r);
 	DECLARE_READ8_MEMBER(port_b_r);
-	UINT32 screen_update_tk80bs(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
-	required_shared_ptr<UINT8> m_p_videoram;
+	uint32_t screen_update_tk80bs(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	required_shared_ptr<uint8_t> m_p_videoram;
 private:
-	UINT8 m_term_data;
+	uint8_t m_term_data;
 	required_device<cpu_device> m_maincpu;
 	required_device<i8255_device> m_ppi;
 	required_device<gfxdecode_device> m_gfxdecode;
@@ -58,7 +56,7 @@ private:
 };
 
 
-UINT32 tk80bs_state::screen_update_tk80bs(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t tk80bs_state::screen_update_tk80bs(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	int x,y;
 	int count;
@@ -126,7 +124,7 @@ INPUT_PORTS_END
 
 READ8_MEMBER( tk80bs_state::port_a_r )
 {
-	UINT8 ret = m_term_data;
+	uint8_t ret = m_term_data;
 	m_term_data = 0;
 	return ret;
 }
@@ -189,7 +187,7 @@ static MACHINE_CONFIG_START( tk80bs, tk80bs_state )
 	MCFG_I8255_IN_PORTA_CB(READ8(tk80bs_state, port_a_r))
 	MCFG_I8255_IN_PORTB_CB(READ8(tk80bs_state, port_b_r))
 
-	MCFG_DEVICE_ADD(KEYBOARD_TAG, GENERIC_KEYBOARD, 0)
+	MCFG_DEVICE_ADD("keyboard", GENERIC_KEYBOARD, 0)
 	MCFG_GENERIC_KEYBOARD_CB(WRITE8(tk80bs_state, kbd_put))
 MACHINE_CONFIG_END
 

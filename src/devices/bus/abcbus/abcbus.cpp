@@ -6,6 +6,7 @@
 
 **********************************************************************/
 
+#include "emu.h"
 #include "abcbus.h"
 
 
@@ -37,7 +38,7 @@ device_abcbus_card_interface::device_abcbus_card_interface(const machine_config 
 //  abcbus_slot_t - constructor
 //-------------------------------------------------
 
-abcbus_slot_t::abcbus_slot_t(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock) :
+abcbus_slot_t::abcbus_slot_t(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock) :
 	device_t(mconfig, ABCBUS_SLOT, "ABCBUS slot", tag, owner, clock, "abcbus_slot", __FILE__),
 	device_slot_interface(mconfig, *this),
 	m_write_irq(*this),

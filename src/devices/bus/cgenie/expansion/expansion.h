@@ -39,7 +39,6 @@
 #ifndef __CGENIE_EXPANSION_H__
 #define __CGENIE_EXPANSION_H__
 
-#include "emu.h"
 
 
 //**************************************************************************
@@ -70,7 +69,7 @@ class expansion_slot_device : public device_t, public device_slot_interface
 {
 public:
 	// construction/destruction
-	expansion_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	expansion_slot_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	virtual ~expansion_slot_device();
 
 	void set_program_space(address_space *program);

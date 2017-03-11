@@ -5,7 +5,6 @@
 #ifndef __TEK405X__
 #define __TEK405X__
 
-#include "emu.h"
 #include "cpu/m6800/m6800.h"
 #include "machine/ram.h"
 #include "machine/6821pia.h"
@@ -68,7 +67,7 @@ public:
 
 	virtual void video_start() override;
 
-	void bankswitch(UINT8 data);
+	void bankswitch(uint8_t data);
 	void update_irq();
 	void update_nmi();
 	void scan_keyboard();

@@ -28,6 +28,7 @@ const options_entry emu_options::s_option_entries[] =
 
 	// search path options
 	{ nullptr,                                              nullptr,        OPTION_HEADER,     "CORE SEARCH PATH OPTIONS" },
+	{ OPTION_HOMEPATH,                                   ".",         OPTION_STRING,     "path to home directory (read/write) location" },
 	{ OPTION_MEDIAPATH ";rp;biospath;bp",                "roms",      OPTION_STRING,     "path to ROMsets and hard disk images" },
 	{ OPTION_HASHPATH ";hash_directory;hash",            "hash",      OPTION_STRING,     "path to hash files" },
 	{ OPTION_SAMPLEPATH ";sp",                           "samples",   OPTION_STRING,     "path to samplesets" },
@@ -39,6 +40,7 @@ const options_entry emu_options::s_option_entries[] =
 	{ OPTION_CROSSHAIRPATH,                              "crosshair", OPTION_STRING,     "path to crosshair files" },
 	{ OPTION_PLUGINSPATH,                                "plugins",   OPTION_STRING,     "path to plugin files" },
 	{ OPTION_LANGUAGEPATH,                               "language",  OPTION_STRING,     "path to language files" },
+	{ OPTION_SWPATH,                                     "software",  OPTION_STRING,     "path to loose software" },
 
 	// output directory options
 	{ nullptr,                                              nullptr,        OPTION_HEADER,     "CORE OUTPUT DIRECTORY OPTIONS" },
@@ -201,6 +203,12 @@ const options_entry emu_options::s_option_entries[] =
 	{ OPTION_PLUGIN,                                    nullptr,     OPTION_STRING,     "list of plugins to enable" },
 	{ OPTION_NO_PLUGIN,                                  nullptr,     OPTION_STRING,     "list of plugins to disable" },
 	{ OPTION_LANGUAGE ";lang",                           "English",   OPTION_STRING,    "display language" },
+
+	{ nullptr,                                nullptr,           OPTION_HEADER,  "HTTP SERVER OPTIONS" },
+	{ OPTION_HTTP,                            "0",               OPTION_BOOLEAN, "HTTP server enable" },
+	{ OPTION_HTTP_PORT,                       "8080",            OPTION_INTEGER, "HTTP server port" },
+	{ OPTION_HTTP_ROOT,                       "web",             OPTION_STRING,  "HTTP server document root" },
+
 	{ nullptr }
 };
 

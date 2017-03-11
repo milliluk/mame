@@ -54,9 +54,6 @@ Usage of terminal:
 #include "machine/keyboard.h"
 #include "machine/terminal.h"
 
-#define KEYBOARD_TAG "keyboard"
-#define TERMINAL_TAG "terminal"
-
 class okean240_state : public driver_device
 {
 public:
@@ -70,7 +67,7 @@ public:
 		m_term_data(0),
 		m_j(0),
 		m_scroll(0),
-		m_p_videoram(*this, "p_videoram"),
+		m_p_videoram(*this, "videoram"),
 		m_io_modifiers(*this, "MODIFIERS"),
 		m_maincpu(*this, "maincpu")
 	{
@@ -85,15 +82,15 @@ public:
 	DECLARE_READ8_MEMBER(okean240a_keyboard_r);
 	DECLARE_WRITE8_MEMBER(kbd_put);
 	DECLARE_WRITE8_MEMBER(scroll_w);
-	UINT8 m_term_data;
-	UINT8 m_j;
-	UINT8 m_scroll;
-	required_shared_ptr<UINT8> m_p_videoram;
+	uint8_t m_term_data;
+	uint8_t m_j;
+	uint8_t m_scroll;
+	required_shared_ptr<uint8_t> m_p_videoram;
 	virtual void machine_start() override;
 	virtual void machine_reset() override;
 	virtual void video_start() override;
 	DECLARE_DRIVER_INIT(okean240);
-	UINT32 screen_update_okean240(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+	uint32_t screen_update_okean240(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
 
 protected:
 	optional_ioport m_io_modifiers;
@@ -115,7 +112,7 @@ READ8_MEMBER( okean240_state::okean240_kbd_status_r )
 // see if a key is pressed and indicate status
 READ8_MEMBER( okean240_state::okean240a_kbd_status_r )
 {
-	UINT8 i,j;
+	uint8_t i,j;
 
 	for (i = 0; i < 11; i++)
 	{
@@ -148,7 +145,7 @@ READ8_MEMBER( okean240_state::okean240_keyboard_r )
 
 READ8_MEMBER( okean240_state::okean240a_keyboard_r )
 {
-	UINT8 i,j;
+	uint8_t i,j;
 
 	if (offset == 0) // port 40 (get a column)
 	{
@@ -192,7 +189,7 @@ WRITE8_MEMBER( okean240_state::okean240_keyboard_w )
 // for test rom
 READ8_MEMBER( okean240_state::term_r )
 {
-	UINT8 ret = m_term_data;
+	uint8_t ret = m_term_data;
 	m_term_data = 0;
 	return ret;
 }
@@ -206,7 +203,7 @@ static ADDRESS_MAP_START(okean240_mem, AS_PROGRAM, 8, okean240_state)
 	ADDRESS_MAP_UNMAP_HIGH
 	AM_RANGE(0x0000, 0x07ff) AM_RAMBANK("boot")
 	AM_RANGE(0x0800, 0x3fff) AM_RAM
-	AM_RANGE(0x4000, 0x7fff) AM_RAM AM_SHARE("p_videoram")
+	AM_RANGE(0x4000, 0x7fff) AM_RAM AM_SHARE("videoram")
 	AM_RANGE(0x8000, 0xbfff) AM_RAM
 	AM_RANGE(0xc000, 0xffff) AM_ROM
 ADDRESS_MAP_END
@@ -243,7 +240,7 @@ static ADDRESS_MAP_START(okean240t_io, AS_IO, 8, okean240_state)
 	ADDRESS_MAP_GLOBAL_MASK(0xff)
 	AM_RANGE(0x40, 0x42) AM_READWRITE(okean240_keyboard_r,okean240_keyboard_w)
 	AM_RANGE(0x80, 0x80) AM_READ(okean240_kbd_status_r)
-	AM_RANGE(0xa0, 0xa0) AM_DEVWRITE(TERMINAL_TAG, generic_terminal_device, write)
+	AM_RANGE(0xa0, 0xa0) AM_DEVWRITE("terminal", generic_terminal_device, write)
 	AM_RANGE(0xa0, 0xa0) AM_READ(term_r)
 	AM_RANGE(0xa1, 0xa1) AM_READ(term_status_r)
 	AM_RANGE(0xc0, 0xc0) AM_WRITE(scroll_w)
@@ -380,7 +377,7 @@ void okean240_state::device_timer(emu_timer &timer, device_timer_id id, int para
 		membank("boot")->set_entry(0);
 		break;
 	default:
-		assert_always(FALSE, "Unknown id in okean240_state::device_timer");
+		assert_always(false, "Unknown id in okean240_state::device_timer");
 	}
 }
 
@@ -413,7 +410,7 @@ WRITE8_MEMBER( okean240_state::kbd_put )
 
 DRIVER_INIT_MEMBER(okean240_state,okean240)
 {
-	UINT8 *RAM = memregion("maincpu")->base();
+	uint8_t *RAM = memregion("maincpu")->base();
 	membank("boot")->configure_entries(0, 2, &RAM[0x0000], 0xe000);
 }
 
@@ -421,15 +418,15 @@ void okean240_state::video_start()
 {
 }
 
-UINT32 okean240_state::screen_update_okean240(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t okean240_state::screen_update_okean240(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
-	UINT8 gfx,ma; // ma must be 8bit
-	UINT16 x,y;
+	uint8_t gfx,ma; // ma must be 8bit
+	uint16_t x,y;
 
 	for (y = 0; y < 256; y++)
 	{
 		ma = y + m_scroll;
-		UINT16 *p = &bitmap.pix16(y);
+		uint16_t *p = &bitmap.pix16(y);
 
 		for (x = 0; x < 0x4000; x+=0x200)
 		{
@@ -490,7 +487,7 @@ static MACHINE_CONFIG_START( okean240t, okean240_state )
 
 	MCFG_PALETTE_ADD_MONOCHROME("palette")
 
-	MCFG_DEVICE_ADD(TERMINAL_TAG, GENERIC_TERMINAL, 0)
+	MCFG_DEVICE_ADD("terminal", GENERIC_TERMINAL, 0)
 	MCFG_GENERIC_TERMINAL_KEYBOARD_CB(WRITE8(okean240_state, kbd_put))
 MACHINE_CONFIG_END
 
@@ -498,8 +495,8 @@ static MACHINE_CONFIG_DERIVED( okean240a, okean240t )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_IO_MAP(okean240a_io)
 	MCFG_GFXDECODE_ADD("gfxdecode", "palette", okean240a)
-	MCFG_DEVICE_REMOVE(TERMINAL_TAG)
-	MCFG_DEVICE_ADD(KEYBOARD_TAG, GENERIC_KEYBOARD, 0)
+	MCFG_DEVICE_REMOVE("terminal")
+	MCFG_DEVICE_ADD("keyboard", GENERIC_KEYBOARD, 0)
 	MCFG_GENERIC_KEYBOARD_CB(WRITE8(okean240_state, kbd_put))
 MACHINE_CONFIG_END
 
@@ -507,8 +504,8 @@ static MACHINE_CONFIG_DERIVED( okean240, okean240t )
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_IO_MAP(okean240_io)
 	MCFG_GFXDECODE_ADD("gfxdecode", "palette", okean240)
-	MCFG_DEVICE_REMOVE(TERMINAL_TAG)
-	MCFG_DEVICE_ADD(KEYBOARD_TAG, GENERIC_KEYBOARD, 0)
+	MCFG_DEVICE_REMOVE("terminal")
+	MCFG_DEVICE_ADD("keyboard", GENERIC_KEYBOARD, 0)
 	MCFG_GENERIC_KEYBOARD_CB(WRITE8(okean240_state, kbd_put))
 MACHINE_CONFIG_END
 

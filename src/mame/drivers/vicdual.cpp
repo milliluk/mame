@@ -273,7 +273,7 @@ MACHINE_CONFIG_END
 
 READ8_MEMBER(vicdual_state::depthch_io_r)
 {
-	UINT8 ret = 0;
+	uint8_t ret = 0;
 
 	if (offset & 0x01)  ret = m_in0->read();
 	if (offset & 0x08)  ret = m_in1->read();
@@ -354,7 +354,7 @@ MACHINE_CONFIG_END
 
 READ8_MEMBER(vicdual_state::safari_io_r)
 {
-	UINT8 ret = 0;
+	uint8_t ret = 0;
 
 	if (offset & 0x01)  ret = m_in0->read();
 	if (offset & 0x08)  ret = m_in1->read();
@@ -437,7 +437,7 @@ MACHINE_CONFIG_END
 
 READ8_MEMBER(vicdual_state::frogs_io_r)
 {
-	UINT8 ret = 0;
+	uint8_t ret = 0;
 
 	if (offset & 0x01)  ret = m_in0->read();
 	if (offset & 0x08)  ret = m_in1->read();
@@ -548,7 +548,7 @@ MACHINE_CONFIG_END
 
 READ8_MEMBER(vicdual_state::headon_io_r)
 {
-	UINT8 ret = 0;
+	uint8_t ret = 0;
 
 	if (offset & 0x01)  ret = m_in0->read();
 	if (offset & 0x08)  ret = m_in1->read();
@@ -559,7 +559,7 @@ READ8_MEMBER(vicdual_state::headon_io_r)
 
 READ8_MEMBER(vicdual_state::sspaceat_io_r)
 {
-	UINT8 ret = 0;
+	uint8_t ret = 0;
 
 	if (offset & 0x01)  ret = m_in0->read();
 	if (offset & 0x04)  ret = m_in1->read();
@@ -807,7 +807,7 @@ MACHINE_CONFIG_END
 
 READ8_MEMBER(vicdual_state::headon2_io_r)
 {
-	UINT8 ret = 0;
+	uint8_t ret = 0;
 
 	if (offset & 0x01)  ret = m_in0->read();
 	if (offset & 0x02) { /* schematics show this as in input port, but never read from */ }
@@ -1299,10 +1299,10 @@ ADDRESS_MAP_END
 CUSTOM_INPUT_MEMBER(vicdual_state::fake_lives_r)
 {
 	/* use the low byte for the bitmask */
-	UINT8 bit_mask = ((FPTR)param) & 0xff;
+	uint8_t bit_mask = ((uintptr_t)param) & 0xff;
 
 	/* and use d8 for the port */
-	int port = ((FPTR)param) >> 8 & 1;
+	int port = ((uintptr_t)param) >> 8 & 1;
 	return (m_fake_lives[port].read_safe(0) & bit_mask) ? 0 : 1;
 }
 
@@ -2106,8 +2106,8 @@ WRITE8_MEMBER(vicdual_state::samurai_protection_w)
 
 CUSTOM_INPUT_MEMBER(vicdual_state::samurai_protection_r)
 {
-	int offset = (FPTR)param;
-	UINT32 answer = 0;
+	int offset = (uintptr_t)param;
+	uint32_t answer = 0;
 
 	if (m_samurai_protection_data == 0xab)
 		answer = 0x02;
@@ -2232,7 +2232,7 @@ MACHINE_CONFIG_END
 
 READ8_MEMBER(vicdual_state::nsub_io_r)
 {
-	UINT8 ret = 0;
+	uint8_t ret = 0;
 
 	if (offset & 0x01)  ret = m_in0->read();
 	if (offset & 0x08)  ret = m_in1->read();
@@ -2282,7 +2282,7 @@ INPUT_CHANGED_MEMBER(vicdual_state::nsub_coin_in)
 {
 	if (newval)
 	{
-		int which = (int)(FPTR)param;
+		int which = (int)(uintptr_t)param;
 		int coinage = m_coinage->read();
 
 		switch (which)
@@ -2413,7 +2413,7 @@ MACHINE_CONFIG_END
 
 READ8_MEMBER(vicdual_state::invinco_io_r)
 {
-	UINT8 ret = 0;
+	uint8_t ret = 0;
 
 	if (offset & 0x01)  ret = m_in0->read();
 	if (offset & 0x02)  ret = m_in1->read();
@@ -2547,24 +2547,37 @@ ROM_START( depthcho )
 	ROM_LOAD( "316-0014.u28", 0x0020, 0x0020, CRC(7b7a8492) SHA1(6ba8d891cc6eb0dd80051377b6b832e8894655e7) )    /* sequence PROM */
 ROM_END
 
+/* Fully working PCB set from my full-size Sub Hunter upright machine.
+
+Essentally this pcb set is a Taito-made license of
+'Depthcharge' by Gremlin.
+
+PCB markings are:
+- DP070001 / DPN00001 (main)  (paper label DP80)
+- DP070002 / DPN00002 (sound) (paper label DP80)
+Serial number 430229
+
+12x program Proms were harris 7643
+2x gfx proms were Harris 7603 */
+
 ROM_START( subhunt )
 	ROM_REGION( 0x10000, "maincpu", 0 )
-	ROM_LOAD_NIB_LOW ( "dp04",         0x0000, 0x0400, CRC(0ace1aef) SHA1(071256dd63e2e449093a65a4c9b006be5e17b786) )
-	ROM_LOAD_NIB_HIGH( "dp01",         0x0000, 0x0400, CRC(da9e835b) SHA1(505c969b479aeab11bb6a21ef06837280846d90a) )
-	ROM_LOAD_NIB_LOW ( "dp10",         0x0400, 0x0400, CRC(de752f20) SHA1(513a92554d14a09d6b80ba8017d161c7cda9ed8c) )
-	ROM_LOAD_NIB_HIGH( "316-0028.u77", 0x0400, 0x0400, CRC(597ae441) SHA1(8d3af5e64e838a57057d46f97a7b1c1037c1a0cf) ) // dp07
-	ROM_LOAD_NIB_LOW ( "dp05",         0x0800, 0x0400, CRC(1c0530cf) SHA1(b1f2b1038ee063533669341f1a71755eecc2e1a9) )
-	ROM_LOAD_NIB_HIGH( "316-0023.u52", 0x0800, 0x0400, CRC(9244b613) SHA1(6587035ec22d90194cdc3efaed3571a1ab975e1c) ) // dp02
-	ROM_LOAD_NIB_LOW ( "dp11",         0x0c00, 0x0400, CRC(0007044a) SHA1(c8d7c693e3059ff020563336fe712c234e94b8f9) )
-	ROM_LOAD_NIB_HIGH( "dp08",         0x0c00, 0x0400, CRC(4d4e3ec8) SHA1(a0d5392fe5795cc6bf7373f194186506283c947c) )
-	ROM_LOAD_NIB_LOW ( "dp06",         0x1000, 0x0400, CRC(63e1184b) SHA1(91934cb041365dabdc58a831312577fdb0dc923b) )
-	ROM_LOAD_NIB_HIGH( "dp03",         0x1000, 0x0400, CRC(d70dbfd8) SHA1(0183a6b1ffd87a9e28588a7a9aa18aeb003560f0) )
-	ROM_LOAD_NIB_LOW ( "dp12",         0x1400, 0x0400, CRC(170d7718) SHA1(4348e4e2dbb1edd9a4228fd3ccef58c50f1ae129) )
-	ROM_LOAD_NIB_HIGH( "dp09",         0x1400, 0x0400, CRC(97466803) SHA1(f04ba4a1a960836974a85832596fc3a92a711094) )
+	ROM_LOAD_NIB_LOW ( "dp04.u63",     0x0000, 0x0400, CRC(0ace1aef) SHA1(071256dd63e2e449093a65a4c9b006be5e17b786) )
+	ROM_LOAD_NIB_HIGH( "dp01.u51",     0x0000, 0x0400, CRC(da9e835b) SHA1(505c969b479aeab11bb6a21ef06837280846d90a) )
+	ROM_LOAD_NIB_LOW ( "dp10.u89",     0x0400, 0x0400, CRC(de752f20) SHA1(513a92554d14a09d6b80ba8017d161c7cda9ed8c) )
+	ROM_LOAD_NIB_HIGH( "316-0028.u77", 0x0400, 0x0400, CRC(597ae441) SHA1(8d3af5e64e838a57057d46f97a7b1c1037c1a0cf) ) // dp07.u77
+	ROM_LOAD_NIB_LOW ( "dp05.u64",     0x0800, 0x0400, CRC(1c0530cf) SHA1(b1f2b1038ee063533669341f1a71755eecc2e1a9) )
+	ROM_LOAD_NIB_HIGH( "316-0023.u52", 0x0800, 0x0400, CRC(9244b613) SHA1(6587035ec22d90194cdc3efaed3571a1ab975e1c) ) // dp02.u52
+	ROM_LOAD_NIB_LOW ( "dp11.u90",     0x0c00, 0x0400, CRC(0007044a) SHA1(c8d7c693e3059ff020563336fe712c234e94b8f9) )
+	ROM_LOAD_NIB_HIGH( "dp08.u78",     0x0c00, 0x0400, CRC(4d4e3ec8) SHA1(a0d5392fe5795cc6bf7373f194186506283c947c) )
+	ROM_LOAD_NIB_LOW ( "dp06.u65",     0x1000, 0x0400, CRC(63e1184b) SHA1(91934cb041365dabdc58a831312577fdb0dc923b) )
+	ROM_LOAD_NIB_HIGH( "dp03.u53",     0x1000, 0x0400, CRC(d70dbfd8) SHA1(0183a6b1ffd87a9e28588a7a9aa18aeb003560f0) )
+	ROM_LOAD_NIB_LOW ( "dp12.u91",     0x1400, 0x0400, CRC(170d7718) SHA1(4348e4e2dbb1edd9a4228fd3ccef58c50f1ae129) )
+	ROM_LOAD_NIB_HIGH( "dp09.u79",     0x1400, 0x0400, CRC(97466803) SHA1(f04ba4a1a960836974a85832596fc3a92a711094) )
 
 	ROM_REGION( 0x0040, "user1", 0 )
-	ROM_LOAD( "316-0013.u27", 0x0000, 0x0020, CRC(690ef530) SHA1(6c0de3fa87a341cd378fefb8e06bf7918db9a074) )    /* control PROM */
-	ROM_LOAD( "316-0014.u28", 0x0020, 0x0020, CRC(7b7a8492) SHA1(6ba8d891cc6eb0dd80051377b6b832e8894655e7) )    /* sequence PROM */
+	ROM_LOAD( "316-0013.u27", 0x0000, 0x0020, CRC(690ef530) SHA1(6c0de3fa87a341cd378fefb8e06bf7918db9a074) )    /* dp13.u27 - control PROM */
+	ROM_LOAD( "316-0014.u28", 0x0020, 0x0020, CRC(7b7a8492) SHA1(6ba8d891cc6eb0dd80051377b6b832e8894655e7) )    /* dp14.u28 - sequence PROM */
 ROM_END
 
 

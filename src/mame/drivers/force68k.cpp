@@ -86,6 +86,9 @@
 #include "bus/generic/slot.h"
 #include "bus/generic/carts.h"
 #include "softlist.h"
+#include "bus/vme/vme.h"
+#include "bus/vme/vme_fcisio.h"
+#include "bus/vme/vme_fcscsi.h"
 
 #define LOG(x) x
 
@@ -171,14 +174,14 @@ private:
 	required_device<acia6850_device> m_aciaremt;
 	optional_device<centronics_device> m_centronics;
 
-	INT32 m_centronics_ack;
-	INT32 m_centronics_busy;
-	INT32 m_centronics_perror;
-	INT32 m_centronics_select;
+	int32_t m_centronics_ack;
+	int32_t m_centronics_busy;
+	int32_t m_centronics_perror;
+	int32_t m_centronics_select;
 
 	// Pointer to System ROMs needed by bootvect_r
-	UINT16  *m_sysrom;
-	UINT16  *m_usrrom;
+	uint16_t  *m_sysrom;
+	uint16_t  *m_usrrom;
 
 	required_device<generic_slot_device> m_cart;
 };
@@ -291,12 +294,12 @@ void force68k_state::machine_start ()
 		save_item (NAME (m_centronics_perror));
 
 		/* Setup pointer to bootvector in ROM for bootvector handler bootvect_r */
-		m_sysrom = (UINT16*)(memregion ("maincpu")->base () + 0x080000);
+		m_sysrom = (uint16_t*)(memregion ("maincpu")->base () + 0x080000);
 
 		/* Map user ROM/RAM socket(s) */
 		if (m_cart->exists())
 		{
-				m_usrrom = (UINT16*)m_cart->get_rom_base();
+				m_usrrom = (uint16_t*)m_cart->get_rom_base();
 #if 0 // This should be the correct way but produces odd and even bytes swapped
 				m_maincpu->space(AS_PROGRAM).install_read_handler(0xa0000, 0xbffff, read16_delegate(FUNC(generic_slot_device::read16_rom), (generic_slot_device*)m_cart));
 #else // So we installs a custom very ineffecient handler for now until we understand hwp to solve the problem better
@@ -337,7 +340,7 @@ READ16_MEMBER (force68k_state::bootvect_r){
 /* Dummy VME access methods until the VME bus device is ready for use */
 READ16_MEMBER (force68k_state::vme_a24_r){
 		LOG (logerror ("vme_a24_r\n"));
-		return (UINT16) 0;
+		return (uint16_t) 0;
 }
 
 WRITE16_MEMBER (force68k_state::vme_a24_w){
@@ -346,7 +349,7 @@ WRITE16_MEMBER (force68k_state::vme_a24_w){
 
 READ16_MEMBER (force68k_state::vme_a16_r){
 		LOG (logerror ("vme_16_r\n"));
-		return (UINT16) 0;
+		return (uint16_t) 0;
 }
 
 WRITE16_MEMBER (force68k_state::vme_a16_w){
@@ -402,7 +405,7 @@ MACHINE_CONFIG_END
 ****************************/
 image_init_result force68k_state::force68k_load_cart(device_image_interface &image, generic_slot_device *slot)
 {
-		UINT32 size = slot->common_get_size("rom");
+		uint32_t size = slot->common_get_size("rom");
 
 		if (size > 0x20000) // Max 128Kb
 		{
@@ -417,69 +420,79 @@ image_init_result force68k_state::force68k_load_cart(device_image_interface &ima
 		return image_init_result::PASS;
 }
 
+
+static SLOT_INTERFACE_START(fccpu1_vme_cards)
+	SLOT_INTERFACE("fcisio", VME_FCISIO1)
+	SLOT_INTERFACE("fcscsi", VME_FCSCSI1)
+SLOT_INTERFACE_END
+
 /*
  * Machine configuration
  */
 static MACHINE_CONFIG_START (fccpu1, force68k_state)
-/* basic machine hardware */
-MCFG_CPU_ADD ("maincpu", M68000, XTAL_16MHz / 2)
-MCFG_CPU_PROGRAM_MAP (force68k_mem)
+	/* basic machine hardware */
+	MCFG_CPU_ADD ("maincpu", M68000, XTAL_16MHz / 2)
+	MCFG_CPU_PROGRAM_MAP (force68k_mem)
 
-/* P3/Host Port config
- * LO command causes ROM monitor to expect S-records on HOST port by default
- * Implementation through nullmodem currently does not support handshakes so
- * the ROM momitor is over-run while checking for checksums etc if used with
- * UI mount <file> feature.
- */
-MCFG_DEVICE_ADD ("aciahost", ACIA6850, 0)
+	/* P3/Host Port config
+	 * LO command causes ROM monitor to expect S-records on HOST port by default
+	 * Implementation through nullmodem currently does not support handshakes so
+	 * the ROM momitor is over-run while checking for checksums etc if used with
+	 * UI mount <file> feature.
+	 */
+	MCFG_DEVICE_ADD ("aciahost", ACIA6850, 0)
 
-MCFG_ACIA6850_TXD_HANDLER (DEVWRITELINE ("rs232host", rs232_port_device, write_txd))
-MCFG_ACIA6850_RTS_HANDLER (DEVWRITELINE ("rs232host", rs232_port_device, write_rts))
+	MCFG_ACIA6850_TXD_HANDLER (DEVWRITELINE ("rs232host", rs232_port_device, write_txd))
+	MCFG_ACIA6850_RTS_HANDLER (DEVWRITELINE ("rs232host", rs232_port_device, write_rts))
 
-MCFG_RS232_PORT_ADD ("rs232host", default_rs232_devices, "null_modem")
-MCFG_RS232_RXD_HANDLER (DEVWRITELINE ("aciahost", acia6850_device, write_rxd))
-MCFG_RS232_CTS_HANDLER (DEVWRITELINE ("aciahost", acia6850_device, write_cts))
+	MCFG_RS232_PORT_ADD ("rs232host", default_rs232_devices, "null_modem")
+	MCFG_RS232_RXD_HANDLER (DEVWRITELINE ("aciahost", acia6850_device, write_rxd))
+	MCFG_RS232_CTS_HANDLER (DEVWRITELINE ("aciahost", acia6850_device, write_cts))
 
-MCFG_DEVICE_ADD ("aciahost_clock", CLOCK, ACIA_CLOCK)
-MCFG_CLOCK_SIGNAL_HANDLER (WRITELINE (force68k_state, write_aciahost_clock))
+	MCFG_DEVICE_ADD ("aciahost_clock", CLOCK, ACIA_CLOCK)
+	MCFG_CLOCK_SIGNAL_HANDLER (WRITELINE (force68k_state, write_aciahost_clock))
 
-/* P4/Terminal Port config */
-MCFG_DEVICE_ADD ("aciaterm", ACIA6850, 0)
+	/* P4/Terminal Port config */
+	MCFG_DEVICE_ADD ("aciaterm", ACIA6850, 0)
 
-MCFG_ACIA6850_TXD_HANDLER (DEVWRITELINE ("rs232trm", rs232_port_device, write_txd))
-MCFG_ACIA6850_RTS_HANDLER (DEVWRITELINE ("rs232trm", rs232_port_device, write_rts))
+	MCFG_ACIA6850_TXD_HANDLER (DEVWRITELINE ("rs232trm", rs232_port_device, write_txd))
+	MCFG_ACIA6850_RTS_HANDLER (DEVWRITELINE ("rs232trm", rs232_port_device, write_rts))
 
-MCFG_RS232_PORT_ADD ("rs232trm", default_rs232_devices, "terminal")
-MCFG_RS232_RXD_HANDLER (DEVWRITELINE ("aciaterm", acia6850_device, write_rxd))
-MCFG_RS232_CTS_HANDLER (DEVWRITELINE ("aciaterm", acia6850_device, write_cts))
+	MCFG_RS232_PORT_ADD ("rs232trm", default_rs232_devices, "terminal")
+	MCFG_RS232_RXD_HANDLER (DEVWRITELINE ("aciaterm", acia6850_device, write_rxd))
+	MCFG_RS232_CTS_HANDLER (DEVWRITELINE ("aciaterm", acia6850_device, write_cts))
 
-MCFG_DEVICE_ADD ("aciaterm_clock", CLOCK, ACIA_CLOCK)
-MCFG_CLOCK_SIGNAL_HANDLER (WRITELINE (force68k_state, write_aciaterm_clock))
+	MCFG_DEVICE_ADD ("aciaterm_clock", CLOCK, ACIA_CLOCK)
+	MCFG_CLOCK_SIGNAL_HANDLER (WRITELINE (force68k_state, write_aciaterm_clock))
 
-/* P5/Remote Port config */
-MCFG_DEVICE_ADD ("aciaremt", ACIA6850, 0)
+	/* P5/Remote Port config */
+	MCFG_DEVICE_ADD ("aciaremt", ACIA6850, 0)
 
-MCFG_DEVICE_ADD ("aciaremt_clock", CLOCK, ACIA_CLOCK)
-MCFG_CLOCK_SIGNAL_HANDLER (WRITELINE (force68k_state, write_aciaterm_clock))
+	MCFG_DEVICE_ADD ("aciaremt_clock", CLOCK, ACIA_CLOCK)
+	MCFG_CLOCK_SIGNAL_HANDLER (WRITELINE (force68k_state, write_aciaterm_clock))
 
-/* RTC Real Time Clock device */
-MCFG_DEVICE_ADD ("rtc", MM58167, XTAL_32_768kHz)
+	/* RTC Real Time Clock device */
+	MCFG_DEVICE_ADD ("rtc", MM58167, XTAL_32_768kHz)
 
-/* PIT Parallel Interface and Timer device, assuming strapped for on board clock */
-MCFG_DEVICE_ADD ("pit", PIT68230, XTAL_16MHz / 2)
-MCFG_PIT68230_PA_OUTPUT_CB (DEVWRITE8 ("cent_data_out", output_latch_device, write))
-MCFG_PIT68230_H2_CB (DEVWRITELINE ("centronics", centronics_device, write_strobe))
+	/* PIT Parallel Interface and Timer device, assuming strapped for on board clock */
+	MCFG_DEVICE_ADD ("pit", PIT68230, XTAL_16MHz / 2)
+	MCFG_PIT68230_PA_OUTPUT_CB (DEVWRITE8 ("cent_data_out", output_latch_device, write))
+	MCFG_PIT68230_H2_CB (DEVWRITELINE ("centronics", centronics_device, write_strobe))
 
-// centronics
-MCFG_CENTRONICS_ADD ("centronics", centronics_devices, "printer")
-MCFG_CENTRONICS_ACK_HANDLER (WRITELINE (force68k_state, centronics_ack_w))
-MCFG_CENTRONICS_BUSY_HANDLER (WRITELINE (force68k_state, centronics_busy_w))
-MCFG_CENTRONICS_PERROR_HANDLER (WRITELINE (force68k_state, centronics_perror_w))
-MCFG_CENTRONICS_SELECT_HANDLER (WRITELINE (force68k_state, centronics_select_w))
-MCFG_CENTRONICS_OUTPUT_LATCH_ADD ("cent_data_out", "centronics")
+	// centronics
+	MCFG_CENTRONICS_ADD ("centronics", centronics_devices, "printer")
+	MCFG_CENTRONICS_ACK_HANDLER (WRITELINE (force68k_state, centronics_ack_w))
+	MCFG_CENTRONICS_BUSY_HANDLER (WRITELINE (force68k_state, centronics_busy_w))
+	MCFG_CENTRONICS_PERROR_HANDLER (WRITELINE (force68k_state, centronics_perror_w))
+	MCFG_CENTRONICS_SELECT_HANDLER (WRITELINE (force68k_state, centronics_select_w))
+	MCFG_CENTRONICS_OUTPUT_LATCH_ADD ("cent_data_out", "centronics")
 
-// EPROM sockets
-MCFG_FRAGMENT_ADD(fccpu1_eprom_sockets)
+	// EPROM sockets
+	MCFG_FRAGMENT_ADD(fccpu1_eprom_sockets)
+
+	// VME interface
+	MCFG_VME_DEVICE_ADD("vme")
+	MCFG_VME_SLOT_ADD ("vme", 1, fccpu1_vme_cards, nullptr)
 MACHINE_CONFIG_END
 
 #if 0 /*
@@ -487,28 +500,28 @@ MACHINE_CONFIG_END
        * such as an optional 68881 FPU
        */
 static MACHINE_CONFIG_START (fccpu6, force68k_state)
-MCFG_CPU_ADD ("maincpu", M68000, XTAL_8MHz)         /* Jumper B10 Mode B */
-MCFG_CPU_PROGRAM_MAP (force68k_mem)
+	MCFG_CPU_ADD ("maincpu", M68000, XTAL_8MHz)         /* Jumper B10 Mode B */
+	MCFG_CPU_PROGRAM_MAP (force68k_mem)
 MACHINE_CONFIG_END
 
 static MACHINE_CONFIG_START (fccpu6a, force68k_state)
-MCFG_CPU_ADD ("maincpu", M68000, XTAL_12_5MHz)        /* Jumper B10 Mode A */
-MCFG_CPU_PROGRAM_MAP (force68k_mem)
+	MCFG_CPU_ADD ("maincpu", M68000, XTAL_12_5MHz)        /* Jumper B10 Mode A */
+	MCFG_CPU_PROGRAM_MAP (force68k_mem)
 MACHINE_CONFIG_END
 
 static MACHINE_CONFIG_START (fccpu6v, force68k_state)
-MCFG_CPU_ADD ("maincpu", M68010, XTAL_8MHz)         /* Jumper B10 Mode B */
-MCFG_CPU_PROGRAM_MAP (force68k_mem)
+	MCFG_CPU_ADD ("maincpu", M68010, XTAL_8MHz)         /* Jumper B10 Mode B */
+	MCFG_CPU_PROGRAM_MAP (force68k_mem)
 MACHINE_CONFIG_END
 
 static MACHINE_CONFIG_START (fccpu6va, force68k_state)
-MCFG_CPU_ADD ("maincpu", M68010, XTAL_12_5MHz)        /* Jumper B10 Mode A */
-MCFG_CPU_PROGRAM_MAP (force68k_mem)
+	MCFG_CPU_ADD ("maincpu", M68010, XTAL_12_5MHz)        /* Jumper B10 Mode A */
+	MCFG_CPU_PROGRAM_MAP (force68k_mem)
 MACHINE_CONFIG_END
 
 static MACHINE_CONFIG_START (fccpu6vb, force68k_state)
-MCFG_CPU_ADD ("maincpu", M68010, XTAL_12_5MHz)        /* Jumper B10 Mode A */
-MCFG_CPU_PROGRAM_MAP (force68k_mem)
+	MCFG_CPU_ADD ("maincpu", M68010, XTAL_12_5MHz)        /* Jumper B10 Mode A */
+	MCFG_CPU_PROGRAM_MAP (force68k_mem)
 MACHINE_CONFIG_END
 #endif
 

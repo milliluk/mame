@@ -8,6 +8,11 @@ Tandy 1000 machines are similar to the IBM 5160s with CGA graphics. Tandy
 added some additional graphic capabilities similar, but not equal, to
 those added for the IBM PC Jr.
 
+The Tandy 1000's features include a pair of 6-pin mini-DIN connectors for
+analog joysticks. They are compatible with CoCo joysticks but not standard
+PC joysticks, though the software interface is identical. This difference
+is not accurately reflected in the current slot device configuration.
+
 Tandy 1000 (8088) variations:
 1000                128KB-640KB RAM     4.77 MHz        v01.00.00, v01.01.00
 1000A/1000HD        128KB-640KB RAM     4.77 MHz        v01.01.00
@@ -47,7 +52,7 @@ class t1000_mb_device : public pc_noppi_mb_device
 {
 public:
 	// construction/destruction
-	t1000_mb_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+	t1000_mb_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 		: pc_noppi_mb_device(mconfig, tag, owner, clock) { }
 protected:
 	virtual void device_start() override;
@@ -97,7 +102,7 @@ public:
 	DECLARE_READ8_MEMBER( unk_r );
 
 	int tandy1000_read_eeprom();
-	void tandy1000_write_eeprom(UINT8 data);
+	void tandy1000_write_eeprom(uint8_t data);
 	void tandy1000_set_bios_bank();
 
 	void machine_start() override;
@@ -106,19 +111,19 @@ public:
 
 	struct
 	{
-		UINT8 low, high;
+		uint8_t low, high;
 	} m_eeprom_ee[0x40]; /* only 0 to 4 used in hx, addressing seems to allow this */
 
 	int m_eeprom_state;
 	int m_eeprom_clock;
-	UINT8 m_eeprom_oper;
-	UINT16 m_eeprom_data;
+	uint8_t m_eeprom_oper;
+	uint16_t m_eeprom_data;
 
-	UINT8 m_tandy_data[8];
+	uint8_t m_tandy_data[8];
 
-	UINT8 m_tandy_bios_bank;    /* I/O port FFEAh */
-	UINT8 m_tandy_ppi_portb, m_tandy_ppi_portc;
-	UINT8 m_vram_bank;
+	uint8_t m_tandy_bios_bank;    /* I/O port FFEAh */
+	uint8_t m_tandy_ppi_portb, m_tandy_ppi_portc;
+	uint8_t m_vram_bank;
 };
 
 /* tandy 1000 eeprom
@@ -137,7 +142,7 @@ int tandy1000_state::tandy1000_read_eeprom()
 	return 1;
 }
 
-void tandy1000_state::tandy1000_write_eeprom(UINT8 data)
+void tandy1000_state::tandy1000_write_eeprom(uint8_t data)
 {
 	if (!m_eeprom_clock && (data&4) )
 	{
@@ -340,7 +345,7 @@ READ8_MEMBER( tandy1000_state::unk_r )
 
 READ8_MEMBER( tandy1000_state::vram_r )
 {
-	UINT8 vram_base = (m_ram->size() >> 17) - 1;
+	uint8_t vram_base = (m_ram->size() >> 17) - 1;
 	if((m_vram_bank - vram_base) == (offset >> 17))
 		return m_ram->pointer()[offset & 0x1ffff];
 	return 0xff;
@@ -348,7 +353,7 @@ READ8_MEMBER( tandy1000_state::vram_r )
 
 WRITE8_MEMBER( tandy1000_state::vram_w )
 {
-	UINT8 vram_base = (m_ram->size() >> 17) - 1;
+	uint8_t vram_base = (m_ram->size() >> 17) - 1;
 	if((m_vram_bank - vram_base) == (offset >> 17))
 		m_ram->pointer()[offset & 0x1ffff] = data;
 }
@@ -396,7 +401,7 @@ void tandy1000_state::machine_start()
 
 READ8_MEMBER( tandy1000_state::tandy1000_bank_r )
 {
-	UINT8 data = 0xFF;
+	uint8_t data = 0xFF;
 
 	logerror( "%s: tandy1000_bank_r: offset = %x\n", space.machine().describe_context(), offset );
 
@@ -434,7 +439,7 @@ WRITE8_MEMBER( tandy1000_state::tandy1000_bank_w )
 	}
 }
 
-static INPUT_PORTS_START( tandy1t )
+static INPUT_PORTS_START( t1000_common )
 	PORT_START("IN0") /* IN0 */
 	PORT_BIT ( 0xf0, 0xf0,   IPT_UNUSED )
 	PORT_BIT ( 0x08, 0x08,   IPT_CUSTOM ) PORT_VBLANK("pcvideo_t1000:screen")
@@ -468,7 +473,11 @@ static INPUT_PORTS_START( tandy1t )
 	PORT_DIPSETTING(    0x04, DEF_STR( Yes ) )
 	PORT_BIT( 0x02, 0x02,   IPT_UNUSED ) /* no turbo switch */
 	PORT_BIT( 0x01, 0x01,   IPT_UNUSED )
+INPUT_PORTS_END
 
+/* 90-key Tandy Keyboard layout, used on earlier models
+   later models use the Tandy Enhanced Keyboard with a standard 101-key Enhanced AT layout */
+static INPUT_PORTS_START( t1000_keyboard )
 	PORT_INCLUDE(pc_keyboard)
 
 	PORT_MODIFY("pc_keyboard_2")
@@ -480,6 +489,8 @@ static INPUT_PORTS_START( tandy1t )
 
 	PORT_MODIFY("pc_keyboard_4")
 	PORT_BIT(0x0020, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("NumLock") PORT_CODE(KEYCODE_NUMLOCK) PORT_TOGGLE /* Num Lock                    45  C5 */
+	/* Hold corresponds to Scroll Lock, but pauses the system when pressed - leaving unmapped by default to avoid conflicting with the UI Toggle key */
+	PORT_BIT(0x0040, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Hold")     /*                            46  C6 */
 	PORT_BIT(0x0080, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("KP 7 \\") PORT_CODE(KEYCODE_7_PAD) /* Keypad 7                    47  C7 */
 	PORT_BIT(0x0100, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("KP 8 ~") PORT_CODE(KEYCODE_8_PAD) /* Keypad 8                    48  C8 */
 	PORT_BIT(0x0200, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("KP 9 (PgUp)") PORT_CODE(KEYCODE_9_PAD) /* Keypad 9  (PgUp)            49  C9 */
@@ -501,6 +512,16 @@ static INPUT_PORTS_START( tandy1t )
 	PORT_BIT(0x0100, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("Home") PORT_CODE(KEYCODE_HOME) /* HOME                        58  D8 */
 	PORT_BIT(0x0200, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("F11") PORT_CODE(KEYCODE_F11) /* F11                         59  D9 */
 	PORT_BIT(0x0400, IP_ACTIVE_HIGH, IPT_KEYBOARD) PORT_NAME("F12") PORT_CODE(KEYCODE_F12) /* F12                         5a  Da */
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( t1000_90key )
+	PORT_INCLUDE(t1000_common)
+	PORT_INCLUDE(t1000_keyboard)
+INPUT_PORTS_END
+
+static INPUT_PORTS_START( t1000_101key )
+	PORT_INCLUDE(t1000_common)
+	PORT_INCLUDE(at_keyboard)
 INPUT_PORTS_END
 
 static ADDRESS_MAP_START(tandy1000_map, AS_PROGRAM, 8, tandy1000_state )
@@ -616,11 +637,21 @@ static MACHINE_CONFIG_FRAGMENT(tandy1000_common)
 	MCFG_ISA8_SLOT_ADD("mb:isa", "isa_com", pc_isa8_cards, "com", true)
 
 	MCFG_PC_JOY_ADD("pc_joy")
-	MCFG_PC_KEYB_ADD("pc_keyboard", DEVWRITELINE("mb:pic8259", pic8259_device, ir1_w))
 
 	/* internal ram */
 	MCFG_RAM_ADD(RAM_TAG)
 	MCFG_RAM_DEFAULT_SIZE("640K")
+
+	MCFG_SOFTWARE_LIST_ADD("disk_list","t1000")
+	MCFG_SOFTWARE_LIST_COMPATIBLE_ADD("pc_list","ibm5150")
+MACHINE_CONFIG_END
+
+static MACHINE_CONFIG_FRAGMENT(tandy1000_90key)
+	MCFG_PC_KEYB_ADD("pc_keyboard", DEVWRITELINE("mb:pic8259", pic8259_device, ir1_w))
+MACHINE_CONFIG_END
+
+static MACHINE_CONFIG_FRAGMENT(tandy1000_101key)
+	MCFG_AT_KEYB_ADD("pc_keyboard", 1, DEVWRITELINE("mb:pic8259", pic8259_device, ir1_w))
 MACHINE_CONFIG_END
 
 static MACHINE_CONFIG_START( t1000hx, tandy1000_state )
@@ -630,6 +661,8 @@ static MACHINE_CONFIG_START( t1000hx, tandy1000_state )
 	MCFG_CPU_IRQ_ACKNOWLEDGE_DEVICE("mb:pic8259", pic8259_device, inta_cb)
 
 	MCFG_FRAGMENT_ADD(tandy1000_common)
+
+	MCFG_FRAGMENT_ADD(tandy1000_90key)
 
 	// plus cards are isa with a nonstandard conntector
 	MCFG_ISA8_SLOT_ADD("mb:isa", "plus1", pc_isa8_cards, nullptr, false)
@@ -647,7 +680,6 @@ static MACHINE_CONFIG_DERIVED( t1000sx, t1000hx )
 	MCFG_ISA8_SLOT_ADD("mb:isa", "isa4", pc_isa8_cards, nullptr, false)
 
 	/* software lists */
-	MCFG_SOFTWARE_LIST_ADD("disk_list","ibm5150")
 	MCFG_DEVICE_MODIFY(RAM_TAG)
 	MCFG_RAM_EXTRA_OPTIONS("384K")
 MACHINE_CONFIG_END
@@ -659,6 +691,8 @@ static MACHINE_CONFIG_START( t1000rl, tandy1000_state )
 	MCFG_CPU_IRQ_ACKNOWLEDGE_DEVICE("mb:pic8259", pic8259_device, inta_cb)
 
 	MCFG_FRAGMENT_ADD(tandy1000_common)
+
+	MCFG_FRAGMENT_ADD(tandy1000_101key)
 
 	MCFG_DEVICE_ADD("biosbank", ADDRESS_MAP_BANK, 0)
 	MCFG_DEVICE_PROGRAM_MAP(biosbank_map)
@@ -690,6 +724,8 @@ static MACHINE_CONFIG_START( t1000tl, tandy1000_state )
 
 	MCFG_FRAGMENT_ADD(tandy1000_common)
 
+	MCFG_FRAGMENT_ADD(tandy1000_101key)
+
 	MCFG_ISA8_SLOT_ADD("mb:isa", "isa1", pc_isa8_cards, nullptr, false)
 	MCFG_ISA8_SLOT_ADD("mb:isa", "isa2", pc_isa8_cards, nullptr, false)
 	MCFG_ISA8_SLOT_ADD("mb:isa", "isa3", pc_isa8_cards, nullptr, false)
@@ -700,6 +736,9 @@ MACHINE_CONFIG_END
 static MACHINE_CONFIG_DERIVED( t1000tx, t1000tl )
 	MCFG_CPU_MODIFY( "maincpu" )
 	MCFG_CPU_IO_MAP(tandy1000tx_io)
+
+	MCFG_DEVICE_REMOVE("pc_keyboard")
+	MCFG_FRAGMENT_ADD(tandy1000_90key)
 MACHINE_CONFIG_END
 
 #ifdef UNUSED_DEFINITION
@@ -866,11 +905,11 @@ ROM_START( t1000tl2 )
 ROM_END
 
 
-/*    YEAR  NAME        PARENT      COMPAT      MACHINE     INPUT       INIT        COMPANY            FULLNAME */
+/*    YEAR  NAME        PARENT      COMPAT      MACHINE     INPUT         INIT        COMPANY            FULLNAME */
 // tandy 1000
-COMP( 1987, t1000hx,    ibm5150,    0,          t1000hx,    tandy1t, driver_device,    0,    "Tandy Radio Shack", "Tandy 1000 HX", 0)
-COMP( 1987, t1000sx,    ibm5150,    0,          t1000sx,    tandy1t, driver_device,    0,    "Tandy Radio Shack", "Tandy 1000 SX", 0)
-COMP( 1987, t1000tx,    ibm5150,    0,          t1000tx,    tandy1t, driver_device,    0,    "Tandy Radio Shack", "Tandy 1000 TX", 0)
-COMP( 1989, t1000rl,    ibm5150,    0,          t1000rl,    tandy1t, driver_device,    0,    "Tandy Radio Shack", "Tandy 1000 RL", 0)
-COMP( 1989, t1000tl2,   ibm5150,    0,          t1000tl,    tandy1t, driver_device,    0,    "Tandy Radio Shack", "Tandy 1000 TL/2", 0)
-COMP( 1988, t1000sl2,   ibm5150,    0,          t1000sl2,   tandy1t, driver_device,    0,    "Tandy Radio Shack", "Tandy 1000 SL/2", 0)
+COMP( 1987, t1000hx,    ibm5150,    0,          t1000hx,    t1000_90key,  driver_device,    0,    "Tandy Radio Shack", "Tandy 1000 HX", 0)
+COMP( 1987, t1000sx,    ibm5150,    0,          t1000sx,    t1000_90key,  driver_device,    0,    "Tandy Radio Shack", "Tandy 1000 SX", 0)
+COMP( 1987, t1000tx,    ibm5150,    0,          t1000tx,    t1000_90key,  driver_device,    0,    "Tandy Radio Shack", "Tandy 1000 TX", 0)
+COMP( 1989, t1000rl,    ibm5150,    0,          t1000rl,    t1000_101key, driver_device,    0,    "Tandy Radio Shack", "Tandy 1000 RL", 0)
+COMP( 1989, t1000tl2,   ibm5150,    0,          t1000tl,    t1000_101key, driver_device,    0,    "Tandy Radio Shack", "Tandy 1000 TL/2", 0)
+COMP( 1988, t1000sl2,   ibm5150,    0,          t1000sl2,   t1000_101key, driver_device,    0,    "Tandy Radio Shack", "Tandy 1000 SL/2", 0)

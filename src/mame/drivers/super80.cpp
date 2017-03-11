@@ -605,25 +605,25 @@ static const gfx_layout super80v_charlayout =
 };
 
 static GFXDECODE_START( super80 )
-	GFXDECODE_ENTRY( "chargen", 0x0000, super80_charlayout, 0, 1 )
+	GFXDECODE_ENTRY( "chargen", 0x0000, super80_charlayout, 16, 1 )
 GFXDECODE_END
 
 static GFXDECODE_START( super80d )
-	GFXDECODE_ENTRY( "chargen", 0x0000, super80d_charlayout, 0, 1 )
+	GFXDECODE_ENTRY( "chargen", 0x0000, super80d_charlayout, 16, 1 )
 GFXDECODE_END
 
 static GFXDECODE_START( super80e )
-	GFXDECODE_ENTRY( "chargen", 0x0000, super80e_charlayout, 0, 1 )
+	GFXDECODE_ENTRY( "chargen", 0x0000, super80e_charlayout, 16, 1 )
 GFXDECODE_END
 
 static GFXDECODE_START( super80m )
-	GFXDECODE_ENTRY( "chargen", 0x0000, super80e_charlayout, 0, 8 )
-	GFXDECODE_ENTRY( "chargen", 0x1000, super80d_charlayout, 0, 8 )
+	GFXDECODE_ENTRY( "chargen", 0x0000, super80e_charlayout, 2, 6 )
+	GFXDECODE_ENTRY( "chargen", 0x1000, super80d_charlayout, 2, 6 )
 GFXDECODE_END
 
 /* This will show the 128 characters in the ROM + whatever happens to be in the PCG */
 static GFXDECODE_START( super80v )
-	GFXDECODE_ENTRY( "maincpu", 0xf000, super80v_charlayout, 0, 8 )
+	GFXDECODE_ENTRY( "maincpu", 0xf000, super80v_charlayout, 2, 6 )
 GFXDECODE_END
 
 
@@ -803,7 +803,6 @@ static MACHINE_CONFIG_START( super80v, super80_state )
 
 	MCFG_GFXDECODE_ADD("gfxdecode", "palette", super80v)
 	MCFG_DEFAULT_LAYOUT( layout_super80 )
-	MCFG_VIDEO_START_OVERRIDE(super80_state,super80v)
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_MONO("mono")

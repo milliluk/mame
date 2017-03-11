@@ -68,6 +68,7 @@ Things to be looked at:
 ******************************************************************************/
 
 /* Core includes */
+#include "emu.h"
 #include "bus/rs232/rs232.h"
 #include "cpu/z80/z80.h"
 //#include "votrpss.lh"
@@ -108,10 +109,10 @@ public:
 	DECLARE_WRITE_LINE_MEMBER(write_uart_clock);
 	IRQ_CALLBACK_MEMBER(irq_ack);
 private:
-	UINT8 m_term_data;
-	UINT8 m_porta;
-	UINT8 m_portb;
-	UINT8 m_portc;
+	uint8_t m_term_data;
+	uint8_t m_porta;
+	uint8_t m_portb;
+	uint8_t m_portc;
 	virtual void machine_start() override;
 	required_device<cpu_device> m_maincpu;
 	required_device<generic_terminal_device> m_terminal;
@@ -194,7 +195,7 @@ IRQ_CALLBACK_MEMBER( votrpss_state::irq_ack )
 
 READ8_MEMBER( votrpss_state::ppi_pa_r )
 {
-	UINT8 ret = m_term_data;
+	uint8_t ret = m_term_data;
 	m_term_data = 0;
 	return ret;
 }
@@ -207,7 +208,7 @@ READ8_MEMBER( votrpss_state::ppi_pb_r )
 // Bit 0 controls what happens at interrupt time. See code around 518.
 READ8_MEMBER( votrpss_state::ppi_pc_r )
 {
-	UINT8 data = 0;
+	uint8_t data = 0;
 
 	if (m_term_data)
 	{

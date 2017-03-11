@@ -84,7 +84,7 @@
     Modern implementation
 */
 
-snug_bwg_device::snug_bwg_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+snug_bwg_device::snug_bwg_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: ti_expansion_card_device(mconfig, TI99_BWG, "SNUG BwG Floppy Controller", tag, owner, clock, "ti99_bwg", __FILE__),
 	  m_DRQ(), m_IRQ(), m_dip1(0), m_dip2(0), m_dip34(0), m_ram_page(0),
 	  m_rom_page(0), m_WAITena(false), m_inDsrArea(false), m_WDsel(false),
@@ -93,7 +93,7 @@ snug_bwg_device::snug_bwg_device(const machine_config &mconfig, const char *tag,
 	  m_DSEL(0), m_SIDSEL(), m_motor_on_timer(nullptr), m_dsrrom(nullptr),
 	  m_buffer_ram(*this, BUFFER), m_current_floppy(nullptr),
 	  m_wd1773(*this, FDC_TAG),
-	  m_clock(*this, CLOCK_TAG), m_debug_dataout(false) { }
+	  m_clock(*this, CLOCK_TAG) { }
 
 /*
     Operate the wait state logic.
@@ -187,7 +187,7 @@ SETADDRESS_DBIN_MEMBER( snug_bwg_device::setaddress_dbin )
     Access for debugger. This is a stripped-down version of the
     main methods below. We only allow ROM and RAM access.
 */
-void snug_bwg_device::debug_read(offs_t offset, UINT8* value)
+void snug_bwg_device::debug_read(offs_t offset, uint8_t* value)
 {
 	if (((offset & m_select_mask)==m_select_value) && m_selected)
 	{
@@ -201,7 +201,7 @@ void snug_bwg_device::debug_read(offs_t offset, UINT8* value)
 	}
 }
 
-void snug_bwg_device::debug_write(offs_t offset, UINT8 data)
+void snug_bwg_device::debug_write(offs_t offset, uint8_t data)
 {
 	if (((offset & m_select_mask)==m_select_value) && m_selected)
 	{
@@ -343,7 +343,7 @@ WRITE8_MEMBER(snug_bwg_device::write)
 */
 READ8Z_MEMBER(snug_bwg_device::crureadz)
 {
-	UINT8 reply;
+	uint8_t reply;
 
 	if ((offset & 0xff00)==m_cru_base)
 	{
@@ -565,6 +565,27 @@ void snug_bwg_device::device_start(void)
 	m_dsrrom = memregion(DSRROM)->base();
 	m_motor_on_timer = timer_alloc(MOTOR_TIMER);
 	m_cru_base = 0x1100;
+
+	save_item(NAME(m_DRQ));
+	save_item(NAME(m_IRQ));
+	save_item(NAME(m_dip1));
+	save_item(NAME(m_dip2));
+	save_item(NAME(m_dip34));
+	save_item(NAME(m_ram_page));
+	save_item(NAME(m_rom_page));
+	save_item(NAME(m_WAITena));
+	save_item(NAME(m_inDsrArea));
+	save_item(NAME(m_WDsel));
+	save_item(NAME(m_WDsel0));
+	save_item(NAME(m_RTCsel));
+	save_item(NAME(m_lastK));
+	save_item(NAME(m_dataregLB));
+	save_item(NAME(m_rtc_enabled));
+	save_item(NAME(m_MOTOR_ON));
+	save_item(NAME(m_lastval));
+	save_item(NAME(m_address));
+	save_item(NAME(m_DSEL));
+	save_item(NAME(m_SIDSEL));
 }
 
 void snug_bwg_device::device_reset()
@@ -595,7 +616,6 @@ void snug_bwg_device::device_reset()
 	m_DSEL = 0;
 	m_WAITena = false;
 	m_selected = false;
-	m_debug_dataout = false;
 	m_rtc_enabled = false;
 	m_dataregLB = false;
 	m_lastK = false;

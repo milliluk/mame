@@ -1116,20 +1116,20 @@ public:
 	required_device<h8_adc_device> m_adc;
 	required_device<rtc4543_device> m_rtc;
 	required_device<namco_settings_device> m_settings;
-	required_shared_ptr<UINT16> m_sharedram;
+	required_shared_ptr<uint16_t> m_sharedram;
 
-	UINT16 m_n_bankoffset;
-	UINT32 m_n_dmaoffset;
-	UINT32 m_n_tektagdmaoffset;
+	uint16_t m_n_bankoffset;
+	uint32_t m_n_dmaoffset;
+	uint32_t m_n_tektagdmaoffset;
 	int m_has_tektagt_dma;
 
 	int m_ttt_cnt;
-	UINT32 m_ttt_val[2];
-	UINT8 m_sub_porta;
-	UINT8 m_sub_portb;
+	uint32_t m_ttt_val[2];
+	uint8_t m_sub_porta;
+	uint8_t m_sub_portb;
 
-	UINT8 m_jvssense;
-	UINT8 m_tssio_port_4;
+	uint8_t m_jvssense;
+	uint8_t m_tssio_port_4;
 
 	DECLARE_READ16_MEMBER(s12_mcu_p6_r);
 	DECLARE_READ16_MEMBER(iob_p4_r);
@@ -1160,7 +1160,7 @@ public:
 	DECLARE_DRIVER_INIT(ptblank2);
 	DECLARE_DRIVER_INIT(technodr);
 	inline void ATTR_PRINTF(3,4) verboselog( int n_level, const char *s_fmt, ... );
-	void namcos12_rom_read( UINT32 *p_n_psxram, UINT32 n_address, INT32 n_size );
+	void namcos12_rom_read( uint32_t *p_n_psxram, uint32_t n_address, int32_t n_size );
 	void namcos12_sub_irq( screen_device &screen, bool vblank_state );
 
 protected:
@@ -1225,19 +1225,19 @@ WRITE16_MEMBER(namcos12_state::dmaoffset_w)
 	verboselog(1, "dmaoffset_w( %08x, %08x, %08x ) %08x\n", offset, data, mem_mask, m_n_dmaoffset );
 }
 
-void namcos12_state::namcos12_rom_read( UINT32 *p_n_psxram, UINT32 n_address, INT32 n_size )
+void namcos12_state::namcos12_rom_read( uint32_t *p_n_psxram, uint32_t n_address, int32_t n_size )
 {
 	const char *n_region;
 	int n_offset;
 
-	INT32 n_romleft;
+	int32_t n_romleft;
 
-	UINT16 *source;
-	UINT16 *destination;
-	INT32 n_ramleft;
+	uint16_t *source;
+	uint16_t *destination;
+	int32_t n_ramleft;
 
 	// TODO: the check for going past the end of ram should be in dma.c
-	UINT32 m_n_psxramsize = m_ram->size();
+	uint32_t m_n_psxramsize = m_ram->size();
 
 	if(m_has_tektagt_dma && !m_n_dmaoffset)
 	{
@@ -1259,7 +1259,7 @@ void namcos12_state::namcos12_rom_read( UINT32 *p_n_psxram, UINT32 n_address, IN
 		verboselog(1, "namcos12_rom_read( %08x, %08x ) game %08x\n", n_address, n_size, n_offset );
 	}
 
-	source = (UINT16 *) memregion( n_region )->base();
+	source = (uint16_t *) memregion( n_region )->base();
 	n_romleft = ( memregion( n_region )->bytes() - n_offset ) / 4;
 	if( n_size > n_romleft )
 	{
@@ -1267,7 +1267,7 @@ void namcos12_state::namcos12_rom_read( UINT32 *p_n_psxram, UINT32 n_address, IN
 		n_size = n_romleft;
 	}
 
-	destination = (UINT16 *)p_n_psxram;
+	destination = (uint16_t *)p_n_psxram;
 
 	n_ramleft = ( m_n_psxramsize - n_address ) / 4;
 	if( n_size > n_ramleft )
@@ -1347,7 +1347,7 @@ WRITE16_MEMBER(namcos12_state::system11gun_w)
 
 READ16_MEMBER(namcos12_state::system11gun_r)
 {
-	UINT16 data = 0;
+	uint16_t data = 0;
 
 	switch (offset)
 	{
@@ -1507,8 +1507,8 @@ void namcos12_state::machine_reset()
 		strcmp( machine().system().name, "ghlpanic" ) == 0 )
 	{
 		/* HACK: this is based on guesswork, it might not even be keycus. */
-		UINT8 *rom = memregion( "maincpu:rom" )->base() + 0x20280;
-		UINT8 *ram = m_ram->pointer() + 0x10000;
+		uint8_t *rom = memregion( "maincpu:rom" )->base() + 0x20280;
+		uint8_t *ram = m_ram->pointer() + 0x10000;
 
 		memcpy( ram, rom, 12 );
 	}
@@ -1657,7 +1657,7 @@ DRIVER_INIT_MEMBER(namcos12_state,ptblank2)
 	DRIVER_INIT_CALL(namcos12);
 
 	/* HACK: patch out wait for dma 5 to complete */
-	*( (UINT32 *)( memregion( "maincpu:rom" )->base() + 0x331c4 ) ) = 0;
+	*( (uint32_t *)( memregion( "maincpu:rom" )->base() + 0x331c4 ) ) = 0;
 }
 
 DRIVER_INIT_MEMBER(namcos12_state,technodr)
@@ -1665,7 +1665,7 @@ DRIVER_INIT_MEMBER(namcos12_state,technodr)
 	DRIVER_INIT_CALL(namcos12);
 
 	// HACK: patch H8 to fix COIN ERROR
-	*( (UINT32 *)( memregion( "sub" )->base() + 0x14b6 ) ) = 0;
+	*( (uint32_t *)( memregion( "sub" )->base() + 0x14b6 ) ) = 0;
 }
 
 static MACHINE_CONFIG_START( coh700, namcos12_state )
@@ -1677,7 +1677,7 @@ static MACHINE_CONFIG_START( coh700, namcos12_state )
 	MCFG_RAM_MODIFY("maincpu:ram")
 	MCFG_RAM_DEFAULT_SIZE("4M")
 
-	MCFG_PSX_DMA_CHANNEL_READ( "maincpu", 5, psx_dma_read_delegate( FUNC( namcos12_state::namcos12_rom_read ), (namcos12_state *) owner ) )
+	MCFG_PSX_DMA_CHANNEL_READ( "maincpu", 5, psx_dma_read_delegate(&namcos12_state::namcos12_rom_read, (namcos12_state *) owner ))
 
 	MCFG_CPU_ADD("sub", H83002, 16934400) // frequency based on research (superctr)
 	MCFG_CPU_PROGRAM_MAP(s12h8rwmap)
@@ -1688,19 +1688,16 @@ static MACHINE_CONFIG_START( coh700, namcos12_state )
 	MCFG_RTC4543_ADD("rtc", XTAL_32_768kHz)
 	MCFG_RTC4543_DATA_CALLBACK(DEVWRITELINE("sub:sci1", h8_sci_device, rx_w))
 
-	MCFG_LINE_DISPATCH_ADD("clk_dispatch", 2)
-	MCFG_LINE_DISPATCH_FWD_CB(0, 2, DEVWRITELINE(":rtc", rtc4543_device, clk_w)) MCFG_DEVCB_INVERT
-	MCFG_LINE_DISPATCH_FWD_CB(1, 2, DEVWRITELINE(":namco_settings", namco_settings_device, clk_w))
-
 	MCFG_DEVICE_MODIFY("sub:sci1")
 	MCFG_H8_SCI_TX_CALLBACK(DEVWRITELINE(":namco_settings", namco_settings_device, data_w))
-	MCFG_H8_SCI_CLK_CALLBACK(DEVWRITELINE(":clk_dispatch", devcb_line_dispatch_device<2>, in_w))
+	MCFG_H8_SCI_CLK_CALLBACK(DEVWRITELINE(":rtc", rtc4543_device, clk_w)) MCFG_DEVCB_INVERT
+	MCFG_DEVCB_CHAIN_OUTPUT(DEVWRITELINE(":namco_settings", namco_settings_device, clk_w))
 
 	MCFG_AT28C16_ADD("at28c16", nullptr)
 
 	/* video hardware */
 	MCFG_PSXGPU_ADD( "maincpu", "gpu", CXD8654Q, 0x200000, XTAL_53_693175MHz )
-	MCFG_PSXGPU_VBLANK_CALLBACK( vblank_state_delegate( FUNC( namcos12_state::namcos12_sub_irq ), (namcos12_state *) owner ) )
+	MCFG_PSXGPU_VBLANK_CALLBACK(vblank_state_delegate(&namcos12_state::namcos12_sub_irq, (namcos12_state *) owner ) )
 
 	/* sound hardware */
 	MCFG_SPEAKER_STANDARD_STEREO("lspeaker", "rspeaker")
@@ -1776,7 +1773,7 @@ WRITE16_MEMBER(namcos12_state::iob_p4_w)
 READ16_MEMBER(namcos12_state::iob_p6_r)
 {
 	// d4 is service button
-	UINT8 sb = (ioport("SERVICE")->read() & 1) << 4;
+	uint8_t sb = (ioport("SERVICE")->read() & 1) << 4;
 	// other bits: unknown
 
 	return sb | 0;
@@ -2695,6 +2692,17 @@ ROM_START( tekken3 )
 	ROM_REGION( 0x1000000, "c352", 0 ) /* samples */
 	ROM_LOAD( "tet1wave0.5",         0x0000000, 0x400000, CRC(77ba7975) SHA1(fe9434dcf0fb232c85efaaae1b4b13d36099620a) )
 	ROM_LOAD( "tet1wave1.4",         0x0400000, 0x400000, CRC(ffeba79f) SHA1(941412bbe9d0305d9a23c224c1bb774c4321f6df) )
+
+	// Namco Cyber Lead cabinet JVS I/O and LED display controller
+	ROM_REGION(0x40000, "cabinet_io", 0)
+	// JVS I/O board (namco ltd.;I/O CYBER LEAD;Ver1.03;JPN,LED-0100)
+	// labels: CL1 I/OB, I/O LED (I/O) PCB
+	// ICs: Namco C77 H8/???? MCU, Atmel AT29C020 256k x8 FlashROM, NEC N341256 32k x8 SRAM, 14.7MHz Xtal, Altera EPM7064 labeled I/OLEDM1
+	ROM_LOAD("cl1-iob.ic5", 0x0000, 0x40000, CRC(abb90360) SHA1(d938b1e1ae596d0ab1007352f61b0b800363c762) )
+	// LED display controller, connected to above I/O
+	// labels: CL1 LEDA, I/O LED (LED) PCB
+	// ICs: same as above plus EPSON SED1351F LCD controller, 12MHz Xtal
+	ROM_LOAD("cl1-leda.ic5", 0x0000, 0x40000, CRC(43602a58) SHA1(64156ded8c43dbbe84b5d6ae13a068c8b18e8aed) )
 ROM_END
 
 ROM_START( tekken3ae )

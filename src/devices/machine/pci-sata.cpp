@@ -1,10 +1,11 @@
 // license:BSD-3-Clause
 // copyright-holders:Olivier Galibert
+#include "emu.h"
 #include "pci-sata.h"
 
 const device_type SATA = &device_creator<sata_device>;
 
-sata_device::sata_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+sata_device::sata_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: pci_device(mconfig, SATA, "SATA AHCI interface", tag, owner, clock, "sata", __FILE__)
 {
 }

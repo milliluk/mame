@@ -13,7 +13,6 @@
 #ifndef X68K_NEPTUNEX_H_
 #define X68K_NEPTUNEX_H_
 
-#include "emu.h"
 #include "machine/dp8390.h"
 #include "x68kexp.h"
 
@@ -24,7 +23,7 @@ class x68k_neptune_device : public device_t,
 {
 public:
 	// construction/destruction
-	x68k_neptune_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	x68k_neptune_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual machine_config_constructor device_mconfig_additions() const override;
@@ -44,8 +43,8 @@ private:
 	x68k_expansion_slot_device *m_slot;
 
 	required_device<dp8390d_device> m_dp8390;
-	UINT8 m_board_ram[16*1024];
-	UINT8 m_prom[16];
+	uint8_t m_board_ram[16*1024];
+	uint8_t m_prom[16];
 };
 
 // device type definition

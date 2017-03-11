@@ -135,8 +135,8 @@ void iteagle_state::machine_start()
 	m_maincpu->mips3drc_set_options(MIPS3DRC_FASTEST_OPTIONS);
 
 	/* configure fast RAM regions for DRC */
-	//m_maincpu->mips3drc_add_fastram(0x00000000, 16*1024*1024-1, FALSE, m_rambase);
-	//m_maincpu->mips3drc_add_fastram(0x1fc00000, 0x1fc7ffff, TRUE, m_rombase);
+	//m_maincpu->mips3drc_add_fastram(0x00000000, 16*1024*1024-1, false, m_rambase);
+	//m_maincpu->mips3drc_add_fastram(0x1fc00000, 0x1fc7ffff, true, m_rombase);
 }
 
 void iteagle_state::machine_reset()
@@ -183,7 +183,7 @@ MACHINE_CONFIG_END
 
 static MACHINE_CONFIG_DERIVED( gtfore01, iteagle )
 	MCFG_DEVICE_MODIFY(PCI_ID_FPGA)
-	MCFG_ITEAGLE_FPGA_INIT(0x00000401, 0x0b0b0b)
+	MCFG_ITEAGLE_FPGA_INIT(0x01000401, 0x0b0b0b)
 	MCFG_DEVICE_MODIFY(PCI_ID_EEPROM)
 	MCFG_ITEAGLE_EEPROM_INIT(0x0401, 0x7)
 MACHINE_CONFIG_END
@@ -290,8 +290,8 @@ static INPUT_PORTS_START( iteagle )
 	PORT_BIT( 0xfe00, IP_ACTIVE_LOW, IPT_UNKNOWN )
 
 	PORT_START("SYSTEM")
-	PORT_BIT( 0x0001, IP_ACTIVE_LOW, IPT_TILT ) PORT_NAME( "Test" )
-	PORT_BIT( 0x0002, IP_ACTIVE_LOW, IPT_SERVICE )
+	PORT_BIT( 0x0001, IP_ACTIVE_LOW, IPT_SERVICE ) PORT_NAME( "Service" )
+	PORT_BIT( 0x0002, IP_ACTIVE_LOW, IPT_SERVICE1 )
 	PORT_BIT( 0x000c, IP_ACTIVE_LOW, IPT_UNKNOWN )
 	PORT_DIPNAME( 0x0010, 0x00, "SW51-1" )
 	PORT_DIPSETTING(0x00, "Normal" )

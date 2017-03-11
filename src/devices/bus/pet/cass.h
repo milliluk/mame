@@ -20,7 +20,6 @@
 #ifndef __PET_DATASSETTE_PORT__
 #define __PET_DATASSETTE_PORT__
 
-#include "emu.h"
 
 
 
@@ -57,7 +56,7 @@ class pet_datassette_port_device : public device_t,
 {
 public:
 	// construction/destruction
-	pet_datassette_port_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	pet_datassette_port_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	virtual ~pet_datassette_port_device();
 
 	// static configuration helpers

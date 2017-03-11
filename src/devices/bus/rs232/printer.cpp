@@ -1,8 +1,9 @@
 // license:BSD-3-Clause
 // copyright-holders:smf
+#include "emu.h"
 #include "printer.h"
 
-serial_printer_device::serial_printer_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+serial_printer_device::serial_printer_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, SERIAL_PRINTER, "Serial Printer", tag, owner, clock, "serial_printer", __FILE__),
 	device_serial_interface(mconfig, *this),
 	device_rs232_port_interface(mconfig, *this),

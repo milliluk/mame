@@ -194,6 +194,7 @@
 
 ***************************************************************************/
 
+#include "emu.h"
 #include "genboard.h"
 
 #define TRACE_READ 0
@@ -209,26 +210,49 @@
 #define SRAM_PAR_TAG  ":sram"
 #define DRAM_PAR_TAG  ":dram"
 
-geneve_mapper_device::geneve_mapper_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+geneve_mapper_device::geneve_mapper_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 : device_t(mconfig, GENEVE_MAPPER, "Geneve Gate Array", tag, owner, clock, "geneve_mapper", __FILE__), m_gromwaddr_LSB(false),
-	m_gromraddr_LSB(false), m_grom_address(0), m_video_waitstates(false),
-	m_extra_waitstates(false), m_ready_asserted(false), m_read_mode(false),
-	m_debug_no_ws(false), m_geneve_mode(false), m_direct_mode(false),
-	m_cartridge_size(0), m_cartridge_secondpage(false),
-	m_cartridge6_writable(false), m_cartridge7_writable(false),
-	m_turbo(false), m_genmod(false), m_timode(false), m_pfm_mode(0),
-	m_pfm_bank(0), m_pfm_output_enable(false), m_sram_mask(0), m_sram_val(0),
-	m_ready(*this), m_waitcount(0), m_ext_waitcount(0),
-	m_clock(nullptr), m_cpu(nullptr), m_pfm512(nullptr),
-	m_pfm512a(nullptr), m_sound(nullptr), m_keyboard(nullptr),
-	m_video(nullptr), m_peribox(nullptr), m_sram(*this, SRAM_PAR_TAG), m_dram(*this, DRAM_PAR_TAG)
+	m_gromraddr_LSB(false),
+	m_grom_address(0),
+	m_video_waitstates(false),
+	m_extra_waitstates(false),
+	m_ready_asserted(false),
+	m_read_mode(false),
+	m_debug_no_ws(false),
+	m_geneve_mode(false),
+	m_direct_mode(false),
+	m_cartridge_size(0),
+	m_cartridge_secondpage(false),
+	m_cartridge6_writable(false),
+	m_cartridge7_writable(false),
+	m_turbo(false),
+	m_genmod(false),
+	m_timode(false),
+	m_pfm_mode(0),
+	m_pfm_bank(0),
+	m_pfm_output_enable(false),
+	m_sram_mask(0),
+	m_sram_val(0),
+	m_ready(*this),
+	m_waitcount(0),
+	m_ext_waitcount(0),
+	m_clock(*owner, GCLOCK_TAG),
+	m_cpu(*owner, "maincpu"),
+	m_pfm512(*owner, PFM512_TAG),
+	m_pfm512a(*owner, PFM512A_TAG),
+	m_sound(*owner, TISOUNDCHIP_TAG),
+	m_keyboard(*owner, GKEYBOARD_TAG),
+	m_video(*owner, VDP_TAG),
+	m_peribox(*owner, PERIBOX_TAG),
+	m_sram(*this, SRAM_PAR_TAG),
+	m_dram(*this, DRAM_PAR_TAG)
 {
 	m_eprom = nullptr;
 }
 
 INPUT_CHANGED_MEMBER( geneve_mapper_device::settings_changed )
 {
-	int number = (int)((UINT64)param&0x03);
+	int number = (int)((uint64_t)param&0x03);
 	int value = newval;
 
 	switch (number)
@@ -265,7 +289,7 @@ INPUT_CHANGED_MEMBER( geneve_mapper_device::settings_changed )
 */
 READ8_MEMBER( geneve_mapper_device::read_grom )
 {
-	UINT8 reply;
+	uint8_t reply;
 	if (offset & 0x0002)
 	{
 		// GROM address handling
@@ -312,7 +336,7 @@ WRITE8_MEMBER( geneve_mapper_device::write_grom )
 		}
 		else
 		{
-			m_grom_address = (m_grom_address & 0x00ff) | ((UINT16)data<<8);
+			m_grom_address = (m_grom_address & 0x00ff) | ((uint16_t)data<<8);
 			m_gromwaddr_LSB = true;
 		}
 	}
@@ -457,7 +481,7 @@ enum
 */
 READ8_MEMBER( geneve_mapper_device::readm )
 {
-	UINT8 value = 0;
+	uint8_t value = 0;
 
 	decdata *dec;
 	decdata debug;
@@ -1225,7 +1249,7 @@ void geneve_mapper_device::decode(address_space& space, offs_t offset, bool read
 */
 READ8_MEMBER( geneve_mapper_device::read_from_pfm )
 {
-	UINT8 value;
+	uint8_t value;
 	if (!m_pfm_output_enable) return 0;
 
 	int address = (offset & 0x01ffff) | (m_pfm_bank<<17);
@@ -1384,22 +1408,40 @@ WRITE_LINE_MEMBER( geneve_mapper_device::pfm_output_enable )
 
 void geneve_mapper_device::device_start()
 {
-	// Get pointers
-	m_peribox = machine().device<peribox_device>(PERIBOX_TAG);
-	m_keyboard = machine().device<geneve_keyboard_device>(GKEYBOARD_TAG);
-	m_video = machine().device<v9938_device>(VDP_TAG);
-	m_sound = machine().device<sn76496_base_device>(TISOUNDCHIP_TAG);
-	m_clock = machine().device<mm58274c_device>(GCLOCK_TAG);
-
-	// PFM expansion
-	m_pfm512 = machine().device<at29c040_device>(PFM512_TAG);
-	m_pfm512a = machine().device<at29c040a_device>(PFM512A_TAG);
-
 	m_ready.resolve();
-	m_cpu = static_cast<tms9995_device*>(machine().device("maincpu"));
 
 	m_geneve_mode = false;
 	m_direct_mode = true;
+
+	// State registration
+	save_item(NAME(m_gromwaddr_LSB));
+	save_item(NAME(m_gromraddr_LSB));
+	save_item(NAME(m_grom_address));
+	save_item(NAME(m_video_waitstates));
+	save_item(NAME(m_extra_waitstates));
+	save_item(NAME(m_ready_asserted));
+	save_item(NAME(m_read_mode));
+	save_item(NAME(m_debug_no_ws));
+	save_item(NAME(m_geneve_mode));
+	save_item(NAME(m_direct_mode));
+	save_item(NAME(m_cartridge_size));
+	save_item(NAME(m_cartridge_secondpage));
+	save_item(NAME(m_cartridge6_writable));
+	save_item(NAME(m_cartridge7_writable));
+	save_pointer(NAME(m_map), 8);
+	save_item(NAME(m_decoded.function));
+	save_item(NAME(m_decoded.offset));
+	save_item(NAME(m_decoded.physaddr));
+	save_item(NAME(m_turbo));
+	save_item(NAME(m_genmod));
+	save_item(NAME(m_timode));
+	save_item(NAME(m_pfm_mode));
+	save_item(NAME(m_pfm_bank));
+	save_item(NAME(m_pfm_output_enable));
+	save_item(NAME(m_sram_mask));
+	save_item(NAME(m_sram_val));
+	save_item(NAME(m_waitcount));
+	save_item(NAME(m_ext_waitcount));
 }
 
 void geneve_mapper_device::device_reset()
@@ -1474,7 +1516,7 @@ const device_type GENEVE_MAPPER = &device_creator<geneve_mapper_device>;
 
 static const char *const KEYNAMES[] = { "KEY0", "KEY1", "KEY2", "KEY3", "KEY4", "KEY5", "KEY6", "KEY7" };
 
-static const UINT8 MF1_CODE[0xe] =
+static const uint8_t MF1_CODE[0xe] =
 {
 	/* extended keys that are equivalent to non-extended keys */
 	0x1c,   /* keypad enter */
@@ -1502,7 +1544,7 @@ static const UINT8 MF1_CODE[0xe] =
 	0x53    /* delete */
 };
 
-geneve_keyboard_device::geneve_keyboard_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+geneve_keyboard_device::geneve_keyboard_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 : device_t(mconfig, GENEVE_KEYBOARD, "Geneve XT-style keyboard", tag, owner, clock, "geneve_keyboard", __FILE__),
 	m_interrupt(*this), m_key_reset(false), m_key_queue_length(0), m_key_queue_head(0), m_key_in_buffer(false), m_key_numlock_state(false), m_key_ctrl_state(0), m_key_alt_state(0),
 	m_key_real_shift_state(0), m_key_fake_shift_state(false), m_key_fake_unshift_state(false), m_key_autorepeat_key(0), m_key_autorepeat_timer(0), m_keep_keybuf(false),
@@ -1525,8 +1567,8 @@ void geneve_keyboard_device::device_timer(emu_timer &timer, device_timer_id id, 
 
 void geneve_keyboard_device::poll()
 {
-	UINT32 keystate;
-	UINT32 key_transitions;
+	uint32_t keystate;
+	uint32_t key_transitions;
 	int i, j;
 	int keycode;
 	int pressed;
@@ -1724,7 +1766,7 @@ void geneve_keyboard_device::poll()
 	}
 }
 
-UINT8 geneve_keyboard_device::get_recent_key()
+uint8_t geneve_keyboard_device::get_recent_key()
 {
 	if (m_key_in_buffer) return m_key_queue[m_key_queue_head];
 	else return 0;
@@ -1798,6 +1840,24 @@ void geneve_keyboard_device::device_start()
 {
 	m_timer = timer_alloc(0);
 	m_interrupt.resolve();
+
+	// State registration
+	save_item(NAME(m_key_reset));
+	save_item(NAME(m_key_queue_length));
+	save_item(NAME(m_key_queue_head));
+	save_item(NAME(m_key_in_buffer));
+	save_item(NAME(m_key_numlock_state));
+	save_item(NAME(m_key_ctrl_state));
+	save_item(NAME(m_key_alt_state));
+	save_item(NAME(m_key_real_shift_state));
+	save_item(NAME(m_key_fake_shift_state));
+	save_item(NAME(m_key_fake_unshift_state));
+	save_item(NAME(m_key_autorepeat_key));
+	save_item(NAME(m_key_autorepeat_timer));
+	save_item(NAME(m_keep_keybuf));
+	save_item(NAME(m_keyboard_clock));
+	save_pointer(NAME(m_key_queue),KEYQUEUESIZE);
+	save_pointer(NAME(m_key_state_save),4);
 }
 
 void geneve_keyboard_device::device_reset()
@@ -1955,7 +2015,7 @@ const device_type GENEVE_KEYBOARD = &device_creator<geneve_keyboard_device>;
     Mouse support
 ****************************************************************************/
 
-geneve_mouse_device::geneve_mouse_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+geneve_mouse_device::geneve_mouse_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 : device_t(mconfig, GENEVE_MOUSE, "Geneve mouse", tag, owner, clock, "geneve_mouse", __FILE__), m_v9938(nullptr), m_last_mx(0), m_last_my(0)
 {
 }

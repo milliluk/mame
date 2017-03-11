@@ -15,6 +15,7 @@ ToDo:
 
 ********************************************************************************/
 
+#include "emu.h"
 #include "machine/genpin.h"
 #include "cpu/z80/z80.h"
 #include "machine/i8255.h"
@@ -41,8 +42,8 @@ public:
 	TIMER_DEVICE_CALLBACK_MEMBER(timer_a);
 private:
 	bool m_timer_a;
-	UINT8 m_sndcmd;
-	UINT8 m_digit;
+	uint8_t m_sndcmd;
+	uint8_t m_digit;
 	virtual void machine_reset() override;
 	required_device<cpu_device> m_maincpu;
 	required_device<cpu_device> m_cpu2;
@@ -114,7 +115,7 @@ WRITE8_MEMBER( jeutel_state::porta_w )
 
 WRITE8_MEMBER( jeutel_state::ppi0a_w )
 {
-	UINT16 segment;
+	uint16_t segment;
 	bool blank = !BIT(data, 7);
 
 	if (BIT(data, 6))

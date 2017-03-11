@@ -1,5 +1,6 @@
 // license:BSD-3-Clause
 // copyright-holders:Curt Coder
+#include "emu.h"
 #include "includes/cidelsa.h"
 
 /* CDP1802 Interface */
@@ -355,7 +356,7 @@ void cidelsa_state::device_timer(emu_timer &timer, device_timer_id id, int param
 		m_reset = 1;
 		break;
 	default:
-		assert_always(FALSE, "Unknown id in cidelsa_state::device_timer");
+		assert_always(false, "Unknown id in cidelsa_state::device_timer");
 	}
 }
 

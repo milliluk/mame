@@ -11,7 +11,6 @@
 #ifndef __PET_USER_DIAG__
 #define __PET_USER_DIAG__
 
-#include "emu.h"
 #include "user.h"
 
 
@@ -27,7 +26,7 @@ class pet_userport_diagnostic_connector_t : public device_t,
 {
 public:
 	// construction/destruction
-	pet_userport_diagnostic_connector_t(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	pet_userport_diagnostic_connector_t(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// device_pet_user_port_interface overrides
 	virtual DECLARE_WRITE_LINE_MEMBER( input_2 ) override { output_b(state); }

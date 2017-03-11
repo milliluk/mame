@@ -9,7 +9,6 @@
 #ifndef __TMS6100_H__
 #define __TMS6100_H__
 
-#include "emu.h"
 
 
 //**************************************************************************
@@ -94,8 +93,8 @@
 class tms6100_device : public device_t
 {
 public:
-	tms6100_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
-	tms6100_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
+	tms6100_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock);
+	tms6100_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, u32 clock, const char *shortname, const char *source);
 
 	static void enable_4bit_mode(device_t &device) { downcast<tms6100_device &>(device).m_4bit_mode = true; }
 
@@ -113,34 +112,34 @@ protected:
 	// device-level overrides
 	virtual void device_start() override;
 
-	void handle_command(UINT8 cmd);
+	void handle_command(u8 cmd);
 
 	// internal state
-	required_region_ptr<UINT8> m_rom;
+	required_region_ptr<u8> m_rom;
 	bool m_reverse_bits;
 	bool m_4bit_mode;
 
-	UINT32 m_rommask;
-	UINT32 m_address;   // internal address + chipselect
-	UINT8 m_sa;         // romdata shift register
-	UINT8 m_count;      // TB/LA counter (-> PLA)
-	UINT8 m_prev_cmd;   // previous handled command
-	UINT8 m_prev_m;     // previous valid m0/m1 state
+	u32 m_rommask;
+	u32 m_address; // internal address + chipselect
+	u8 m_sa;       // romdata shift register
+	u8 m_count;    // TB/LA counter (-> PLA)
+	u8 m_prev_cmd; // previous handled command
+	u8 m_prev_m;   // previous valid m0/m1 state
 
-	UINT8 m_add;        // ADD/DATA pins input
-	UINT8 m_data;       // ADD/DATA pins output
+	u8 m_add;      // ADD/DATA pins input
+	u8 m_data;     // ADD/DATA pins output
 	int m_m0;
 	int m_m1;
-	int m_cs;           // chipselect pin
-	int m_clk;          // CLK pin
-	int m_rck;          // RCK pin (mask/gate to CLK?)
+	int m_cs;      // chipselect pin
+	int m_clk;     // CLK pin
+	int m_rck;     // RCK pin (mask/gate to CLK?)
 };
 
 
 class m58819_device : public tms6100_device
 {
 public:
-	m58819_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	m58819_device(const machine_config &mconfig, const char *tag, device_t *owner, u32 clock);
 
 protected:
 	// device-level overrides

@@ -1,5 +1,6 @@
 // license:BSD-3-Clause
 // copyright-holders:Curt Coder
+#include "emu.h"
 #include "includes/kyocera.h"
 #include "rendlay.h"
 
@@ -15,7 +16,7 @@ PALETTE_INIT_MEMBER(tandy200_state,tandy200)
 	palette.set_pen_color(1, rgb_t(92, 83, 88));
 }
 
-UINT32 kc85_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t kc85_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	m_lcdc0->screen_update(screen, bitmap, cliprect);
 	m_lcdc1->screen_update(screen, bitmap, cliprect);
@@ -31,7 +32,7 @@ UINT32 kc85_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, co
 	return 0;
 }
 
-UINT32 tandy200_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t tandy200_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
 	m_lcdc->screen_update(screen, bitmap, cliprect);
 

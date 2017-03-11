@@ -5,7 +5,6 @@
 #ifndef __KC_D002_H__
 #define __KC_D002_H__
 
-#include "emu.h"
 #include "kc.h"
 #include "ram.h"
 #include "rom.h"
@@ -23,7 +22,7 @@ class kc_d002_device :
 {
 public:
 	// construction/destruction
-	kc_d002_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	kc_d002_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual machine_config_constructor device_mconfig_additions() const override;
@@ -40,10 +39,10 @@ protected:
 	virtual void device_reset() override;
 
 	// kcexp_interface overrides
-	virtual void read(offs_t offset, UINT8 &data) override;
-	virtual void write(offs_t offset, UINT8 data) override;
-	virtual void io_read(offs_t offset, UINT8 &data) override;
-	virtual void io_write(offs_t offset, UINT8 data) override;
+	virtual void read(offs_t offset, uint8_t &data) override;
+	virtual void write(offs_t offset, uint8_t data) override;
+	virtual void io_read(offs_t offset, uint8_t &data) override;
+	virtual void io_write(offs_t offset, uint8_t data) override;
 	virtual DECLARE_WRITE_LINE_MEMBER( mei_w ) override;
 
 private:

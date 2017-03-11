@@ -13,7 +13,6 @@
 #ifndef __DS1315_H__
 #define __DS1315_H__
 
-#include "emu.h"
 
 
 /***************************************************************************
@@ -31,7 +30,7 @@ ALLOW_SAVE_TYPE(ds1315_mode_t);
 class ds1315_device : public device_t
 {
 public:
-	ds1315_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	ds1315_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	~ds1315_device() {}
 
 	DECLARE_READ8_MEMBER(read_0);
@@ -44,7 +43,6 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_config_complete() override;
 	virtual void device_start() override;
 	virtual void device_reset() override;
 
@@ -56,7 +54,7 @@ private:
 	void input_raw_data();
 
 	int m_count;
-	UINT8 m_raw_data[8*8];
+	uint8_t m_raw_data[8*8];
 };
 
 extern const device_type DS1315;

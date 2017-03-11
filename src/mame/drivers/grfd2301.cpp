@@ -39,19 +39,18 @@ class grfd2301_state : public driver_device
 public:
 	grfd2301_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag)
-	, m_p_videoram(*this, "videoram")
-	, m_maincpu(*this, "maincpu")
-	{ }
+		, m_p_videoram(*this, "videoram")
+		, m_maincpu(*this, "maincpu")
+		, m_p_chargen(*this, "chargen")
+		{ }
 
-public:
-	virtual void machine_reset() override;
-	const UINT8 *m_p_chargen;
-	UINT32 screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
-	required_shared_ptr<UINT8> m_p_videoram;
+	uint32_t screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+
 private:
+	virtual void machine_reset() override;
+	required_shared_ptr<uint8_t> m_p_videoram;
 	required_device<cpu_device> m_maincpu;
-
-
+	required_region_ptr<u8> m_p_chargen;
 };
 
 static ADDRESS_MAP_START( grfd2301_mem, AS_PROGRAM, 8, grfd2301_state )
@@ -69,20 +68,19 @@ INPUT_PORTS_END
 
 void grfd2301_state::machine_reset()
 {
-	m_p_chargen = memregion("chargen")->base();
 	m_maincpu->set_pc(0xe000);
 }
 
-UINT32 grfd2301_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
+uint32_t grfd2301_state::screen_update(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
-	UINT8 y,ra,chr,gfx;
-	UINT16 sy=0,ma=0,x;
+	uint8_t y,ra,chr,gfx;
+	uint16_t sy=0,ma=0,x;
 
 	for (y = 0; y < 24; y++)
 	{
 		for (ra = 0; ra < 10; ra++)
 		{
-			UINT16 *p = &bitmap.pix16(sy++);
+			uint16_t *p = &bitmap.pix16(sy++);
 
 			for (x = 0; x < 80; x++)
 			{

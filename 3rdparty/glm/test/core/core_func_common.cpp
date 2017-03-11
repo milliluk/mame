@@ -1,34 +1,3 @@
-///////////////////////////////////////////////////////////////////////////////////
-/// OpenGL Mathematics (glm.g-truc.net)
-///
-/// Copyright (c) 2005 - 2015 G-Truc Creation (www.g-truc.net)
-/// Permission is hereby granted, free of charge, to any person obtaining a copy
-/// of this software and associated documentation files (the "Software"), to deal
-/// in the Software without restriction, including without limitation the rights
-/// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-/// copies of the Software, and to permit persons to whom the Software is
-/// furnished to do so, subject to the following conditions:
-/// 
-/// The above copyright notice and this permission notice shall be included in
-/// all copies or substantial portions of the Software.
-/// 
-/// Restrictions:
-///		By making use of the Software for military purposes, you choose to make
-///		a Bunny unhappy.
-/// 
-/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-/// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-/// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-/// THE SOFTWARE.
-///
-/// @file test/core/func_common.cpp
-/// @date 2011-01-15 / 2011-09-13
-/// @author Christophe Riccio
-///////////////////////////////////////////////////////////////////////////////////
-
 #define GLM_FORCE_EXPLICIT_CTOR
 #include <glm/common.hpp>
 #include <glm/gtc/constants.hpp>
@@ -375,7 +344,7 @@ namespace clamp_
 
 namespace mix_
 {
-	template <typename T, typename B>
+	template<typename T, typename B>
 	struct entry
 	{
 		T x;
@@ -444,7 +413,7 @@ namespace mix_
 
 	entry<glm::vec4, glm::bvec4> TestBVec4[] = 
 	{
-		{glm::vec4(0.0f), glm::vec4(1.0f), glm::bvec4(false), glm::vec4(0.0f)},
+		{glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), glm::vec4(2.0f, 2.0f, 3.0f, 3.0f), glm::bvec4(false, true, false, true), glm::vec4(0.0f, 2.0f, 1.0f, 3.0f)},
 		{glm::vec4(0.0f), glm::vec4(1.0f), glm::bvec4(true), glm::vec4(1.0f)},
 		{glm::vec4(-1.0f), glm::vec4(1.0f), glm::bvec4(false), glm::vec4(-1.0f)},
 		{glm::vec4(-1.0f), glm::vec4(1.0f), glm::bvec4(true), glm::vec4(1.0f)},
@@ -545,7 +514,7 @@ namespace mix_
 
 namespace step_
 {
-	template <typename EDGE, typename VEC>
+	template<typename EDGE, typename VEC>
 	struct entry
 	{
 		EDGE edge;
@@ -555,8 +524,8 @@ namespace step_
 
 	entry<float, glm::vec4> TestVec4Scalar [] =
 	{
-		{ 0.0f, glm::vec4(1.0f, 2.0f, 3.0f, 4.0f), glm::vec4(1.0f) },
 		{ 1.0f, glm::vec4(1.0f, 2.0f, 3.0f, 4.0f), glm::vec4(1.0f) },
+		{ 0.0f, glm::vec4(1.0f, 2.0f, 3.0f, 4.0f), glm::vec4(1.0f) },
 		{ 0.0f, glm::vec4(-1.0f, -2.0f, -3.0f, -4.0f), glm::vec4(0.0f) }
 	};
 
@@ -848,7 +817,7 @@ namespace isinf_
 
 namespace sign
 {
-	template <typename genFIType> 
+	template<typename genFIType> 
 	GLM_FUNC_QUALIFIER genFIType sign_if(genFIType x)
 	{
 		GLM_STATIC_ASSERT(
@@ -865,7 +834,7 @@ namespace sign
 		return result;
 	}
 
-	template <typename genFIType> 
+	template<typename genFIType> 
 	GLM_FUNC_QUALIFIER genFIType sign_alu1(genFIType x)
 	{
 		GLM_STATIC_ASSERT(
@@ -875,7 +844,7 @@ namespace sign
 		return (x >> 31) | ((unsigned)-x >> 31);
 	}
 
-	template <typename genFIType> 
+	template<typename genFIType> 
 	GLM_FUNC_QUALIFIER genFIType sign_alu2(genFIType x)
 	{
 		GLM_STATIC_ASSERT(
@@ -885,7 +854,7 @@ namespace sign
 		return -((unsigned)x >> 31) | (-(unsigned)x >> 31);
 	}
 
-	template <typename genFIType> 
+	template<typename genFIType> 
 	GLM_FUNC_QUALIFIER genFIType sign_sub(genFIType x)
 	{
 		GLM_STATIC_ASSERT(
@@ -895,7 +864,7 @@ namespace sign
 		return ((unsigned)-x >> 31) - ((unsigned)x >> 31);
 	}
 
-	template <typename genFIType> 
+	template<typename genFIType> 
 	GLM_FUNC_QUALIFIER genFIType sign_cmp(genFIType x)
 	{
 		GLM_STATIC_ASSERT(
@@ -905,7 +874,7 @@ namespace sign
 		return (x > 0) - (x < 0);
 	}
 
-	template <typename genType>
+	template<typename genType>
 	struct type
 	{
 		genType		Value;
@@ -986,12 +955,37 @@ namespace sign
 		return Error;
 	}
 
+	int test_f32vec4()
+	{
+		type<glm::vec4> const Data[] =
+		{
+			{glm::vec4( 1), glm::vec4( 1)},
+			{glm::vec4( 0), glm::vec4( 0)},
+			{glm::vec4( 2), glm::vec4( 1)},
+			{glm::vec4( 3), glm::vec4( 1)},
+			{glm::vec4(-1), glm::vec4(-1)},
+			{glm::vec4(-2), glm::vec4(-1)},
+			{glm::vec4(-3), glm::vec4(-1)}
+		};
+
+		int Error = 0;
+
+		for(std::size_t i = 0; i < sizeof(Data) / sizeof(type<glm::vec4>); ++i)
+		{
+			glm::vec4 Result = glm::sign(Data[i].Value);
+			Error += glm::all(glm::equal(Data[i].Return, Result)) ? 0 : 1;
+		}
+
+		return Error;
+	}
+
 	int test()
 	{
 		int Error = 0;
 
 		Error += test_int32();
 		Error += test_i32vec4();
+		Error += test_f32vec4();
 
 		return Error;
 	}
@@ -1235,7 +1229,21 @@ namespace ldexp_
 
 int main()
 {
-	int Error(0);
+	int Error = 0;
+
+	glm::ivec4 const a(1);
+	glm::ivec4 const b = ~a;
+
+	glm::int32 const c(1);
+	glm::int32 const d = ~c;
+
+#	if GLM_ARCH & GLM_ARCH_AVX_BIT && GLM_HAS_UNRESTRICTED_UNIONS
+	glm_vec4 const A = _mm_set_ps(4, 3, 2, 1);
+	glm_vec4 const B = glm_vec4_swizzle_xyzw(A);
+	glm_vec4 const C = _mm_permute_ps(A, _MM_SHUFFLE(3, 2, 1, 0));
+	glm_vec4 const D = _mm_permute_ps(A, _MM_SHUFFLE(0, 1, 2, 3));
+	glm_vec4 const E = _mm_shuffle_ps(A, A, _MM_SHUFFLE(0, 1, 2, 3));
+#	endif
 
 	Error += sign::test();
 	Error += floor_::test();
@@ -1243,10 +1251,10 @@ int main()
 	Error += modf_::test();
 	Error += floatBitsToInt::test();
 	Error += floatBitsToUint::test();
+	Error += mix_::test();
 	Error += step_::test();
 	Error += max_::test();
 	Error += min_::test();
-	Error += mix_::test();
 	Error += round_::test();
 	Error += roundEven::test();
 	Error += isnan_::test();

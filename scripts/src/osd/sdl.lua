@@ -113,7 +113,8 @@ function maintargetosdoptions(_target,_subtarget)
 	configuration { "mingw*" or "vs*" }
 		targetprefix "sdl"
 		links {
-			"psapi"
+			"psapi",
+			"Ole32",
 		}
 	configuration { }
 
@@ -422,7 +423,6 @@ project ("osd_" .. _OPTIONS["osd"])
 		MAME_DIR .. "src/osd/sdl/sdlmain.cpp",
 		MAME_DIR .. "src/osd/osdepend.h",
 		MAME_DIR .. "src/osd/sdl/video.cpp",
-		MAME_DIR .. "src/osd/sdl/video.h",
 		MAME_DIR .. "src/osd/sdl/window.cpp",
 		MAME_DIR .. "src/osd/sdl/window.h",
 		MAME_DIR .. "src/osd/modules/osdwindow.cpp",

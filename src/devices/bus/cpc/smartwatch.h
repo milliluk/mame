@@ -12,7 +12,6 @@
 #ifndef SMARTWATCH_H_
 #define SMARTWATCH_H_
 
-#include "emu.h"
 #include "cpcexp.h"
 #include "machine/ds1315.h"
 
@@ -21,7 +20,7 @@ class cpc_smartwatch_device   : public device_t,
 {
 public:
 	// construction/destruction
-	cpc_smartwatch_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	cpc_smartwatch_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual machine_config_constructor device_mconfig_additions() const override;

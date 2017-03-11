@@ -275,7 +275,9 @@ static MACHINE_CONFIG_START( carpolo, carpolo_state )
 	MCFG_DEVICE_ADD("74148_3s", TTL74148, 0)
 	MCFG_74148_OUTPUT_CB(carpolo_state, ttl74148_3s_cb)
 
-	MCFG_DEVICE_ADD("74153_1k", TTL74153, 0)
+	MCFG_TTL153_ADD("74153_1k")
+	MCFG_TTL153_ZA_CB(WRITELINE(carpolo_state, ls153_za_w)) // pia1 pb5
+	MCFG_TTL153_ZB_CB(WRITELINE(carpolo_state, ls153_zb_w)) // pia1 pb4
 
 	/* video hardware */
 	MCFG_SCREEN_ADD("screen", RASTER)
@@ -344,7 +346,7 @@ ROM_END
 DRIVER_INIT_MEMBER(carpolo_state,carpolo)
 {
 	size_t i, len;
-	UINT8 *ROM;
+	uint8_t *ROM;
 
 
 	/* invert gfx PROM since the bits are active LO */

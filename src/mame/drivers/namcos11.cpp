@@ -332,13 +332,13 @@ protected:
 	virtual void driver_start() override;
 
 private:
-	required_shared_ptr<UINT16> m_sharedram;
+	required_shared_ptr<uint16_t> m_sharedram;
 	required_device<cpu_device> m_maincpu;
 	required_device<cpu_device> m_mcu;
 
 	memory_bank *m_bank[8];
-	UINT32 m_n_bankoffset;
-	UINT8 m_su_83;
+	uint32_t m_n_bankoffset;
+	uint8_t m_su_83;
 
 	inline void ATTR_PRINTF(3,4) verboselog( int n_level, const char *s_fmt, ... );
 };
@@ -397,7 +397,7 @@ WRITE16_MEMBER(namcos11_state::lightgun_w)
 
 READ16_MEMBER(namcos11_state::lightgun_r)
 {
-	UINT16 data = 0;
+	uint16_t data = 0;
 
 	switch( offset )
 	{
@@ -537,7 +537,7 @@ void namcos11_state::driver_start()
 	memory_region *bankedroms = memregion( "bankedroms" );
 	if( bankedroms != nullptr )
 	{
-		UINT8 *base = bankedroms->base();
+		uint8_t *base = bankedroms->base();
 		int entries = bankedroms->bytes() / ( 1024 * 1024 );
 
 		static const char * const bankname[] = { "bank1", "bank2", "bank3", "bank4", "bank5", "bank6", "bank7", "bank8" };
@@ -1188,7 +1188,7 @@ ROM_START( primglex )
 	ROM_LOAD( "pg1sprog.6d",  0x0000000, 0x040000, CRC(e7c3396d) SHA1(12bbb8ebcaab1b40462a12917dd9b58bd9ab8663) )
 
 	ROM_REGION( 0x1000000, "c352", 0 ) /* samples */
-	ROM_LOAD( "pg1wave.8k",   0x0000000, 0x400000, CRC(fc9ad9eb) SHA1(ce5bb2288ed8cf1348825c39423cbb99d9324b9c) )
+	ROM_LOAD16_WORD_SWAP( "pg1wave.8k",   0x0000000, 0x400000, CRC(fc9ad9eb) SHA1(ce5bb2288ed8cf1348825c39423cbb99d9324b9c) )
 	ROM_RELOAD( 0x800000, 0x400000 )
 ROM_END
 

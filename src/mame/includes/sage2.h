@@ -1,7 +1,6 @@
 // license:BSD-3-Clause
 // copyright-holders:Curt Coder
 
-#include "emu.h"
 #include "cpu/m68000/m68000.h"
 #include "bus/centronics/ctronics.h"
 #include "machine/i8251.h"
@@ -76,7 +75,7 @@ public:
 
 	DECLARE_WRITE_LINE_MEMBER( fdc_irq );
 
-	const UINT8 *m_rom;
+	const uint8_t *m_rom;
 	int m_reset;
 
 	// floppy state

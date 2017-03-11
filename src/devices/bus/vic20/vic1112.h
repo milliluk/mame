@@ -13,7 +13,6 @@
 #ifndef __VIC1112__
 #define __VIC1112__
 
-#include "emu.h"
 #include "exp.h"
 #include "bus/ieee488/ieee488.h"
 #include "cpu/m6502/m6502.h"
@@ -32,7 +31,7 @@ class vic1112_device :  public device_t,
 {
 public:
 	// construction/destruction
-	vic1112_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	vic1112_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual machine_config_constructor device_mconfig_additions() const override;
@@ -49,15 +48,15 @@ protected:
 	virtual void device_reset() override;
 
 	// device_vic20_expansion_card_interface overrides
-	virtual UINT8 vic20_cd_r(address_space &space, offs_t offset, UINT8 data, int ram1, int ram2, int ram3, int blk1, int blk2, int blk3, int blk5, int io2, int io3) override;
-	virtual void vic20_cd_w(address_space &space, offs_t offset, UINT8 data, int ram1, int ram2, int ram3, int blk1, int blk2, int blk3, int blk5, int io2, int io3) override;
+	virtual uint8_t vic20_cd_r(address_space &space, offs_t offset, uint8_t data, int ram1, int ram2, int ram3, int blk1, int blk2, int blk3, int blk5, int io2, int io3) override;
+	virtual void vic20_cd_w(address_space &space, offs_t offset, uint8_t data, int ram1, int ram2, int ram3, int blk1, int blk2, int blk3, int blk5, int io2, int io3) override;
 
 private:
 	required_device<via6522_device> m_via0;
 	required_device<via6522_device> m_via1;
 	required_device<ieee488_device> m_bus;
 
-	//UINT8 *m_rom;
+	//uint8_t *m_rom;
 
 	int m_via0_irq;
 	int m_via1_irq;

@@ -11,7 +11,6 @@
 #ifndef __VTECH_MEMEXP_RS232_H__
 #define __VTECH_MEMEXP_RS232_H__
 
-#include "emu.h"
 #include "memexp.h"
 #include "bus/rs232/rs232.h"
 
@@ -26,7 +25,7 @@ class rs232_interface_device : public device_t, public device_memexp_interface
 {
 public:
 	// construction/destruction
-	rs232_interface_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	rs232_interface_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	DECLARE_WRITE_LINE_MEMBER( rs232_rx_w );
 	DECLARE_READ8_MEMBER( receive_data_r );

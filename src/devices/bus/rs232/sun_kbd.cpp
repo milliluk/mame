@@ -1,3 +1,4 @@
+#include "emu.h"
 #include "sun_kbd.h"
 
 
@@ -16,7 +17,7 @@ sun_keyboard_adaptor_device::sun_keyboard_adaptor_device(
 		machine_config const &mconfig,
 		char const *tag,
 		device_t *owner,
-		UINT32 clock)
+		uint32_t clock)
 	: device_t(mconfig, SUN_KBD_ADAPTOR, "Sun Keyboard Adaptor", tag, owner, clock, "sunkbd_adaptor", __FILE__)
 	, device_rs232_port_interface(mconfig, *this)
 	, m_keyboard_port(*this, "keyboard")

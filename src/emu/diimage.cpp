@@ -177,7 +177,7 @@ void device_image_interface::device_compute_hash(util::hash_collection &hashes, 
 	if (partialhash)
 		partialhash(hashes, (const unsigned char*)data, length, types);
 	else
-		hashes.compute(reinterpret_cast<const UINT8 *>(data), length, types);
+		hashes.compute(reinterpret_cast<const u8 *>(data), length, types);
 }
 
 //-------------------------------------------------
@@ -377,11 +377,29 @@ bool device_image_interface::try_change_working_directory(const std::string &sub
 
 void device_image_interface::setup_working_directory()
 {
-	// first set up the working directory to be the starting directory
-	osd_get_full_path(m_working_directory, ".");
+	bool success = false;
+	// get user-specified directory and make sure it exists
+	m_working_directory = device().mconfig().options().sw_path();
+	// if multipath, get first
+	size_t i = m_working_directory.find_first_of(";");
+	if (i != std::string::npos)
+		m_working_directory.resize(i);
+	// validate directory
+	if (!m_working_directory.empty())
+		if (osd::directory::open(m_working_directory))
+			success = true;
 
-	// now try browsing down to "software"
-	if (try_change_working_directory("software"))
+	// if not exist, use previous method
+	if (!success)
+	{
+		// first set up the working directory to be the starting directory
+		osd_get_full_path(m_working_directory, ".");
+		// now try browsing down to "software"
+		if (try_change_working_directory("software"))
+			success = true;
+	}
+
+	if (success)
 	{
 		// now down to a directory for this computer
 		int gamedrv = driver_list::find(device().machine().system());
@@ -413,7 +431,7 @@ const std::string &device_image_interface::working_directory()
 //  get_software_region
 //-------------------------------------------------
 
-UINT8 *device_image_interface::get_software_region(const char *tag)
+u8 *device_image_interface::get_software_region(const char *tag)
 {
 	char full_tag[256];
 
@@ -430,7 +448,7 @@ UINT8 *device_image_interface::get_software_region(const char *tag)
 //  image_get_software_region_length
 //-------------------------------------------------
 
-UINT32 device_image_interface::get_software_region_length(const char *tag)
+u32 device_image_interface::get_software_region_length(const char *tag)
 {
 	char full_tag[256];
 
@@ -455,7 +473,7 @@ const char *device_image_interface::get_feature(const char *feature_name)
 //  load_software_region -
 //-------------------------------------------------
 
-bool device_image_interface::load_software_region(const char *tag, optional_shared_ptr<UINT8> &ptr)
+bool device_image_interface::load_software_region(const char *tag, optional_shared_ptr<u8> &ptr)
 {
 	size_t size = get_software_region_length(tag);
 
@@ -480,11 +498,11 @@ bool device_image_interface::load_software_region(const char *tag, optional_shar
 void device_image_interface::run_hash(void (*partialhash)(util::hash_collection &, const unsigned char *, unsigned long, const char *),
 	util::hash_collection &hashes, const char *types)
 {
-	UINT32 size;
-	dynamic_buffer buf;
+	u32 size;
+	std::vector<u8> buf;
 
 	hashes.reset();
-	size = (UINT32) length();
+	size = (u32) length();
 
 	buf.resize(size);
 	memset(&buf[0], 0, size);
@@ -509,7 +527,7 @@ void device_image_interface::image_checkhash()
 	device_image_partialhash_func partialhash;
 
 	// only calculate CRC if it hasn't been calculated, and the open_mode is read only
-	UINT32 crcval;
+	u32 crcval;
 	if (!m_hash.crc(crcval) && is_readonly() && !m_created)
 	{
 		// do not cause a linear read of 600 megs please
@@ -529,15 +547,43 @@ void device_image_interface::image_checkhash()
 	return;
 }
 
-UINT32 device_image_interface::crc()
+u32 device_image_interface::crc()
 {
-	UINT32 crc = 0;
+	u32 crc = 0;
 
 	image_checkhash();
 	m_hash.crc(crc);
 
 	return crc;
 }
+
+
+//-------------------------------------------------
+//  support_command_line_image_creation - do we
+//  want to support image creation from the front
+//  end command line?
+//-------------------------------------------------
+
+bool device_image_interface::support_command_line_image_creation() const
+{
+	bool result;
+	switch (image_type())
+	{
+	case IO_PRINTER:
+	case IO_SERIAL:
+	case IO_PARALLEL:
+		// going by the assumption that these device image types should support this
+		// behavior; ideally we'd get rid of IO_* and just push this to the specific
+		// devices
+		result = true;
+		break;
+	default:
+		result = false;
+		break;
+	}
+	return result;
+}
+
 
 // ****************************************************************************
 // Battery functions
@@ -695,7 +741,7 @@ image_error_t device_image_interface::image_error_from_file_error(osd_file::erro
 //  specific path
 //-------------------------------------------------
 
-image_error_t device_image_interface::load_image_by_path(UINT32 open_flags, const std::string &path)
+image_error_t device_image_interface::load_image_by_path(u32 open_flags, const std::string &path)
 {
 	std::string revised_path;
 
@@ -740,9 +786,9 @@ int device_image_interface::reopen_for_write(const std::string &path)
 //  flags to use, and in what order
 //-------------------------------------------------
 
-std::vector<UINT32> device_image_interface::determine_open_plan(bool is_create)
+std::vector<u32> device_image_interface::determine_open_plan(bool is_create)
 {
-	std::vector<UINT32> open_plan;
+	std::vector<u32> open_plan;
 
 	// emit flags into a vector
 	if (!is_create && is_readable() && is_writeable())
@@ -776,13 +822,13 @@ static void dump_wrong_and_correct_checksums(const util::hash_collection &hashes
 //  and hash signatures of a file
 //-------------------------------------------------
 
-static int verify_length_and_hash(emu_file *file, const char *name, UINT32 explength, const util::hash_collection &hashes)
+static int verify_length_and_hash(emu_file *file, const char *name, u32 explength, const util::hash_collection &hashes)
 {
 	int retVal = 0;
 	if (file==nullptr) return 0;
 
 	// verify length
-	UINT32 actlength = file->size();
+	u32 actlength = file->size();
 	if (explength != actlength)
 	{
 		osd_printf_error("%s WRONG LENGTH (expected: %d found: %d)\n", name, explength, actlength);
@@ -833,14 +879,14 @@ bool device_image_interface::load_software(software_list_device &swlist, const c
 			{
 				osd_file::error filerr = osd_file::error::NOT_FOUND;
 
-				UINT32 crc = 0;
+				u32 crc = 0;
 				bool has_crc = util::hash_collection(ROM_GETHASHDATA(romp)).crc(crc);
 
 				const software_info *swinfo = swlist.find(swname);
 				if (swinfo == nullptr)
 					return false;
 
-				UINT32 supported = swinfo->supported();
+				u32 supported = swinfo->supported();
 				if (supported == SOFTWARE_SUPPORTED_PARTIAL)
 					osd_printf_error("WARNING: support for software %s (in list %s) is only partial\n", swname, swlist.list_name().c_str());
 				if (supported == SOFTWARE_SUPPORTED_NO)
@@ -938,7 +984,7 @@ image_init_result device_image_interface::load_internal(const std::string &path,
 	if (core_opens_image_file())
 	{
 		// determine open plan
-		std::vector<UINT32> open_plan = determine_open_plan(is_create);
+		std::vector<u32> open_plan = determine_open_plan(is_create);
 
 		// attempt to open the file in various ways
 		for (auto iter = open_plan.cbegin(); !m_file && iter != open_plan.cend(); iter++)
@@ -1052,7 +1098,9 @@ image_init_result device_image_interface::load_software(const std::string &softw
 	m_image_name = m_full_software_name;
 	m_basename = m_full_software_name;
 	m_basename_noext = m_full_software_name;
-	m_filetype = "";
+	m_filetype = use_software_list_file_extension_for_filetype() && m_mame_file != nullptr
+		? core_filename_extract_extension(m_mame_file->filename(), true)
+		: "";
 
 	// check if image should be read-only
 	const char *read_only = get_feature("read_only");
@@ -1162,6 +1210,16 @@ image_init_result device_image_interface::finish_load()
 //  create - create a image
 //-------------------------------------------------
 
+image_init_result device_image_interface::create(const std::string &path)
+{
+	return create(path, nullptr, nullptr);
+}
+
+
+//-------------------------------------------------
+//  create - create a image
+//-------------------------------------------------
+
 image_init_result device_image_interface::create(const std::string &path, const image_device_format *create_format, util::option_resolution *create_args)
 {
 	int format_index = 0;
@@ -1222,6 +1280,18 @@ void device_image_interface::unload()
 	clear_error();
 }
 
+
+//-------------------------------------------------
+//  create_option_guide
+//-------------------------------------------------
+
+OPTION_GUIDE_START(null_option_guide)
+OPTION_GUIDE_END
+
+const util::option_guide &device_image_interface::create_option_guide() const
+{
+	return null_option_guide;
+}
 
 //-------------------------------------------------
 //  update_names - update brief and instance names
@@ -1421,7 +1491,7 @@ std::string device_image_interface::software_get_default_slot(const char *defaul
 
 //----------------------------------------------------------------------------
 
-static int image_fseek_thunk(void *file, INT64 offset, int whence)
+static int image_fseek_thunk(void *file, s64 offset, int whence)
 {
 	device_image_interface *image = (device_image_interface *) file;
 	return image->fseek(offset, whence);
@@ -1439,7 +1509,7 @@ static size_t image_fwrite_thunk(void *file, const void *buffer, size_t length)
 	return image->fwrite(buffer, length);
 }
 
-static UINT64 image_fsize_thunk(void *file)
+static u64 image_fsize_thunk(void *file)
 {
 	device_image_interface *image = (device_image_interface *) file;
 	return image->length();

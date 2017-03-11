@@ -5,7 +5,6 @@
 #ifndef __ISA_GAME_BLASTER_H__
 #define __ISA_GAME_BLASTER_H__
 
-#include "emu.h"
 #include "isa.h"
 #include "sound/saa1099.h"
 
@@ -21,7 +20,7 @@ class isa8_gblaster_device :
 {
 public:
 		// construction/destruction
-		isa8_gblaster_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+		isa8_gblaster_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 		// optional information overrides
 		virtual machine_config_constructor device_mconfig_additions() const override;
@@ -39,7 +38,7 @@ private:
 		// internal state
 		required_device<saa1099_device> m_saa1099_1;
 		required_device<saa1099_device> m_saa1099_2;
-		UINT8 detect_reg;
+		uint8_t detect_reg;
 };
 
 

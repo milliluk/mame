@@ -15,7 +15,6 @@
 #ifndef __TMS9901_H__
 #define __TMS9901_H__
 
-#include "emu.h"
 
 extern const device_type TMS9901;
 
@@ -56,7 +55,7 @@ enum
 class tms9901_device : public device_t
 {
 public:
-	tms9901_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	tms9901_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	void set_single_int(int pin_number, int state);
 

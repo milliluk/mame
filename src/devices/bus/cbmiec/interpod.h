@@ -11,7 +11,6 @@
 #ifndef __INTERPOD__
 #define __INTERPOD__
 
-#include "emu.h"
 #include "cbmiec.h"
 #include "bus/ieee488/ieee488.h"
 #include "cpu/m6502/m6502.h"
@@ -49,7 +48,7 @@ class interpod_device :  public device_t,
 {
 public:
 	// construction/destruction
-	interpod_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	interpod_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 	// optional information overrides
 	virtual const tiny_rom_entry *device_rom_region() const override;

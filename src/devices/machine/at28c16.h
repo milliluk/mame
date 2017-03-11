@@ -35,7 +35,7 @@ class at28c16_device :
 {
 public:
 	// construction/destruction
-	at28c16_device( const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock );
+	at28c16_device( const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock );
 
 	// I/O operations
 	DECLARE_WRITE8_MEMBER( write );
@@ -45,10 +45,7 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_config_complete() override;
-	virtual void device_validity_check(validity_checker &valid) const override;
 	virtual void device_start() override;
-	virtual void device_reset() override;
 	virtual void device_timer(emu_timer &timer, device_timer_id id, int param, void *ptr) override;
 
 	// device_memory_interface overrides
@@ -65,7 +62,7 @@ protected:
 	int m_a9_12v;
 	int m_oe_12v;
 	int m_last_write;
-	optional_region_ptr<UINT8> m_default_data;
+	optional_region_ptr<uint8_t> m_default_data;
 };
 
 

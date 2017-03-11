@@ -20,6 +20,7 @@ ToDo:
 *********************************************************************************************/
 
 
+#include "emu.h"
 #include "machine/genpin.h"
 #include "cpu/m6800/m6800.h"
 //#include "cpu/m6809/m6809.h"
@@ -63,15 +64,15 @@ public:
 	DECLARE_INPUT_CHANGED_MEMBER(self_test);
 	TIMER_DEVICE_CALLBACK_MEMBER(pia0_timer);
 private:
-	UINT8 m_pia0_a;
-	UINT8 m_pia0_b;
-	UINT8 m_pia1_a;
-	UINT8 m_pia1_b;
+	uint8_t m_pia0_a;
+	uint8_t m_pia0_b;
+	uint8_t m_pia1_a;
+	uint8_t m_pia1_b;
 	bool m_pia0_cb2;
 	bool m_pia0_timer;
-	UINT8 m_port1, m_port2;
-	//UINT8 m_digit;
-	UINT8 m_segment;
+	uint8_t m_port1, m_port2;
+	//uint8_t m_digit;
+	uint8_t m_segment;
 	virtual void machine_reset() override;
 	required_device<m6803_cpu_device> m_maincpu;
 	required_device<pia6821_device> m_pia0;
@@ -245,7 +246,7 @@ WRITE8_MEMBER( by6803_state::pia0_a_w )
 // switch returns
 READ8_MEMBER( by6803_state::pia0_b_r )
 {
-	UINT8 data = 0;
+	uint8_t data = 0;
 
 	if (BIT(m_pia0_a, 0))
 		data |= m_io_x0->read();
@@ -400,9 +401,9 @@ static MACHINE_CONFIG_START( by6803, by6803_state )
 	MCFG_PIA_WRITEPB_HANDLER(WRITE8(by6803_state, pia1_b_w))
 	MCFG_PIA_CB2_HANDLER(WRITELINE(by6803_state, pia1_cb2_w))
 
-	//MCFG_SPEAKER_STANDARD_MONO("mono")
-	//MCFG_MIDWAY_TURBO_CHIP_SQUEAK_ADD("tcs") // Cheap Squeak Turbo
-	//MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 1.0)
+	//MCFG_SPEAKER_STANDARD_MONO("speaker")
+	//MCFG_SOUND_ADD("tcs", MIDWAY_TURBO_CHEAP_SQUEAK, 0) // Cheap Squeak Turbo
+	//MCFG_SOUND_ROUTE(ALL_OUTPUTS, "speaker", 1.0)
 MACHINE_CONFIG_END
 
 
@@ -615,6 +616,14 @@ ROM_START(motrdome)
 	ROM_LOAD("modm_u7.snd", 0x8000, 0x8000, CRC(29ce4679) SHA1(f17998198b542dd99a34abd678db7e031bde074b))
 ROM_END
 
+ROM_START(motrdomeg) // German version claims to be game #E69
+	ROM_REGION(0x10000, "maincpu", 0)
+	ROM_LOAD( "u2_11_de.bin", 0x8000, 0x4000, CRC(8a4bafd3) SHA1(d764d2e38be2df27ab982cfbedddb79f89ca2359))
+	ROM_LOAD( "u3_11_de.bin", 0xc000, 0x4000, CRC(9cb10037) SHA1(7847a71a0295e8de51a8f2f8d406350eca4555bf))
+	ROM_REGION(0x10000, "cpu2", 0)
+	ROM_LOAD("modm_u7.snd", 0x8000, 0x8000, CRC(29ce4679) SHA1(f17998198b542dd99a34abd678db7e031bde074b))
+ROM_END
+
 /*--------------------------------
 / Party Animal #OH01
 /-------------------------------*/
@@ -708,6 +717,7 @@ ROM_END
 GAME( 1985, eballchp,  0,        by6803, by6803, by6803_state, by6803, ROT0, "Bally","Eight Ball Champ", MACHINE_IS_SKELETON_MECHANICAL)
 GAME( 1985, beatclck,  0,        by6803, by6803, by6803_state, by6803, ROT0, "Bally","Beat the Clock", MACHINE_IS_SKELETON_MECHANICAL)
 GAME( 1986, motrdome,  0,        by6803, by6803, by6803_state, by6803, ROT0, "Bally","MotorDome", MACHINE_IS_SKELETON_MECHANICAL)
+GAME( 1986, motrdomeg, motrdome, by6803, by6803, by6803_state, by6803, ROT0, "Bally","MotorDome (German)", MACHINE_IS_SKELETON_MECHANICAL)
 GAME( 1986, ladyluck,  0,        by6803, by6803, by6803_state, by6803, ROT0, "Bally","Lady Luck", MACHINE_IS_SKELETON_MECHANICAL)
 GAME( 1986, strngsci,  0,        by6803, by6803, by6803_state, by6803, ROT0, "Bally","Strange Science", MACHINE_IS_SKELETON_MECHANICAL)
 GAME( 1986, strngscg,  strngsci, by6803, by6803, by6803_state, by6803, ROT0, "Bally","Strange Science (German)", MACHINE_IS_SKELETON_MECHANICAL)

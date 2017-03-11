@@ -802,7 +802,7 @@ MACHINE_CONFIG_END
 
 DRIVER_INIT_MEMBER(_8080bw_state, spacecom)
 {
-	UINT8 *ROM = memregion("maincpu")->base();
+	uint8_t *ROM = memregion("maincpu")->base();
 
 	// bad byte: should be push a at RST 10h
 	ROM[0x10] = 0xf5;
@@ -818,7 +818,7 @@ DRIVER_INIT_MEMBER(_8080bw_state, spacecom)
 
 READ8_MEMBER(_8080bw_state::invrvnge_02_r)
 {
-	UINT8 data = ioport("IN2")->read();
+	uint8_t data = ioport("IN2")->read();
 	if (m_flip_screen) return data;
 	return (data & 0x8f) | (ioport("IN1")->read() & 0x70);
 }
@@ -1333,8 +1333,8 @@ INPUT_PORTS_END
 
 MACHINE_START_MEMBER(_8080bw_state,rollingc)
 {
-	m_scattered_colorram = std::make_unique<UINT8 []>(0x400);
-	m_scattered_colorram2 = std::make_unique<UINT8 []>(0x400);
+	m_scattered_colorram = std::make_unique<uint8_t []>(0x400);
+	m_scattered_colorram2 = std::make_unique<uint8_t []>(0x400);
 	save_pointer(&m_scattered_colorram[0], "m_scattered_colorram", 0x400);
 	save_pointer(&m_scattered_colorram2[0], "m_scattered_colorram2", 0x400);
 
@@ -1468,7 +1468,7 @@ INPUT_PORTS_END
 
 MACHINE_START_MEMBER(_8080bw_state,schaser)
 {
-	m_scattered_colorram = std::make_unique<UINT8 []>(0x800);
+	m_scattered_colorram = std::make_unique<uint8_t []>(0x800);
 	save_pointer(&m_scattered_colorram[0], "m_scattered_colorram", 0x800);
 	MACHINE_START_CALL_MEMBER(schaser_sh);
 	MACHINE_START_CALL_MEMBER(extra_8080bw_vh);
@@ -1539,9 +1539,9 @@ MACHINE_CONFIG_END
 
 READ8_MEMBER(_8080bw_state::schasercv_02_r)
 {
-	UINT8 data = ioport("IN2")->read();
+	uint8_t data = ioport("IN2")->read();
 	if (m_flip_screen) return data;
-	UINT8 in1 = ioport("IN1")->read();
+	uint8_t in1 = ioport("IN1")->read();
 	return (data & 0x89) | (in1 & 0x70) | (BIT(in1, 3) << 1) | (BIT(in1, 7) << 2);
 }
 
@@ -1594,13 +1594,23 @@ static INPUT_PORTS_START( schasercv )
 	INVADERS_CAB_TYPE_PORT
 INPUT_PORTS_END
 
+MACHINE_START_MEMBER(_8080bw_state,schasercv)
+{
+	m_scattered_colorram = std::make_unique<uint8_t []>(0x800);
+	save_pointer(&m_scattered_colorram[0], "m_scattered_colorram", 0x800);
+
+	MACHINE_START_CALL_MEMBER(extra_8080bw_sh);
+	MACHINE_START_CALL_MEMBER(extra_8080bw_vh);
+	MACHINE_START_CALL_MEMBER(mw8080bw);
+}
+
 static MACHINE_CONFIG_DERIVED_CLASS( schasercv, mw8080bw_root, _8080bw_state )
 
 	/* basic machine hardware */
 	MCFG_CPU_MODIFY("maincpu")
 	MCFG_CPU_PROGRAM_MAP(schaser_map)
 	MCFG_CPU_IO_MAP(schasercv_io_map)
-	MCFG_MACHINE_START_OVERRIDE(_8080bw_state, schaser)
+	MCFG_MACHINE_START_OVERRIDE(_8080bw_state, schasercv)
 
 	/* add shifter */
 	MCFG_MB14241_ADD("mb14241")
@@ -1679,7 +1689,7 @@ INPUT_PORTS_END
 
 MACHINE_START_MEMBER(_8080bw_state,sflush)
 {
-	m_scattered_colorram = std::make_unique<UINT8 []>(0x800);
+	m_scattered_colorram = std::make_unique<uint8_t []>(0x800);
 	save_pointer(&m_scattered_colorram[0], "m_scattered_colorram", 0x800);
 
 	MACHINE_START_CALL_MEMBER(mw8080bw);
@@ -1866,7 +1876,7 @@ INTERRUPT_GEN_MEMBER(_8080bw_state::polaris_interrupt)
 
 MACHINE_START_MEMBER(_8080bw_state,polaris)
 {
-	m_scattered_colorram = std::make_unique<UINT8 []>(0x800);
+	m_scattered_colorram = std::make_unique<uint8_t []>(0x800);
 	save_pointer(&m_scattered_colorram[0], "m_scattered_colorram", 0x800);
 	save_item(NAME(m_polaris_cloud_speed));
 	save_item(NAME(m_polaris_cloud_pos));
@@ -1876,7 +1886,7 @@ MACHINE_START_MEMBER(_8080bw_state,polaris)
 
 READ8_MEMBER(_8080bw_state::polaris_port00_r)
 {
-	UINT8 data = ioport("IN0")->read();
+	uint8_t data = ioport("IN0")->read();
 	if (m_flip_screen) return data;
 	return (data & 7) | (ioport("IN1")->read() & 0xf8);
 }
@@ -2299,7 +2309,7 @@ READ8_MEMBER(_8080bw_state::indianbt_r)
 
 READ8_MEMBER(_8080bw_state::indianbtbr_01_r)
 {
-	UINT8 data = ioport("IN1")->read();
+	uint8_t data = ioport("IN1")->read();
 	if (!m_flip_screen) return data;
 	return (data & 0x8f) | (ioport("IN2")->read() & 0x70);
 }
@@ -2568,7 +2578,7 @@ INPUT_PORTS_END
 
 READ8_MEMBER(_8080bw_state::shuttlei_ff_r)
 {
-	UINT8 data = ioport("INPUTS")->read();
+	uint8_t data = ioport("INPUTS")->read();
 	if (!m_flip_screen) return data;
 	return (data & 0x3b) | ioport("P2")->read();
 }
@@ -2663,7 +2673,7 @@ MACHINE_RESET_MEMBER(_8080bw_state,darthvdr)
 
 READ8_MEMBER(_8080bw_state::darthvdr_01_r)
 {
-	UINT8 data = ioport("P2")->read();
+	uint8_t data = ioport("P2")->read();
 	if (m_flip_screen) return data;
 	return (data & 0xe1) | (ioport("P1")->read() & 0x0e);
 }
@@ -2821,13 +2831,13 @@ MACHINE_CONFIG_END
 /* decrypt function for vortex */
 DRIVER_INIT_MEMBER(_8080bw_state,vortex)
 {
-	UINT8 *rom = memregion("maincpu")->base();
+	uint8_t *rom = memregion("maincpu")->base();
 	int length = memregion("maincpu")->bytes();
-	dynamic_buffer buf1(length);
-	UINT32 x;
+	std::vector<uint8_t> buf1(length);
+	uint32_t x;
 	for (x = 0; x < length; x++)
 	{
-		UINT32 addr = x;
+		uint32_t addr = x;
 		/*
 		A15 A14 A13     A0  A3  A9
 		0   0   0       I   I   I
@@ -3026,8 +3036,8 @@ INPUT_CHANGED_MEMBER(_8080bw_state::claybust_gun_trigger)
 		    ana  a
 		    rz
 		*/
-		UINT8 const gunx = m_gunx.read_safe(0x00);
-		UINT8 const guny = m_guny.read_safe(0x20);
+		uint8_t const gunx = m_gunx.read_safe(0x00);
+		uint8_t const guny = m_guny.read_safe(0x20);
 		m_claybust_gun_pos = ((gunx >> 3) | (guny << 5)) + 2;
 		m_claybust_gun_on->adjust(attotime::from_msec(250)); // timing is a guess
 	}
@@ -3235,9 +3245,9 @@ MACHINE_CONFIG_END
 
 DRIVER_INIT_MEMBER(_8080bw_state,attackfc)
 {
-	UINT8 *rom = memregion("maincpu")->base();
-	UINT32 len = memregion("maincpu")->bytes();
-	dynamic_buffer buffer(len);
+	uint8_t *rom = memregion("maincpu")->base();
+	uint32_t len = memregion("maincpu")->bytes();
+	std::vector<uint8_t> buffer(len);
 
 	// swap a8/a9
 	for (int i = 0; i < len; i++)
@@ -3370,9 +3380,9 @@ MACHINE_CONFIG_END
 
 DRIVER_INIT_MEMBER(_8080bw_state,invmulti)
 {
-	UINT8 *src = memregion("user1")->base();
+	uint8_t *src = memregion("user1")->base();
 	int len = memregion("user1")->bytes();
-	UINT8 *dest = memregion("maincpu")->base();
+	uint8_t *dest = memregion("maincpu")->base();
 
 	// decrypt rom
 	for (int i = 0; i < len; i++)
@@ -3492,6 +3502,14 @@ ROM_START( spaceat2 )
 	ROM_LOAD( "spaceatt.g",   0x0800, 0x0800, CRC(f41241f7) SHA1(d93cead75922510075433849c4f7099279eafc18) )
 	ROM_LOAD( "spaceatt.f",   0x1000, 0x0800, CRC(4c060223) SHA1(957e75a978aa600627399061cae0a6525e92ad11) )
 	ROM_LOAD( "spaceatt.e",   0x1800, 0x0800, CRC(7cf6f604) SHA1(469557de15178c4b2d686e5724e1006f7c20d7a4) )
+ROM_END
+
+ROM_START( cosmicin )
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "CN7472N-7921.bin",     0x0000, 0x0800, CRC(734f5ad8) SHA1(ff6200af4c9110d8181249cbcef1a8a40fa40b7f) )
+	ROM_LOAD( "CN7471N-7918.bin",     0x0800, 0x0800, CRC(6bfaca4a) SHA1(16f48649b531bdef8c2d1446c429b5f414524350) )
+	ROM_LOAD( "CN7470N-7918.bin",     0x1000, 0x0800, CRC(0ccead96) SHA1(537aef03468f63c5b9e11dd61e253f7ae17d9743) )
+	ROM_LOAD( "CN7469N-7921.bin",     0x1800, 0x0800, CRC(5733048c) SHA1(e9197925396b723f5dda4653238e6e1ea287fdae) )
 ROM_END
 
 ROM_START( galmonst )
@@ -3797,8 +3815,8 @@ ROM_START( moonbase )
 	ROM_LOAD( "ze3-10.f5",    0x4400, 0x0400, CRC(1e7c22a4) SHA1(b34173375494ffbf5400dd4014a683a9807f4f08) )
 
 	ROM_REGION( 0x0800, "proms", 0 )        /* color maps player 1/player 2 */
-	ROM_LOAD( "cv02.h7",      0x0000, 0x0400, CRC(2bdf83a0) SHA1(01ffbd43964c41987e7d44816271308f9a70802b) ) /* NEC B406 or compatible BPROM, like the 82S137 */
-	ROM_LOAD( "cv01.g7",      0x0400, 0x0400, CRC(aac24f34) SHA1(ad110e776547fb48baac568bb50d61854537ca34) ) /* NEC B406 or compatible BPROM, like the 82S137 */
+	ROM_LOAD( "cv02.h7",      0x0400, 0x0400, CRC(2bdf83a0) SHA1(01ffbd43964c41987e7d44816271308f9a70802b) ) /* NEC B406 or compatible BPROM, like the 82S137 */
+	ROM_LOAD( "cv01.g7",      0x0000, 0x0400, CRC(aac24f34) SHA1(ad110e776547fb48baac568bb50d61854537ca34) ) /* NEC B406 or compatible BPROM, like the 82S137 */
 ROM_END
 
 ROM_START( moonbasea )
@@ -3815,8 +3833,8 @@ ROM_START( moonbasea )
 	ROM_LOAD( "ze3-10.f5",    0x4400, 0x0400, CRC(1e7c22a4) SHA1(b34173375494ffbf5400dd4014a683a9807f4f08) )
 
 	ROM_REGION( 0x0800, "proms", 0 )        /* color maps player 1/player 2 */
-	ROM_LOAD( "cv02.h7",      0x0000, 0x0400, CRC(2bdf83a0) SHA1(01ffbd43964c41987e7d44816271308f9a70802b) ) /* NEC B406 or compatible BPROM, like the 82S137 */
-	ROM_LOAD( "cv01.g7",      0x0400, 0x0400, CRC(aac24f34) SHA1(ad110e776547fb48baac568bb50d61854537ca34) ) /* NEC B406 or compatible BPROM, like the 82S137 */
+	ROM_LOAD( "cv02.h7",      0x0400, 0x0400, CRC(2bdf83a0) SHA1(01ffbd43964c41987e7d44816271308f9a70802b) ) /* NEC B406 or compatible BPROM, like the 82S137 */
+	ROM_LOAD( "cv01.g7",      0x0000, 0x0400, CRC(aac24f34) SHA1(ad110e776547fb48baac568bb50d61854537ca34) ) /* NEC B406 or compatible BPROM, like the 82S137 */
 ROM_END
 
 
@@ -4691,6 +4709,22 @@ ROM_START( ozmawars2 )
 	ROM_LOAD( "02.2",         0x0400, 0x0400, BAD_DUMP CRC(2bdf83a0) SHA1(01ffbd43964c41987e7d44816271308f9a70802b) )
 ROM_END
 
+ROM_START( ozmawarsmr ) // single PCB marked CS 210. No PROMS.
+	ROM_REGION( 0x10000, "maincpu", 0 )
+	ROM_LOAD( "73.1s",        0x0000, 0x0400, CRC(9300830e) SHA1(7ed349f7ad01b30aefb41dcaf97e209d00f5af6c) )
+	ROM_LOAD( "74.1pr",       0x0400, 0x0400, CRC(957fc661) SHA1(ac0edc901d8033619f62967f8eaf53a02947e109) )
+	ROM_LOAD( "75.1n",        0x0800, 0x0400, CRC(cf8f4d6c) SHA1(effb4dc48594e1b7164b37f683a5a78b1a9bdd4f) )
+	ROM_LOAD( "76.1m",        0x0c00, 0x0400, CRC(f51544a5) SHA1(368411a2dadaebcbb4d5b6cf6c2beec036ce817f) )
+	ROM_LOAD( "77.1l",        0x1000, 0x0400, CRC(4a653fe6) SHA1(22aee4c6cc3bd474d7159a552c4fb666b78fc4fb) )
+	ROM_LOAD( "78.1kj",       0x1400, 0x0400, CRC(fb3db187) SHA1(bbf3e316215cefe2237115d766332ce185c8ca01) )
+	ROM_LOAD( "79.1h",        0x1800, 0x0400, CRC(ed2d7c34) SHA1(f468b422e9f06522b034d213cebc914afb21dda1) )
+	ROM_LOAD( "80.1g",        0x1c00, 0x0400, CRC(85728971) SHA1(400968f5c99b50416cdeefb4405989aa8012a3d1) )
+	ROM_LOAD( "81.1ef",       0x4000, 0x0400, CRC(df0cc633) SHA1(3725af2e5a6e9ab08dd9ada345630de19c88ce73) )
+	ROM_LOAD( "82.1d",        0x4400, 0x0400, CRC(31b7692e) SHA1(043880750d134d04311eab55e30ee223977d3d17) )
+	ROM_LOAD( "83.1c",        0x4800, 0x0400, CRC(50257351) SHA1(5c3eb29f36f04b7fb8f0351ccf9c8cfc7587f927) )
+	ROM_LOAD( "84.1b",        0x4c00, 0x0400, CRC(293303c9) SHA1(bd3770ff7cf6fa38b17cdfd0e0633d84c015dea7) )
+ROM_END
+
 ROM_START( solfight )
 	ROM_REGION( 0x10000, "maincpu", 0 )
 	ROM_LOAD( "solfight.m",   0x0000, 0x0800, CRC(a4f2814e) SHA1(e2437e3543dcc97eeaea32babcd4aec6455581ac) )
@@ -4910,6 +4944,7 @@ GAMEL(1980, ultrainv,   invaders, invaders,  sicv,      driver_device, 0, ROT270
 GAMEL(1978, spaceatt,   invaders, invaders,  sicv,      driver_device, 0, ROT270, "bootleg (Video Games GmbH)", "Space Attack (bootleg of Space Invaders)", MACHINE_SUPPORTS_SAVE, layout_invaders )
 GAMEL(1978, spaceattbp, invaders, invaders,  sicv,      driver_device, 0, ROT270, "bootleg (Video Games GmbH)", "Space Attack (bproms)(bootleg of Space Invaders)", MACHINE_SUPPORTS_SAVE, layout_invaders )
 GAMEL(1978, spaceatt2k, invaders, invaders,  sicv,      driver_device, 0, ROT270, "bootleg (Video Games GmbH)", "Space Attack (2k roms)(bootleg of Space Invaders)", MACHINE_SUPPORTS_SAVE, layout_invaders )
+GAMEL(1978, cosmicin,   invaders, invaders,  sicv,      driver_device, 0, ROT270, "bootleg", "Cosmic Invaders (bootleg of Space Invaders)", MACHINE_SUPPORTS_SAVE, layout_invaders )
 GAMEL(1978, galmonst,   invaders, invaders,  sicv,      driver_device, 0, ROT270, "bootleg (Laguna S.A.)", "Galaxy Monsters (Laguna S.A. Spanish bootleg of Space Invaders)", MACHINE_SUPPORTS_SAVE, layout_invaders )
 GAMEL(1980, spaceat2,   invaders, invaders,  spaceat2,  driver_device, 0, ROT270, "bootleg (Video Games UK)", "Space Attack II (bootleg of Super Invaders)", MACHINE_SUPPORTS_SAVE, layout_invaders ) // bootleg of Zenitone-Microsec Super Invaders
 GAMEL(1979, spacecom,   invaders, spacecom,  spacecom,  _8080bw_state, spacecom, ROT270, "bootleg", "Space Combat (bootleg of Space Invaders)", MACHINE_IMPERFECT_SOUND | MACHINE_SUPPORTS_SAVE, layout_spacecom )
@@ -5002,6 +5037,7 @@ GAME( 1979, rollingc,   0,        rollingc,  rollingc,  driver_device, 0, ROT270
 
 GAME( 1979, ozmawars,   0,        invadpt2,  ozmawars,  driver_device, 0, ROT270, "SNK", "Ozma Wars (set 1)", MACHINE_SUPPORTS_SAVE )
 GAME( 1979, ozmawars2,  ozmawars, invadpt2,  ozmawars,  driver_device, 0, ROT270, "SNK", "Ozma Wars (set 2)", MACHINE_SUPPORTS_SAVE ) /* Uses Taito's three board color version of Space Invaders PCB */
+GAME( 1979, ozmawarsmr, ozmawars, invaders,  ozmawars,  driver_device, 0, ROT270, "bootleg (Model Racing)", "Ozma Wars (Model Racing bootleg)", MACHINE_SUPPORTS_SAVE )
 GAME( 1979, spaceph,    ozmawars, invaders,  spaceph,   driver_device, 0, ROT270, "bootleg? (Zilec Games)", "Space Phantoms (bootleg of Ozma Wars)", MACHINE_SUPPORTS_SAVE )
 GAME( 1979, solfight,   ozmawars, invaders,  ozmawars,  driver_device, 0, ROT270, "bootleg", "Solar Fight (bootleg of Ozma Wars)", MACHINE_SUPPORTS_SAVE )
 

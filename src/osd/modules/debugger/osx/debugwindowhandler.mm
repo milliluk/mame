@@ -6,6 +6,7 @@
 //
 //============================================================
 
+#include "emu.h"
 #import "debugwindowhandler.h"
 
 #import "debugconsole.h"
@@ -444,7 +445,7 @@ NSString *const MAMEAuxiliaryDebugWindowWillCloseNotification = @"MAMEAuxiliaryD
 			}
 			return YES;
 		}
-    }
+	}
 	return NO;
 }
 

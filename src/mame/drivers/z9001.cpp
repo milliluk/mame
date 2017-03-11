@@ -39,38 +39,38 @@ ToDo:
 // temporary
 #include "machine/keyboard.h"
 
-#define KEYBOARD_TAG "keyboard"
-
 class z9001_state : public driver_device
 {
 public:
 	z9001_state(const machine_config &mconfig, device_type type, const char *tag)
-		: driver_device(mconfig, type, tag),
-		m_maincpu(*this, "maincpu"),
-		m_framecnt(0),
-		m_beeper(*this, "beeper"),
-		m_cass(*this, "cassette"),
-		m_p_colorram(*this, "colorram"),
-		m_p_videoram(*this, "videoram")
+		: driver_device(mconfig, type, tag)
+		, m_framecnt(0)
+		, m_maincpu(*this, "maincpu")
+		, m_beeper(*this, "beeper")
+		, m_cass(*this, "cassette")
+		, m_p_colorram(*this, "colorram")
+		, m_p_videoram(*this, "videoram")
+		, m_p_chargen(*this, "chargen")
 	{
 	}
 
-	required_device<cpu_device> m_maincpu;
-	UINT8 m_framecnt;
-	required_device<beep_device> m_beeper;
-	required_device<cassette_image_device> m_cass;
-	required_shared_ptr<UINT8> m_p_colorram;
-	required_shared_ptr<UINT8> m_p_videoram;
 	DECLARE_WRITE8_MEMBER(kbd_put);
 	DECLARE_WRITE8_MEMBER(port88_w);
 	DECLARE_WRITE_LINE_MEMBER(cass_w);
-	const UINT8 *m_p_chargen;
+	TIMER_DEVICE_CALLBACK_MEMBER(timer_callback);
+	uint32_t screen_update_z9001(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
+
+private:
+	uint8_t m_framecnt;
 	bool m_cassbit;
 	virtual void machine_reset() override;
 	//virtual void machine_start();
-	virtual void video_start() override;
-	UINT32 screen_update_z9001(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect);
-	TIMER_DEVICE_CALLBACK_MEMBER(timer_callback);
+	required_device<cpu_device> m_maincpu;
+	required_device<beep_device> m_beeper;
+	required_device<cassette_image_device> m_cass;
+	required_shared_ptr<uint8_t> m_p_colorram;
+	required_shared_ptr<uint8_t> m_p_videoram;
+	required_region_ptr<u8> m_p_chargen;
 };
 
 static ADDRESS_MAP_START(z9001_mem, AS_PROGRAM, 8, z9001_state)
@@ -128,22 +128,17 @@ void z9001_state::machine_reset()
 	m_maincpu->set_state_int(Z80_PC, 0xf000);
 }
 
-void z9001_state::video_start()
+uint32_t z9001_state::screen_update_z9001(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
 {
-	m_p_chargen = memregion("chargen")->base();
-}
-
-UINT32 z9001_state::screen_update_z9001(screen_device &screen, bitmap_ind16 &bitmap, const rectangle &cliprect)
-{
-	UINT8 y,ra,chr,gfx,col,fg,bg;
-	UINT16 sy=0,ma=0,x;
+	uint8_t y,ra,chr,gfx,col,fg,bg;
+	uint16_t sy=0,ma=0,x;
 	m_framecnt++;
 
 	for(y = 0; y < 24; y++ )
 	{
 		for (ra = 0; ra < 8; ra++)
 		{
-			UINT16 *p = &bitmap.pix16(sy++);
+			uint16_t *p = &bitmap.pix16(sy++);
 
 			for (x = ma; x < ma + 40; x++)
 			{
@@ -227,7 +222,7 @@ static MACHINE_CONFIG_START( z9001, z9001_state )
 	MCFG_SOUND_ROUTE(ALL_OUTPUTS, "mono", 0.50)
 
 	/* Devices */
-	MCFG_DEVICE_ADD(KEYBOARD_TAG, GENERIC_KEYBOARD, 0)
+	MCFG_DEVICE_ADD("keyboard", GENERIC_KEYBOARD, 0)
 	MCFG_GENERIC_KEYBOARD_CB(WRITE8(z9001_state, kbd_put))
 	MCFG_TIMER_DRIVER_ADD_PERIODIC("z9001_timer", z9001_state, timer_callback, attotime::from_msec(10))
 

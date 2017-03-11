@@ -52,6 +52,7 @@
 
 */
 
+#include "emu.h"
 #include "includes/mikromik.h"
 #include "softlist.h"
 
@@ -81,8 +82,8 @@
 
 READ8_MEMBER( mm1_state::read )
 {
-	UINT8 data = 0;
-	UINT8 mmu = m_mmu_rom->base()[(m_a8 << 8) | (offset >> 8)];
+	uint8_t data = 0;
+	uint8_t mmu = m_mmu_rom->base()[(m_a8 << 8) | (offset >> 8)];
 
 	if (mmu & MMU_IOEN)
 	{
@@ -151,7 +152,7 @@ READ8_MEMBER( mm1_state::read )
 
 WRITE8_MEMBER( mm1_state::write )
 {
-	UINT8 mmu = m_mmu_rom->base()[(m_a8 << 8) | (offset >> 8)];
+	uint8_t mmu = m_mmu_rom->base()[(m_a8 << 8) | (offset >> 8)];
 
 	if (mmu & MMU_IOEN)
 	{

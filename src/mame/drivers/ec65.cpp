@@ -30,23 +30,25 @@ class ec65_state : public driver_device
 {
 public:
 	ec65_state(const machine_config &mconfig, device_type type, const char *tag)
-		: driver_device(mconfig, type, tag),
-		m_via_0(*this, VIA6522_0_TAG),
-		m_via_1(*this, VIA6522_1_TAG),
-		m_p_videoram(*this, "videoram"),
-		m_maincpu(*this, "maincpu"),
-		m_palette(*this, "palette")
+		: driver_device(mconfig, type, tag)
+		, m_via_0(*this, VIA6522_0_TAG)
+		, m_via_1(*this, VIA6522_1_TAG)
+		, m_p_videoram(*this, "videoram")
+		, m_p_chargen(*this, "chargen")
+		, m_maincpu(*this, "maincpu")
+		, m_palette(*this, "palette")
 	{
 	}
 
 	DECLARE_WRITE8_MEMBER(kbd_put);
 	MC6845_UPDATE_ROW(crtc_update_row);
-	UINT8 *m_p_chargen;
+
+private:
+	virtual void machine_reset() override;
 	required_device<via6522_device> m_via_0;
 	required_device<via6522_device> m_via_1;
-	required_shared_ptr<UINT8> m_p_videoram;
-	virtual void machine_reset() override;
-	virtual void video_start() override;
+	required_shared_ptr<uint8_t> m_p_videoram;
+	required_region_ptr<u8> m_p_chargen;
 	required_device<cpu_device> m_maincpu;
 	required_device<palette_device> m_palette;
 };
@@ -116,17 +118,12 @@ void ec65_state::machine_reset()
 	m_via_1->write_pb7(1);
 }
 
-void ec65_state::video_start()
-{
-	m_p_chargen = memregion("chargen")->base();
-}
-
 MC6845_UPDATE_ROW( ec65_state::crtc_update_row )
 {
 	const rgb_t *palette = m_palette->palette()->entry_list_raw();
-	UINT8 chr,gfx,inv;
-	UINT16 mem,x;
-	UINT32 *p = &bitmap.pix32(y);
+	uint8_t chr,gfx,inv;
+	uint16_t mem,x;
+	uint32_t *p = &bitmap.pix32(y);
 
 	for (x = 0; x < x_count; x++)
 	{

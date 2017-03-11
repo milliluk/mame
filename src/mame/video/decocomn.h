@@ -20,7 +20,7 @@ class decocomn_device : public device_t,
 						public device_video_interface
 {
 public:
-	decocomn_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
+	decocomn_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 	~decocomn_device() {}
 
 	// static configuration
@@ -35,16 +35,15 @@ public:
 
 protected:
 	// device-level overrides
-	virtual void device_config_complete() override;
 	virtual void device_start() override;
 	virtual void device_reset() override;
 
 private:
 	// internal state
-	std::unique_ptr<UINT8[]> m_dirty_palette;
-	UINT16 m_priority;
+	std::unique_ptr<uint8_t[]> m_dirty_palette;
+	uint16_t m_priority;
 	required_device<palette_device> m_palette;
-	required_shared_ptr<UINT16> m_generic_paletteram_16;
+	required_shared_ptr<uint16_t> m_generic_paletteram_16;
 };
 
 extern const device_type DECOCOMN;

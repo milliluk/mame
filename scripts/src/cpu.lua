@@ -13,7 +13,7 @@
 -- Dynamic recompiler objects
 --------------------------------------------------
 
-if (CPUS["SH2"]~=null or CPUS["MIPS"]~=null or CPUS["POWERPC"]~=null or CPUS["RSP"]~=null or CPUS["ARM7"]~=null or CPUS["ADSP21062"]~=null) then
+if (CPUS["SH2"]~=null or CPUS["MIPS"]~=null or CPUS["POWERPC"]~=null or CPUS["RSP"]~=null or CPUS["ARM7"]~=null or CPUS["ADSP21062"]~=null or CPUS["MB86235"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/cpu/drcbec.cpp",
 		MAME_DIR .. "src/devices/cpu/drcbec.h",
@@ -27,7 +27,6 @@ if (CPUS["SH2"]~=null or CPUS["MIPS"]~=null or CPUS["POWERPC"]~=null or CPUS["RS
 		MAME_DIR .. "src/devices/cpu/drcuml.h",
 		MAME_DIR .. "src/devices/cpu/uml.cpp",
 		MAME_DIR .. "src/devices/cpu/uml.h",
-		MAME_DIR .. "src/devices/cpu/i386/i386dasm.cpp",
 		MAME_DIR .. "src/devices/cpu/x86log.cpp",
 		MAME_DIR .. "src/devices/cpu/x86log.h",
 		MAME_DIR .. "src/devices/cpu/drcbex86.cpp",
@@ -425,7 +424,8 @@ end
 if (CPUS["COP400"]~=null or _OPTIONS["with-tools"]) then
 	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/cop400/cop410ds.cpp")
 	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/cop400/cop420ds.cpp")
-	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/cop400/cop440ds.cpp")
+	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/cop400/cop444ds.cpp")
+	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/cop400/cop424ds.cpp")
 end
 
 --------------------------------------------------
@@ -611,7 +611,6 @@ if (CPUS["HCD62121"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/cpu/hcd62121/hcd62121.cpp",
 		MAME_DIR .. "src/devices/cpu/hcd62121/hcd62121.h",
-		MAME_DIR .. "src/devices/cpu/hcd62121/hcd62121_ops.h",
 	}
 end
 
@@ -646,6 +645,12 @@ if (CPUS["SH2"]~=null) then
 		MAME_DIR .. "src/devices/cpu/sh2/sh2.cpp",
 		MAME_DIR .. "src/devices/cpu/sh2/sh2.h",
 		MAME_DIR .. "src/devices/cpu/sh2/sh2fe.cpp",
+		MAME_DIR .. "src/devices/cpu/sh2/sh7604_bus.cpp",
+		MAME_DIR .. "src/devices/cpu/sh2/sh7604_bus.h",
+		MAME_DIR .. "src/devices/cpu/sh2/sh7604_sci.cpp",
+		MAME_DIR .. "src/devices/cpu/sh2/sh7604_sci.h",
+		MAME_DIR .. "src/devices/cpu/sh2/sh7604_wdt.cpp",
+		MAME_DIR .. "src/devices/cpu/sh2/sh7604_wdt.h",
 		--MAME_DIR .. "src/devices/cpu/sh2/sh2comn.cpp",
 		--MAME_DIR .. "src/devices/cpu/sh2/sh2comn.h",
 		--MAME_DIR .. "src/devices/cpu/sh2/sh2drc.cpp",
@@ -695,6 +700,22 @@ end
 
 if (CPUS["HPHYBRID"]~=null or _OPTIONS["with-tools"]) then
 	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/hphybrid/hphybrid_dasm.cpp")
+end
+
+--------------------------------------------------
+-- HP Nanoprocessor
+--@src/devices/cpu/nanoprocessor/nanoprocessor.h,CPUS["NANOPROCESSOR"] = true
+--------------------------------------------------
+
+if (CPUS["NANOPROCESSOR"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/cpu/nanoprocessor/nanoprocessor.cpp",
+		MAME_DIR .. "src/devices/cpu/nanoprocessor/nanoprocessor.h",
+	}
+end
+
+if (CPUS["NANOPROCESSOR"]~=null or _OPTIONS["with-tools"]) then
+	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/nanoprocessor/nanoprocessor_dasm.cpp")
 end
 
 --------------------------------------------------
@@ -909,7 +930,7 @@ if (CPUS["I86"]~=null) then
 	}
 end
 
-if (CPUS["I86"]~=null or _OPTIONS["with-tools"]) then
+if (CPUS["SH2"]~=null or CPUS["MIPS"]~=null or CPUS["POWERPC"]~=null or CPUS["RSP"]~=null or CPUS["ARM7"]~=null or CPUS["ADSP21062"]~=null or CPUS["MB86235"]~=null or CPUS["I86"]~=null or _OPTIONS["with-tools"]) then
 	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/i386/i386dasm.cpp")
 end
 
@@ -927,10 +948,6 @@ if (CPUS["I386"]~=null) then
 		MAME_DIR .. "src/devices/cpu/i386/pentops.hxx",
 		MAME_DIR .. "src/devices/cpu/i386/x87ops.hxx",
 	}
-end
-
-if (CPUS["I386"]~=null or _OPTIONS["with-tools"]) then
-	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/i386/i386dasm.cpp")
 end
 
 --------------------------------------------------
@@ -1042,6 +1059,9 @@ if (CPUS["MB86235"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/cpu/mb86235/mb86235.cpp",
 		MAME_DIR .. "src/devices/cpu/mb86235/mb86235.h",
+		MAME_DIR .. "src/devices/cpu/mb86235/mb86235drc.cpp",
+		MAME_DIR .. "src/devices/cpu/mb86235/mb86235fe.cpp",
+		MAME_DIR .. "src/devices/cpu/mb86235/mb86235fe.h",
 	}
 end
 
@@ -1310,7 +1330,12 @@ if (CPUS["M6805"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/cpu/m6805/m6805.cpp",
 		MAME_DIR .. "src/devices/cpu/m6805/m6805.h",
+		MAME_DIR .. "src/devices/cpu/m6805/6805defs.h",
 		MAME_DIR .. "src/devices/cpu/m6805/6805ops.hxx",
+		MAME_DIR .. "src/devices/cpu/m6805/m68705.cpp",
+		MAME_DIR .. "src/devices/cpu/m6805/m68705.h",
+		MAME_DIR .. "src/devices/cpu/m6805/m68hc05.cpp",
+		MAME_DIR .. "src/devices/cpu/m6805/m68hc05.h",
 	}
 end
 
@@ -1350,9 +1375,7 @@ if (CPUS["M6809"]~=null) then
 end
 
 if (CPUS["M6809"]~=null or _OPTIONS["with-tools"]) then
-	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/m6809/6809dasm.cpp")
-	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/m6809/6309dasm.cpp")
-	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/m6809/knmidasm.cpp")
+	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/m6809/6x09dasm.cpp")
 end
 
 --------------------------------------------------
@@ -1495,6 +1518,7 @@ if (CPUS["NEC"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/cpu/nec/nec.cpp",
 		MAME_DIR .. "src/devices/cpu/nec/nec.h",
+		MAME_DIR .. "src/devices/cpu/nec/nec_common.h",
 		MAME_DIR .. "src/devices/cpu/nec/necea.h",
 		MAME_DIR .. "src/devices/cpu/nec/necinstr.h",
 		MAME_DIR .. "src/devices/cpu/nec/necinstr.hxx",
@@ -2097,6 +2121,18 @@ if (CPUS["TLCS90"]~=null) then
 end
 
 --------------------------------------------------
+-- Toshiba TLCS-870 Series
+--@src/devices/cpu/tlcs870/tlcs870.h,CPUS["TLCS870"] = true
+--------------------------------------------------
+
+if (CPUS["TLCS870"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/cpu/tlcs870/tlcs870.cpp",
+		MAME_DIR .. "src/devices/cpu/tlcs870/tlcs870.h",
+	}
+end
+
+--------------------------------------------------
 -- Toshiba TLCS-900 Series
 --@src/devices/cpu/tlcs900/tlcs900.h,CPUS["TLCS900"] = true
 --------------------------------------------------
@@ -2387,4 +2423,20 @@ end
 
 if (CPUS["MB86901"]~=null or _OPTIONS["with-tools"]) then
 	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/sparc/sparcdasm.cpp")
+end
+
+--------------------------------------------------
+-- Intergraph CLIPPER (C100/C300/C400) series
+--@src/devices/cpu/clipper/clipper.h,CPUS["CLIPPER"] = true
+--------------------------------------------------
+
+if (CPUS["CLIPPER"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/cpu/clipper/clipper.cpp",
+		MAME_DIR .. "src/devices/cpu/clipper/clipper.h",
+	}
+end
+
+if (CPUS["CLIPPER"]~=null or _OPTIONS["with-tools"]) then
+	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/clipper/clipperd.cpp")
 end

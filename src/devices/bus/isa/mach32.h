@@ -9,7 +9,6 @@
 #ifndef MACH32_H_
 #define MACH32_H_
 
-#include "emu.h"
 #include "video/pc_vga.h"
 #include "machine/eepromser.h"
 
@@ -18,8 +17,8 @@ class mach32_8514a_device : public mach8_device
 {
 public:
 	// construction/destruction
-	mach32_8514a_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
-	mach32_8514a_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
+	mach32_8514a_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	mach32_8514a_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint32_t clock, const char *shortname, const char *source);
 
 	DECLARE_READ16_MEMBER(mach32_chipid_r) { return m_chip_ID; }
 	DECLARE_WRITE16_MEMBER(mach32_clksel_w) { mach8.clksel = data; }  // read only on the mach8
@@ -31,8 +30,8 @@ protected:
 	virtual void device_reset() override;
 	virtual void device_config_complete() override;
 
-	UINT16 m_chip_ID;
-	UINT16 m_membounds;
+	uint16_t m_chip_ID;
+	uint16_t m_membounds;
 };
 
 // main SVGA device
@@ -40,8 +39,8 @@ class mach32_device : public ati_vga_device
 {
 public:
 	// construction/destruction
-	mach32_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
-	mach32_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
+	mach32_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	mach32_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint32_t clock, const char *shortname, const char *source);
 
 	required_device<mach32_8514a_device> m_8514a;  // provides accelerated 2D drawing, derived from the Mach8 device
 
@@ -137,8 +136,8 @@ class mach64_8514a_device : public mach32_8514a_device
 {
 public:
 	// construction/destruction
-	mach64_8514a_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
-	mach64_8514a_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
+	mach64_8514a_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	mach64_8514a_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint32_t clock, const char *shortname, const char *source);
 
 protected:
 	virtual void device_start() override;
@@ -151,8 +150,8 @@ class mach64_device : public mach32_device
 {
 public:
 	// construction/destruction
-	mach64_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock);
-	mach64_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, UINT32 clock, const char *shortname, const char *source);
+	mach64_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
+	mach64_device(const machine_config &mconfig, device_type type, const char *name, const char *tag, device_t *owner, uint32_t clock, const char *shortname, const char *source);
 
 	required_device<mach64_8514a_device> m_8514a;  // provides accelerated 2D drawing, derived from the Mach8 device
 

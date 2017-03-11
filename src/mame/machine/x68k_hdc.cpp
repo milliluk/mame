@@ -17,13 +17,14 @@
 
 */
 
+#include "emu.h"
 #include "x68k_hdc.h"
 #include "imagedev/harddriv.h"
 #include "image.h"
 
 const device_type X68KHDC = &device_creator<x68k_hdc_image_device>;
 
-x68k_hdc_image_device::x68k_hdc_image_device(const machine_config &mconfig, const char *tag, device_t *owner, UINT32 clock)
+x68k_hdc_image_device::x68k_hdc_image_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	: device_t(mconfig, X68KHDC, "SASI Hard Disk", tag, owner, clock, "x68k_hdc_image", __FILE__),
 		device_image_interface(mconfig, *this)
 {
