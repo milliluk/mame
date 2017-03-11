@@ -172,11 +172,8 @@ public:
 	void set_instruction_hook(read32_delegate ihook);
 	void set_buserror_details(uint32_t fault_addr, uint8_t rw, uint8_t fc);
 
-private:
-	int    has_fpu;      /* Indicates if a FPU is available (yes on 030, 040, may be on 020) */
 public:
-
-
+	int    has_fpu;      /* Indicates if a FPU is available (yes on 030, 040, may be on 020) */
 	uint32_t cpu_type;     /* CPU Type: 68000, 68008, 68010, 68EC020, 68020, 68EC030, 68030, 68EC040, or 68040 */
 //  uint32_t dasm_type;    /* disassembly type */
 	uint32_t dar[16];      /* Data and Address Registers */
