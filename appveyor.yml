@@ -8,9 +8,30 @@ shallow_clone: true
 
 os: Visual Studio 2017
 
-platform: x64
+platform:
+  - Win32
+  - x64
+
 configuration: Release
 
 build:
   project: build\projects\windows\mametiny\vs2017\mametiny.sln
-  
+
+after_build:
+    7z a cocomame.zip %APPVEYOR_BUILD_FOLDER%\*.exe
+
+artifacts:
+  - path: cocomame.zip
+    name: CoCoMAME build {build}
+
+deploy:
+  - provider: GitHub
+    auth_token:
+      secure: e9Oft1xFEVi0cutQLJuEmwXESfhPHnPZZtlbKkJgYdN93NVUACU87djuuceYWtif
+    artifact: /.*\.zip/
+    draft: false
+    prerelease: false
+    on:
+      branch: master
+      appveyor_repo_tag: false
+
