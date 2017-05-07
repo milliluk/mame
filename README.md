@@ -11,8 +11,8 @@ Modifications current as of MAME 0.183.
 
 ### Downloads
 
-Windows (64 bit): https://ci.appveyor.com/api/projects/milliluk/mame/artifacts/cocomame.zip?job=Platform%3A%20x64
-Windows (32 bit): https://ci.appveyor.com/api/projects/milliluk/mame/artifacts/cocomame.zip?job=Platform%3A%20Win32
+[Windows 64 bit](https://ci.appveyor.com/api/projects/milliluk/mame/artifacts/cocomame.zip?job=Platform%3A%20x64) |
+[Windows 32 bit](https://ci.appveyor.com/api/projects/milliluk/mame/artifacts/cocomame.zip?job=Platform%3A%20Win32)
 
 ### Project Goals
 
