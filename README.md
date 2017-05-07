@@ -9,6 +9,11 @@ Modifications current as of MAME 0.183.
 | Linux / Mac | [![Build Status](https://travis-ci.org/milliluk/mame.svg?branch=master)](https://travis-ci.org/milliluk/mame) |
 | Windows | [![Build status](https://ci.appveyor.com/api/projects/status/3mf0eo75hsaoj2ox/branch/master?svg=true)](https://ci.appveyor.com/project/milliluk/mame/branch/master) |
 
+### Downloads
+
+Windows (64 bit): https://ci.appveyor.com/api/projects/milliluk/mame/artifacts/cocomame.zip?job=Platform%3A%20x64
+Windows (32 bit): https://ci.appveyor.com/api/projects/milliluk/mame/artifacts/cocomame.zip?job=Platform%3A%20Win32
+
 ### Project Goals
 
 * Improve the CoCo family of emulators (help wanted!)
