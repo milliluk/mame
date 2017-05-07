@@ -23,15 +23,4 @@ after_build:
 artifacts:
   - path: cocomame.zip
     name: CoCoMAME build {build}
-
-deploy:
-  - provider: GitHub
-    auth_token:
-      secure: e9Oft1xFEVi0cutQLJuEmwXESfhPHnPZZtlbKkJgYdN93NVUACU87djuuceYWtif
-    artifact: /.*\.zip/
-    draft: false
-    prerelease: false
-    on:
-      branch: master
-      appveyor_repo_tag: false
-
+    
